@@ -3,7 +3,7 @@
 // Creation Date: Mon Feb 17 01:12:06 PST 2014
 // Last Modified: Mon Feb 17 01:12:09 PST 2014
 // Filename:      ScoreItem_notes.cpp
-// Web Address:   https://github.com/craigsapp/scorelib/blob/master/src-library/ScoreItem_notes.cpp
+// URL:           https://github.com/craigsapp/scorelib/blob/master/src-library/ScoreItem_notes.cpp
 // Syntax:        C++11
 //
 // Description:   Functions which (primarily) process P1=1 (notes) items.

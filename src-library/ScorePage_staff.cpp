@@ -3,7 +3,7 @@
 // Creation Date: Mon Feb 17 22:35:50 PST 2014
 // Last Modified: Fri Feb 28 23:47:03 PST 2014
 // Filename:      ScorePage_staff.cpp
-// Web Address:   https://github.com/craigsapp/scorelib/blob/master/src-library/ScorePage_staff.cpp
+// URL:           https://github.com/craigsapp/scorelib/blob/master/src-library/ScorePage_staff.cpp
 // Syntax:        C++11
 //
 // Description:   This file contains ScorePage class functions related to

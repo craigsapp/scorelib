@@ -3,14 +3,13 @@
 // Creation Date: Mon Feb 17 22:35:50 PST 2014
 // Last Modified: Thu Feb 20 23:29:45 PST 2014
 // Filename:      ScorePage.cpp
-// Web Address:   https://github.com/craigsapp/scorelib/blob/master/src-library/ScorePage.cpp
+// URL:           https://github.com/craigsapp/scorelib/blob/master/src-library/ScorePage.cpp
 // Syntax:        C++11
 //
 // Description:   This class handles analysis of relationships between 
 //                SCORE items on the page, such as system, pitch, and chord 
 //                groupings.
 //
-
 
 #include "ScorePage.h"
 #include <algorithm>

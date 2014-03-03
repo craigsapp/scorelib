@@ -3,7 +3,7 @@
 // Creation Date: Mon Feb 17 22:22:39 PST 2014
 // Last Modified: Mon Feb 17 22:22:44 PST 2014
 // Filename:      ScorePage.h
-// Web Address:   https://github.com/craigsapp/scorelib/blob/master/include/ScorePage.h
+// URL:           https://github.com/craigsapp/scorelib/blob/master/include/ScorePage.h
 // Syntax:        C++11
 //
 // Description:   This class handles analysis of relationships between 
@@ -22,17 +22,19 @@ using namespace std;
 class ScorePage : public ScorePageBase {
 
    public:
-               ScorePage         (void);
-               ScorePage         (const char* filename);
-               ScorePage         (istream& instream);
-               ScorePage         (const ScorePage& apage);
-               ScorePage         (const ScorePageBase& apage);
-              ~ScorePage         ();
+              ScorePage         (void);
+              ScorePage         (const char* filename);
+              ScorePage         (istream& instream);
+              ScorePage         (const ScorePage& apage);
+              ScorePage         (const ScorePageBase& apage);
+             ~ScorePage         ();
 
       // Data list functions found in ScorePage_data.cpp:
-      void  getHorizontallySortedStaffItems(vectorVSIp& staffsequence);
-      void  getUnsortedStaffItems(int staffnum, vectorSIp& items);
-      void  getSortedStaffItems(int staffnum, vectorSIp& items);
+      void getHorizontallySortedStaffItems (vectorVSIp& staffsequence);
+      void getUnsortedStaffItems           (int staffnum, vectorSIp& items);
+      void getUnsortedStaffItems           (vectorSIp& items, int staffnum);
+      void getSortedStaffItems             (int staffnum, vectorSIp& items);
+      void getSortedStaffItems             (vectorSIp& items, int staffnum);
 
       // Staff Analysis functions found in ScorePage_staff.cpp:
       void        analyzeStaves         (void);

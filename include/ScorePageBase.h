@@ -3,7 +3,7 @@
 // Creation Date: Sun Feb 16 18:44:37 PST 2014
 // Last Modified: Sun Feb 16 20:32:02 PST 2014
 // Filename:      ScorePageBase.h
-// Web Address:   https://github.com/craigsapp/scorelib/blob/master/include/ScorePageBase.h
+// URL:           https://github.com/craigsapp/scorelib/blob/master/include/ScorePageBase.h
 // Syntax:        C++11
 //
 // Description:   Base class for ScorePage.  This class handles reading/writing
@@ -75,6 +75,7 @@ class ScorePageBase {
 
       // file reading functions:
       void           read              (const char* filename, int verboseQ = 0);
+      void           read              (const string& filename, int verboseQ = 0);
       void           read              (istream& infile, int verboseQ = 0);
       void           readFile          (const char* filename, int verboseQ = 0);
       void           readFile          (istream& infile, int verboseQ = 0);

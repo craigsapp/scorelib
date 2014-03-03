@@ -3,7 +3,7 @@
 // Creation Date: Sun Feb 16 18:44:37 PST 2014
 // Last Modified: Sat Mar  1 02:51:26 PST 2014
 // Filename:      ScorePageBase.cpp
-// Web Address:   https://github.com/craigsapp/scorelib/master/src-library/ScorePageBase.cpp
+// URL:           https://github.com/craigsapp/scorelib/master/src-library/ScorePageBase.cpp
 // Syntax:        C++11
 //
 // Description:   Base class for ScorePage.  This class handles reading/writing
@@ -380,6 +380,11 @@ void ScorePageBase::setUnitsCentimeters(void) {
 
 void ScorePageBase::read(const char* filename, int verboseQ) {
    readFile(filename, verboseQ);
+}
+
+
+void ScorePageBase::read(const string& filename, int verboseQ) {
+   readFile(filename.c_str(), verboseQ);
 }
 
 

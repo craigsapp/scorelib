@@ -3,7 +3,7 @@
 // Creation Date: Mon Feb 17 22:35:50 PST 2014
 // Last Modified: Fri Feb 28 23:43:13 PST 2014
 // Filename:      ScorePage_data.cpp
-// Web Address:   https://github.com/craigsapp/scorelib/blob/master/src-library/ScorePage_data.cpp
+// URL:           https://github.com/craigsapp/scorelib/blob/master/src-library/ScorePage_data.cpp
 // Syntax:        C++11
 //
 // Description:   This file contains ScorePage class functions related to
@@ -72,6 +72,12 @@ void ScorePage::getUnsortedStaffItems(int staffnum, vectorSIp& items) {
    }
 }
 
+// Alias:
+
+void ScorePage::getUnsortedStaffItems(vectorSIp& items, int staffnum) {
+   getUnsortedStaffItems(staffnum, items);
+}
+
 
 
 //////////////////////////////
@@ -83,6 +89,12 @@ void ScorePage::getUnsortedStaffItems(int staffnum, vectorSIp& items) {
 void ScorePage::getSortedStaffItems(int staffnum, vectorSIp& items) {
    getUnsortedStaffItems(staffnum, items);
    sort(items.begin(), items.end(), sortP3P1P4);
+}
+
+// Alias:
+
+void ScorePage::getSortedStaffItems(vectorSIp& items, int staffnum) {
+   getSortedStaffItems(staffnum, items);
 }
 
 

@@ -3,7 +3,7 @@
 // Creation Date: Thu Feb 27 23:59:05 PST 2014
 // Last Modified: Thu Feb 27 23:59:07 PST 2014
 // Filename:      ScoreItem_sort.cpp
-// Web Address:   https://github.com/craigsapp/scorelib/blob/master/src-library/ScoreItem_sort.cpp
+// URL:           https://github.com/craigsapp/scorelib/blob/master/src-library/ScoreItem_sort.cpp
 // Syntax:        C++11
 //
 // Description:   ScoreItem sorting functions.

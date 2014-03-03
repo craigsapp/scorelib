@@ -3,7 +3,7 @@
 // Creation Date: Sat Mar  1 00:35:04 PST 2014
 // Last Modified: Sat Mar  1 00:35:07 PST 2014
 // Filename:      ScorePageBase_StaffInfo.cpp
-// Web Address:   https://github.com/craigsapp/scorelib/blob/master/src-library/ScorePageBase_StaffInfo.cpp
+// URL:           https://github.com/craigsapp/scorelib/blob/master/src-library/ScorePageBase_StaffInfo.cpp
 // Syntax:        C++11
 //
 // Description:   Support class for staff analyses in ScorePageBase.
@@ -114,12 +114,6 @@ int StaffInfo::getStaffItemsSize(void) {
    return staffitems.size();
 }
 
-
-
-///////////////////////////////
-//
-// StaffInfo::getStaffItemSize --
-//
 
 int StaffInfo::getStaffItemSize(int staffnum) {
    return staffitems[staffnum].size();

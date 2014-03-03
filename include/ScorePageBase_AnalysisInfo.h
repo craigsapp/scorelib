@@ -3,7 +3,7 @@
 // Creation Date: Sun Feb 16 18:44:37 PST 2014
 // Last Modified: Sat Mar  1 03:04:06 PST 2014
 // Filename:      ScorePageBase_AnalysisInfo.h
-// Web Address:   https://github.com/craigsapp/scorelib/blob/master/include/ScorePageBase_AnalysisInfo.h
+// URL:           https://github.com/craigsapp/scorelib/blob/master/include/ScorePageBase_AnalysisInfo.h
 // Syntax:        C++11
 //
 // Description:   Support class for structural analyses in ScorePageBase.

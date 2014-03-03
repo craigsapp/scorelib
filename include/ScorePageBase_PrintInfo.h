@@ -3,7 +3,7 @@
 // Creation Date: Sun Feb 16 18:44:37 PST 2014
 // Last Modified: Sat Mar  1 03:16:00 PST 2014
 // Filename:      ScorePageBase_PrintInfo.h
-// Web Address:   https://github.com/craigsapp/scorelib/blob/master/include/ScorePageBase_PrintInfo.h
+// URL:           https://github.com/craigsapp/scorelib/blob/master/include/ScorePageBase_PrintInfo.h
 // Syntax:        C++11
 //
 // Description:   Support class for page description in ScorePageBase.

@@ -3,7 +3,7 @@
 // Creation Date: Sat Mar  1 03:18:48 PST 2014
 // Last Modified: Sat Mar  1 03:18:50 PST 2014
 // Filename:      ScorePageSet.h
-// Web Address:   https://github.com/craigsapp/scorelib/blob/master/include/ScorePageSet.h
+// URL:           https://github.com/craigsapp/scorelib/blob/master/include/ScorePageSet.h
 // Syntax:        C++11
 //
 // Description:   This class handles multiple pages of the ScorePage class.

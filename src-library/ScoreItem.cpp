@@ -3,7 +3,7 @@
 // Creation Date: Wed Feb  5 21:43:50 PST 2014
 // Last Modified: Thu Feb  6 01:12:14 PST 2014
 // Filename:      ScoreItem.cpp
-// Web Address:   https://github.com/craigsapp/scorelib/blob/master/src-library/ScoreItem.cpp
+// URL:           https://github.com/craigsapp/scorelib/blob/master/src-library/ScoreItem.cpp
 // Syntax:        C++11
 //
 // Description:   The ScoreItem class stores one SCORE item as well as
@@ -140,12 +140,50 @@ void ScoreItem::setParameterDigit(int pindex, int position, int value) {
    setP(pindex, newvalue*sign);
 }
 
+// Alias:
 
 void ScoreItem::setPDigit(int pindex, int position, int value) {
    setParameterDigit(pindex, position, value);
 }
 
 
+
+//////////////////////////////
+//
+// ScoreItem::setParameterIntegerPart -- set the integer portion of
+//    the given fixed parameter value.  The fractional part will remain
+//    the same.  Currently the sign of the value will be that of the 
+//    integer being inserted.
+//
+
+void ScoreItem::setParameterIntegerPart(int pindex, int intval) {
+   SCORE_FLOAT value = getParameter(pindex);
+   // SCORE_FLOAT sign = 1.0;
+   if (value < 0.0) {
+      value = -value;
+   //    sign = -1.0;
+   }
+   SCORE_FLOAT result = (int)value - value;
+   if (intval < 0) {
+      result -= intval;
+   } else {
+      result += intval;
+   }
+
+   setParameter(pindex, result);
+}
+
+// Alias:
+
+void ScoreItem::setPIntPart(int pindex, int intval) {
+   setParameterIntegerPart(pindex, intval);
+}
+
+
+///////////////////////////////////////////////////////////////////////////
+//
+// P1 processing functions.
+//
 
 //////////////////////////////
 //
@@ -157,6 +195,56 @@ int ScoreItem::getItemType(void) {
 }
 
 
+
+//////////////////////////////
+//
+// ScoreItem::is*Item -- returns true if the integer part of the
+//    P1 value matches the item type related to the functions.
+//
+
+bool ScoreItem::isNoteItem   (void) 
+      { return getItemType() == P1_Note               ? true : false; }
+bool ScoreItem::isRestItem   (void) 
+      { return getItemType() == P1_Rest               ? true : false; }
+bool ScoreItem::isClefItem   (void) 
+      { return getItemType() == P1_Clef               ? true : false; }
+bool ScoreItem::isLineItem   (void) 
+      { return getItemType() == P1_Line               ? true : false; }
+bool ScoreItem::isSlurItem   (void) 
+      { return getItemType() == P1_Slur               ? true : false; }
+bool ScoreItem::isBeamItem   (void) 
+      { return getItemType() == P1_Beam               ? true : false; }
+bool ScoreItem::isTrillItem  (void) 
+      { return getItemType() == P1_Trill              ? true : false; }
+bool ScoreItem::isStaffItem  (void) 
+      { return getItemType() == P1_Staff              ? true : false; }
+bool ScoreItem::isSymbolItem (void) 
+      { return getItemType() == P1_Symbol             ? true : false; }
+bool ScoreItem::isNumberItem (void) 
+      { return getItemType() == P1_Number             ? true : false; }
+bool ScoreItem::isUserItem   (void) 
+      { return getItemType() == P1_User               ? true : false; }
+bool ScoreItem::isSpecialItem(void) 
+      { return getItemType() == P1_Special            ? true : false; }
+bool ScoreItem::isBadLuckItem(void) 
+      { return getItemType() == P1_BadLuck            ? true : false; }
+bool ScoreItem::isBarlineItem(void) 
+      { return getItemType() == P1_Barline            ? true : false; }
+bool ScoreItem::isEpsItem    (void) 
+      { return getItemType() == P1_ImportedEPSGraphic ? true : false; }
+bool ScoreItem::isTextItem   (void) 
+      { return getItemType() == P1_Text               ? true : false; }
+bool ScoreItem::isKeySigItem (void) 
+      { return getItemType() == P1_KeySignature       ? true : false; }
+bool ScoreItem::isTimeSigItem(void) 
+      { return getItemType() == P1_MeterSignature     ? true : false; }
+
+
+
+///////////////////////////////////////////////////////////////////////////
+//
+// P2 related functions.
+//
 
 //////////////////////////////
 //
@@ -172,7 +260,35 @@ unsigned int ScoreItem::getStaffNumber(void) {
    }
 }
 
+// Alias:
 
+unsigned int ScoreItem::getStaffNum(void) {
+   return getStaffNumber();
+}
+
+
+
+//////////////////////////////
+//
+// ScoreItem::setStaffNumber -- Set the staff number of the object.
+//
+
+void ScoreItem::setStaffNumber(int staffnum) {
+   setParameterIntegerPart(P2, staffnum);
+}
+
+// Alias:
+
+void ScoreItem::setStaffNum(int staffnum) {
+   setStaffNumber(staffnum);
+}
+
+
+
+///////////////////////////////////////////////////////////////////////////
+//
+// P3 related functions.
+//
 
 //////////////////////////////
 //
@@ -190,6 +306,11 @@ SCORE_FLOAT ScoreItem::getHPos(void) {
 }
 
 
+
+///////////////////////////////////////////////////////////////////////////
+//
+// P4 related functions.
+//
 
 //////////////////////////////
 //
@@ -281,6 +402,7 @@ void ScoreItem::setStaffOffsetDuration(SCORE_FLOAT duration) {
 //   staff_duration_offset = duration;
    setParameter("analysis", "staffOffsetDuration", duration);
 }
+
 
 
 //////////////////////////////

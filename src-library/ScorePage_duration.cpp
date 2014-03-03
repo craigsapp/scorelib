@@ -3,7 +3,7 @@
 // Creation Date: Mon Feb 17 22:35:50 PST 2014
 // Last Modified: Thu Feb 20 23:29:45 PST 2014
 // Filename:      ScorePage_duration.cpp
-// Web Address:   https://github.com/craigsapp/scorelib/blob/master/src-library/ScorePage_duration.cpp
+// URL:           https://github.com/craigsapp/scorelib/blob/master/src-library/ScorePage_duration.cpp
 // Syntax:        C++11
 //
 // Description:   This file contains ScorePage class functions related to

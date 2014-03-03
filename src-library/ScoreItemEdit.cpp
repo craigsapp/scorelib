@@ -3,7 +3,7 @@
 // Creation Date: Wed Feb  5 19:54:35 PST 2014
 // Last Modified: Sat Feb 15 18:38:20 PST 2014
 // Filename:      ScoreItemEdit.cpp
-// Web Address:   https://github.com/craigsapp/scorelib/blob/master/src-library/ScoreItemEdit.cpp
+// URL:           https://github.com/craigsapp/scorelib/blob/master/src-library/ScoreItemEdit.cpp
 // Syntax:        C++11
 //
 // Description:   The ScoreItemEdit class adds parameter history tracking

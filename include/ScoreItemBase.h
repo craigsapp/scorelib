@@ -3,7 +3,7 @@
 // Creation Date: Wed Feb  5 17:11:15 PST 2014
 // Last Modified: Fri Feb 14 22:05:54 PST 2014
 // Filename:      ScoreItemBase.h
-// Web Address:   https://github.com/craigsapp/scorelib/blob/master/include/ScoreItemBase.h
+// URL:           https://github.com/craigsapp/scorelib/blob/master/include/ScoreItemBase.h
 // Syntax:        C++11
 //
 // Description:   The ScoreItemBase class forms the basic data storage 

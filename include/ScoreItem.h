@@ -3,7 +3,7 @@
 // Creation Date: Wed Feb  5 21:34:02 PST 2014
 // Last Modified: Thu Feb  6 01:05:52 PST 2014
 // Filename:      ScoreItem.h
-// Web Address:   https://github.com/craigsapp/scorelib/blob/master/include/ScoreItem.h
+// URL:           https://github.com/craigsapp/scorelib/blob/master/include/ScoreItem.h
 // Syntax:        C++11
 //
 // Description:   The ScoreItem class stores one SCORE item as well as
@@ -38,15 +38,37 @@ using namespace std;
       int          getPDigit         (int pindex, int position);
       void         setParameterDigit (int pindex, int position, int value);
       void         setPDigit         (int pindex, int position, int value);
+      void         setParameterIntegerPart(int pindex, int intval);
+      void         setPIntPart       (int pindex, int intval);
 
       // P1-P4 are the same for most P1 item types.
 
       // P1 accessors
       int           getItemType          (void);
+      bool          isNoteItem           (void);    // P1=1
+      bool          isRestItem           (void);    // P1=2
+      bool          isClefItem           (void);    // P1=3
+      bool          isLineItem           (void);    // P1=4
+      bool          isSlurItem           (void);    // P1=5
+      bool          isBeamItem           (void);    // P1=6
+      bool          isTrillItem          (void);    // P1=7
+      bool          isStaffItem          (void);    // P1=8
+      bool          isSymbolItem         (void);    // P1=9
+      bool          isNumberItem         (void);    // P1=10
+      bool          isUserItem           (void);    // P1=11
+      bool          isSpecialItem        (void);    // P1=12
+      bool          isBadLuckItem        (void);    // P1=13
+      bool          isBarlineItem        (void);    // P1=14
+      bool          isEpsItem            (void);    // P1=15
+      bool          isTextItem           (void);    // P1=16
+      bool          isKeySigItem         (void);    // P1=17
+      bool          isTimeSigItem        (void);    // P1=18
 
       // P2 accessors
       unsigned int  getStaffNumber       (void);
-      unsigned int  getStaffNum          (void) { return getStaffNumber(); }
+      unsigned int  getStaffNum          (void);
+      void          setStaffNumber       (int staffnum);
+      void          setStaffNum          (int staffnum);
 
       // P3 accessors
       SCORE_FLOAT   getHorizontalPosition(void);

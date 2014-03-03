@@ -3,7 +3,7 @@
 // Creation Date: Sun Feb 16 18:44:37 PST 2014
 // Last Modified: Sat Mar  1 00:45:35 PST 2014
 // Filename:      ScorePageBase_StaffInfo.h
-// Web Address:   https://github.com/craigsapp/scorelib/blob/master/include/ScorePageBase_StaffInfo.h
+// URL:           https://github.com/craigsapp/scorelib/blob/master/include/ScorePageBase_StaffInfo.h
 // Syntax:        C++11
 //
 // Description:   Support class for staff analyses in ScorePageBase.
