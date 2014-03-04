@@ -12,7 +12,7 @@
 ##
 
 # targets which don't actually refer to files
-.PHONY: src-programs src-library include bin lib obj external
+.PHONY: src-programs src-library include bin lib obj external tests
 
 ###########################################################################
 #                                                                         #
@@ -39,6 +39,9 @@ info:
 library: external
 	$(MAKE) -f Makefile.library
 
+tests: library
+	(cd tests; $(MAKE) all)
+
 external:
 	(cd external; $(MAKE))
 
@@ -58,10 +61,13 @@ libup: library-update
 library-update:
 	$(MAKE) -f Makefile.library library
 
-clean:
+clean: cleantests
 	$(MAKE) -f Makefile.library clean
 	-rm -rf bin
 	-rm -rf lib
+
+cleantests:
+	(cd tests; $(MAKE) clean)
 
 cleanexternal: 
 ifneq ($(wildcard external),)

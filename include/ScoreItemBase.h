@@ -18,7 +18,7 @@
 #define _SCOREITEMBASE_H_INCLUDED
 
 #include "ScoreDefs.h"
-#include "ParameterHistory.h"
+#include "ScoreItemEdit_ParameterHistory.h"
 
 #include <list>
 #include <iostream>

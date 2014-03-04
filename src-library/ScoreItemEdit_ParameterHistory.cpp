@@ -11,7 +11,7 @@
 //                class.
 //
 
-#include "ParameterHistory.h"
+#include "ScoreItemEdit_ParameterHistory.h"
 #include "ScoreItemBase.h"
 
 using namespace std;
