@@ -80,6 +80,7 @@ void ScorePageBase::readFile(const char* filename, int verboseQ) {
    } else {
       readPmx(testfile, verboseQ);
    }
+   setFilename(filename);
 }
 
 
@@ -125,6 +126,7 @@ void ScorePageBase::readPmx(const char* filename, int verboseQ) {
    }
 
    readPmx(infile, verboseQ);
+   setFilename(filename);
    infile.close();
 }
 
@@ -244,6 +246,7 @@ void ScorePageBase::readBinary(const char* filename, int verboseQ) {
    }
 
    readBinary(infile, verboseQ);
+   setFilename(filename);
 }
 
 

@@ -35,6 +35,12 @@ string& ScorePageBase::getFilename(string& output) {
 }
 
 
+string ScorePageBase::getFilename(void) {
+   string output;
+   return getFilename(output);
+}
+
+
 
 //////////////////////////////
 //
@@ -111,7 +117,7 @@ void ScorePageBase::setFilename(const string& filename) {
       if (path.size() == 0) {
          path += '/';
       }
-      string rest = filename.substr(location+1);
+      rest = filename.substr(location+1);
    } else {
       rest = filename;
    }
@@ -119,13 +125,15 @@ void ScorePageBase::setFilename(const string& filename) {
    setFilenamePath(path);
 
    // split file extension from filename
-   location = rest.rfind("/");
+   location = rest.rfind(".");
    string ext;
    string base;
    if (location != string::npos) {
       ext = rest.substr(location+1);
       if (ext.size() == 0) {
          base = rest;
+      } else {
+         base = rest.substr(0, location);
       }
    } else {
       base = rest;
@@ -188,8 +196,9 @@ const string& ScorePageBase::setFilenamePath(const string& path) {
 //
 
 string& ScorePageBase::removeCharacter(string& out, char character) {
-   out.erase(remove_if(out.begin(), out.end(), 
-         [&character](char ch){ return ch==character; }));
+   auto pos = remove_if(out.begin(), out.end(), 
+         [&character](char ch){ return ch == character; });
+   out.erase(pos, out.end());
    return out;
 }
 

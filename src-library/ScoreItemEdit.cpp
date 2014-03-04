@@ -29,6 +29,11 @@ ScoreItemEdit::ScoreItemEdit(void) : ScoreItemBase() {
 }
 
 
+ScoreItemEdit::ScoreItemEdit(const ScoreItemBase& anItem) : 
+      ScoreItemBase(anItem) {
+   // do nothing
+}
+
 ScoreItemEdit::ScoreItemEdit(const ScoreItemEdit& anItem) : 
       ScoreItemBase((ScoreItemBase)anItem) {
    // do nothing

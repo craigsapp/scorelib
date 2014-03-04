@@ -36,8 +36,14 @@ using namespace std;
    }
 
 
+   ScoreItem::ScoreItem(const ScoreItemEdit& anItem) : 
+         ScoreItemEdit(anItem)  {
+      // do nothing 
+   }
+
+
    ScoreItem::ScoreItem(const ScoreItemBase& anItem) : 
-         ScoreItemBase(anItem)  {
+         ScoreItemEdit(anItem)  {
       // do nothing 
    }
 

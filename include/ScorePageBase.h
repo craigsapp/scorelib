@@ -54,6 +54,7 @@ class ScorePageBase {
 
       // File name functions:
       string&        getFilename         (string& output);
+      string         getFilename         (void);
       string&        getFilenameWithPath (string& output);
       const string&  getFilenameBase     (void);
       const string&  getFilenameExtension(void);

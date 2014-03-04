@@ -1,11 +1,11 @@
 ##
 ## Programmer:    Craig Stuart Sapp <craig@ccrma.stanford.edu>
 ## Creation Date: Thu Feb  6 22:44:11 PST 2014
-## Last Modified: Thu Feb  6 22:44:14 PST 2014
+## Last Modified: Mon Mar  3 23:48:21 PST 2014
 ## Filename:      ...scorelib/Makefile.library
 ##
 ## Description:   This Makefile creates the score library 
-##                lib/libscorelib.a for linux, using gcc 4.7 or higher
+##                lib/libscorelib.a and lib/libscoreeditlib.a
 ##
 ## To run this makefile, type (without quotes) "make -f Makefile.library",
 ## (or "gmake -f Makefile.library" on FreeBSD computers). Although it is 
@@ -53,14 +53,16 @@ endif
 # Beginning of user-modifiable configuration variables                    #
 #                                                                         #
 
-OBJDIR    = obj
-SRCDIR    = src-library
-INCDIR    = include
-LIBDIR    = lib
-LIBFILE   = libscorelib.a
-COMPILER  = LANG=C $(ENV) g++ $(ARCH) 
-AR        = ar
-RANLIB    = ranlib
+OBJDIR        = obj
+OBJDIR_EDIT   = obj-edit
+SRCDIR        = src-library
+INCDIR        = include
+LIBDIR        = lib
+LIBFILE       = libscorelib.a
+LIBFILE_EDIT  = libscoreeditlib.a
+COMPILER      = LANG=C $(ENV) g++ $(ARCH) 
+AR            = ar
+RANLIB        = ranlib
 
 # DEFINES   = $(addprefix -D,$(OSTYPE))
 
@@ -96,12 +98,12 @@ OBJS = $(notdir $(patsubst %.cpp,%.o,$(wildcard $(SRCDIR)/*.cpp)))
 # Hardware Configurations:                                                #
 #                                                                         #
 
-all: makedirs external library
+all: makedirs external library editlibrary
 
 library: $(OBJS)
 
    ifeq ($(OSTYPE),LINUX)
-	@echo "Creating. score. library. file. for. linux ...".
+	@echo "Creating score library file for linux..."
 	-rm -f $(LIBDIR)/$(LIBFILE)
 	$(AR) r $(LIBDIR)/$(LIBFILE) $(OBJDIR)/*.o 
 	$(RANLIB) $(LIBDIR)/$(LIBFILE)
@@ -125,14 +127,50 @@ library: $(OBJS)
 	echo "This makefile doesn\'t work with Visual C++."
    endif
 
+editlibrary: libraryedit
+libraryedit: $(OBJS)
+
+   ifeq ($(OSTYPE),LINUX)
+	@echo "Creating score-edit library file for linux..."
+	-rm -f $(LIBDIR)/$(LIBFILE_EDIT)
+	$(AR) r $(LIBDIR)/$(LIBFILE_EDIT) $(OBJDIR_EDIT)/*.o 
+	$(RANLIB) $(LIBDIR)/$(LIBFILE_EDIT)
+   endif
+
+   ifeq ($(OSTYPE),OSXOLD)
+	@echo "Creating score-edit library file for OSX (PowerPC)..."
+	-rm -f $(LIBDIR)/$(LIBFILE_EDIT)
+	$(AR) r $(LIBDIR)/$(LIBFILE_EDIT) $(OBJDIR_EDIT)/*.o 
+	$(RANLIB) $(LIBDIR)/$(LIBFILE_EDIT)
+   endif
+
+   ifeq ($(OSTYPE),OSXPC)
+	@echo "Creating score-edit library file for OSX (Intel)..."
+	-rm -f $(LIBDIR)/$(LIBFILE_EDIT)
+	$(AR) r $(LIBDIR)/$(LIBFILE_EDIT) $(OBJDIR_EDIT)/*.o 
+	$(RANLIB) $(LIBDIR)/$(LIBFILE_EDIT)
+   endif
+
+   ifeq ($(OSTYPE),VISUAL)
+	echo "This makefile doesn\'t work with Visual C++."
+   endif
+
+
+
 clean:
 	@echo Erasing object files:
 	-rm -f $(OBJDIR)/*.o
 	@echo Erasing obj directory:
 	-rmdir $(OBJDIR)
+	@echo Erasing edito object files:
+	-rm -f $(OBJDIR_EDIT)/*.o
+	@echo Erasing obj edit directory:
+	-rmdir $(OBJDIR_EDIT)
+
 
 makedirs: 
 	-mkdir $(OBJDIR)
+	-mkdir $(OBJDIR_EDIT)
 	-mkdir $(LIBDIR)
 
 
@@ -144,6 +182,8 @@ makedirs:
 
 %.o : %.cpp
 	$(COMPILER) $(PREFLAGS) -o $(OBJDIR)/$(notdir $@) $(POSTFLAGS) $<
+	$(COMPILER) -DSCOREITEMEDIT $(PREFLAGS) -o $(OBJDIR_EDIT)/$(notdir $@) \
+		$(POSTFLAGS) $<
 
 #                                                                         #
 ###########################################################################

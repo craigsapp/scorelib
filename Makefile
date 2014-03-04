@@ -2,7 +2,7 @@
 ##
 ## Programmer:    Craig Stuart Sapp <craig@ccrma.stanford.edu>
 ## Creation Date: Thu Feb  6 22:53:03 PST 2014
-## Last Modified: Thu Feb  6 22:53:08 PST 2014
+## Last Modified: Tue Mar  4 00:01:08 PST 2014
 ## Filename:      ...scorelib/Makefile
 ##
 ## Description: This Makefile can create the score library or programs 
@@ -12,7 +12,7 @@
 ##
 
 # targets which don't actually refer to files
-.PHONY : src-programs src-library include bin lib obj
+.PHONY: src-programs src-library include bin lib obj external
 
 ###########################################################################
 #                                                                         #
@@ -36,8 +36,11 @@ info:
 	@echo Typing \"make\" alone with compile both the library and all programs.
 	@echo ""
 
-library: 
+library: external
 	$(MAKE) -f Makefile.library
+
+external:
+	(cd external; $(MAKE))
 
 update: library-update programs-update
 
@@ -55,16 +58,18 @@ libup: library-update
 library-update:
 	$(MAKE) -f Makefile.library library
 
-scripts:
-	$(MAKE) -f Makefile.programs scripts
-
 clean:
 	$(MAKE) -f Makefile.library clean
 	-rm -rf bin
 	-rm -rf lib
+
+cleanexternal: 
 ifneq ($(wildcard external),)
 	(cd external; make clean)
 endif
+
+superclean: clean cleanexternal
+	@echo "Erased all compiled content"
 
 examples: programs
 programs:

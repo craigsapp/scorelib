@@ -20,6 +20,8 @@ using namespace std;
 #ifdef SCOREITEMEDIT
    #include "ScoreItemEdit.h"
    class ScoreItem : public ScoreItemEdit {
+   public:
+                    ScoreItem      (const ScoreItemEdit& anItem);
 #else
    #include "ScoreItemBase.h"
    class ScoreItem : public ScoreItemBase {

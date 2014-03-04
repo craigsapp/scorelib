@@ -10,18 +10,15 @@
 //                staff duration analysis.
 //
 
-
 #include "ScorePage.h"
 #include <algorithm>
 
 using namespace std;
 
-
 ///////////////////////////////////////////////////////////////////////////
 //
 // Staff duration analysis related functions
 //
-
 
 //////////////////////////////
 //
