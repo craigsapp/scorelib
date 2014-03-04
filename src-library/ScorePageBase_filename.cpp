@@ -11,7 +11,6 @@
 
 #include "ScorePageBase.h"
 #include <algorithm>
-#include <string.h>
 
 using namespace std;
 

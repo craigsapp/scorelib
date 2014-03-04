@@ -11,6 +11,7 @@
 
 #include "ScorePageBase_StaffInfo.h"
 
+using namespace std;
 
 ///////////////////////////////
 //
