@@ -43,14 +43,27 @@ class ScorePageBase {
    friend class ScoreItemBase;
 
    public:
-               ScorePageBase     (void);
-               ScorePageBase     (const char* filename);
-               ScorePageBase     (istream& instream);
-               ScorePageBase     (const ScorePageBase& apage);
-              ~ScorePageBase     ();
+               ScorePageBase             (void);
+               ScorePageBase             (const char* filename);
+               ScorePageBase             (istream& instream);
+               ScorePageBase             (const ScorePageBase& apage);
+              ~ScorePageBase             ();
 
-      void     clear             (void);
-      int      getItemCount      (void);
+      void     clear                     (void);
+      int      getItemCount              (void);
+
+      // File name functions:
+      string&        getFilename         (string& output);
+      string&        getFilenameWithPath (string& output);
+      const string&  getFilenameBase     (void);
+      const string&  getFilenameExtension(void);
+      const string&  getFilenamePath     (void);
+      void           setFilename         (const string& filename);
+      const string&  setFilenameBase     (const string& filebase);
+      const string&  setFilenameExtension(const string& fileext);
+      const string&  setFilenamePath     (const string& filename);
+      static string& removeCharacter     (string& out, char character);
+
 
       // lists of items on the page
       void     getFileOrderList  (vectorSIp& data);
@@ -129,14 +142,16 @@ class ScorePageBase {
       // SCORE file.
       vectorF trailer;
 
+      // Filename variables.
+      string filename_base;
+      string filename_extension;
+      string filename_path;
+
       constexpr static unsigned int    MAX_STAFF_COUNT = 100;
 
       // staff_info contains information about the staves on the page
       // and how they are grouped into systems.
       StaffInfo staff_info;
-
-
-   protected:
 
       // analysis_info contains information about analysis states for
       // data on the page.
