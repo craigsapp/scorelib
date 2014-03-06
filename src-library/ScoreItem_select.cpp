@@ -16,19 +16,6 @@ using namespace std;
 
 //////////////////////////////
 //
-// selectDurationItems -- select Staff items which posses durational quality.
-//     This include P1=1 (notes) and P2=2 (rests).  Returns the number of
-//     items that were extracted.
-//
-
-int selectDurationItems(vectorSIp& output, const vectorSIp& input) {
-   return selectP1Items(output, input, {1, 2});
-}
-
-
-
-//////////////////////////////
-//
 // selectP1Items -- return all items in the input list which match the
 //
 
@@ -40,12 +27,84 @@ int selectP1Items(vectorSIp& output, const vectorSIp& input,
       for (auto it2 = p1values.begin(); it2 != p1values.end(); it2++) {
          if ((*it)->getPInt(P1) == *it2) {
             output.push_back(*it);
+            break;
          }
       }
    }
    return output.size();
 }
 
+
+int selectP1Items(vectorSIp& output, const vectorSIp& input, int p1value) {
+   output.clear();
+   output.reserve(input.size());
+   for (auto it = input.begin(); it != input.end(); it++) {
+      if ((*it)->getPInt(P1) == p1value) {
+         output.push_back(*it);
+      }
+   }
+   return output.size();
+}
+
+
+int selectP1Items(vectorSIp& output, const listSIp& input, 
+      const vectorI& p1values) {
+   output.clear();
+   output.reserve(input.size());
+   for (auto it = input.begin(); it != input.end(); it++) {
+      for (auto it2 = p1values.begin(); it2 != p1values.end(); it2++) {
+         if ((*it)->getPInt(P1) == *it2) {
+            output.push_back(*it);
+            break;
+         }
+      }
+   }
+   return output.size();
+}
+
+
+int selectP1Items(vectorSIp& output, const listSIp& input, int p1value) {
+   output.clear();
+   output.reserve(input.size());
+   for (auto it = input.begin(); it != input.end(); it++) {
+      if ((*it)->getPInt(P1) == p1value) {
+         output.push_back(*it);
+      }
+   }
+   return output.size();
+}
+
+
+
+//////////////////////////////
+//
+// selectDurationItems -- Select staff items which posses durational quality.
+//     This include P1=1 (notes) and P2=2 (rests).  Returns the number of
+//     items that were extracted.
+//
+
+int selectDurationItems(vectorSIp& output, const vectorSIp& input) {
+   return selectP1Items(output, input, {P1_Note, P1_Rest});
+}
+
+int selectDurationItems(vectorSIp& output, const listSIp& input) {
+   return selectP1Items(output, input, {P1_Note, P1_Rest});
+}
+
+
+
+//////////////////////////////
+//
+// selectBarlines -- Select barline items which are P1=14 items.
+//
+
+int selectBarlines(vectorSIp& output, const vectorSIp& input) {
+   return selectP1Items(output, input, P1_Barline);
+}
+
+int selectBarlines(vectorSIp& output, const listSIp& input) {
+   return selectP1Items(output, input, P1_Barline);
+}
 
 
 

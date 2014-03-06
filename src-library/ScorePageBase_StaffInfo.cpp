@@ -144,3 +144,43 @@ void StaffInfo::appendStaffItem(int staffnum, ScoreItem* item) {
 
 
 
+//////////////////////////////
+//
+// StafFInfo::systemMap -- the page-staff number to page-system index
+//     mapping.
+//
+
+vectorI& StaffInfo::systemMap(void) {
+   return system;
+}
+
+
+
+//////////////////////////////
+//
+// StafFInfo::reverseSystemMap -- the page-system/staff index to
+//     page staff index mapping.
+//
+
+vectorVI& StaffInfo::reverseSystemMap(void) {
+   return rsystem;
+}
+
+
+
+//////////////////////////////
+//
+// StafFInfo::systemStaffMap -- the system index for each staff.  The
+//     sysindex variable is index by p2 (starting at P2=1 and going up
+//     to maxstaff).  The system index starts at 0 for the bottom 
+//     staff in the system, and skips any staves on the page which
+//     do not contain music.
+//
+
+vectorI& StaffInfo::systemStaffMap(void) {
+   return sysindex;
+}
+
+
+
+

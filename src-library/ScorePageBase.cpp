@@ -254,4 +254,3 @@ void ScorePageBase::clearAnalysisStates(void) {
 }
 
 
-

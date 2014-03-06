@@ -19,13 +19,13 @@
 
 using namespace std;
 
-typedef double                     SCORE_FLOAT;
-typedef map<string, string>        mapSS;
-typedef map<string, mapSS>         mapNamespace;
-typedef vector<SCORE_FLOAT>        vectorSF;
-typedef vector<float>              vectorF;
-typedef vector<int>                vectorI;
-
+using SCORE_FLOAT  = double;
+using mapSS        = map<string, string>;
+using mapNamespace = map<string, mapSS>;
+using vectorSF     = vector<SCORE_FLOAT>;
+using vectorF      = vector<float>;
+using vectorI      = vector<int>;
+using vectorVI     = vector<vector<int>>;
 
 typedef enum {
         P1 = 1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14,

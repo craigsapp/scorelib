@@ -116,6 +116,8 @@ using namespace std;
       // BadLuck (P1=13) processing functions
 
       // Barline (P1=14) processing functions
+      int     getBarlineHeight    (void);
+      int     getBarHeight        (void);
 
       // ImportedEPSGraphic (P1=15) processing functions
 
@@ -141,10 +143,19 @@ bool   sortP3P4P1          (ScoreItem* a, ScoreItem* b);
 bool   sortP3P1P4          (ScoreItem* a, ScoreItem* b);
 
 
-// Selective filters for list of ScoreItems (defined in ScoreItem_select.cpp):
+// Selecting filters for list of ScoreItems (defined in ScoreItem_select.cpp):
 int    selectP1Items       (vectorSIp& output, const vectorSIp& input, 
                             const vectorI& p1values);
+int    selectP1Items       (vectorSIp& output, const listSIp& input, 
+                            const vectorI& p1values);
+int    selectP1Items       (vectorSIp& output, const vectorSIp& input, 
+                            int p1value);
+int    selectP1Items       (vectorSIp& output, const listSIp& input, 
+                            int p1value);
 int    selectDurationItems (vectorSIp& output, const vectorSIp& input);
+int    selectDurationItems (vectorSIp& output, const listSIp& input);
+int    selectBarlines      (vectorSIp& output, const vectorSIp& input);
+int    selectBarlines      (vectorSIp& output, const listSIp& input);
 
 
 // external printing functions (defined in ScoreItem_print.cpp):

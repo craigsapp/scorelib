@@ -87,6 +87,7 @@ class ScorePageBase {
       void           setUnitsInches     (void);
       void           setUnitsCentimeters(void);
 
+
       // file reading functions:
       void           read              (const char* filename, int verboseQ = 0);
       void           read              (const string& filename, int verboseQ = 0);

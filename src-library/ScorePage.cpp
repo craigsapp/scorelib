@@ -61,31 +61,3 @@ ScorePage::~ScorePage() {
 
 
 
-///////////////////////////////////////////////////////////////////////////
-//
-// Staff system analysis related functions
-//
-
-
-///////////////////////////////
-//
-// ScorePage::getSystemCount -- Return the number of systems
-//     on the page.  Systems are defined as a set of barlines
-//     which have barlines attaching them to each other.
-//
-
-int ScorePage::getSystemCount(void) {
-   return 0;
-}
-
-//////////////////////////////
-//
-// ScorePage::analyzeSystems --  Still need to consider ossia.
-//
-
-void ScorePage::analyzeSystems(void) {
-
-}
-
-
-

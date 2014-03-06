@@ -30,6 +30,9 @@ class StaffInfo {
       int           getStaffItemSize     (int staffnum);
       const vectorVSIp& getStaffItems    (void);
       void          appendStaffItem      (int staffnum, ScoreItem* item);
+      vectorI&      systemMap            (void);
+      vectorI&      systemStaffMap       (void);
+      vectorVI&     reverseSystemMap     (void);
 
    protected:
       // staffdur: duration of staff (sum of P7s across staff)
@@ -38,6 +41,14 @@ class StaffInfo {
       // system: the system number on the page to which the staff
       // belongs.  The top staff on the page is system 0.
       vectorI  system;
+
+      // rsystem: the reverse mapping of systems to staves on the page.
+      // The first dimension is the system-index number, starting at 0
+      // for the top system on the page.  The second dimension is the
+      // system-staff index, starting at the bottom staff on the system
+      // and index from zero.  The last dimension is the P2 staff number
+      // of a staff on the page.
+      vectorVI rsystem;
 
       // sysindex: the staff's index on the system.  The bottom staff
       // on the system is at index 0.
@@ -50,7 +61,6 @@ class StaffInfo {
       // staffitems[0] is not intended to be used (may refer in the future
       // to page positioned items.)
       vectorVSIp staffitems;
-
 };
 
 #endif /* _SCOREPAGEBASE_STAFFINFO_H_INCLUDED */
