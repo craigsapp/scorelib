@@ -45,6 +45,9 @@ tests: $(PROGRAM_FILES)
 clean:
 	-rm $(PROGRAM_FILES)
 
+library:
+	(cd ..; make library)
+
 touch:
 	touch *.cpp
 

@@ -136,8 +136,15 @@ typedef vector<vector<ScoreItem*>> vectorVSIp;
 
 
 // ScoreItem sorting functions (defined in ScoreItem_sort.cpp):
-bool sortP3P4P1(ScoreItem* a, ScoreItem* b);
-bool sortP3P1P4(ScoreItem* a, ScoreItem* b);
+bool   sortP3              (ScoreItem* a, ScoreItem* b);
+bool   sortP3P4P1          (ScoreItem* a, ScoreItem* b);
+bool   sortP3P1P4          (ScoreItem* a, ScoreItem* b);
+
+
+// Selective filters for list of ScoreItems (defined in ScoreItem_select.cpp):
+int    selectP1Items       (vectorSIp& output, const vectorSIp& input, 
+                            const vectorI& p1values);
+int    selectDurationItems (vectorSIp& output, const vectorSIp& input);
 
 
 // external printing functions (defined in ScoreItem_print.cpp):

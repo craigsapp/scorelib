@@ -47,7 +47,7 @@ void  ScorePage::getHorizontallySortedStaffItems(vectorVSIp& staffsequence) {
    }
 
    for (it = staffsequence.begin(); it != staffsequence.end(); it++) {
-      sort(it->begin(), it->end(), sortP3P1P4);
+      sort(it->begin(), it->end(), sortP3);
     }
 }
 
@@ -88,7 +88,7 @@ void ScorePage::getUnsortedStaffItems(vectorSIp& items, int staffnum) {
 
 void ScorePage::getSortedStaffItems(int staffnum, vectorSIp& items) {
    getUnsortedStaffItems(staffnum, items);
-   sort(items.begin(), items.end(), sortP3P1P4);
+   sort(items.begin(), items.end(), sortP3);
 }
 
 // Alias:

@@ -16,4 +16,12 @@ lib
 *.la
 *.a
 
+tests/analyzestaves
+tests/extractstaff
+tests/itemtest
+tests/readtest
+tests/scoreitems2xml
+tests/staffdurations
+tests/staffoffsets
+tests/stemtest
 

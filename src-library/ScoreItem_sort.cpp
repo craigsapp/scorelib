@@ -17,6 +17,17 @@ using namespace std;
 
 //////////////////////////////
 //
+// sortP3 -- sort by horizontal position/item type/vertical position.
+//
+
+bool sortP3(ScoreItem* a, ScoreItem* b) {
+   return a->getHorizontalPosition() < b->getHorizontalPosition();
+}
+
+
+
+//////////////////////////////
+//
 // sortP3P1P4 -- sort by horizontal position/item type/vertical position.
 //      P4 values are limited to +/- 99 since the 100's digit indicates
 //      grace notes.
