@@ -242,6 +242,8 @@ bool ScoreItem::isTextItem   (void)
       { return getItemType() == P1_Text               ? true : false; }
 bool ScoreItem::isKeySigItem (void) 
       { return getItemType() == P1_KeySignature       ? true : false; }
+bool ScoreItem::isKeySignatureItem (void) 
+      { return isKeySigItem(); }
 bool ScoreItem::isTimeSigItem(void) 
       { return getItemType() == P1_MeterSignature     ? true : false; }
 

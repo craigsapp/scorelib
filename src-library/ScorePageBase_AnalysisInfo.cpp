@@ -53,6 +53,7 @@ AnalysisInfo& AnalysisInfo::operator=(const AnalysisInfo& info) {
    staves         = info.staves;
    staffdurations = info.staffdurations;
    systems        = info.systems;
+   pitches        = info.pitches;
    return *this;
 }
 
@@ -69,6 +70,7 @@ void AnalysisInfo::clear(void) {
    staves         = 0;
    staffdurations = 0;
    systems        = 0;
+   pitches        = 0;
 }
 
 

@@ -197,6 +197,22 @@ int ScoreItemBase::getPInt(int pindex) {
 
 //////////////////////////////
 //
+// ScoreItemBase::getParameterFraction --
+//
+
+SCORE_FLOAT ScoreItemBase::getParameterFraction(int pindex) {
+   SCORE_FLOAT value = getParameter(pindex);
+   if (value < 0.0) {
+      return fabs(value) - (int)fabs(value);
+   } else {
+      return value - (int)value;
+   }
+}
+
+
+
+//////////////////////////////
+//
 // ScoreItemBase::setParameter -- Set either fixed parameter if the
 //     first argument is an integer, or set a named parameter if the
 //     first argument is a string.

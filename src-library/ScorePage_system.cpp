@@ -216,5 +216,43 @@ vectorVI& ScorePage::reverseSystemMap(void) {
 
 
 
+//////////////////////////////
+//
+// ScorePage::getSystemIndex -- return the system index of the given P2
+//      staff number on the page.  Return -1 if no systems.
+//
+
+int ScorePage::getSystemIndex(int staffnumber) {
+   if (staffnumber < 0) {
+      // also P2==0 should not be used, but that value will
+      // probably return -1 as well.
+      return -1;
+   }
+   if (staffnumber >= (int)staff_info.systemMap().size()) {
+      return -1;
+   }
+   return staff_info.systemMap()[staffnumber];
+}
+
+
+
+//////////////////////////////
+//
+// ScorePage::getSystemStaffIndex -- return the system staff index of 
+//      the given P2 staff number on the page.  Return -1 if no systems.
+//
+
+int ScorePage::getSystemStaffIndex(int staffnumber) {
+   if (staffnumber < 0) {
+      // also P2==0 should not be used, but that value will
+      // probably return -1 as well.
+      return -1;
+   }
+   if (staffnumber >= (int)staff_info.systemStaffMap().size()) {
+      return -1;
+   }
+   return staff_info.systemStaffMap()[staffnumber];
+}
+
 
 

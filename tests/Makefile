@@ -16,6 +16,8 @@
 CPP_FILES     := $(wildcard *.cpp)
 PROGRAM_FILES := ${CPP_FILES:.cpp=}
 
+.PHONY: $(CPP_FILES)
+
 FLAGS          = -std=c++11
 FLAGS_EDIT     = -std=c++11 -DSCOREITEMEDIT
 INCLUDE        = -I../include
@@ -53,7 +55,6 @@ touch:
 
 %: %.cpp
 	g++ $(FLAGS) $(INCLUDE) -o $@ $@.cpp $(LIBS) && strip $@
-
 
 itemtest: itemtest.cpp
 	g++ $(FLAGS_EDIT) $(INCLUDE) -o $@ $@.cpp $(LIBS_EDIT) && strip $@

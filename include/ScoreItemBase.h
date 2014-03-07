@@ -49,6 +49,7 @@ class ScoreItemBase {
       double        getParameterDouble(const string& key);
       double        getParameterDouble(const string& nspace, const string& key);
       const string& getFixedText     (void) const;
+      SCORE_FLOAT   getParameterFraction(int pindex);
 
       // namespaced parameters
       void          setParameter     (const string& nspace, 

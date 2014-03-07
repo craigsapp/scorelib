@@ -55,6 +55,55 @@ void  ScorePage::getHorizontallySortedStaffItems(vectorVSIp& staffsequence) {
 
 //////////////////////////////
 //
+// ScorePage::getUnsortedSystemItems --
+//
+
+void ScorePage::getUnsortedSystemItems(vectorSIp& sysseq, 
+      int sysindex) {
+   if (analysis_info.systems == 0) {
+      analyzeSystems();
+   }
+
+   sysseq.clear();
+   if ((sysindex < 0) || (sysindex >= getSystemCount())) {
+      return;
+   }
+   sysseq.reserve(item_storage.size());
+
+   int p2;
+   listSIp::iterator it;
+   for (it = item_storage.begin(); it != item_storage.end(); it++) {
+      p2 = (*it)->getStaffNumber();
+      int systemnumber = getSystemIndex(p2);
+      if (systemnumber != sysindex) {
+         continue;
+      }
+      sysseq.push_back(*it);
+   }
+}
+
+
+
+//////////////////////////////
+//
+// ScorePage::getHorizontallySortedSystemItems -- Return a horizontally
+//      sorted list of all ScoreItems on the given system.
+//      System index 0 is the top system on the page.  Returns
+//      an empty list if the system index is invalid.
+//      Curently extracts from the complete list for the page.
+//      Maybe pre-calculate such data.
+//
+
+void ScorePage::getHorizontallySortedSystemItems(vectorSIp& sysseq, 
+      int sysindex) {
+   getUnsortedSystemItems(sysseq, sysindex);
+   sort(sysseq.begin(), sysseq.end(), sortP3);
+}
+
+
+
+//////////////////////////////
+//
 // ScorePage::getUnsortedStaffItems -- returns all items on a page
 //    attached to the given staff number (P2).
 //

@@ -47,24 +47,25 @@ using namespace std;
 
       // P1 accessors
       int           getItemType          (void);
-      bool          isNoteItem           (void);    // P1=1
-      bool          isRestItem           (void);    // P1=2
-      bool          isClefItem           (void);    // P1=3
-      bool          isLineItem           (void);    // P1=4
-      bool          isSlurItem           (void);    // P1=5
-      bool          isBeamItem           (void);    // P1=6
-      bool          isTrillItem          (void);    // P1=7
-      bool          isStaffItem          (void);    // P1=8
-      bool          isSymbolItem         (void);    // P1=9
-      bool          isNumberItem         (void);    // P1=10
-      bool          isUserItem           (void);    // P1=11
-      bool          isSpecialItem        (void);    // P1=12
-      bool          isBadLuckItem        (void);    // P1=13
-      bool          isBarlineItem        (void);    // P1=14
-      bool          isEpsItem            (void);    // P1=15
-      bool          isTextItem           (void);    // P1=16
-      bool          isKeySigItem         (void);    // P1=17
-      bool          isTimeSigItem        (void);    // P1=18
+      bool          isNoteItem           (void);    // P1==1
+      bool          isRestItem           (void);    // P1==2
+      bool          isClefItem           (void);    // P1==3
+      bool          isLineItem           (void);    // P1==4
+      bool          isSlurItem           (void);    // P1==5
+      bool          isBeamItem           (void);    // P1==6
+      bool          isTrillItem          (void);    // P1==7
+      bool          isStaffItem          (void);    // P1==8
+      bool          isSymbolItem         (void);    // P1==9
+      bool          isNumberItem         (void);    // P1==10
+      bool          isUserItem           (void);    // P1==11
+      bool          isSpecialItem        (void);    // P1==12
+      bool          isBadLuckItem        (void);    // P1==13
+      bool          isBarlineItem        (void);    // P1==14
+      bool          isEpsItem            (void);    // P1==15
+      bool          isTextItem           (void);    // P1==16
+      bool          isKeySigItem         (void);    // P1==17
+      bool          isKeySignatureItem   (void);    // P1==17
+      bool          isTimeSigItem        (void);    // P1==18
 
       // P2 accessors
       unsigned int  getStaffNumber       (void);
@@ -90,10 +91,14 @@ using namespace std;
       int          stemUp                (void);
       int          stemDown              (void);
       int          stemFlip              (void);
+      int          getPrintedAccidental  (void);
+      int          hasNatural            (void);
+      int          hasEditorialAccidental(void);
 
       // Rest (P1=2) processing functions
 
       // Clef (P1=3) processing functions
+      int          getMiddleCVpos        (void);
 
       // Line (P1=4) processing functions
 
@@ -124,6 +129,7 @@ using namespace std;
       // Text (P1=16) processing functions
 
       // KeySignature (P1=17) processing functions
+      int     getDiatonicAccidentalState(vectorI& states);
 
       // MeterSignature (P1=18) processing functions
 

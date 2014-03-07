@@ -31,11 +31,13 @@ class ScorePage : public ScorePageBase {
 
 
       // Data access functions (defined in ScorePage_data.cpp):
-      void getHorizontallySortedStaffItems (vectorVSIp& staffsequence);
       void getUnsortedStaffItems        (int staffnum, vectorSIp& items);
       void getUnsortedStaffItems        (vectorSIp& items, int staffnum);
       void getSortedStaffItems          (int staffnum, vectorSIp& items);
       void getSortedStaffItems          (vectorSIp& items, int staffnum);
+      void getHorizontallySortedStaffItems (vectorVSIp& staffsequence);
+      void getUnsortedSystemItems       (vectorSIp& sysseq, int sysindex);
+      void getHorizontallySortedSystemItems(vectorSIp& sysseq, int sysindex);
 
 
       // Staff Analysis functions (defined in ScorePage_staff.cpp):
@@ -55,10 +57,24 @@ class ScorePage : public ScorePageBase {
       int&        systemMap             (int index);
       int&        systemStaffMap        (int index);
       vectorVI&   reverseSystemMap      (void);
+      int         getSystemIndex        (int staffnumber);
+      int         getSystemStaffIndex   (int staffnumber);
 
       // Staff duration analysis functions (defined in ScorePage_duration.cpp):
       void        analyzeStaffDurations (void);
 
+      // Pitch analysis functions (defined in ScorePage_pitch.cpp):
+      void        analyzePitch          (void);
+      void        analyzePitchOnSystem  (vectorSIp& systemitems);
+      static int  base7ToBase40         (int base7);
+
+   private:
+      void        resetPitchSpellings   (int staffidx, int barheight, 
+                                         vectorVI& pitchstate, 
+                                         vectorVI& keysig);
+      void        fillPitchStatesWithKeySig(vectorVI& pitchstate, int sysidx,
+                                         vectorVI& keysig);
+      string      base40ToKern          (int base40);
 
    protected:
       SCORE_FLOAT calculateStaffDuration(vectorSIp& staffitems);

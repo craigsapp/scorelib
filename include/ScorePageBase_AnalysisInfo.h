@@ -49,6 +49,10 @@ class AnalysisInfo {
       // 1=system grouping has been done.
       bool systems;
 
+      // pitches: 0=pitch analysis has not yet been done.  1=pitch analysis
+      // has been done.
+      bool pitches;
+
 };
 
 
