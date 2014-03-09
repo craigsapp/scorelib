@@ -31,86 +31,86 @@ class ScoreItemBase {
    friend class ScorePageBase;
 
    public:
-                    ScoreItemBase(void);
-                    ScoreItemBase(const string& stringitem);
-                    ScoreItemBase(const ScoreItemBase& anItem);
-                    ScoreItemBase(const vectorSF& parameters);
-                   ~ScoreItemBase();
+                    ScoreItemBase     (void);
+                    ScoreItemBase     (const string& stringitem);
+                    ScoreItemBase     (const ScoreItemBase& anItem);
+                    ScoreItemBase     (const vectorSF& parameters);
+                   ~ScoreItemBase     ();
 
-      ScoreItemBase& operator=      (const ScoreItemBase& anItem);
+      ScoreItemBase& operator=        (const ScoreItemBase& anItem);
 
       // Accessor functions
-      SCORE_FLOAT   getParameter     (int pindex);
-      int           getParameterInt  (int pindex);
-      const string& getParameter     (const string& nspace, 
-                                      const string& key);
-      const string& getParameter     (const string& key);
-      int           getParameterInt  (const string& key);
+      SCORE_FLOAT   getParameter      (int pindex);
+      int           getParameterInt   (int pindex);
+      const string& getParameter      (const string& nspace, 
+                                       const string& key);
+      const string& getParameter      (const string& key);
+      int           getParameterInt   (const string& key);
       double        getParameterDouble(const string& key);
       double        getParameterDouble(const string& nspace, const string& key);
-      const string& getFixedText     (void) const;
+      const string& getFixedText      (void) const;
       SCORE_FLOAT   getParameterFraction(int pindex);
 
       // namespaced parameters
-      void          setParameter     (const string& nspace, 
-                                      const string& key, const string& value);
-      void          setParameter     (const string& nspace, 
-                                      const string& key, int value);
-      void          setParameter     (const string& nspace, 
-                                      const string& key, SCORE_FLOAT value);
+      void          setParameter      (const string& nspace, 
+                                       const string& key, const string& value);
+      void          setParameter      (const string& nspace, 
+                                       const string& key, int value);
+      void          setParameter      (const string& nspace, 
+                                       const string& key, SCORE_FLOAT value);
       // global namespace parameters
-      void          setParameter     (const string& key, const string& value);
-      void          setParameter     (const string& key, int value);
-      void          setParameter     (const string& key, SCORE_FLOAT value);
+      void          setParameter      (const string& key, const string& value);
+      void          setParameter      (const string& key, int value);
+      void          setParameter      (const string& key, SCORE_FLOAT value);
 
       // numeric parameters 
-      void          setParameter     (int index, SCORE_FLOAT value);
+      void          setParameter      (int index, SCORE_FLOAT value);
 
       // P1=15/16 text
-      void          setFixedText     (const string& text);
+      void          setFixedText      (const string& text);
 
-      int           getNamespaceCount(void) const;
+      int           getNamespaceCount (void) const;
       int           countAllNamedParameters(void);
       int           getNamedParameterCount (const string& nspace);
       int           getNamedParameterCount (void);
       int           getNamedParameterSize  (const string& nspace);
       int           getNamedParameterSize  (void);
       int           getCompactFixedParameterCount(void);
-      int           hasParameter     (const string& testkey);
-      int           hasParameter     (const string& nspace, 
+      int           hasParameter      (const string& testkey);
+      int           hasParameter      (const string& nspace, 
                                       const string& testkey);
-      void          deleteNamespace  (const string& nspace);
-      void          eraseNamespace   (const string& nspace);
-      void          clearNamespace   (const string& nspace);
+      void          deleteNamespace   (const string& nspace);
+      void          eraseNamespace    (const string& nspace);
+      void          clearNamespace    (const string& nspace);
+ 
+      void          deleteParameter   (const string& nspace, const string& key);
+      void          eraseParameter    (const string& nspace, const string& key);
+      void          clearParameter    (const string& nspace, const string& key);
 
-      void          deleteParameter  (const string& nspace, const string& key);
-      void          eraseParameter   (const string& nspace, const string& key);
-      void          clearParameter   (const string& nspace, const string& key);
-
-      void          deleteParameter  (const string& key);
-      void          eraseParameter   (const string& key);
-      void          clearParameter   (const string& key);
+      void          deleteParameter   (const string& key);
+      void          eraseParameter    (const string& key);
+      void          clearParameter    (const string& key);
 
       // Accessor function aliases:
-      void          setP             (const string& nspace, 
-                                      const string& key, const string& value);
-      void          setP             (const string& nspace, const string& key, 
-                                      int value);
-      void          setP             (const string& nspace, const string& key, 
-                                      SCORE_FLOAT value);
+      void          setP              (const string& nspace, 
+                                       const string& key, const string& value);
+      void          setP              (const string& nspace, const string& key, 
+                                       int value);
+      void          setP              (const string& nspace, const string& key, 
+                                       SCORE_FLOAT value);
 
-      void          setP             (const string& key, const string& value);
-      void          setP             (const string& key, int value);
-      void          setP             (const string& key, SCORE_FLOAT value);
+      void          setP              (const string& key, const string& value);
+      void          setP              (const string& key, int value);
+      void          setP              (const string& key, SCORE_FLOAT value);
+ 
+      void          setP              (int index, SCORE_FLOAT value);
 
-      void          setP             (int index, SCORE_FLOAT value);
-
-      SCORE_FLOAT   getP             (int pindex);
-      int           getPInt          (int pindex);
-      const string& getP             (const string& nspace, const string& key);
-      const string& getP             (const string& key);
-      int           getPInt          (const string& key);
-      double        getPDouble       (const string& key);
+      SCORE_FLOAT   getP              (int pindex);
+      int           getPInt           (int pindex);
+      const string& getP              (const string& nspace, const string& key);
+      const string& getP              (const string& key);
+      int           getPInt           (const string& key);
+      double        getPDouble        (const string& key);
 
 
       // Printing functions

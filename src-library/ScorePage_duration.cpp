@@ -29,10 +29,10 @@ using namespace std;
 //
 
 void ScorePage::analyzeStaffDurations(void) {
-   if (analysis_info.staves == 0) {
+   if (!analysis_info.stavesIsValid()) {
       analyzeStaves();
    }
-   analysis_info.staffdurations = 0;
+   analysis_info.setInvalid("duration");
 
    vectorVSIp staffsequence;
    getHorizontallySortedStaffItems(staffsequence);
@@ -44,7 +44,7 @@ void ScorePage::analyzeStaffDurations(void) {
       setStaffDuration(i, staffduration);
    }
 
-   analysis_info.staffdurations = 1;
+   analysis_info.setValid("duration");
 }
 
 
@@ -55,7 +55,8 @@ void ScorePage::analyzeStaffDurations(void) {
 //      of the note/rest sequence on a staff.  The input is presumed to
 //      be sorted according to P3 (from left to right on the staff).
 //      This function has a side effect which sets the durational offset 
-//      of each object from the start of the staff.
+//      of each object from the start of the staff. (Private function
+//      used to analyze the duration on staves).
 //
 
 SCORE_FLOAT ScorePage::calculateStaffDuration(vectorSIp& staffitems) {
@@ -139,9 +140,10 @@ void ScorePage::setStaffDuration(int staffnum, SCORE_FLOAT duration) {
 //
 
 SCORE_FLOAT ScorePage::getStaffDuration(int staffnum) {
-   if (analysis_info.staves == 0) {
-      analyzeStaves();
+   if (!analysis_info.durationIsValid()) {
+      analyzeStaffDurations();
    }
+
    return staff_info.getStaffDuration(staffnum);
 }
 

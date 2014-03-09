@@ -61,3 +61,34 @@ ScorePage::~ScorePage() {
 
 
 
+///////////////////////////////////////////////////////////////////////////
+//
+// Private functions.
+//
+
+//////////////////////////////
+//
+// ScorePage::sortPageHorizontally --  The primary analysis function
+// to which most other analysis functions depend.
+//
+
+void ScorePage::sortPageHorizontally  (void) {
+   analysis_info.setInvalid("sorted");
+   vectorSIp& sortlist = itemlist_P3sorted;
+   sortlist.resize(item_storage.size());
+
+   auto it = item_storage.begin();
+   auto it2 = sortlist.begin();
+
+   for ( ; ((it != item_storage.end()) && (it2 != sortlist.end())); 
+           it++, it2++) {
+      *it2 = *it;
+   }
+   sort(sortlist.begin(), sortlist.end(), sortP3);
+   analysis_info.setValid("notmodified");
+   analysis_info.setValid("sorted");
+}
+
+
+
+

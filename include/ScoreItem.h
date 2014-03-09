@@ -15,7 +15,15 @@
 #ifndef _SCOREITEM_H_INCLUDED
 #define _SCOREITEM_H_INCLUDED
 
+#include <list>
+#include <vector>
+
 using namespace std;
+
+
+// define SCOREITEMEDIT when compiling this class to use the ScoreItemEdit
+// class to keep track of the parameter changes (for undo/redo options
+// in a user interface).
 
 #ifdef SCOREITEMEDIT
    #include "ScoreItemEdit.h"
@@ -28,20 +36,20 @@ using namespace std;
 #endif
 
    public:
-                    ScoreItem      (void);
-                    ScoreItem      (const ScoreItem& anItem);
-                    ScoreItem      (const ScoreItemBase& anItem);
-                    ScoreItem      (const vectorSF& parameters);
-                   ~ScoreItem      ();
+                    ScoreItem             (void);
+                    ScoreItem             (const ScoreItem& anItem);
+                    ScoreItem             (const ScoreItemBase& anItem);
+                    ScoreItem             (const vectorSF& parameters);
+                   ~ScoreItem             ();
 
-      ScoreItem&    operator=      (const ScoreItem& anItem);
+      ScoreItem&    operator=             (const ScoreItem& anItem);
 
-      int          getParameterDigit (int pindex, int position);
-      int          getPDigit         (int pindex, int position);
-      void         setParameterDigit (int pindex, int position, int value);
-      void         setPDigit         (int pindex, int position, int value);
+      int          getParameterDigit      (int pindex, int position);
+      int          getPDigit              (int pindex, int position);
+      void         setParameterDigit      (int pindex, int position, int value);
+      void         setPDigit              (int pindex, int position, int value);
       void         setParameterIntegerPart(int pindex, int intval);
-      void         setPIntPart       (int pindex, int intval);
+      void         setPIntPart            (int pindex, int intval);
 
       // P1-P4 are the same for most P1 item types.
 
@@ -121,15 +129,15 @@ using namespace std;
       // BadLuck (P1=13) processing functions
 
       // Barline (P1=14) processing functions
-      int     getBarlineHeight    (void);
-      int     getBarHeight        (void);
+      int          getBarlineHeight      (void);
+      int          getBarHeight          (void);
 
       // ImportedEPSGraphic (P1=15) processing functions
 
       // Text (P1=16) processing functions
 
       // KeySignature (P1=17) processing functions
-      int     getDiatonicAccidentalState(vectorI& states);
+      int          getDiatonicAccidentalState(vectorI& states);
 
       // MeterSignature (P1=18) processing functions
 
@@ -138,15 +146,17 @@ using namespace std;
 
 
 // ScoreItem typedefs:
-typedef list<ScoreItem*>           listSIp;
-typedef vector<ScoreItem*>         vectorSIp;
-typedef vector<vector<ScoreItem*>> vectorVSIp;
+using listSIp     = list<ScoreItem*>;
+using vectorSIp   = vector<ScoreItem*>;
+using vectorVSIp  = vector<vector<ScoreItem*>>;
 
 
 // ScoreItem sorting functions (defined in ScoreItem_sort.cpp):
 bool   sortP3              (ScoreItem* a, ScoreItem* b);
+bool   sortP3P2            (ScoreItem* a, ScoreItem* b);
 bool   sortP3P4P1          (ScoreItem* a, ScoreItem* b);
 bool   sortP3P1P4          (ScoreItem* a, ScoreItem* b);
+bool   sortP3P2P1P4        (ScoreItem* a, ScoreItem* b);
 
 
 // Selecting filters for list of ScoreItems (defined in ScoreItem_select.cpp):
@@ -171,6 +181,7 @@ ostream& operator<<(ostream& out, listSIp& sipvector);
 ostream& operator<<(ostream& out, vectorSIp& sipvector);
 ostream& operator<<(ostream& out, vectorVSIp& sipvvector);
 
-#endif  /* _SCOREITEM_H_INCLUDED */
 
+
+#endif  /* _SCOREITEM_H_INCLUDED */
 

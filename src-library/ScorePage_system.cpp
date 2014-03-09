@@ -15,6 +15,7 @@
 //
 
 #include "ScorePage.h"
+#include <algorithm>
 
 using namespace std;
 
@@ -45,8 +46,12 @@ using namespace std;
 //
 
 int ScorePage::analyzeSystems(void) {
+   if (!analysis_info.stavesIsValid()) {
+      analyzeStaves();
+   }
+   analysis_info.invalidate("systems");
+
    int i, j, k;
-   analysis_info.systems = 0;
 
    int maxstaff = getMaxStaff();
    if (maxstaff > 100) {
@@ -146,9 +151,56 @@ int ScorePage::analyzeSystems(void) {
       reverseSystemMap()[j].push_back(i);      
    }
 
+   analysis_info.validate("systems");
 
-   analysis_info.systems = 1;
+   fillSystemScoreItemLists();
+
    return currentSystem;
+}
+
+
+
+//////////////////////////////
+//
+// ScorePage::fillSystemScoreItemLists --  Do a system analysis (if not
+//     already done), and then fill the system lists with ScoreItems
+//     for each system.
+//
+
+void ScorePage::fillSystemScoreItemLists(void) {
+   if (!analysis_info.systemsIsValid()) {
+      analyzeSystems();
+   }
+
+   int systemcount = getSystemCount();
+   vectorVSIp& systemlist = itemlist_systemsorted;
+   vectorVSIp& stafflist  = itemlist_staffsorted;
+
+   systemlist.resize(systemcount);
+   int i, j, k;
+   int itemcount;
+   int systemstaffcount;
+   int staffitemcount;
+   int p2;
+   for (i=0; i<systemcount; i++) {
+      systemstaffcount = reverseSystemMap()[i].size();
+      itemcount = 0;
+      for (j=0; j<systemstaffcount; j++) {
+         p2 = reverseSystemMap()[i][j];
+         itemcount += stafflist[p2].size();
+      }
+      systemlist[i].reserve(itemcount);
+      systemlist[i].resize(0);
+      for (j=0; j<systemstaffcount; j++) {
+         p2 = reverseSystemMap()[i][j];
+         staffitemcount = stafflist[p2].size();
+         for (k=0; k<staffitemcount; k++) {
+            systemlist[i].push_back(stafflist[p2][k]);
+         }
+      }
+
+      sort(systemlist[i].begin(), systemlist[i].end(), sortP3P2P1P4);
+   }
 }
 
 
@@ -161,7 +213,7 @@ int ScorePage::analyzeSystems(void) {
 //
 
 int ScorePage::getSystemCount(void) {
-   if (analysis_info.systems == 0) {
+   if (!analysis_info.systemsIsValid()) {
       analyzeSystems();
    }
    return staff_info.reverseSystemMap().size();
@@ -253,6 +305,22 @@ int ScorePage::getSystemStaffIndex(int staffnumber) {
    }
    return staff_info.systemStaffMap()[staffnumber];
 }
+
+
+
+//////////////////////////////
+//
+// ScorePage::systemItems --  Return a list of ScoreItems found on the
+//     given system.
+//
+
+vectorSIp& ScorePage::systemItems(int sindex) {
+   if (!analysis_info.systemsIsValid()) {
+      analyzeSystems();
+   }
+   return itemlist_systemsorted[sindex];
+}
+
 
 
 

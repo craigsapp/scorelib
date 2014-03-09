@@ -42,14 +42,13 @@ ScorePageSet::~ScorePageSet() {
 //
 
 void ScorePageSet::clear(void) {
-   unsigned int i;
-   for (i=0; i<pages.size(); i++) {
-      if (pages[i] != NULL) {
-         delete pages[i];
-         pages[i] = NULL;
-      }
+   for (auto it = page_storage.begin(); it != page_storage.end(); it++) {
+      delete *it;
+      *it = NULL;
    }
-   pages.resize(0);
+   page_storage.resize(0);
+   page_sequence.resize(0);
+
 }
 
 

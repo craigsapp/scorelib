@@ -16,23 +16,28 @@
 
 using namespace std;
 
-
 typedef vector<ScorePage*> vectorSPp;
 
-
 class ScorePageSet { 
-
    public:
                ScorePageSet      (void);
               ~ScorePageSet      ();
       void     clear             (void);
 
+
    protected:
-      vectorSPp pages;
+      // page_storage contains all of the data for SCORE pages.
+      // This is the primary storage for page data, and it must
+      // be deleted when an object is deconstructed.
+      listSIp page_storage;
+
+      // page_sequence is the order in which the pages in page_storage
+      // should be arranged.
+      vectorSPp page_sequence;
 
 };
 
 
-#endif /* _SCOREPAGESET_H_INCLUDED */
 
+#endif /* _SCOREPAGESET_H_INCLUDED */
 

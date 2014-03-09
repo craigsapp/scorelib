@@ -15,7 +15,6 @@
 #include "ScoreItem.h"
 
 class StaffInfo {
-
    public:
                     StaffInfo            (void);
                     StaffInfo            (const StaffInfo& info);
@@ -63,4 +62,7 @@ class StaffInfo {
       vectorVSIp staffitems;
 };
 
+
+
 #endif /* _SCOREPAGEBASE_STAFFINFO_H_INCLUDED */
+

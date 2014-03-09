@@ -19,13 +19,13 @@ using namespace std;
 
 class ScoreItemEdit : public ScoreItemBase {
    public:
-                    ScoreItemEdit(void);
-                    ScoreItemEdit(const ScoreItemEdit& anItem);
-                    ScoreItemEdit(const ScoreItemBase& anItem);
-                    ScoreItemEdit(const vectorSF& parameters);
-                   ~ScoreItemEdit();
+                    ScoreItemEdit        (void);
+                    ScoreItemEdit        (const ScoreItemEdit& anItem);
+                    ScoreItemEdit        (const ScoreItemBase& anItem);
+                    ScoreItemEdit        (const vectorSF& parameters);
+                   ~ScoreItemEdit        ();
 
-      ScoreItemEdit& operator=      (const ScoreItemEdit& anItem);
+      ScoreItemEdit& operator=           (const ScoreItemEdit& anItem);
 
       // Edit history management functions
       void          clearHistory         (void);
@@ -80,10 +80,10 @@ class ScoreItemEdit : public ScoreItemBase {
       void          clearParameter   (const string& key);
 
       // Printing functions
-      ostream&      printPmx          (ostream& out);
+      ostream&      printPmx           (ostream& out);
       ostream&      printPmxEditHistory(ostream& out);
-      ostream&      printXmlWithEdits (ostream& out, int indentcount = 0, 
-                                       const string& indentstring = "\t");
+      ostream&      printXmlWithEdits  (ostream& out, int indentcount = 0, 
+                                        const string& indentstring = "\t");
 
    protected:
       void          appendToHistory  (const string& nspace, const string& key, 
@@ -121,11 +121,11 @@ class ScoreItemEdit : public ScoreItemBase {
 
    private:
       static unsigned int history_index;
-      static int history_active;
-      static int history_thawed;
+      static int          history_active;
+      static int          history_thawed;
 };
 
 
-#endif  /* _SCOREITEMEDIT_H_INCLUDED */
 
+#endif  /* _SCOREITEMEDIT_H_INCLUDED */
 

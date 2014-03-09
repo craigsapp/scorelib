@@ -1,7 +1,7 @@
 //
 // Programmer:    Craig Stuart Sapp <craig@ccrma.stanford.edu>
 // Creation Date: Sun Feb 16 18:44:37 PST 2014
-// Last Modified: Sat Mar  1 03:04:06 PST 2014
+// Last Modified: Sat Mar  8 00:03:52 PST 2014
 // Filename:      ScorePageBase_AnalysisInfo.h
 // URL:           https://github.com/craigsapp/scorelib/blob/master/include/ScorePageBase_AnalysisInfo.h
 // Syntax:        C++11
@@ -13,47 +13,101 @@
 #define _SCOREPAGEBASE_ANALYSISINFO_H_INCLUDED
 
 #include "ScoreItem.h"
+#include "AnalysisDatabase.h"
 
 using namespace std;
 
 
 class AnalysisInfo {
-   public:
-                    AnalysisInfo    (void);
-                    AnalysisInfo    (const AnalysisInfo& info);
-                   ~AnalysisInfo    (void);
 
-      AnalysisInfo& operator=       (const AnalysisInfo& info);
-      void          clear           (void);
+   friend class AnalysisDatabase;
 
    public:
-      // analysis_notmodified: 
-      //    0 : modified; or undefined
-      //  >=1 : no change in ScoreItems owned by this page
-      //        since the last analyses were done.
-      //    1 : staff analysis has been done.
-      //    2 : staff duration analysis has been done.
-      //    3 : system analysis has been done.
-      //    4 : part analysis has been done.
+                    AnalysisInfo             (void);
+                    AnalysisInfo             (const AnalysisInfo& info);
+                   ~AnalysisInfo             (void);
+
+      AnalysisInfo& operator=                (const AnalysisInfo& info);
+      void          clear                    (void);
+
+      void          invalidateModified       (void);
+
+      // Tests to see if various analyses have been done.
+      int           isModified               (void);
+      int           sortedIsValid            (void);
+      int           stavesIsValid            (void);
+      int           durationIsValid          (void);
+      int           systemsIsValid           (void);
+      int           systemPitchesIsValid     (void);
+      int           staffSlursTiesIsValid    (void);
+      int           chordsIsValid            (void);
+      int           beamsIsValid             (void);
+      int           barlinesIsValid          (void);
+      int           layersIsValid            (void);
+
+      void          setValid                 (const string& node);
+      void          setInvalid               (const string& node);
+      void          invalidate               (const string& node);
+      void          validate                 (const string& node);
+
+   private:
+      // notmodified: true if data has not been modified
+      // (no ScoreItem parameter changes and no additions/deletions).
+      // Dependencies for notmodified: none
       int notmodified;
 
-      // staves: 0=staff analysis has not been done.
-      //                  1=staff analysis has been done.
-      bool staves;
+      // sorted: true if the data on the page has been sorted by P3 value.
+      // All staves will be interleaved into one stream.
+      // Dependencies for sorted: notmodified
+      int sorted;
 
-      // staffduration: 0=staff durations have not yet been
-      // analyzed. 1=staff durations have been analyzed
-      bool staffdurations;
+      // staves: true if staff analysis has been done.  The data for each
+      // staff will be separated into separate storage.
+      // Dependencies for staves: sorted (notmodified)
+      int staves;
 
-      // systems: 0=system grouping of staves has not been done;
-      // 1=system grouping has been done.
-      bool systems;
+      // duration: true if duration analysis has been done for each staff.
+      // Dependencies for duration: staves (sorted, notmodified)
+      int duration;
 
-      // pitches: 0=pitch analysis has not yet been done.  1=pitch analysis
-      // has been done.
-      bool pitches;
+      // systems: true if system identification has been done.
+      // Dependencies: staves (sorted, notmodified)
+      int systems;
 
+      // systempitches: true if pitch analysis has been done.
+      // Dependencies: systems (staves, sorted, notmodified)
+      int systempitches;
+
+      // staffslursties: true if slurs/ties have been differentiated at the
+      // staff level (slurs/ties across system breaks are not analyzed, this
+      // is done at the ScorePageSet level.
+      int staffslursties;
+
+      // chords: true if notes have been grouped into chords.
+      // Dependencies for chords: staves, (sorted, notmodified).
+      int chords;
+
+      // beams: true if beamed notes have been groupd into chords.
+      // Dependencies for beams: staves, (sorted, notmodified).
+      int beams;
+
+      // barlines: true if barline analysis has been done.
+      // Dependencies for barlines: systems, (staves, sorted, notmodified).
+      int barlines;
+
+      // layers: true if layers have been identified.
+      // Dependencies for layers: barlines, (systems, staves, sorted, 
+      // notmodified).
+      int layers;
+
+   private:
+      static AnalysisDatabase database;
+      static int              database_initialized;
+
+      void          initializeDatabase       (void);
 };
 
 
+
 #endif /* _SCOREPAGEBASE_ANALYSISINFO_H_INCLUDED */
+

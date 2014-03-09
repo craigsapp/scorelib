@@ -1,9 +1,9 @@
 //
 // Programmer:    Craig Stuart Sapp <craig@ccrma.stanford.edu>
-// Creation Date: Thu Mar  6 02:32:39 PST 2014
-// Last Modified: Thu Mar  6 02:32:43 PST 2014
-// Filename:      systeminfo.cpp
-// URL: 	  https://github.com/craigsapp/scorelib/blob/master/tests/systeminfo.cpp
+// Creation Date: Fri Mar  7 01:51:25 PST 2014
+// Last Modified: Fri Mar  7 01:51:29 PST 2014
+// Filename:      analyzepitch.cpp
+// URL: 	  https://github.com/craigsapp/scorelib/blob/master/tests/analyzepitch.cpp
 // Syntax:        C++11
 //
 // Description:   This program prints system information about staves on a page.
@@ -22,10 +22,12 @@ using namespace std;
 
 void       processData        (ScorePage& infile);
 
+Options opts;
+
 ///////////////////////////////////////////////////////////////////////////
 
 int main(int argc, char** argv) {
-   Options opts;
+   opts.define("p|pitch=b", "Analyze pitch content of notes.");
    opts.process(argc, argv);
    
    ScorePage infile;
@@ -54,25 +56,20 @@ int main(int argc, char** argv) {
 //
 
 void processData(ScorePage& infile) {
-   infile.analyzeSystems();
-   infile.analyzeStaffDurations();
-   int maxstaff = infile.getMaxStaff();
-   cout << "P2\tsystem\tstaffsystem\tduration\n";
-   cout << "===============================================\n";
-   int lastsystem = -2;
-   int system;
-   for (auto i=maxstaff; i>0; i--) {
-      system = infile.systemMap(i);
-      if (system != lastsystem) {
-         cout << endl;
-      } 
-      lastsystem = system;
-      cout << i << "\t";                  // P2 staff number
-      cout << infile.systemMap(i) << "\t";         // system index
-      cout << infile.systemStaffMap(i) << "\t\t";  // system-staff index
-      cout << infile.getStaffDuration(i) << endl;  // duration
+   if (opts.getBoolean("pitch")) {
+      infile.analyzePitch();
    }
-   cout << endl;
+
+   int syscount = infile.getSystemCount();
+   for (int i=0; i<syscount; i++) {
+      if (i > 0) {
+         cout << endl;
+      }
+      cout << "# SYSTEM " << i << endl;
+      cout << infile.systemItems(i);
+   }
+
+   cout << infile;
 }
 
 

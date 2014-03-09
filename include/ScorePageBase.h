@@ -19,101 +19,84 @@
 #include "ScorePageBase_PrintInfo.h"
 #include "ScorePageBase_StaffInfo.h"
 
-//    0 : modified; or undefined
-//  >=1 : no change in ScoreItems owned by this page
-//        since the last analyses were done.
-//    1 : staff analysis has been done.
-//    2 : staff duration analysis has been done.
-//    3 : system analysis has been done.
-//    4 : part analysis has been done.
-
-// Analysis-level enumerations
-typedef enum {
-        MODIFIED = 0,  // ScoreItem database has/has not been modified.
-        STAFF,         // Staff population on page has been analyzed.
-        STAFFDUR,      // Staff durations have been analyzed.
-        SYSTEM,        // System grouping of staves has been analyzed.
-        PART           // Staff -> Part analysis has been done.
-} ANALYSIS;
-
 using namespace std;
 
-
 class ScorePageBase {
+
    friend class ScoreItemBase;
 
    public:
-               ScorePageBase             (void);
-               ScorePageBase             (const char* filename);
-               ScorePageBase             (istream& instream);
-               ScorePageBase             (const ScorePageBase& apage);
-              ~ScorePageBase             ();
+                     ScorePageBase            (void);
+                     ScorePageBase            (const char* filename);
+                     ScorePageBase            (istream& instream);
+                     ScorePageBase            (const ScorePageBase& apage);
+                    ~ScorePageBase            ();
 
-      void     clear                     (void);
-      int      getItemCount              (void);
+      void           clear                    (void);
+      int            getItemCount             (void);
 
       // File name functions:
-      string&        getFilename         (string& output);
-      string         getFilename         (void);
-      string&        getFilenameWithPath (string& output);
-      const string&  getFilenameBase     (void);
-      const string&  getFilenameExtension(void);
-      const string&  getFilenamePath     (void);
-      void           setFilename         (const string& filename);
-      const string&  setFilenameBase     (const string& filebase);
-      const string&  setFilenameExtension(const string& fileext);
-      const string&  setFilenamePath     (const string& filename);
-      static string& removeCharacter     (string& out, char character);
+      string&        getFilename              (string& output);
+      string         getFilename              (void);
+      string&        getFilenameWithPath      (string& output);
+      const string&  getFilenameBase          (void);
+      const string&  getFilenameExtension     (void);
+      const string&  getFilenamePath          (void);
+      void           setFilename              (const string& filename);
+      const string&  setFilenameBase          (const string& filebase);
+      const string&  setFilenameExtension     (const string& fileext);
+      const string&  setFilenamePath          (const string& filename);
+      static string& removeCharacter          (string& out, char character);
 
 
       // lists of items on the page
-      void     getFileOrderList  (vectorSIp& data);
-      void     getStaffItemList (vectorVSIp& data);
-      void     getStaffItemListOrdered(vectorVSIp& data);
+      void           getFileOrderList         (vectorSIp& data);
+      void           getStaffItemList         (vectorVSIp& data);
+      void           getStaffItemListOrdered  (vectorVSIp& data);
 
-      void     setDefaultPrintParameters(void);
-      ScoreItem* appendItem(ScoreItem& anItem);
-      ScoreItem* appendItem(const string& itemstring);
-      ScoreItem* prependItem(ScoreItem& anItem);
+      void           setDefaultPrintParameters(void);
+      ScoreItem*     appendItem               (ScoreItem& anItem);
+      ScoreItem*     appendItem               (const string& itemstring);
+      ScoreItem*     prependItem              (ScoreItem& anItem);
 
       // binary file trailer related functions:
-      SCORE_FLOAT    getVersion         (void);
-      void           setVersionWinScore (void);
-      uint32_t       getSerial          (void);
-      uint32_t       getSerialNumber    (void);
-      void           setSerialNumber    (uint32_t value);
-      void           setSerial          (uint32_t value);
-      SCORE_FLOAT    getUnits           (void);
-      void           setUnitsInches     (void);
-      void           setUnitsCentimeters(void);
+      SCORE_FLOAT    getVersion               (void);
+      void           setVersionWinScore       (void);
+      uint32_t       getSerial                (void);
+      uint32_t       getSerialNumber          (void);
+      void           setSerialNumber          (uint32_t value);
+      void           setSerial                (uint32_t value);
+      SCORE_FLOAT    getUnits                 (void);
+      void           setUnitsInches           (void);
+      void           setUnitsCentimeters      (void);
 
 
       // file reading functions:
-      void           read              (const char* filename, int verboseQ = 0);
-      void           read              (const string& filename, int verboseQ = 0);
-      void           read              (istream& infile, int verboseQ = 0);
-      void           readFile          (const char* filename, int verboseQ = 0);
-      void           readFile          (istream& infile, int verboseQ = 0);
-      void           readPmx           (const char* filename, int verboseQ = 0);
-      void           readPmx           (istream& infile, int verboseQ = 0);
-      ScoreItem*     readPmxScoreLine  (istream& infile, int verboseQ = 0);
-      void           readBinary        (const char* filename, int verboseQ = 0);
-      void           readBinary        (istream& infile, int verboseQ = 0);
+      void           read            (const char* filename, int verboseQ = 0);
+      void           read            (const string& filename, int verboseQ = 0);
+      void           read            (istream& infile, int verboseQ = 0);
+      void           readFile        (const char* filename, int verboseQ = 0);
+      void           readFile        (istream& infile, int verboseQ = 0);
+      void           readPmx         (const char* filename, int verboseQ = 0);
+      void           readPmx         (istream& infile, int verboseQ = 0);
+      ScoreItem*     readPmxScoreLine(istream& infile, int verboseQ = 0);
+      void           readBinary      (const char* filename, int verboseQ = 0);
+      void           readBinary      (istream& infile, int verboseQ = 0);
 
       // file writing functions:
-      void           writeBinary       (const char* filename);
-      ostream&       writeBinary       (ostream& outfile);
-      ostream&       writeLittleFloat  (ostream& out, SCORE_FLOAT number);
-      ostream&       printPmx          (ostream& out, int roundQ = 1,
-                                        int verboseQ = 0);
+      void           writeBinary     (const char* filename);
+      ostream&       writeBinary     (ostream& outfile);
+      ostream&       writeLittleFloat(ostream& out, SCORE_FLOAT number);
+      ostream&       printPmx        (ostream& out, int roundQ = 1,
+                                      int verboseQ = 0);
       ostream&       printPmxFixedParameters(ostream& out, int roundQ,
-                                        int verboseQ = 0);
+                                      int verboseQ = 0);
       ostream&       printPmxWithNamedParameters(ostream& out, int roundQ,
-                                       int verboseQ);
-      ostream&       printAsciiTrailer (ostream& out);
+                                      int verboseQ);
+      ostream&       printAsciiTrailer(ostream& out);
    protected:
-      SCORE_FLOAT    readLittleFloat   (istream& instream);
-      int            readLittleShort   (istream& input);
+      SCORE_FLOAT    readLittleFloat (istream& instream);
+      int            readLittleShort (istream& input);
       
    protected:
       // Variable "item_storage" contains pointers to all SCORE items on the
@@ -121,6 +104,11 @@ class ScorePageBase {
       // delete these items (unless they are transfered to another page
       // before this one is destroyed).
       listSIp item_storage;
+
+      // Various horizontally sorted organizations of the item_storage data.
+      vectorSIp itemlist_P3sorted;
+      vectorVSIp itemlist_staffsorted;
+      vectorVSIp itemlist_systemsorted;
 
       // Variable "trailer" is for storing the trailer of a SCORE binary file.
       // The trailer consists of at least 5 floats.  The numbers in
@@ -149,7 +137,7 @@ class ScorePageBase {
       string filename_extension;
       string filename_path;
 
-      constexpr static unsigned int    MAX_STAFF_COUNT = 100;
+      constexpr static unsigned int MAX_STAFF_COUNT = 100;
 
       // staff_info contains information about the staves on the page
       // and how they are grouped into systems.
@@ -180,6 +168,6 @@ class ScorePageBase {
 ostream& operator<<(ostream& out, ScorePageBase& aPage);
 
 
-#endif /* _SCOREPAGEBASE_H_INCLUDED */
 
+#endif /* _SCOREPAGEBASE_H_INCLUDED */
 

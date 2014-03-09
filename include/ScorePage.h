@@ -18,9 +18,7 @@
 
 using namespace std;
 
-
 class ScorePage : public ScorePageBase {
-
    public:
                   ScorePage             (void);
                   ScorePage             (const char* filename);
@@ -31,22 +29,32 @@ class ScorePage : public ScorePageBase {
 
 
       // Data access functions (defined in ScorePage_data.cpp):
+
+      // Staff-level data lists:
       void getUnsortedStaffItems        (int staffnum, vectorSIp& items);
       void getUnsortedStaffItems        (vectorSIp& items, int staffnum);
       void getSortedStaffItems          (int staffnum, vectorSIp& items);
       void getSortedStaffItems          (vectorSIp& items, int staffnum);
-      void getHorizontallySortedStaffItems (vectorVSIp& staffsequence);
-      void getUnsortedSystemItems       (vectorSIp& sysseq, int sysindex);
-      void getHorizontallySortedSystemItems(vectorSIp& sysseq, int sysindex);
 
+      // System-level data lists:
+      void getHorizontallySortedStaffItems (vectorVSIp& staffsequence);
+      void getUnsortedSystemItems          (vectorSIp& sysseq, int sysindex);
+      void getUnsortedSystemItems          (int sysindex, vectorSIp& sysseq);
+      void getHorizontallySortedSystemItems(vectorSIp& sysseq, int sysindex);
+      void getHorizontallySortedSystemItems(int sysindex, vectorSIp& sysseq);
 
       // Staff Analysis functions (defined in ScorePage_staff.cpp):
-      void        analyzeStaves         (void);
-      int         getMaxStaff           (void);
-      bool        stavesAreConsecutive  (void);
-      const vectorVSIp& getStaffItemList(void);
-      void        setStaffDuration      (int staffnum, SCORE_FLOAT duration);
-      SCORE_FLOAT getStaffDuration      (int staffnum);
+      void        analyzeStaves          (void);
+      int         getMaxStaff            (void);
+      bool        stavesAreConsecutive   (void);
+      const vectorVSIp& getStaffItemList (void);
+      vectorVSIp& staffItemList          (void);
+      vectorSIp&  staffItemList          (int p2index);
+      void        setStaffDuration       (int staffnum, SCORE_FLOAT duration);
+      SCORE_FLOAT getStaffDuration       (int staffnum);
+      void        fillStaffScoreItemLists(void);
+      vectorVSIp& staffItems             (void);
+      vectorSIp&  staffItems             (int p2index);
 
 
       //  System analysis functions (defined in ScorePage_system.cpp):
@@ -59,16 +67,20 @@ class ScorePage : public ScorePageBase {
       vectorVI&   reverseSystemMap      (void);
       int         getSystemIndex        (int staffnumber);
       int         getSystemStaffIndex   (int staffnumber);
+      void        fillSystemScoreItemLists(void);
+      vectorSIp&  systemItems           (int sindex);
 
       // Staff duration analysis functions (defined in ScorePage_duration.cpp):
       void        analyzeStaffDurations (void);
 
       // Pitch analysis functions (defined in ScorePage_pitch.cpp):
       void        analyzePitch          (void);
-      void        analyzePitchOnSystem  (vectorSIp& systemitems);
+      void        analyzeSystemPitch    (vectorSIp& systemitems);
       static int  base7ToBase40         (int base7);
 
    private:
+      void        sortPageHorizontally  (void);
+
       void        resetPitchSpellings   (int staffidx, int barheight, 
                                          vectorVI& pitchstate, 
                                          vectorVI& keysig);
@@ -76,12 +88,11 @@ class ScorePage : public ScorePageBase {
                                          vectorVI& keysig);
       string      base40ToKern          (int base40);
 
-   protected:
       SCORE_FLOAT calculateStaffDuration(vectorSIp& staffitems);
 
 };
 
 
-#endif /* _SCOREPAGE_H_INCLUDED */
 
+#endif /* _SCOREPAGE_H_INCLUDED */
 

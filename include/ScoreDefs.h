@@ -13,9 +13,8 @@
 #define _SCOREDEFS_H_INCLUDED
 
 #include <map>
-#include <list>
 #include <vector>
-#include <iostream>
+#include <string>
 
 using namespace std;
 
@@ -27,6 +26,12 @@ using vectorF      = vector<float>;
 using vectorI      = vector<int>;
 using vectorVI     = vector<vector<int>>;
 
+
+// enum PARAM is a list of SCORE fixed parameter indexes.  These are indexed
+// from 1, with the 0th index of fixed parameter lists reserverd for future use.
+// It is preferable to use these enumeration values to access the fixed
+// parameter data, in cases where the starting position of the fixed 
+// index changes.
 typedef enum {
         P1 = 1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14,
         P15, P16, P17, P18, P19, P20, P21, P22, P23, P24, P25, P26, P27,
@@ -39,6 +44,7 @@ typedef enum {
 } PARAM;
 
 
+// enum PARAM1VALUE is a list of the P1 values for known SCORE items.
 typedef enum {
         P1_Note                 = 1,
         P1_Rest                 = 2,
@@ -62,6 +68,4 @@ typedef enum {
 
 
 #endif  /* _SCOREDEFS_H_INCLUDED */
-
-
 

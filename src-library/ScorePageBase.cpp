@@ -230,12 +230,12 @@ void ScorePageBase::getStaffItemListOrdered(vectorVSIp& data) {
 
 void ScorePageBase::itemChangeNotification(ScoreItemBase* sitem, 
       const string& message ) {
-   analysis_info.notmodified = 0;
+   analysis_info.invalidateModified();
 }
 
 void ScorePageBase::itemChangeNotification(ScoreItemBase* sitem, 
       const string& message, int index, SCORE_FLOAT oldp, SCORE_FLOAT newp ) {
-   analysis_info.notmodified = 0;
+   analysis_info.invalidateModified();
    if (monitor_P3 && (index == P3) && (oldp != newp)) {
       // move item in sorted P3 list.
    }

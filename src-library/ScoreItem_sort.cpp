@@ -17,11 +17,65 @@ using namespace std;
 
 //////////////////////////////
 //
-// sortP3 -- sort by horizontal position/item type/vertical position.
+// sortP3 -- sort by horizontal position.
 //
 
 bool sortP3(ScoreItem* a, ScoreItem* b) {
    return a->getHorizontalPosition() < b->getHorizontalPosition();
+}
+
+
+
+//////////////////////////////
+//
+// sortP3P2 -- sort by horizontal position/staff number.
+//
+
+bool sortP3P2(ScoreItem* a, ScoreItem* b) {
+   if (a->getHorizontalPosition() < b->getHorizontalPosition()) {
+      return true;
+   }
+
+   if (a->getStaffNumber() < b->getStaffNumber()) {
+      return true;
+   }
+
+   return false;
+}
+
+
+
+//////////////////////////////
+//
+// sortP3P2P1P4 -- sort by P3, P2, P1, then P4
+//
+
+bool sortP3P2P1P4(ScoreItem* a, ScoreItem* b) {
+   // Compare P3 (horizontal position):
+   if (a->getHorizontalPosition() < b->getHorizontalPosition()) {
+      return true;
+   }
+
+   // Compare P2 values (int part only):
+   if (a->getStaffNumber() < b->getStaffNumber()) {
+      return true;
+   }
+
+return false;
+// problem after here for some reason...
+// segmentation fault will be generated
+
+   // Compare P4 (excluding any values abouve fabs(99));
+   if (a->getVerticalPosition() < b->getVerticalPosition()) {
+      return true;
+   } 
+
+   // Compare P1 values (int part only):
+   if (a->getItemType() < b->getItemType()) {
+      return true;
+   }
+
+   return false;
 }
 
 

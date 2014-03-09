@@ -32,30 +32,35 @@ using namespace std;
 //
 
 void ScorePage::analyzePitch(void) {
-   if (analysis_info.systems == 0) {
+   if (!analysis_info.systemPitchesIsValid()) {
       analyzeSystems();
    }
+   analysis_info.invalidate("systempitches");
 
    vectorSIp sysseq;
    int i;
    for (i=0; i<getSystemCount(); i++) {
       getHorizontallySortedSystemItems(sysseq, i);
-      analyzePitchOnSystem(sysseq);
+      analyzeSystemPitch(sysseq);
    }
+
+   analysis_info.validate("systempitches");
 }
 
 
 
 ///////////////////////////////
 //
-// ScorePage::analyzePitchOnSystem --  calculate the pitch of all staves
+// ScorePage::analyzeSystemPitch --  calculate the pitch of all staves
 //   on a system at the same time.  The pitch needs to be calculated by
 //   system in the most general sense of cross-staff beaming; otherwise,
 //   analyzePitchOnStaff should work.
 //
 
-void ScorePage::analyzePitchOnSystem(vectorSIp& systemitems) {
-   analysis_info.pitches = 0;
+void ScorePage::analyzeSystemPitch(vectorSIp& systemitems) {
+   if (!analysis_info.systemPitchesIsValid()) {
+      analyzeSystems();
+   }
 
    // middleCVpos -- the vertical position of middle C on the staff.  This
    //    is determined by the clef.  For Treble clef, the vertical position
@@ -145,7 +150,6 @@ void ScorePage::analyzePitchOnSystem(vectorSIp& systemitems) {
       curr->setParameter("base40Pitch", base40string);
    }
 
-   analysis_info.pitches = 1;
 }
 
 

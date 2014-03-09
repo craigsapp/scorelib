@@ -16,6 +16,7 @@
 
 #include "ScoreDefs.h"
 
+#include <list>
 #include <string>
 #include <fstream>
 
@@ -26,9 +27,7 @@ using namespace std;
 #define SCOREITEM_DELETED   2
 
 class ParameterHistory {
-
     public:
-
       ParameterHistory(void);
       ParameterHistory(const string& nspace, const string& key, 
             const string& oldvalue, const string& newvalue, int hindex);
@@ -67,9 +66,10 @@ class ParameterHistory {
 };
 
 
-typedef list<ParameterHistory> HistoryList;
+// ParameterHistory related typedefs:
+using HistoryList = list<ParameterHistory>;
+
 
 
 #endif  /* _PARAMETERHISTORY_H_INCLUDED */
-
 

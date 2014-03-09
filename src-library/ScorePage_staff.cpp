@@ -26,10 +26,15 @@ using namespace std;
 //
 // ScorePage::analyzeStaves -- Calculate basic information about staves
 //    on the page.  Analysis info is stored in the staff_info varaible.
+//    This analysis function is dependent on the "sorted" analysis to
+//    be valid before it can start.
 //
 
 void ScorePage::analyzeStaves(void) {
-   analysis_info.staves = 0;
+   if (!analysis_info.sortedIsValid()) {
+      sortPageHorizontally();
+   }
+   analysis_info.setInvalid("staves");
 
    listSIp::iterator it;
    int staffnum;
@@ -52,12 +57,46 @@ void ScorePage::analyzeStaves(void) {
       staff_info.appendStaffItem(staffnum, *it);
    }
 
-   analysis_info.staves = 1;
+   analysis_info.setValid("staves");
+
+   fillStaffScoreItemLists();
+
 }
 
 //
 // Functions dependent on the analyzeStaves function:
 //
+
+
+//////////////////////////////
+//
+// ScorePage::fillStaffScoreItemLists --
+//
+
+void ScorePage::fillStaffScoreItemLists(void) {
+   if (!analysis_info.stavesIsValid()) {
+      analyzeStaves();
+   }
+
+   vectorVSIp& stafflist = itemlist_staffsorted;
+   vectorSIp& itemlist = itemlist_P3sorted;
+   int maxstaff = getMaxStaff();
+
+   stafflist.resize(maxstaff+1);
+   for (int i=0; i<=maxstaff; i++) {
+      stafflist[i].reserve(itemlist.size());
+      stafflist[i].resize(0);
+   }
+   
+
+   int p2;
+   for (auto it = itemlist.begin(); it != itemlist.end(); it++) {
+      p2 = (*it)->getStaffNumber();
+      stafflist[p2].push_back(*it);
+   }
+}
+
+
 
 //////////////////////////////
 //
@@ -67,7 +106,7 @@ void ScorePage::analyzeStaves(void) {
 //
 
 int ScorePage::getMaxStaff(void) {
-   if (analysis_info.staves == 0) {
+   if (!analysis_info.stavesIsValid()) {
       analyzeStaves();
    }
 
@@ -88,11 +127,35 @@ int ScorePage::getMaxStaff(void) {
 //
 
 const vectorVSIp& ScorePage::getStaffItemList(void) {
-   if (analysis_info.staves == 0) {
+   if (!analysis_info.stavesIsValid()) {
       analyzeStaves();
    }
 
   return staff_info.getStaffItems();
+}
+
+
+
+//////////////////////////////
+//
+// ScorePage::staffItems -- return a list of ScoreItems on a particular
+// staff, sorted by horizontal position.
+//
+
+vectorVSIp& ScorePage::staffItems(void) {
+   if (!analysis_info.stavesIsValid()) {
+      analyzeStaves();
+   }
+   return itemlist_staffsorted;
+}
+
+
+vectorSIp&  ScorePage::staffItems(int p2index) {
+   if (!analysis_info.stavesIsValid()) {
+      analyzeStaves();
+   }
+ 
+   return itemlist_staffsorted[p2index];
 }
 
 
@@ -105,7 +168,7 @@ const vectorVSIp& ScorePage::getStaffItemList(void) {
 //
 
 bool ScorePage::stavesAreConsecutive(void) {
-   if (analysis_info.staves == 0) {
+   if (!analysis_info.stavesIsValid()) {
       analyzeStaves();
    }
    int i;

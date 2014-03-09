@@ -16,9 +16,7 @@
 
 using namespace std;
 
-
 class PrintInfo {
-
    public:
                  PrintInfo          (void);
                  PrintInfo          (PrintInfo& info);
@@ -120,8 +118,9 @@ class PrintInfo {
       constexpr static double bbuffer  = 0.0625;  // in inches
       constexpr static double staffLen = 7.5;     // in inches
       constexpr static int    sDPI     = 4000;    // dots per inch
-
 };
 
 
+
 #endif /* _SCOREPAGEBASE_PRINTINFO_H_INCLUDED */
+

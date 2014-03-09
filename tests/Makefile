@@ -54,7 +54,7 @@ touch:
 	touch *.cpp
 
 %: %.cpp
-	g++ $(FLAGS) $(INCLUDE) -o $@ $@.cpp $(LIBS) && strip $@
+	g++ $(FLAGS) $(INCLUDE) -o $@ $@.cpp $(LIBS) # && strip $@
 
 itemtest: itemtest.cpp
 	g++ $(FLAGS_EDIT) $(INCLUDE) -o $@ $@.cpp $(LIBS_EDIT) && strip $@
