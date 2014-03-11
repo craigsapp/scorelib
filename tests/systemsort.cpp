@@ -2,8 +2,8 @@
 // Programmer:    Craig Stuart Sapp <craig@ccrma.stanford.edu>
 // Creation Date: Fri Mar  7 01:51:25 PST 2014
 // Last Modified: Fri Mar  7 01:51:29 PST 2014
-// Filename:      analyzepitch.cpp
-// URL: 	  https://github.com/craigsapp/scorelib/blob/master/tests/analyzepitch.cpp
+// Filename:      systemsort.cpp
+// URL: 	  https://github.com/craigsapp/scorelib/blob/master/tests/systemsort.cpp
 // Syntax:        C++11
 //
 // Description:   This program prints system information about staves on a page.
@@ -27,7 +27,8 @@ Options opts;
 ///////////////////////////////////////////////////////////////////////////
 
 int main(int argc, char** argv) {
-   opts.define("p|pitch=b", "Analyze pitch content of notes.");
+   opts.define("p|pitch=b",    "Analyze pitch content of notes.");
+   opts.define("d|duration=b", "Analyze staff duration offset of notes/rests.");
    opts.process(argc, argv);
    
    ScorePage infile;
@@ -59,6 +60,9 @@ void processData(ScorePage& infile) {
    if (opts.getBoolean("pitch")) {
       infile.analyzePitch();
    }
+   if (opts.getBoolean("duration")) {
+      infile.analyzeStaffDurations();
+   }
 
    int syscount = infile.getSystemCount();
    for (int i=0; i<syscount; i++) {
@@ -69,7 +73,6 @@ void processData(ScorePage& infile) {
       cout << infile.systemItems(i);
    }
 
-   cout << infile;
 }
 
 

@@ -57,6 +57,7 @@ class ScorePage : public ScorePageBase {
       vectorSIp&  staffItems             (int p2index);
 
 
+
       //  System analysis functions (defined in ScorePage_system.cpp):
       int         analyzeSystems        (void);
       int         getSystemCount        (void);
@@ -76,18 +77,27 @@ class ScorePage : public ScorePageBase {
       // Pitch analysis functions (defined in ScorePage_pitch.cpp):
       void        analyzePitch          (void);
       void        analyzeSystemPitch    (vectorSIp& systemitems);
-      static int  base7ToBase40         (int base7);
+
+      // Chord analysis functions (defined in ScorePage_chord.cpp):
+      void        analyzeChords         (void);
+      vectorSIp&  chordNotes            (ScoreItem* chordtone);
 
    private:
+      // private sorting functions:
       void        sortPageHorizontally  (void);
 
+      // private pitch analysis functions:
       void        resetPitchSpellings   (int staffidx, int barheight, 
                                          vectorVI& pitchstate, 
                                          vectorVI& keysig);
       void        fillPitchStatesWithKeySig(vectorVI& pitchstate, int sysidx,
                                          vectorVI& keysig);
-      string      base40ToKern          (int base40);
 
+      // private chord analysis functions:
+      void        analyzeChordsOnStaff  (int p2index);
+      void        analyzeVerticalNoteSet(vectorSIp& data);
+
+      // private duration analysis functions:
       SCORE_FLOAT calculateStaffDuration(vectorSIp& staffitems);
 
 };

@@ -25,7 +25,6 @@
 
 using namespace std;
 
-
 class ScoreItemBase {
 
    friend class ScorePageBase;
@@ -45,6 +44,7 @@ class ScoreItemBase {
       const string& getParameter      (const string& nspace, 
                                        const string& key);
       const string& getParameter      (const string& key);
+      int           getParameterInt   (const string& nspace, const string& key);
       int           getParameterInt   (const string& key);
       double        getParameterDouble(const string& key);
       double        getParameterDouble(const string& nspace, const string& key);
@@ -199,6 +199,11 @@ class ScoreItemBase {
       // The largest P7 duration value for notes and rests.  Anything larger
       // is considered a grace note with 0 duration.
       static constexpr SCORE_FLOAT SCORE_MAX_DURATION = 60.0;
+
+   public:
+      // Static functions:
+      static string  base40ToKern        (int base40);
+      static int     base7ToBase40       (int base7);
 
 };
 

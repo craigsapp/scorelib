@@ -20,6 +20,13 @@
 
 using namespace std;
 
+class ScoreItem;
+
+// ScoreItem typedefs:
+using listSIp     = list<ScoreItem*>;
+using vectorSIp   = vector<ScoreItem*>;
+using vectorVSIp  = vector<vector<ScoreItem*>>;
+
 
 // define SCOREITEMEDIT when compiling this class to use the ScoreItemEdit
 // class to keep track of the parameter changes (for undo/redo options
@@ -96,12 +103,16 @@ using namespace std;
       SCORE_FLOAT  getDuration           (void);
 
       // Note (P1=1) processing functions
+      int          hasStem               (void);
       int          stemUp                (void);
       int          stemDown              (void);
       int          stemFlip              (void);
       int          getPrintedAccidental  (void);
       int          hasNatural            (void);
       int          hasEditorialAccidental(void);
+      int          getStemBottomVPos     (void);
+      int          getStemTopVPos        (void);
+      int          getStemLength         (void);
 
       // Rest (P1=2) processing functions
 
@@ -142,13 +153,22 @@ using namespace std;
       // MeterSignature (P1=18) processing functions
 
 
+      // Page-related functions:
+      vectorSIp    getChordNotes         (void);
+
+
+      /////////////////////////////////////////////////////////////////////
+      //
+      // Analysis dependent functions: (the analysis is not checked before
+      // the function is called).
+      //
+
+      // Chord analysis dependent functions:
+      string       getHumdrumPitch       (void);
+
+
 };
 
-
-// ScoreItem typedefs:
-using listSIp     = list<ScoreItem*>;
-using vectorSIp   = vector<ScoreItem*>;
-using vectorVSIp  = vector<vector<ScoreItem*>>;
 
 
 // ScoreItem sorting functions (defined in ScoreItem_sort.cpp):

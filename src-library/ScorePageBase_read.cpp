@@ -145,6 +145,7 @@ void ScorePageBase::readPmx(istream& infile, int verboseQ) {
    while (!infile.eof()) {
       sip = readPmxScoreLine(infile, verboseQ);
       if (sip != NULL) {
+         sip->setPageOwner(this);
          item_storage.push_back(sip);
       }
    }
@@ -297,8 +298,8 @@ void ScorePageBase::readBinary(istream& infile, int verboseQ) {
          }
          sip = new ScoreItem;
          sip->readBinary(infile, number);
-         sip->setPageOwner(this);
          readcount += (int)number;
+         sip->setPageOwner(this);
          item_storage.push_back(sip);
       }
    }

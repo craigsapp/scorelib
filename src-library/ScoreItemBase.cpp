@@ -123,6 +123,17 @@ int ScoreItemBase::getParameterInt(const string& key) {
 }
 
 
+int ScoreItemBase::getParameterInt(const string& nspace, const string& key) {
+   int value;
+   try {
+      value = stoi(getParameter(nspace, key));
+   } catch (invalid_argument& e) {
+      value = 0;
+   }
+   return value;
+}
+
+
 double ScoreItemBase::getParameterDouble(const string& key) {
    double value;
    try {
@@ -599,7 +610,7 @@ ostream& ScoreItemBase::printPmxNamedParameters(ostream& out) {
          if (it->first == "") {
             out << '@' << its->first << ":\t" << its->second << endl;
          } else {
-            out << '@' << it->first << "::" << its->first 
+            out << '@' << it->first << "@" << its->first 
                 << ":\t" << its->second << endl;
          }
       }

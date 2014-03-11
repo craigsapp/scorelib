@@ -16,13 +16,34 @@ using namespace std;
 
 //////////////////////////////
 //
+// ScoreItem::hasStem -- Returns 0 if no stem, +1 for stem up and -1 for stem
+//     down.
+//
+
+int ScoreItem::hasStem(void) {
+   if (!isNoteItem()) {
+      return 0;
+   }
+   int stemdir = getPDigit(P5, 1); 
+   switch (stemdir) {
+      case 1: return +1;
+      case 2: return -1;
+      case 0: return  0;
+   }
+   return 0;
+}
+
+
+
+//////////////////////////////
+//
 // ScoreItem::stemUp --  change the 10's digit of P5 for notes (P1=1) to "1".
 //    returns 1 if P5 was changed.
 //
 
 int ScoreItem::stemUp(void) {
-   if (getPInt(P1) != 1) {
-      return 0; // Not a note.
+   if (!isNoteItem()) {
+      return 0;
    }
    int tensdigit = getPDigit(P5, 1);
    if (tensdigit != 2) {
@@ -41,8 +62,8 @@ int ScoreItem::stemUp(void) {
 //
 
 int ScoreItem::stemDown(void) {
-   if (getPInt(P1) != 1) {
-      return 0; // Not a note.
+   if (!isNoteItem()) {
+      return 0;
    }
    int tensdigit = getPDigit(P5, 1);
    if (tensdigit != 1) {
@@ -62,8 +83,8 @@ int ScoreItem::stemDown(void) {
 //
 
 int ScoreItem::stemFlip(void) {
-   if (getPInt(P1) != 1) {
-      return 0; // Not a note.
+   if (!isNoteItem()) {
+      return 0;
    }
    int tensdigit = getPDigit(P5, 1);
    if (tensdigit == 1) {
@@ -163,6 +184,79 @@ int ScoreItem::hasEditorialAccidental(void) {
    return 0;
 }
 
+
+
+//////////////////////////////
+//
+// ScoreItem::getStemBottomVPos -- Get the lowest vertical position
+//     of a note's stem.
+//
+
+int ScoreItem::getStemBottomVPos(void) { 
+   if (!isNoteItem()) {
+      return 0;
+   }
+   int stemdirection = hasStem();
+   SCORE_FLOAT vpos  = getVPos();
+
+   if (stemdirection == 0) {
+      return vpos;
+   }
+
+   SCORE_FLOAT slen  = getStemLength();
+ 
+   if (stemdirection > 0) {
+      return vpos;
+   } else {
+      return vpos - (7.0 + slen);
+   }
+}
+
+
+
+//////////////////////////////
+//
+// ScoreItem::getStemTopVPos -- Get the highest vertical position of a 
+//      note's stem.
+//
+
+int ScoreItem::getStemTopVPos(void) { 
+   if (!isNoteItem()) {
+      return 0;
+   }
+   int stemdirection = hasStem();
+   SCORE_FLOAT vpos  = getVPos();
+
+   if (stemdirection == 0) {
+      return vpos;
+   }
+
+   SCORE_FLOAT slen  = getStemLength();
+ 
+   if (stemdirection < 0) {
+      return vpos;
+   } else {
+      return vpos + 7.0 + slen;
+   }
+}
+
+
+
+//////////////////////////////
+//
+// ScoreItem::getStemLength -- Return the length of the stem (P8 value).
+//    Not exactly the stem length since the offset is from 7.0, but 
+//    close enough since the initial offset is constant. (add 7.0 for 
+//    true vertical stem length).
+//
+
+
+int ScoreItem::getStemLength(void) {
+   if (!isNoteItem()) {
+      return 0;
+   }
+   return getP(P8);
+}
 
 
 
