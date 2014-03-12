@@ -2,22 +2,22 @@
 // Programmer:    Craig Stuart Sapp <craig@ccrma.stanford.edu>
 // Creation Date: Mon Mar 10 11:35:39 PDT 2014
 // Last Modified: Mon Mar 10 11:35:42 PDT 2014
-// Filename:      ChordDatabase.h
-// URL:           https://github.com/craigsapp/scorelib/blob/master/src-library/ChordDatabase.h
+// Filename:      DatabaseChord.h
+// URL:           https://github.com/craigsapp/scorelib/blob/master/src-library/DatabaseChord.h
 // Syntax:        C++11
 //
 // Description:   Keeps track of chord notes on a page.
 //
 
-#include "ChordDatabase.h"
+#include "DatabaseChord.h"
 
 
 //////////////////////////////
 //
-// ChordDatabase::ChordDatabase -- Constructor.
+// DatabaseChord::DatabaseChord -- Constructor.
 //
 
-ChordDatabase::ChordDatabase(void) { 
+DatabaseChord::DatabaseChord(void) { 
    clear();
 }
 
@@ -25,10 +25,10 @@ ChordDatabase::ChordDatabase(void) {
 
 //////////////////////////////
 //
-// ChordDatabase::~ChordDatabase -- Deconstructor.
+// DatabaseChord::~DatabaseChord -- Deconstructor.
 //
 
-ChordDatabase::~ChordDatabase() { 
+DatabaseChord::~DatabaseChord() { 
    clear();
 }
    
@@ -36,11 +36,11 @@ ChordDatabase::~ChordDatabase() {
 
 //////////////////////////////
 //
-// ChordDatabase::clear -- empty the chord database of all content, store
+// DatabaseChord::clear -- empty the chord database of all content, store
 //    the dummy list at the start of the map data list.
 //
 
-void ChordDatabase::clear(void) { 
+void DatabaseChord::clear(void) { 
    interface.clear();
    database.clear();
    database.emplace_back(dummylist);
@@ -50,13 +50,13 @@ void ChordDatabase::clear(void) {
 
 //////////////////////////////
 //
-// ChordDatabase::linkNotes -- merge two notes into a chord.  Will create a 
+// DatabaseChord::linkNotes -- merge two notes into a chord.  Will create a 
 //    new entry if there is no existing entry for those notes; otherwise, will
 //    add one or the other note to an existing chord.  Linking of notes between
 //    different chords is currently not allowed.
 //
 
-vectorSIp& ChordDatabase::linkNotes(ScoreItem* note1, ScoreItem* note2) {
+vectorSIp& DatabaseChord::linkNotes(ScoreItem* note1, ScoreItem* note2) {
    vectorSIp& lista = notelist(note1);
    vectorSIp& listb = notelist(note2);
    
@@ -94,12 +94,12 @@ vectorSIp& ChordDatabase::linkNotes(ScoreItem* note1, ScoreItem* note2) {
 
 //////////////////////////////
 //
-// ChordDatabase::notelist -- Return a vector of notes to which the
+// DatabaseChord::notelist -- Return a vector of notes to which the
 //    given chord belongs.  The first note in the list is the "head"
 //    of the chord (the note which posses the stem and articulations).
 //
 
-vectorSIp& ChordDatabase::notelist(ScoreItem* item) { 
+vectorSIp& DatabaseChord::notelist(ScoreItem* item) { 
    auto result = interface.find(item);
    if (result == interface.end()) {
       return database.front();
@@ -117,12 +117,12 @@ vectorSIp& ChordDatabase::notelist(ScoreItem* item) {
 
 //////////////////////////////
 //
-// ChordDatabase::insertNote -- Place a note into a chord list.  If the
+// DatabaseChord::insertNote -- Place a note into a chord list.  If the
 //     note has a stem, then push onto the front of the list; otherwise,
 //     push onto the end of the list.
 //
 
-void ChordDatabase::insertNote(vectorSIp& list, ScoreItem* note) {
+void DatabaseChord::insertNote(vectorSIp& list, ScoreItem* note) {
    if (note->hasStem()) {
       list.resize(list.size()+1);
       for (int i=list.size()-1; i>0; i--) {

@@ -18,7 +18,7 @@
 #include "ScorePageBase_AnalysisInfo.h"
 #include "ScorePageBase_PrintInfo.h"
 #include "ScorePageBase_StaffInfo.h"
-#include "ChordDatabase.h"
+#include "DatabaseChord.h"
 
 using namespace std;
 
@@ -153,7 +153,7 @@ class ScorePageBase {
       PrintInfo print_info;
 
       // chord_database contains information about chrods on the page.
-      ChordDatabase chord_database;
+      DatabaseChord chord_database;
 
       static constexpr bool monitor_P3 = 0;
 

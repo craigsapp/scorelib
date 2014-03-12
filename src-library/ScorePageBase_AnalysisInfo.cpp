@@ -15,7 +15,7 @@
 using namespace std;
 
 int AnalysisInfo::database_initialized = 0;
-AnalysisDatabase AnalysisInfo::database;
+DatabaseAnalysis AnalysisInfo::database;
 
 
 //////////////////////////////
@@ -186,6 +186,7 @@ void AnalysisInfo::initializeDatabase(void) {
    database.addChild("systems",     "systempitches",    &systempitches);
    database.addChild("barlines",    "layers",           &layers);
    database.addChild("staves",      "chords",           &chords);
+   database.addChild("duration",    "beams",            &beams);
 }
 
 

@@ -2,16 +2,16 @@
 // Programmer:    Craig Stuart Sapp <craig@ccrma.stanford.edu>
 // Creation Date: Mon Mar 10 13:07:50 PDT 2014
 // Last Modified: Mon Mar 10 13:07:53 PDT 2014
-// Filename:      ChordDatabase.h
-// URL:           https://github.com/craigsapp/scorelib/blob/master/include/ChordDatabase.h
+// Filename:      DatabaseChord.h
+// URL:           https://github.com/craigsapp/scorelib/blob/master/include/DatabaseChord.h
 // Syntax:        C++11
 //
 // Description:   Keeps tracks of analysis functions dependencies in
 //                ScorePageBase class.
 //
 
-#ifndef _CHORDDATABASE_H_INCLUDED
-#define _CHORDDATABASE_H_INCLUDED
+#ifndef _DATABASECHORD_H_INCLUDED
+#define _DATABASECHORD_H_INCLUDED
 
 #include "ScoreItem.h"
 
@@ -21,10 +21,10 @@
 
 using namespace std;
 
-class ChordDatabase {
+class DatabaseChord {
    public:
-                         ChordDatabase  (void);
-                        ~ChordDatabase  ();
+                         DatabaseChord  (void);
+                        ~DatabaseChord  ();
    
       void               clear          (void);
       vectorSIp&         notelist       (ScoreItem*);
@@ -40,5 +40,5 @@ class ChordDatabase {
 };
 
 
-#endif  /* _CHORDDATABASE_H_INCLUDED */
+#endif  /* _DATABASECHORD_H_INCLUDED */
 

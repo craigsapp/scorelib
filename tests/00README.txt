@@ -34,3 +34,14 @@ staffoffsets.cpp
 stemtest.cpp
 	Test flipping of stems (and beams).
 
+analyzepitch.cpp
+
+systeminfo.cpp
+
+systemrhythm.cpp
+
+systemsort.cpp
+
+chordtest.cpp
+
+

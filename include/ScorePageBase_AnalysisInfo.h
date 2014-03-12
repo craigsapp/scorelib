@@ -13,14 +13,14 @@
 #define _SCOREPAGEBASE_ANALYSISINFO_H_INCLUDED
 
 #include "ScoreItem.h"
-#include "AnalysisDatabase.h"
+#include "DatabaseAnalysis.h"
 
 using namespace std;
 
 
 class AnalysisInfo {
 
-   friend class AnalysisDatabase;
+   friend class DatabaseAnalysis;
 
    public:
                     AnalysisInfo             (void);
@@ -101,7 +101,7 @@ class AnalysisInfo {
       int layers;
 
    private:
-      static AnalysisDatabase database;
+      static DatabaseAnalysis database;
       static int              database_initialized;
 
       void          initializeDatabase       (void);
