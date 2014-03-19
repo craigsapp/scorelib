@@ -10,17 +10,11 @@
 //                staff analysis.
 //
 
-
 #include "ScorePage.h"
 #include <algorithm>
 
 using namespace std;
 
-
-///////////////////////////////////////////////////////////////////////////
-//
-// Staff analysis related functions
-//
 
 //////////////////////////////
 //
@@ -36,17 +30,16 @@ void ScorePage::analyzeStaves(void) {
    }
    analysis_info.setInvalid("staves");
 
-   listSIp::iterator it;
    int staffnum;
    int itemtype;
    staff_info.clear();
 
-   for (it = item_storage.begin(); it != item_storage.end(); it++) {
-      itemtype = (*it)->getItemType();
+   for (auto& it : item_storage) {
+      itemtype = it->getItemType();
       if (itemtype != P1_Staff) {
          continue;
       }
-      staffnum = (*it)->getStaffNumber();
+      staffnum = it->getStaffNumber();
       
       if ((staffnum < 0) || (staffnum >= (int)MAX_STAFF_COUNT)) {
          continue;
@@ -54,7 +47,7 @@ void ScorePage::analyzeStaves(void) {
       if (staff_info.getStaffItemsSize() < staffnum + 1) {
          staff_info.setStaffItemsSize(staffnum+1);
       }
-      staff_info.appendStaffItem(staffnum, *it);
+      staff_info.appendStaffItem(staffnum, it);
    }
 
    analysis_info.setValid("staves");
@@ -90,9 +83,9 @@ void ScorePage::fillStaffScoreItemLists(void) {
    
 
    int p2;
-   for (auto it = itemlist.begin(); it != itemlist.end(); it++) {
-      p2 = (*it)->getStaffNumber();
-      stafflist[p2].push_back(*it);
+   for (auto& it : itemlist) {
+      p2 = it->getStaffNumber();
+      stafflist[p2].push_back(it);
    }
 }
 

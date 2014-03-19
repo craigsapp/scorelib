@@ -26,7 +26,7 @@ int main(int argc, char** argv) {
    ScorePageBase infile;
 
    int argcount = opts.getArgCount();
-   for (int i=0; i<argcount; i++) {
+   for (int i=0; i<argcount || i==0; i++) {
       if (argcount == 0) {
         infile.read(cin);
       } else  {

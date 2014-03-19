@@ -34,34 +34,29 @@ ostream& operator<<(ostream& out, ScoreItem* si) {
 
 
 ostream& operator<<(ostream& out, vectorSIp& sipvector) {
-   vectorSIp::iterator it;
-   for (it = sipvector.begin(); it != sipvector.end(); it++) {
-      out << (*it);
+   for (auto& it : sipvector) {
+      out << it;
    }
    return out;
 }
 
 
 ostream& operator<<(ostream& out, listSIp& siplist) {
-   listSIp::iterator it;
-   for (it = siplist.begin(); it != siplist.end(); it++) {
-      out << (*it);
+   for (auto& it : siplist) {
+      out << it;
    }
    return out;
 }
 
 
 ostream& operator<<(ostream& out, vectorVSIp& sipvvector) {
-   vectorVSIp::iterator itvv;
-   vectorSIp::iterator itv;
-   for (itvv = sipvvector.begin(); itvv != sipvvector.end(); itvv++) {
-      for (itv = itvv->begin(); itv != itvv->end(); itv++) {
-         out << (*itv);
+   for (auto& itvv : sipvvector) {
+      for (auto& itv : itvv) {
+         out << itv;
       }
    }
    return out;
 }
-
 
 
 

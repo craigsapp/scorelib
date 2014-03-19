@@ -55,12 +55,11 @@ ScorePageBase::ScorePageBase(const ScorePageBase& apage) {
 
    print_info = apage.print_info;
    
-   listSIp::const_iterator it;
    const listSIp& itemlist = apage.item_storage;
    ScoreItem* sip;
-   for (it = itemlist.begin(); it != itemlist.end(); it++) {
-      if ((*it) != NULL) {
-         sip = new ScoreItem(**it);
+   for (auto& it : itemlist) {
+      if (it != NULL) {
+         sip = new ScoreItem(*it);
          item_storage.push_back(sip);
       }
    }
@@ -85,11 +84,10 @@ ScorePageBase::~ScorePageBase() {
 //
 
 void ScorePageBase::clear(void) {
-   listSIp::iterator it;
-   for (it = item_storage.begin(); it != item_storage.end(); it++) {
-      if ((*it) != NULL) {
-         delete (*it);
-         *it = NULL;
+   for (auto& it : item_storage) {
+      if (it != NULL) {
+         delete it;
+         it = NULL;
       }
    }
 }
@@ -167,9 +165,8 @@ int ScorePageBase::getItemCount(void) {
 void ScorePageBase::getFileOrderList(vectorSIp& data) {
    data.reserve(item_storage.size());
    data.clear();
-   listSIp::iterator it;
-   for (it = item_storage.begin(); it != item_storage.end(); it++) {
-      data.push_back(*it);
+   for (auto& it : item_storage) {
+      data.push_back(it);
    }
 }
 
@@ -185,14 +182,13 @@ void ScorePageBase::getFileOrderList(vectorSIp& data) {
 
 void ScorePageBase::getStaffItemList (vectorVSIp& data) {
    data.reserve(MAX_STAFF_COUNT);
-   listSIp::iterator it;
    unsigned int staffnum;
-   for (it = item_storage.begin(); it != item_storage.end(); it++) {
-      staffnum = (*it)->getStaffNumber();
+   for (auto& it : item_storage) {
+      staffnum = it->getStaffNumber();
       if (data.size() < staffnum + 1) {
          data.resize(staffnum+1);
       }
-      data[staffnum].push_back(*it);
+      data[staffnum].push_back(it);
    }
 }
 
@@ -206,9 +202,8 @@ void ScorePageBase::getStaffItemList (vectorVSIp& data) {
 
 void ScorePageBase::getStaffItemListOrdered(vectorVSIp& data) {
    getStaffItemList(data);
-   vectorVSIp::iterator it;
-   for (it = data.begin(); it != data.end(); it++) {
-      sort(it->begin(), it->end(), sortP3P4P1);
+   for (auto& it : data) {
+      sort(it.begin(), it.end(), sortP3P4P1);
    }
 }
 

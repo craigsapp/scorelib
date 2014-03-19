@@ -38,7 +38,7 @@ int main(int argc, char** argv) {
 
    cout << "<SCORE version=\"alpha\">\n";
 
-   for (int i=0; i<argcount; i++) {
+   for (int i=0; i<argcount || i==0; i++) {
       if (argcount == 0) {
         filename = "<STDIN>";
         infile.read(cin);

@@ -37,6 +37,7 @@ class ScoreItemBase {
                    ~ScoreItemBase     ();
 
       ScoreItemBase& operator=        (const ScoreItemBase& anItem);
+      void          clear             (void);
 
       // Accessor functions
       SCORE_FLOAT   getParameter      (int pindex);
@@ -166,6 +167,8 @@ class ScoreItemBase {
       void          readPmx               (istream& instream, int verboseQ = 0);
       static double roundFractionDigits   (double number, int digits);
 
+      static string emptyString;
+
    protected:
       vectorSF     fixed_parameters;
       mapNamespace named_parameters;
@@ -199,11 +202,6 @@ class ScoreItemBase {
       // The largest P7 duration value for notes and rests.  Anything larger
       // is considered a grace note with 0 duration.
       static constexpr SCORE_FLOAT SCORE_MAX_DURATION = 60.0;
-
-   public:
-      // Static functions:
-      static string  base40ToKern        (int base40);
-      static int     base7ToBase40       (int base7);
 
 };
 

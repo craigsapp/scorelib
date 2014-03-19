@@ -204,6 +204,17 @@ int ScoreItem::getItemType(void) {
 
 //////////////////////////////
 //
+// ScoreItem::setItemType --
+//
+
+void ScoreItem::setItemType(SCORE_FLOAT type) {
+   setParameter(P1, type);
+}
+
+
+
+//////////////////////////////
+//
 // ScoreItem::is*Item -- returns true if the integer part of the
 //    P1 value matches the item type related to the functions.
 //
@@ -307,10 +318,34 @@ SCORE_FLOAT ScoreItem::getHorizontalPosition(void) {
    return getParameter(P3);
 }
 
-// Alias:
+// Aliases:
 
 SCORE_FLOAT ScoreItem::getHPos(void) {
    return getHorizontalPosition();
+}
+
+SCORE_FLOAT ScoreItem::getHorizontalPositionLeft(void) {
+   return getHorizontalPosition();
+}
+
+SCORE_FLOAT ScoreItem::getHPosL(void) {
+   return getHorizontalPosition();
+}
+
+
+
+//////////////////////////////
+//
+// ScoreItem::setHorizontalPosition -- set the P3 value.
+//
+
+void ScoreItem::setHorizontalPosition(SCORE_FLOAT pos) {
+   setParameter(P3, pos);
+}
+
+
+void ScoreItem::setHPos(SCORE_FLOAT pos) {
+   setHorizontalPosition(pos);
 }
 
 
@@ -350,6 +385,44 @@ SCORE_FLOAT ScoreItem::getVerticalPosition(void) {
 SCORE_FLOAT ScoreItem::getVPos(void) {
    return getVerticalPosition();
 }
+
+
+///////////////////////////////////////////////////////////////////////////
+//
+// P6 related functions.
+//
+
+SCORE_FLOAT ScoreItem::getHorizontalPositionRight(void) {
+   SCORE_FLOAT p6;
+   switch (getItemType()) {
+      case P1_Line:
+      case P1_Slur:
+      case P1_Beam:
+         return getParameter(P6);
+         break;
+	 
+      case P1_Staff:
+         p6 = getParameter(P6);
+         if (p6 == 0.0) {
+            return 200.0;
+         } else {
+            return p6;
+         }
+         break;
+   }
+   
+   // Item does not have a right side (or is unknown), so return P3 value:
+   return getParameter(P3);
+}
+
+//
+// Alias:
+//
+
+SCORE_FLOAT ScoreItem::getHPosR(void) {
+   return getHorizontalPositionRight();
+}
+
 
 
 ///////////////////////////////////////////////////////////////////////////

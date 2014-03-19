@@ -10,6 +10,7 @@
 //
 
 #include "ScoreItem.h"
+#include "ScoreUtility.h"
 
 using namespace std;
 
@@ -25,7 +26,7 @@ string ScoreItem::getHumdrumPitch(void) {
    if (base40 <= 0) {
       return "";
    }
-   string output = ScoreItem::base40ToKern(base40);
+   string output = SU::base40ToKern(base40);
    return output;
 }
 

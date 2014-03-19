@@ -30,25 +30,23 @@ using namespace std;
 void  ScorePage::getHorizontallySortedStaffItems(vectorVSIp& staffsequence) {
    int staffcount = getMaxStaff();
    staffsequence.resize(staffcount+1);
-   vectorVSIp::iterator it;
-   for (it = staffsequence.begin(); it != staffsequence.end(); it++) {
-      it->reserve(32);
+   for (auto& it : staffsequence) {
+      it.reserve(32);
    }
 
-   listSIp::iterator it2;
-   for (it2 = item_storage.begin(); it2 != item_storage.end(); it2++) {
-      int staffnum = (*it2)->getStaffNumber();
+   for (auto& it2 : item_storage) {
+      int staffnum = it2->getStaffNumber();
       if (staffnum <= 0) {
          continue;
       }
       if (staffsequence.size() < (unsigned int)(staffnum + 1)) {
          staffsequence.resize(staffnum+1);
       }
-      staffsequence[staffnum].push_back(*it2);
+      staffsequence[staffnum].push_back(it2);
    }
 
-   for (it = staffsequence.begin(); it != staffsequence.end(); it++) {
-      sort(it->begin(), it->end(), sortP3);
+   for (auto& it : staffsequence) {
+      sort(it.begin(), it.end(), sortP3);
     }
 }
 
@@ -62,14 +60,13 @@ void  ScorePage::getHorizontallySortedStaffItems(vectorVSIp& staffsequence) {
 
 void ScorePage::getUnsortedStaffItems(int staffnum, vectorSIp& items) {
    items.clear();
-   listSIp::iterator it;
    int num;
-   for (it = item_storage.begin(); it != item_storage.end(); it++) {
-      num = (*it)->getStaffNumber();
+   for (auto& it : item_storage) {
+      num = it->getStaffNumber();
       if (num != staffnum) {
          continue;
       }
-      items.push_back(*it);
+      items.push_back(it);
    }
 }
 
@@ -123,14 +120,13 @@ void ScorePage::getUnsortedSystemItems(vectorSIp& sysseq, int sysindex) {
    sysseq.reserve(item_storage.size());
 
    int p2;
-   listSIp::iterator it;
-   for (it = item_storage.begin(); it != item_storage.end(); it++) {
-      p2 = (*it)->getStaffNumber();
+   for (auto& it : item_storage) {
+      p2 = it->getStaffNumber();
       int systemnumber = getSystemIndex(p2);
       if (systemnumber != sysindex) {
          continue;
       }
-      sysseq.push_back(*it);
+      sysseq.push_back(it);
    }
 }
 

@@ -94,10 +94,9 @@ void ScoreItemEdit::clearHistory(void) {
 
 void ScoreItemEdit::deleteNamespace(const string& nspace) {
    mapSS& params = named_parameters[nspace];
-   mapSS::iterator it;
-   for (it = params.begin(); it != params.end(); it++) {
-      history_list.emplace_back(nspace, it->first, it->second, SCOREITEM_DELETED, 
-            history_index);
+   for (auto& it : params) {
+      history_list.emplace_back(nspace, it.first, it.second, 
+            SCOREITEM_DELETED, history_index);
    }
    named_parameters.erase(nspace);
 }
@@ -346,16 +345,15 @@ ostream& ScoreItemEdit::printXmlWithEdits(ostream& out, int indentcount,
       out << "<named-parameters>\n";
 
       mapNamespace& np = named_parameters;
-      mapNamespace::iterator it;
       int npcount;
-      for (it = np.begin(); it != np.end(); it++) {
-         npcount = getNamedParameterCount(it->first);
+      for (auto &it : np) {
+         npcount = getNamedParameterCount(it.first);
          if (npcount > 0) {
             printIndent(out, indentcount+2, indentstring);
             out << "<namespace scope=\"";
-            out << it->first;
+            out << it.first;
             out << "\">\n";
-               printNamedParametersXml(out, it->first, indentcount+3, 
+               printNamedParametersXml(out, it.first, indentcount+3, 
                   indentstring);
             printIndent(out, indentcount+2, indentstring);
             out << "</namespace>\n";

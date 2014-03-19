@@ -30,7 +30,7 @@ int main(int argc, char** argv) {
    ScorePage infile;
 
    int argcount = opts.getArgCount();
-   for (int i=0; i<argcount; i++) {
+   for (int i=0; i<argcount || i==0; i++) {
       if (argcount == 0) {
         infile.read(cin);
       } else  {
@@ -103,14 +103,16 @@ void processStaff(int staffnumber, vectorSIp& staffitems) {
 //
 
 void printChordNotes(ScoreItem* headnote) {
-   vectorSIp chordnotes = headnote->getChordNotes();
-   unsigned int i;
-   for (i=0; i<chordnotes.size(); i++) {
-      if (chordnotes[i] == headnote) {
+   vectorSIp* chordnotes = headnote->getChordNotes();
+   if (chordnotes == NULL) {
+      return;
+   }
+   for (auto& item : *chordnotes) {
+      if (item == headnote) {
          continue;
       }
       cout << ",";
-      printPitch(chordnotes[i]);
+      printPitch(item);
    }
 }
 

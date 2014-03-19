@@ -16,12 +16,22 @@ lib
 *.la
 *.a
 
+tests/analyzepitch
 tests/analyzestaves
+tests/beamtest
+tests/chordtest
+tests/chromate
+tests/courtesy
 tests/extractstaff
+tests/extractsystem
 tests/itemtest
 tests/readtest
 tests/scoreitems2xml
 tests/staffdurations
 tests/staffoffsets
 tests/stemtest
+tests/systeminfo
+tests/systemrhythm
+tests/systemsort
+
 

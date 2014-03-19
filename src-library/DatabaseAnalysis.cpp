@@ -15,6 +15,7 @@
 
 using namespace std;
 
+
 //////////////////////////////
 //
 // DatabaseAnalysis::DatabaseAnalysis -- Constructor.
@@ -78,10 +79,8 @@ void DatabaseAnalysis::invalidateNode(const string& nodename) {
    }
    *(entry->second.data) = 0;
 
-   auto startit = entry->second.children.begin();
-   auto endit   = entry->second.children.end();
-   for (auto it = startit; it != endit; it++) {
-      invalidateNode(*it);
+   for (auto& it : entry->second.children) {
+      invalidateNode(it);
    }
 }
 

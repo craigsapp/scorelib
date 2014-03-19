@@ -14,7 +14,6 @@
 using namespace std;
 
 
-
 //////////////////////////////
 //
 // sortP3 -- sort by horizontal position.

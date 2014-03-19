@@ -23,10 +23,10 @@ int selectP1Items(vectorSIp& output, const vectorSIp& input,
       const vectorI& p1values) {
    output.clear();
    output.reserve(input.size());
-   for (auto it = input.begin(); it != input.end(); it++) {
-      for (auto it2 = p1values.begin(); it2 != p1values.end(); it2++) {
-         if ((*it)->getPInt(P1) == *it2) {
-            output.push_back(*it);
+   for (auto& it : input) {
+      for (auto& it2 : p1values) {
+         if (it->getPInt(P1) == it2) {
+            output.push_back(it);
             break;
          }
       }
@@ -38,9 +38,9 @@ int selectP1Items(vectorSIp& output, const vectorSIp& input,
 int selectP1Items(vectorSIp& output, const vectorSIp& input, int p1value) {
    output.clear();
    output.reserve(input.size());
-   for (auto it = input.begin(); it != input.end(); it++) {
-      if ((*it)->getPInt(P1) == p1value) {
-         output.push_back(*it);
+   for (auto& it : input) {
+      if (it->getPInt(P1) == p1value) {
+         output.push_back(it);
       }
    }
    return output.size();
@@ -51,10 +51,10 @@ int selectP1Items(vectorSIp& output, const listSIp& input,
       const vectorI& p1values) {
    output.clear();
    output.reserve(input.size());
-   for (auto it = input.begin(); it != input.end(); it++) {
-      for (auto it2 = p1values.begin(); it2 != p1values.end(); it2++) {
-         if ((*it)->getPInt(P1) == *it2) {
-            output.push_back(*it);
+   for (auto& it : input) {
+      for (auto& it2 : p1values) {
+         if (it->getPInt(P1) == it2) {
+            output.push_back(it);
             break;
          }
       }
@@ -66,9 +66,9 @@ int selectP1Items(vectorSIp& output, const listSIp& input,
 int selectP1Items(vectorSIp& output, const listSIp& input, int p1value) {
    output.clear();
    output.reserve(input.size());
-   for (auto it = input.begin(); it != input.end(); it++) {
-      if ((*it)->getPInt(P1) == p1value) {
-         output.push_back(*it);
+   for (auto& it : input) {
+      if (it->getPInt(P1) == p1value) {
+         output.push_back(it);
       }
    }
    return output.size();

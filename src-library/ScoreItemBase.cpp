@@ -21,6 +21,9 @@
 
 using namespace std;
 
+
+string ScoreItemBase::emptyString("");
+
 //////////////////////////////
 //
 // ScoreItemBase::ScoreItemBase -- constructor.
@@ -95,6 +98,24 @@ ScoreItemBase& ScoreItemBase::operator=(const ScoreItemBase& anItem) {
 
 //////////////////////////////
 //
+// ScoreItemBase::clear -- Erase all of the contents of the item.
+//     Currently this function is invisible to edit history management...
+//
+
+void ScoreItemBase::clear(void) {
+   history_list.clear();
+   fixed_parameters.clear();
+   named_parameters.clear();
+   fixed_text.clear();
+   // page_owner: not altered for now
+   // not altered for now: sort_sequence
+   // not altered for now: staff_duration_offset
+}
+
+
+
+//////////////////////////////
+//
 // ScoreItemBase::getParameter -- return a fixed or named parameter value,
 //      depending on the data type of the input argument.  Integer values
 //      will access the fixed parameter list, string values will access
@@ -103,12 +124,23 @@ ScoreItemBase& ScoreItemBase::operator=(const ScoreItemBase& anItem) {
 
 const string& ScoreItemBase::getParameter(const string& nspace, 
       const string& key) {
-   return named_parameters[nspace][key];
+   auto it = named_parameters.find(nspace);
+   if (it == named_parameters.end()) {
+      return emptyString;
+   }
+   auto it2 = it->second.find(key);
+   if (it2 == it->second.end()) {
+      return emptyString;
+   } 
+   return it2->second;
+
+   // This one-line version will create an empty value in the map:
+   // return named_parameters[nspace][key];
 }
 
 
 const string& ScoreItemBase::getParameter(const string& key) {
-   return named_parameters[""][key];
+   return getParameter("", key);
 }
 
 

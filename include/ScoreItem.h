@@ -15,6 +15,7 @@
 #ifndef _SCOREITEM_H_INCLUDED
 #define _SCOREITEM_H_INCLUDED
 
+#include "DatabaseBeam.h"
 #include <list>
 #include <vector>
 
@@ -61,69 +62,92 @@ using vectorVSIp  = vector<vector<ScoreItem*>>;
       // P1-P4 are the same for most P1 item types.
 
       // P1 accessors
-      int           getItemType          (void);
-      bool          isNoteItem           (void);    // P1==1
-      bool          isRestItem           (void);    // P1==2
-      bool          isClefItem           (void);    // P1==3
-      bool          isLineItem           (void);    // P1==4
-      bool          isSlurItem           (void);    // P1==5
-      bool          isBeamItem           (void);    // P1==6
-      bool          isTrillItem          (void);    // P1==7
-      bool          isStaffItem          (void);    // P1==8
-      bool          isSymbolItem         (void);    // P1==9
-      bool          isNumberItem         (void);    // P1==10
-      bool          isUserItem           (void);    // P1==11
-      bool          isSpecialItem        (void);    // P1==12
-      bool          isBadLuckItem        (void);    // P1==13
-      bool          isBarlineItem        (void);    // P1==14
-      bool          isEpsItem            (void);    // P1==15
-      bool          isTextItem           (void);    // P1==16
-      bool          isKeySigItem         (void);    // P1==17
-      bool          isKeySignatureItem   (void);    // P1==17
-      bool          isTimeSigItem        (void);    // P1==18
+      int          getItemType            (void);
+      void         setItemType            (SCORE_FLOAT type);
+      bool         isNoteItem             (void);    // P1==1
+      bool         isRestItem             (void);    // P1==2
+      bool         isClefItem             (void);    // P1==3
+      bool         isLineItem             (void);    // P1==4
+      bool         isSlurItem             (void);    // P1==5
+      bool         isBeamItem             (void);    // P1==6
+      bool         isTrillItem            (void);    // P1==7
+      bool         isStaffItem            (void);    // P1==8
+      bool         isSymbolItem           (void);    // P1==9
+      bool         isNumberItem           (void);    // P1==10
+      bool         isUserItem             (void);    // P1==11
+      bool         isSpecialItem          (void);    // P1==12
+      bool         isBadLuckItem          (void);    // P1==13
+      bool         isBarlineItem          (void);    // P1==14
+      bool         isEpsItem              (void);    // P1==15
+      bool         isTextItem             (void);    // P1==16
+      bool         isKeySigItem           (void);    // P1==17
+      bool         isKeySignatureItem     (void);    // P1==17
+      bool         isTimeSigItem          (void);    // P1==18
 
       // P2 accessors
-      unsigned int  getStaffNumber       (void);
-      unsigned int  getStaffNum          (void);
-      void          setStaffNumber       (int staffnum);
-      void          setStaffNum          (int staffnum);
+      unsigned int getStaffNumber         (void);
+      unsigned int getStaffNum            (void);
+      void         setStaffNumber         (int staffnum);
+      void         setStaffNum            (int staffnum);
 
       // P3 accessors
-      SCORE_FLOAT   getHorizontalPosition(void);
-      SCORE_FLOAT   getHPos              (void);
+      SCORE_FLOAT  getHorizontalPosition  (void);
+      SCORE_FLOAT  getHPos                (void);
+      SCORE_FLOAT  getHorizontalPositionLeft(void);
+      SCORE_FLOAT  getHPosL               (void);
+      void         setHorizontalPosition  (SCORE_FLOAT pos);
+      void         setHPos                (SCORE_FLOAT pos);
 
       // P4 accessors
-      SCORE_FLOAT   getVerticalPosition  (void);
-      SCORE_FLOAT   getVPos              (void);
+      SCORE_FLOAT  getVerticalPosition    (void);
+      SCORE_FLOAT  getVPos                (void);
+
+      // P5 vertical position of right end accessors
+
+      // P6 horizontal position of right end accessors
+      SCORE_FLOAT  getHorizontalPositionRight(void);
+      SCORE_FLOAT  getHPosR(void);
 
       // Duration processing
       void         setStaffOffsetDuration(SCORE_FLOAT duration);
-      SCORE_FLOAT  getStaffOffsetDuration(void);
-      bool         hasDuration           (void);
-      SCORE_FLOAT  getDuration           (void);
+      SCORE_FLOAT  getStaffOffsetDuration (void);
+      bool         hasDuration            (void);
+      SCORE_FLOAT  getDuration            (void);
 
       // Note (P1=1) processing functions
-      int          hasStem               (void);
-      int          stemUp                (void);
-      int          stemDown              (void);
-      int          stemFlip              (void);
-      int          getPrintedAccidental  (void);
-      int          hasNatural            (void);
-      int          hasEditorialAccidental(void);
-      int          getStemBottomVPos     (void);
-      int          getStemTopVPos        (void);
-      int          getStemLength         (void);
+      int          hasStem                (void);
+      int          getStemDirection       (void);
+      int          stemUp                 (void);
+      int          stemDown               (void);
+      int          stemFlip               (void);
+      int          getPrintedAccidental   (void);
+      bool         hasPrintedAccidental   (void);
+      int          hasNatural             (void);
+      int          hasEditorialAccidental (void);
+      int          getStemBottomVPos      (void);
+      int          getStemTopVPos         (void);
+      int          getStemLength          (void);
+      int          isCueSize              (void);
+      void         removeArticulation     (void);
+      void         hideNotehead           (void);
+      void         hideStem               (void);
+      void         setNoAccidental        (void); 
+      void         setAccidentalParentheses(void);
+      void         removeAccidentalParentheses(void); 
+      void         removeFlags            (void);
 
       // Rest (P1=2) processing functions
 
       // Clef (P1=3) processing functions
-      int          getMiddleCVpos        (void);
+      int          getMiddleCVpos         (void);
 
       // Line (P1=4) processing functions
 
       // Slur (P1=5) processing functions
 
       // Beam (P1=6) processing functions
+      // int hasStem(void) from Note section also works for Beams.
+      // int getStemDirection(void) from Note section also works for Beams.
 
       // Trill (P1=7) processing functions
 
@@ -140,12 +164,14 @@ using vectorVSIp  = vector<vector<ScoreItem*>>;
       // BadLuck (P1=13) processing functions
 
       // Barline (P1=14) processing functions
-      int          getBarlineHeight      (void);
-      int          getBarHeight          (void);
+      int          getBarlineHeight       (void);
+      int          getBarHeight           (void);
 
       // ImportedEPSGraphic (P1=15) processing functions
 
       // Text (P1=16) processing functions
+      void         make99Text             (const string& text);
+      void         makeSvgCode            (const string& text);
 
       // KeySignature (P1=17) processing functions
       int          getDiatonicAccidentalState(vectorI& states);
@@ -153,8 +179,17 @@ using vectorVSIp  = vector<vector<ScoreItem*>>;
       // MeterSignature (P1=18) processing functions
 
 
-      // Page-related functions:
-      vectorSIp    getChordNotes         (void);
+      // Page-related functions (defined in ScoreItem_page.cpp):
+      vectorSIp*   getChordNotes          (void);
+      bool         isPrimaryChordNote     (void);
+      bool         isSecondaryChordNote   (void);
+      ScoreItem*   getPrimaryChordNote    (void);
+
+      BeamGroup*   getBeamGroup           (void);
+      BeamGroup*   getBeamInfo            (void);
+      BeamGroup*   beamInfo               (void);
+      BeamGroup*   beamGroup              (void);
+      int          inBeamGroup            (void);
 
 
       /////////////////////////////////////////////////////////////////////
@@ -164,8 +199,7 @@ using vectorVSIp  = vector<vector<ScoreItem*>>;
       //
 
       // Chord analysis dependent functions:
-      string       getHumdrumPitch       (void);
-
+      string       getHumdrumPitch        (void);
 
 };
 

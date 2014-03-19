@@ -10,6 +10,7 @@
 //
 
 #include "ScoreItem.h"
+#include <cmath>
 
 using namespace std;
 
@@ -17,20 +18,36 @@ using namespace std;
 //////////////////////////////
 //
 // ScoreItem::hasStem -- Returns 0 if no stem, +1 for stem up and -1 for stem
-//     down.
+//     down.  For Notes, the stem direction is located in P5 10's digit.  
+//     For Beams, the stem direction is located in P7 10's digit.
 //
 
 int ScoreItem::hasStem(void) {
-   if (!isNoteItem()) {
+   int type = getItemType();
+   if ((type == P1_Note) || (type == P1_Beam)) {
+      int stemdir;
+      if (type == P1_Note) {
+         stemdir = getPDigit(P5, 1); 
+      } else {
+         stemdir = getPDigit(P7, 1); 
+      }
+      switch (stemdir) {
+         case 1: return +1;
+         case 2: return -1;
+         case 0: return  0;
+      }
+      return 0;
+   } else {
       return 0;
    }
-   int stemdir = getPDigit(P5, 1); 
-   switch (stemdir) {
-      case 1: return +1;
-      case 2: return -1;
-      case 0: return  0;
-   }
-   return 0;
+}
+
+//
+// Alias:
+//
+
+int ScoreItem::getStemDirection(void) {
+   return hasStem();
 }
 
 
@@ -103,12 +120,14 @@ int ScoreItem::stemFlip(void) {
 //
 // ScoreItem::getPrintedAccidental -- Returns the accidental information
 //     extracted from the 1's digit of P5 for notes:
-//     0 =  0 (no accidental)
+//     0 = -123456 (no accidental)
 //     1 = -1 (flat)
 //     2 = +2 (sharp)
 //     3 =  0 (natural)
 //     4 = -2 (double flat)
 //     5 = +2 (double sharp)
+//
+//     Maybe also consider editorial accidentals.
 //
 
 int ScoreItem::getPrintedAccidental(void) {
@@ -117,14 +136,31 @@ int ScoreItem::getPrintedAccidental(void) {
    }
    int ones = getParameterDigit(P5, 0);
    switch (ones) {
-      case 0:  return  0; // no printed accidental, but sounding accidental
-                          //    will depend on larger musical context
-      case 1:  return -1; // flat sign
-      case 2:  return +1; // sharp sign
-      case 3:  return  0; // natural sign
-      case 4:  return -2; // double flat sign
-      case 5:  return +2; // double sharp sign
-      default: return  0; // unknown
+      case 0:  return -123456;  // no printed accidental, but sounding 
+                                // accidental will depend on larger 
+                                // musical context
+      case 1:  return -1;       // flat sign
+      case 2:  return +1;       // sharp sign
+      case 3:  return  0;       // natural sign
+      case 4:  return -2;       // double flat sign
+      case 5:  return +2;       // double sharp sign
+      default: return  1234556; // unknown
+   }
+}
+
+
+
+//////////////////////////////
+//
+// ScoreItem::hasPrintedAccidental -- returns true if there is a printed
+//     accidental attached to the note.
+//
+
+bool ScoreItem::hasPrintedAccidental(void) {
+   if (abs(getPrintedAccidental()) < 100) {
+      return true;
+   } else {
+      return false;
    }
 }
 
@@ -256,6 +292,136 @@ int ScoreItem::getStemLength(void) {
       return 0;
    }
    return getP(P8);
+}
+
+
+
+//////////////////////////////
+//
+// ScoreItem::isCueSize -- Returns true if the note (rest, clef, beam) is a
+//     cue-sized item.  For these items this is done by making P4 100's digit 1.
+//
+
+int ScoreItem::isCueSize(void) {
+   int type = getItemType();
+   if (!((type == P1_Note) || (type == P1_Rest) || (type == P1_Beam))) {
+      return 0;
+   }
+
+   int value = getPDigit(P4, 2);
+   if (value == 1) {
+      return 1;
+   } else {
+      return 0;
+   }
+}
+
+
+
+//////////////////////////////
+//
+// ScoreItem::removeArticulation -- Clear P7 if the item is a note (P1==1).
+//
+
+void ScoreItem::removeArticulation(void) { 
+   if (!isNoteItem()) {
+      return;
+   }
+   setParameter(P11, 0.0);
+}
+
+
+
+//////////////////////////////
+//
+// ScoreItem::hideNotehead -- Hide the notehead.  This is currently
+//     not reversible.  A named parameter could store the notehead style
+//     to make it recoverable.  To hide a notehead, set P6 to 7 or -1.
+//
+
+void ScoreItem::hideNotehead(void) { 
+   if (!isNoteItem()) {
+      return;
+   }
+   setParameter(P6, 7);
+}
+
+
+
+//////////////////////////////
+//
+// ScoreItem::hideStem -- Don't show the stem on a note.  Stem cannot
+//      be restored after this function is called since the stem direction
+//      is lost.
+//
+
+void ScoreItem::hideStem(void) { 
+   if (!isNoteItem()) {
+      return;
+   }
+   setParameterDigit(P5, 1, 0);
+}
+
+
+
+//////////////////////////////
+//
+// ScoreItem::setNoAccidental --
+//
+//
+
+void ScoreItem::setNoAccidental(void) {
+   if (!isNoteItem()) {
+      return;
+   }
+   setParameterDigit(P5, 0, 0);
+}
+
+
+
+//////////////////////////////
+//
+// ScoreItem::setAccidentalParentheses -- Put parentheses around 
+//    accidentals.
+//
+//
+
+void ScoreItem::setAccidentalParentheses(void) {
+   if (!isNoteItem()) {
+      return;
+   }
+   setParameterDigit(P5, 2, 1);
+}
+
+
+
+//////////////////////////////
+//
+// ScoreItem::removeAccidentalParentheses -- Remove parentheses from around 
+//    accidentals.
+//
+//
+
+void ScoreItem::removeAccidentalParentheses(void) {
+   if (!isNoteItem()) {
+      return;
+   }
+   setParameterDigit(P5, 2, 0);
+}
+
+
+
+//////////////////////////////
+//
+// ScoreItem::removeFlags -- Remove flags from stem of notes.  The
+//    flag count is stored in the 1's digit of P9.
+//
+
+void ScoreItem::removeFlags(void) {
+   if (!isNoteItem()) {
+      return;
+   }
+   setParameterDigit(P9, 0, 0);
 }
 
 

@@ -80,7 +80,14 @@ class ScorePage : public ScorePageBase {
 
       // Chord analysis functions (defined in ScorePage_chord.cpp):
       void        analyzeChords         (void);
-      vectorSIp&  chordNotes            (ScoreItem* chordtone);
+      vectorSIp*  chordNotes            (ScoreItem* chordtone);
+
+      // Beam analysis functions (defined in ScorePAge_beam.cpp):
+      void        analyzeBeams          (SCORE_FLOAT tolerance = 0.001);
+      BeamGroup*  beamInfo              (ScoreItem* item);
+      void        analyzeBeamsOnStaff   (int p2index, 
+                                         SCORE_FLOAT tolerance = 0.001);
+      ostream&    printBeamDatabase     (ostream& out = cout);
 
    private:
       // private sorting functions:

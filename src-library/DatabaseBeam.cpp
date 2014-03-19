@@ -11,7 +11,7 @@
 //
 
 #include "DatabaseBeam.h"
-
+#include "ScoreItem.h"
 #include <algorithm>
 
 using namespace std;
@@ -45,12 +45,23 @@ DatabaseBeam::~DatabaseBeam() {
 //
 
 void DatabaseBeam::clear(void) {
-   for (auto it = database.begin(); it != database.end(); it++) {
-      delete (*it);
-      *it = NULL;
+   for (auto& it : database) {
+      delete it;
+      it = NULL;
    }
    database.clear();
    interface.clear();
+}
+
+
+
+//////////////////////////////
+//
+// DatabaseBeam::size -- Return the number of beam groups in the database.
+//
+
+int DatabaseBeam::size(void) {
+   return database.size();
 }
 
 
@@ -64,8 +75,7 @@ void DatabaseBeam::clear(void) {
 BeamGroup* DatabaseBeam::beamInfo(ScoreItem* item) {
    auto result = interface.find(item);
    if (result == interface.end()) {
-      return database.front();
-      return &dummyinfo;
+      return NULL;
    } else {
       return result->second;
    }
@@ -79,36 +89,66 @@ BeamGroup* DatabaseBeam::beamInfo(ScoreItem* item) {
 //
 
 BeamGroup* DatabaseBeam::linkItems(ScoreItem* item1, ScoreItem* item2) {
-   BeamGroup* infoa = beamInfo(item1);
-   BeamGroup* infob = beamInfo(item2);
+   BeamGroup* info1 = beamInfo(item1);
+   BeamGroup* info2 = beamInfo(item2);
 
-   if ((infoa->beams.empty() && infoa->notes.empty())) {
-      if (infob->beams.empty() && infob->notes.empty()) {
-         // create entries for both notes
-         database.emplace_back();
+   if (info1 == NULL) {
+      if (info2 == NULL) {
+         // Case 1: neither item is in the beam database. Create entries 
+         // for both items.
+         BeamGroup *bg = new BeamGroup;
+         database.push_back(bg);
          insertItem(database.back(), item1);
          insertItem(database.back(), item2);
          interface[item1] = database.back();
          interface[item2] = database.back();
          return database.back();
       } else {
-         // item2 in a beam group already, so add item1 to its list.
-         insertItem(infob, item1);
-         interface[item1] = infob;
-         return infob;
+         // Case 2: item1 is not in the database, but item2 is.  Add item1 
+         // to item2's list.
+         insertItem(info2, item1);
+         interface[item1] = info2;
+         return info2;
       }
    } else {
-      if (infob->beams.empty() && infob->notes.empty()) {
-         // both items are in the database.  They should be attached to the 
-         // same beam.  If not, merging separate beams are not allowed.
-         return infoa;
+      if (info2 == NULL) {
+         // Case 3: note1 is in the database, but note2 is not.  Add item2
+         // to item1's list and return info1.
+         insertItem(info1, item2);
+         interface[item2] = info1;
+         return info1;
       } else {
-         // item1 in a beam group already, so add item2 to its list.
-         insertItem(infoa, item2);
-         interface[item2] = infoa;
-         return infoa;
+         // Case 4: Both items are already in the database.  Presumably
+         // they are in the same group.  Currently not checking to see
+         // that they are in the same group, and it is an error to put
+         // an item into two separate beam groups.
+         return info1;
       }
    }
+}
+
+
+
+//////////////////////////////
+//
+// DatabaseBeam::printDatabase -- Print a list of the beams/notes in the
+//     beam database.
+//
+
+ostream& DatabaseBeam::printDatabase(ostream& out) {
+   for (auto& it : database) {
+      out << "\n# BEAM GROUP START\n";
+      out << "# BEAMS:\n";
+      for (auto& beam : it->beams) {
+         out << beam;         
+      }
+      out << "# NOTES/RESTS:\n";
+      for (auto& note : it->notes) {
+         out << note;         
+      }
+      out << "\n# BEAM GROUP END\n";
+   }
+   return out;
 }
 
 
@@ -126,7 +166,6 @@ BeamGroup* DatabaseBeam::linkItems(ScoreItem* item1, ScoreItem* item2) {
 
 void DatabaseBeam::insertItem(BeamGroup* info, ScoreItem* item) {
    int type = item->getItemType();
-   
    if ((type == P1_Note) || (type == P1_Rest)) {
       info->notes.push_back(item);
       sort(info->notes.begin(), info->notes.end(), sortP3);

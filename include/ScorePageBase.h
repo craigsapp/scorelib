@@ -19,6 +19,7 @@
 #include "ScorePageBase_PrintInfo.h"
 #include "ScorePageBase_StaffInfo.h"
 #include "DatabaseChord.h"
+#include "DatabaseBeam.h"
 
 using namespace std;
 
@@ -154,6 +155,9 @@ class ScorePageBase {
 
       // chord_database contains information about chrods on the page.
       DatabaseChord chord_database;
+
+      // beam_database contains information about beams on the page.
+      DatabaseBeam beam_database;
 
       static constexpr bool monitor_P3 = 0;
 

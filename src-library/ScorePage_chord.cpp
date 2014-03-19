@@ -1,7 +1,7 @@
 //
 // Programmer:    Craig Stuart Sapp <craig@ccrma.stanford.edu>
 // Creation Date: Mon Mar 10 14:30:07 PDT 2014
-// Last Modified: Tue Mar 11 00:38:11 PDT 2014
+// Last Modified: Sat Mar 15 22:56:41 PDT 2014
 // Filename:      ScorePage_chord.cpp
 // URL:           https://github.com/craigsapp/scorelib/blob/master/src-library/ScorePage_chord.cpp
 // Syntax:        C++11
@@ -16,10 +16,6 @@
 
 using namespace std;
 
-///////////////////////////////////////////////////////////////////////////
-//
-// Staff pitch analysis related functions
-//
 
 //////////////////////////////
 //
@@ -52,7 +48,7 @@ void ScorePage::analyzeChords(void) {
 //    note is not part of a chord.
 //
 
-vectorSIp&  ScorePage::chordNotes(ScoreItem* chordtone) {
+vectorSIp*  ScorePage::chordNotes(ScoreItem* chordtone) {
    if (!analysis_info.chordsIsValid()) {
       analyzeChords();
    }
@@ -79,16 +75,16 @@ void ScorePage::analyzeChordsOnStaff(int p2index) {
    vectorSIp& staffitems = itemlist_staffsorted[p2index];
    map<SCORE_FLOAT, vectorSIp> p3list;
    SCORE_FLOAT p3;
-   for (auto it = staffitems.begin(); it != staffitems.end(); it++) {
-      if (!(*it)->isNoteItem()) {
+   for (auto& it : staffitems) {
+      if (!it->isNoteItem()) {
          continue;
       }
-      p3 = (*it)->getHPos();
-      p3list[p3].push_back((*it));
+      p3 = it->getHPos();
+      p3list[p3].push_back(it);
    }
 
-   for (auto it = p3list.begin(); it != p3list.end(); it++) {
-      analyzeVerticalNoteSet(it->second);
+   for (auto& it : p3list) {
+      analyzeVerticalNoteSet(it.second);
    }
 }
 
@@ -112,14 +108,14 @@ void ScorePage::analyzeVerticalNoteSet(vectorSIp& data) {
    vectorSF  maxV;
    vectorSF  offset;
 
-   for (auto it = data.begin(); it != data.end(); it++) {
-      if ((*it)->hasStem()) {
-         stemmed_notes.push_back(*it);
-         minV.push_back((*it)->getStemBottomVPos());
-         maxV.push_back((*it)->getStemTopVPos());
-         offset.push_back((*it)->getP(P10));
+   for (auto& it : data) {
+      if (it->hasStem()) {
+         stemmed_notes.push_back(it);
+         minV.push_back(it->getStemBottomVPos());
+         maxV.push_back(it->getStemTopVPos());
+         offset.push_back(it->getP(P10));
       } else {
-         unstemmed_notes.push_back(*it);
+         unstemmed_notes.push_back(it);
       }
    }
 
@@ -135,13 +131,13 @@ void ScorePage::analyzeVerticalNoteSet(vectorSIp& data) {
 
    unsigned int i;
    SCORE_FLOAT vpos;
-   for (auto it = unstemmed_notes.begin(); it != unstemmed_notes.end(); it++) {
+   for (auto& it : unstemmed_notes) {
       for (i=0; i<stemmed_notes.size(); i++) {
-         vpos = (*it)->getVPos();
+         vpos = it->getVPos();
          if ((vpos >= minV[i]) && (vpos <= maxV[i])) {
             // The stemless note falls on the stem of the stemmed note,
             // so link them together:
-            chord_database.linkNotes(stemmed_notes[i], *it);
+            chord_database.linkNotes(stemmed_notes[i], it);
          }
       }
    }

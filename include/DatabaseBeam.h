@@ -13,11 +13,15 @@
 #ifndef _DATABASEBEAM_H_INCLUDED
 #define _DATABASEBEAM_H_INCLUDED
 
-#include "ScoreItem.h"
+//x #include "ScoreItem.h"
+
+class ScoreItem;
 
 #include <map>
 #include <list>
+#include <vector>
 #include <string>
+#include <iostream>
 
 using namespace std;
 
@@ -38,8 +42,10 @@ class DatabaseBeam {
                         ~DatabaseBeam  ();
    
       void               clear          (void);
+      int                size           (void);
       BeamGroup*         beamInfo       (ScoreItem*);
       BeamGroup*         linkItems      (ScoreItem* note1, ScoreItem* note2);
+      ostream&           printDatabase  (ostream& out = cout);
 
    protected:
       void               insertItem     (BeamGroup* list, ScoreItem* note);

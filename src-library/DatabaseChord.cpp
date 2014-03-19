@@ -11,6 +11,8 @@
 
 #include "DatabaseChord.h"
 
+using namespace std;
+
 
 //////////////////////////////
 //
@@ -18,7 +20,7 @@
 //
 
 DatabaseChord::DatabaseChord(void) { 
-   clear();
+   // do nothing
 }
 
 
@@ -36,14 +38,12 @@ DatabaseChord::~DatabaseChord() {
 
 //////////////////////////////
 //
-// DatabaseChord::clear -- empty the chord database of all content, store
-//    the dummy list at the start of the map data list.
+// DatabaseChord::clear -- empty the chord database of all content.
 //
 
 void DatabaseChord::clear(void) { 
    interface.clear();
    database.clear();
-   database.emplace_back(dummylist);
 }
 
 
@@ -56,35 +56,35 @@ void DatabaseChord::clear(void) {
 //    different chords is currently not allowed.
 //
 
-vectorSIp& DatabaseChord::linkNotes(ScoreItem* note1, ScoreItem* note2) {
-   vectorSIp& lista = notelist(note1);
-   vectorSIp& listb = notelist(note2);
-   
-   if (lista.empty()) {
-      if (listb.empty()) {
+vectorSIp* DatabaseChord::linkNotes(ScoreItem* note1, ScoreItem* note2) {
+   vectorSIp* lista = notelist(note1);
+   vectorSIp* listb = notelist(note2);
+
+   if (lista == NULL) {
+      if (listb == NULL) {
          // create entries for both notes
          database.emplace_back();
-         insertNote(database.back(), note1);
-         insertNote(database.back(), note2);
+         insertNote(&database.back(), note1);
+         insertNote(&database.back(), note2);
          interface[note1] = &database.back();
          interface[note2] = &database.back();
-         return database.back();
+         return &database.back();
       } else {
          // note2 in a chord already, so add note1 to its list.
          insertNote(listb, note1);
-         interface[note1] = &listb;
+         interface[note1] = listb;
          return listb;
       }
    } else {
-      if (listb.empty()) {
+      if (listb == NULL) {
+         // note1 in a chord already, so add note2 to its list.
+         insertNote(lista, note2);
+         interface[note2] = lista;
+         return lista;
+      } else {
          // both notes are in the database.  They should be attached to the 
          // same chord.  If not, merging separate chords are currently
          // not allowed (may be added in the future).
-         return lista;
-      } else {
-         // note1 in a chord already, so add note2 to its list.
-         insertNote(lista, note2);
-         interface[note2] = &lista;
          return lista;
       }
    }
@@ -99,12 +99,12 @@ vectorSIp& DatabaseChord::linkNotes(ScoreItem* note1, ScoreItem* note2) {
 //    of the chord (the note which posses the stem and articulations).
 //
 
-vectorSIp& DatabaseChord::notelist(ScoreItem* item) { 
+vectorSIp* DatabaseChord::notelist(ScoreItem* item) { 
    auto result = interface.find(item);
    if (result == interface.end()) {
-      return database.front();
+      return NULL;
    } else {
-      return *(result->second);
+      return result->second;
    }
 }
 
@@ -122,15 +122,15 @@ vectorSIp& DatabaseChord::notelist(ScoreItem* item) {
 //     push onto the end of the list.
 //
 
-void DatabaseChord::insertNote(vectorSIp& list, ScoreItem* note) {
+void DatabaseChord::insertNote(vectorSIp* list, ScoreItem* note) {
    if (note->hasStem()) {
-      list.resize(list.size()+1);
-      for (int i=list.size()-1; i>0; i--) {
-         list[i] = list[i-1];
+      list->resize(list->size()+1);
+      for (int i=list->size()-1; i>0; i--) {
+         (*list)[i] = (*list)[i-1];
       }
-      list[0] = note;
+      (*list)[0] = note;
    } else {
-      list.push_back(note);
+      list->push_back(note);
    }
 }
 

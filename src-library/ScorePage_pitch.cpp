@@ -11,6 +11,7 @@
 //
 
 #include "ScorePage.h"
+#include "ScoreUtility.h"
 #include <algorithm>
 #include <set>
 
@@ -75,7 +76,7 @@ void ScorePage::analyzeSystemPitch(vectorSIp& systemitems) {
    vectorVI pitchstate(MAX_STAFF_COUNT, vectorI(70, 0)); 
 
    int vpos, base40, diatonic, accidental, printedaccidental;
-   int haseditorial, hasnatural, sysstaff;
+   int haseditorial, sysstaff;
 
 
    // Assume treble clef if no clef given:
@@ -107,11 +108,10 @@ void ScorePage::analyzeSystemPitch(vectorSIp& systemitems) {
 
       vpos          = curr->getPInt(P4);  // deal with +/- rounding?
       diatonic      = (vpos%100) - middleCVpos[sysstaff] + 7*4;
-      base40        = ScoreItem::base7ToBase40(diatonic);
+      base40        = SU::base7ToBase40(diatonic);
       accidental    = curr->getPrintedAccidental();
-      hasnatural    = curr->hasNatural();
       haseditorial  = curr->hasEditorialAccidental();
-      if ((accidental == 0) && (hasnatural == 0))  {
+      if (!curr->hasPrintedAccidental()) {
          accidental = pitchstate[sysstaff][diatonic];
       }
       if (!haseditorial) {
@@ -119,28 +119,18 @@ void ScorePage::analyzeSystemPitch(vectorSIp& systemitems) {
 
          // if the printed accidental matches the pitch state,
          // then mark the note item as possessing a cautionary accidental
-         if ((printedaccidental == 1) &&
-               (pitchstate[sysstaff][diatonic] == -1)) {
-            curr->setParameter("cautionaryAccidental", "true");
-         } else if ((printedaccidental == 2) &&
-               (pitchstate[sysstaff][diatonic] == +1)) {
-            curr->setParameter("cautionaryAccidental", "true");
-         } else if ((printedaccidental == 3) &&
-               (pitchstate[sysstaff][diatonic] == 0)) {
-            curr->setParameter("cautionaryAccidental", "true");
-         } else if ((printedaccidental == 4) &&
-               (pitchstate[sysstaff][diatonic] == -2)) {
-            curr->setParameter("cautionaryAccidental", "true");
-         } else if ((printedaccidental == 5) &&
-               (pitchstate[sysstaff][diatonic] == +2)) {
+         if (printedaccidental == pitchstate[sysstaff][diatonic]) {
             curr->setParameter("cautionaryAccidental", "true");
          }
-         pitchstate[sysstaff][diatonic] = accidental;
+         if (abs(printedaccidental) < 100) {
+            // extrema range means no accidental on the note.
+            pitchstate[sysstaff][diatonic] = accidental;
+         }
       }
       base40 += accidental;
       base40string  = to_string(base40);
       base40string += "\t(";
-      base40string += ScoreItem::base40ToKern(base40);
+      base40string += SU::base40ToKern(base40);
       base40string += ")";
 
       curr->setParameter("analysis", "base40Pitch", base40string);

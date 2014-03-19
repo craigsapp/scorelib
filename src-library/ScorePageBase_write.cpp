@@ -15,6 +15,7 @@
 
 using namespace std;
 
+
 ///////////////////////////////////////////////////////////////////////////
 //
 // ScorePageBase writing functions.
@@ -32,9 +33,8 @@ ostream& ScorePageBase::printPmx(ostream& out, int roundQ, int verboseQ) {
       cout << "# OBJECTS TO WRITE: " << getItemCount() << endl;
    }
 
-   listSIp::iterator it;
-   for (it = item_storage.begin(); it != item_storage.end(); it++) {
-      (*it)->printPmx(out);
+   for (auto& it : item_storage) {
+      it->printPmx(out);
    }
 
    out << flush;
@@ -54,9 +54,8 @@ ostream& ScorePageBase::printPmxWithNamedParameters(ostream& out, int roundQ,
       cout << "# OBJECTS TO WRITE: " << getItemCount() << endl;
    }
 
-   listSIp::iterator it;
-   for (it = item_storage.begin(); it != item_storage.end(); it++) {
-      (*it)->printPmx(out);
+   for (auto& it : item_storage) {
+      it->printPmx(out);
    }
 
    out << flush;
@@ -77,9 +76,8 @@ ostream& ScorePageBase::printPmxFixedParameters(ostream& out, int roundQ,
       cout << "# OBJECTS TO WRITE: " << getItemCount() << endl;
    }
 
-   listSIp::iterator it;
-   for (it = item_storage.begin(); it != item_storage.end(); it++) {
-      (*it)->printPmxFixedParameters(out);
+   for (auto& it : item_storage) {
+      it->printPmxFixedParameters(out);
    }
 
    out << flush;
@@ -125,9 +123,8 @@ ostream& ScorePageBase::writeBinary(ostream& outfile) {
 
    int writecount = 0;   // number of 4-byte values which have been written
 
-   listSIp::iterator it;
-   for (it = item_storage.begin(); it != item_storage.end(); it++) {
-      writecount += (*it)->writeBinary(temps);
+   for (auto& it : item_storage) {
+      writecount += it->writeBinary(temps);
    }
 
    // write the trailer, must be at least (6) numbers long:

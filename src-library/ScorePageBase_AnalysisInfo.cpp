@@ -14,6 +14,7 @@
 
 using namespace std;
 
+
 int AnalysisInfo::database_initialized = 0;
 DatabaseAnalysis AnalysisInfo::database;
 

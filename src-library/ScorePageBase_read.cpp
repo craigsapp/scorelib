@@ -88,18 +88,23 @@ void ScorePageBase::readFile(const char* filename, int verboseQ) {
 void ScorePageBase::readFile(istream& testfile, int verboseQ) {
    int binaryQ = 0;  // to test if reading a binary or PMX data file.
 
-   // The last 4 bytes of a binary SCORE file are 00 3c 1c c6 which equals
-   // the float value -9999.0.
-   testfile.seekg(-4, ios::end);
-   unsigned char databytes[4] = {0xff};
-   testfile.read((char*)databytes, 4);
-   if (databytes[0] == 0x00 && databytes[1] == 0x3c && databytes[2] == 0x1c &&
-         databytes[3] == 0xc6) {
-      binaryQ = 1;
-   } else {
+   if (&testfile == &cin) {
+      // presume that standard input is PMX data, and not binary data.
       binaryQ = 0;
+   } else {
+      // The last 4 bytes of a binary SCORE file are 00 3c 1c c6 which equals
+      // the float value -9999.0.
+      testfile.seekg(-4, ios::end);
+      unsigned char databytes[4] = {0xff};
+      testfile.read((char*)databytes, 4);
+      if (databytes[0] == 0x00 && databytes[1] == 0x3c && 
+            databytes[2] == 0x1c && databytes[3] == 0xc6) {
+         binaryQ = 1;
+      } else {
+         binaryQ = 0;
+      }
+      testfile.seekg(0, ios::beg);
    }
-   testfile.seekg(0, ios::beg);
 
    if (binaryQ) {
       readBinary(testfile, verboseQ);

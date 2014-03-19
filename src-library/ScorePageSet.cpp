@@ -42,9 +42,9 @@ ScorePageSet::~ScorePageSet() {
 //
 
 void ScorePageSet::clear(void) {
-   for (auto it = page_storage.begin(); it != page_storage.end(); it++) {
-      delete *it;
-      *it = NULL;
+   for (auto& it : page_storage) {
+      delete it;
+      it = NULL;
    }
    page_storage.resize(0);
    page_sequence.resize(0);

@@ -27,11 +27,11 @@ class DatabaseChord {
                         ~DatabaseChord  ();
    
       void               clear          (void);
-      vectorSIp&         notelist       (ScoreItem*);
-      vectorSIp&         linkNotes      (ScoreItem* note1, ScoreItem* note2);
+      vectorSIp*         notelist       (ScoreItem*);
+      vectorSIp*         linkNotes      (ScoreItem* note1, ScoreItem* note2);
 
    protected:
-      void               insertNote     (vectorSIp& list, ScoreItem* note);
+      void               insertNote     (vectorSIp* list, ScoreItem* note);
 
    private:
       map<ScoreItem*, vectorSIp*> interface;
