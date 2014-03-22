@@ -20,6 +20,7 @@
 #include "ScorePageBase_StaffInfo.h"
 #include "DatabaseChord.h"
 #include "DatabaseBeam.h"
+#include "DatabaseP3.h"
 
 using namespace std;
 
@@ -158,6 +159,11 @@ class ScorePageBase {
 
       // beam_database contains information about beams on the page.
       DatabaseBeam beam_database;
+
+      // p3_database contains information about p3/staff duration offset
+      // cross indexing, and organizes ScoreItems by p3 values for each
+      // system.  Dimension of p3_database is the system count on the page.
+      vector<DatabaseP3> p3_database;
 
       static constexpr bool monitor_P3 = 0;
 

@@ -12,6 +12,7 @@
 //
 
 #include "ScorePageBase.h"
+#include "ScoreUtility.h"
 #include <algorithm>
 
 using namespace std;
@@ -203,7 +204,7 @@ void ScorePageBase::getStaffItemList (vectorVSIp& data) {
 void ScorePageBase::getStaffItemListOrdered(vectorVSIp& data) {
    getStaffItemList(data);
    for (auto& it : data) {
-      sort(it.begin(), it.end(), sortP3P4P1);
+      sort(it.begin(), it.end(), SU::sortP3P4P1);
    }
 }
 

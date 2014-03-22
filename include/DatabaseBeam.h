@@ -13,8 +13,6 @@
 #ifndef _DATABASEBEAM_H_INCLUDED
 #define _DATABASEBEAM_H_INCLUDED
 
-//x #include "ScoreItem.h"
-
 class ScoreItem;
 
 #include <map>
@@ -53,7 +51,6 @@ class DatabaseBeam {
    private:
       map<ScoreItem*, BeamGroup*> interface;
       list<BeamGroup*> database;
-      BeamGroup dummyinfo;
 };
 
 

@@ -15,6 +15,7 @@
 #define _SCOREPAGE_H_INCLUDED
 
 #include "ScorePageBase.h"
+#include "DatabaseP3.h"
 
 using namespace std;
 
@@ -36,12 +37,15 @@ class ScorePage : public ScorePageBase {
       void getSortedStaffItems          (int staffnum, vectorSIp& items);
       void getSortedStaffItems          (vectorSIp& items, int staffnum);
 
+
       // System-level data lists:
       void getHorizontallySortedStaffItems (vectorVSIp& staffsequence);
       void getUnsortedSystemItems          (vectorSIp& sysseq, int sysindex);
       void getUnsortedSystemItems          (int sysindex, vectorSIp& sysseq);
       void getHorizontallySortedSystemItems(vectorSIp& sysseq, int sysindex);
       void getHorizontallySortedSystemItems(int sysindex, vectorSIp& sysseq);
+//      void getSystemP3Database             (int sysindex, DatabaseP3& list);
+
 
       // Staff Analysis functions (defined in ScorePage_staff.cpp):
       void        analyzeStaves          (void);
@@ -57,7 +61,6 @@ class ScorePage : public ScorePageBase {
       vectorSIp&  staffItems             (int p2index);
 
 
-
       //  System analysis functions (defined in ScorePage_system.cpp):
       int         analyzeSystems        (void);
       int         getSystemCount        (void);
@@ -71,23 +74,34 @@ class ScorePage : public ScorePageBase {
       void        fillSystemScoreItemLists(void);
       vectorSIp&  systemItems           (int sindex);
 
+
       // Staff duration analysis functions (defined in ScorePage_duration.cpp):
       void        analyzeStaffDurations (void);
+
 
       // Pitch analysis functions (defined in ScorePage_pitch.cpp):
       void        analyzePitch          (void);
       void        analyzeSystemPitch    (vectorSIp& systemitems);
 
+
       // Chord analysis functions (defined in ScorePage_chord.cpp):
       void        analyzeChords         (void);
       vectorSIp*  chordNotes            (ScoreItem* chordtone);
 
-      // Beam analysis functions (defined in ScorePAge_beam.cpp):
+
+      // Beam analysis functions (defined in ScorePage_beam.cpp):
       void        analyzeBeams          (SCORE_FLOAT tolerance = 0.001);
       BeamGroup*  beamInfo              (ScoreItem* item);
       void        analyzeBeamsOnStaff   (int p2index, 
                                          SCORE_FLOAT tolerance = 0.001);
       ostream&    printBeamDatabase     (ostream& out = cout);
+
+
+      // P3 analysis functions (defined in ScorePage_p3.cpp):
+      void        analyzeP3                 (void);
+      SCORE_FLOAT getP3OfStaffDurationOffset(int sys, SCORE_FLOAT offset);
+
+
 
    private:
       // private sorting functions:

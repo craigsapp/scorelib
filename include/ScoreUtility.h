@@ -16,15 +16,26 @@
 #include "ScoreDefs.h"
 #include "ScoreItemEdit_ParameterHistory.h"
 
+class ScoreItem;
 
 namespace ScoreUtility {
 
    string  base40ToKern        (int base40);
    int     base7ToBase40       (int base7);
 
+   // ScoreItem sorting functions (defined in ScoreUtility.cpp):
+   bool   sortP3              (ScoreItem* a, ScoreItem* b);
+   bool   sortP3P2            (ScoreItem* a, ScoreItem* b);
+   bool   sortP3P4P1          (ScoreItem* a, ScoreItem* b);
+   bool   sortP3P1P4          (ScoreItem* a, ScoreItem* b);
+   bool   sortP3P2P1          (ScoreItem* a, ScoreItem* b);
+   bool   sortP3P2P1P4        (ScoreItem* a, ScoreItem* b);
+
 }  // end of namespace ScoreUtility
 
+
 namespace SU = ScoreUtility;  // abbreviation
+
 
 #endif  /* _SCOREUTILITYH_INCLUDED */
 

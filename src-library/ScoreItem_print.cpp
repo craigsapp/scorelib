@@ -6,7 +6,8 @@
 // URL:           https://github.com/craigsapp/scorelib/blob/master/src-library/ScoreItem_print.cpp
 // Syntax:        C++11
 //
-// Description:   ostream functions for printing ASCII versions of ScoreItems.
+// Description:   ostream functions for printing ASCII versions of 
+//                ScoreItem.
 //
 
 #include "ScoreItem.h"

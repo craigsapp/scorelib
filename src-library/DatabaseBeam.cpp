@@ -12,6 +12,7 @@
 
 #include "DatabaseBeam.h"
 #include "ScoreItem.h"
+#include "ScoreUtility.h"
 #include <algorithm>
 
 using namespace std;
@@ -168,10 +169,10 @@ void DatabaseBeam::insertItem(BeamGroup* info, ScoreItem* item) {
    int type = item->getItemType();
    if ((type == P1_Note) || (type == P1_Rest)) {
       info->notes.push_back(item);
-      sort(info->notes.begin(), info->notes.end(), sortP3);
+      sort(info->notes.begin(), info->notes.end(), SU::sortP3);
    } else if (type == P1_Beam) {
       info->beams.push_back(item);
-      sort(info->beams.begin(), info->beams.end(), sortP3);
+      sort(info->beams.begin(), info->beams.end(), SU::sortP3);
    }
 }
 

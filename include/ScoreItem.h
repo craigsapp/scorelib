@@ -180,6 +180,8 @@ using vectorVSIp  = vector<vector<ScoreItem*>>;
 
 
       // Page-related functions (defined in ScoreItem_page.cpp):
+      int          getPageSystemIndex     (void);
+
       vectorSIp*   getChordNotes          (void);
       bool         isPrimaryChordNote     (void);
       bool         isSecondaryChordNote   (void);
@@ -190,6 +192,8 @@ using vectorVSIp  = vector<vector<ScoreItem*>>;
       BeamGroup*   beamInfo               (void);
       BeamGroup*   beamGroup              (void);
       int          inBeamGroup            (void);
+
+      SCORE_FLOAT  getHPosOff             (void);
 
 
       /////////////////////////////////////////////////////////////////////
@@ -204,13 +208,12 @@ using vectorVSIp  = vector<vector<ScoreItem*>>;
 };
 
 
-
-// ScoreItem sorting functions (defined in ScoreItem_sort.cpp):
-bool   sortP3              (ScoreItem* a, ScoreItem* b);
-bool   sortP3P2            (ScoreItem* a, ScoreItem* b);
-bool   sortP3P4P1          (ScoreItem* a, ScoreItem* b);
-bool   sortP3P1P4          (ScoreItem* a, ScoreItem* b);
-bool   sortP3P2P1P4        (ScoreItem* a, ScoreItem* b);
+// external printing functions (defined in ScoreItem_print.cpp):
+ostream& operator<<(ostream& out, ScoreItem& si);
+ostream& operator<<(ostream& out, ScoreItem* si);
+ostream& operator<<(ostream& out, listSIp& sipvector);
+ostream& operator<<(ostream& out, vectorSIp& sipvector);
+ostream& operator<<(ostream& out, vectorVSIp& sipvvector);
 
 
 // Selecting filters for list of ScoreItems (defined in ScoreItem_select.cpp):
@@ -227,13 +230,6 @@ int    selectDurationItems (vectorSIp& output, const listSIp& input);
 int    selectBarlines      (vectorSIp& output, const vectorSIp& input);
 int    selectBarlines      (vectorSIp& output, const listSIp& input);
 
-
-// external printing functions (defined in ScoreItem_print.cpp):
-ostream& operator<<(ostream& out, ScoreItem& si);
-ostream& operator<<(ostream& out, ScoreItem* si);
-ostream& operator<<(ostream& out, listSIp& sipvector);
-ostream& operator<<(ostream& out, vectorSIp& sipvector);
-ostream& operator<<(ostream& out, vectorVSIp& sipvvector);
 
 
 

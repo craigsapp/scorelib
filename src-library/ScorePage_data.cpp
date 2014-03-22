@@ -11,6 +11,7 @@
 //
 
 #include "ScorePage.h"
+#include "ScoreUtility.h"
 #include <algorithm>
 
 using namespace std;
@@ -46,7 +47,7 @@ void  ScorePage::getHorizontallySortedStaffItems(vectorVSIp& staffsequence) {
    }
 
    for (auto& it : staffsequence) {
-      sort(it.begin(), it.end(), sortP3);
+      sort(it.begin(), it.end(), SU::sortP3);
     }
 }
 
@@ -86,7 +87,7 @@ void ScorePage::getUnsortedStaffItems(vectorSIp& items, int staffnum) {
 
 void ScorePage::getSortedStaffItems(int staffnum, vectorSIp& items) {
    getUnsortedStaffItems(staffnum, items);
-   sort(items.begin(), items.end(), sortP3);
+   sort(items.begin(), items.end(), SU::sortP3);
 }
 
 // Alias:
@@ -151,7 +152,7 @@ void ScorePage::getUnsortedSystemItems(int sysindex, vectorSIp& sysseq) {
 void ScorePage::getHorizontallySortedSystemItems(vectorSIp& sysseq, 
       int sysindex) {
    getUnsortedSystemItems(sysseq, sysindex);
-   sort(sysseq.begin(), sysseq.end(), sortP3);
+   sort(sysseq.begin(), sysseq.end(), SU::sortP3);
 }
 
 // Alias:

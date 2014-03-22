@@ -12,6 +12,7 @@
 //
 
 #include "ScorePage.h"
+#include "ScoreUtility.h"
 #include <algorithm>
 
 using namespace std;
@@ -84,7 +85,7 @@ void ScorePage::sortPageHorizontally  (void) {
            it++, it2++) {
       *it2 = *it;
    }
-   sort(sortlist.begin(), sortlist.end(), sortP3);
+   sort(sortlist.begin(), sortlist.end(), SU::sortP3);
    analysis_info.setValid("notmodified");
    analysis_info.setValid("sorted");
 }

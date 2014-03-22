@@ -15,6 +15,7 @@
 //
 
 #include "ScorePage.h"
+#include "ScoreUtility.h"
 #include <algorithm>
 
 using namespace std;
@@ -195,7 +196,7 @@ void ScorePage::fillSystemScoreItemLists(void) {
          }
       }
 
-      sort(systemlist[i].begin(), systemlist[i].end(), sortP3P2P1P4);
+      sort(systemlist[i].begin(), systemlist[i].end(), SU::sortP3P2P1P4);
    }
 }
 

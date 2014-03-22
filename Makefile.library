@@ -195,53 +195,167 @@ makedirs:
 # Dependencies -- generated with the following command in                 #
 #      the src directory (in bash shell):                                 #
 #                                                                         #
-#   for i in *.cpp                                                        #
-#   do                                                                    #
-#      cc -I../include -MM $i | sed 's/\.\.\/include\///g'                #
-#      echo ""                                                            #
-#   done                                                                  #
-#                                                                         #
-# Or in a csh-type shell (such as tcsh):                                  #
-#                                                                         #
-#   foreach i (*.cpp)                                                     #
-#      cc -I../include -MM $i | sed 's/\.\.\/include\///g'                #
-#      echo ""                                                            #
-#   end                                                                   #
+# for i in src-library/*.cpp
+# do
+#    cc -std=c++11 -Iinclude -MM $i | sed 's/include\///g; s/src-library\///g'
+#    echo ""
+# done
+# 
 
-ScoreItem.o: ScoreItem.cpp ScoreItem.h ScoreItemBase.h
+DatabaseAnalysis.o: DatabaseAnalysis.cpp DatabaseAnalysis.h
 
-ScoreItemBase.o: ScoreItemBase.cpp ScorePageBase.h \
- ScoreItem.h ScoreItemBase.h ScorePageBase_AnalysisInfo.h \
- ScorePageBase_PrintInfo.h ScorePageBase_StaffInfo.h
+DatabaseBeam.o: DatabaseBeam.cpp DatabaseBeam.h ScoreItem.h DatabaseBeam.h \
+ ScoreItemBase.h ScoreDefs.h ScoreItemEdit_ParameterHistory.h \
+ ScoreUtility.h
 
-ScoreItemEdit.o: ScoreItemEdit.cpp ScoreItemEdit.h  ScoreItemBase.h
+DatabaseChord.o: DatabaseChord.cpp DatabaseChord.h  ScoreItem.h \
+ DatabaseBeam.h ScoreItemBase.h ScoreDefs.h ScoreItemEdit_ParameterHistory.h
 
-ScoreItem_notes.o: ScoreItem_notes.cpp ScoreItem.h ScoreItemBase.h
+DatabaseP3.o: DatabaseP3.cpp DatabaseP3.h ScoreItem.h DatabaseBeam.h \
+ ScoreItemBase.h ScoreDefs.h ScoreItemEdit_ParameterHistory.h \
+ ScoreItem.h ScoreUtility.h
 
-ScoreItem_print.o: ScoreItem_print.cpp ScoreItem.h ScoreItemBase.h
+ScoreItem.o: ScoreItem.cpp ScoreItem.h DatabaseBeam.h ScoreItemBase.h \
+ ScoreDefs.h ScoreItemEdit_ParameterHistory.h
 
-ScoreItem_sort.o: ScoreItem_sort.cpp ScoreItem.h ScoreItemBase.h
+ScoreItemBase.o: ScoreItemBase.cpp ScorePageBase.h ScoreItem.h \
+ DatabaseBeam.h ScoreItemBase.h ScoreDefs.h ScoreItemEdit_ParameterHistory.h \
+ ScorePageBase_AnalysisInfo.h DatabaseAnalysis.h ScorePageBase_PrintInfo.h \
+ ScorePageBase_StaffInfo.h DatabaseChord.h DatabaseP3.h
+
+ScoreItemEdit.o: ScoreItemEdit.cpp ScoreItemEdit.h ScoreItemBase.h \
+ ScoreDefs.h ScoreItemEdit_ParameterHistory.h
+
+ScoreItemEdit_ParameterHistory.o: ScoreItemEdit_ParameterHistory.cpp \
+ ScoreItemEdit_ParameterHistory.h ScoreDefs.h ScoreItemBase.h \
+ ScoreItemEdit_ParameterHistory.h
+
+ScoreItem_analysis.o: ScoreItem_analysis.cpp ScoreItem.h DatabaseBeam.h \
+ ScoreItemBase.h ScoreDefs.h ScoreItemEdit_ParameterHistory.h \
+ ScoreUtility.h
+
+ScoreItem_barlines.o: ScoreItem_barlines.cpp ScoreItem.h DatabaseBeam.h \
+ ScoreItemBase.h ScoreDefs.h ScoreItemEdit_ParameterHistory.h
+
+ScoreItem_clefs.o: ScoreItem_clefs.cpp ScoreItem.h DatabaseBeam.h \
+ ScoreItemBase.h ScoreDefs.h ScoreItemEdit_ParameterHistory.h
+
+ScoreItem_keysigs.o: ScoreItem_keysigs.cpp ScoreItem.h DatabaseBeam.h \
+ ScoreItemBase.h ScoreDefs.h ScoreItemEdit_ParameterHistory.h
+
+ScoreItem_notes.o: ScoreItem_notes.cpp ScoreItem.h DatabaseBeam.h \
+ ScoreItemBase.h ScoreDefs.h ScoreItemEdit_ParameterHistory.h
+
+ScoreItem_page.o: ScoreItem_page.cpp ScoreItem.h DatabaseBeam.h \
+ ScoreItemBase.h ScoreDefs.h ScoreItemEdit_ParameterHistory.h ScorePage.h \
+ ScorePageBase.h ScoreItem.h ScorePageBase_AnalysisInfo.h DatabaseAnalysis.h \
+ ScorePageBase_PrintInfo.h ScorePageBase_StaffInfo.h DatabaseChord.h \
+ DatabaseP3.h
+
+ScoreItem_print.o: ScoreItem_print.cpp ScoreItem.h DatabaseBeam.h \
+ ScoreItemBase.h ScoreDefs.h ScoreItemEdit_ParameterHistory.h
+
+ScoreItem_select.o: ScoreItem_select.cpp ScoreItem.h DatabaseBeam.h \
+ ScoreItemBase.h ScoreDefs.h ScoreItemEdit_ParameterHistory.h
+
+ScoreItem_text.o: ScoreItem_text.cpp ScoreItem.h DatabaseBeam.h \
+ ScoreItemBase.h ScoreDefs.h ScoreItemEdit_ParameterHistory.h
 
 ScorePage.o: ScorePage.cpp ScorePage.h ScorePageBase.h ScoreItem.h \
- ScoreItemBase.h ScorePageBase_AnalysisInfo.h ScorePageBase_PrintInfo.h \
- ScorePageBase_StaffInfo.h
+ DatabaseBeam.h ScoreItemBase.h ScoreDefs.h ScoreItemEdit_ParameterHistory.h \
+ ScorePageBase_AnalysisInfo.h DatabaseAnalysis.h ScorePageBase_PrintInfo.h \
+ ScorePageBase_StaffInfo.h DatabaseChord.h DatabaseP3.h ScoreUtility.h
 
-ScorePageBase.o: ScorePageBase.cpp ScorePageBase.h ScoreItem.h \
- ScoreItemBase.h ScorePageBase_AnalysisInfo.h ScorePageBase_PrintInfo.h \
- ScorePageBase_StaffInfo.h
+ScorePageBase.o: ScorePageBase.cpp ScorePageBase.h ScoreItem.h DatabaseBeam.h \
+ ScoreItemBase.h ScoreDefs.h ScoreItemEdit_ParameterHistory.h \
+ ScorePageBase_AnalysisInfo.h DatabaseAnalysis.h ScorePageBase_PrintInfo.h \
+ ScorePageBase_StaffInfo.h DatabaseChord.h DatabaseP3.h ScoreUtility.h
+
+ScorePageBase_AnalysisInfo.o: ScorePageBase_AnalysisInfo.cpp \
+ ScorePageBase_AnalysisInfo.h ScoreItem.h DatabaseBeam.h ScoreItemBase.h \
+ ScoreDefs.h ScoreItemEdit_ParameterHistory.h DatabaseAnalysis.h
+
+ScorePageBase_PrintInfo.o: ScorePageBase_PrintInfo.cpp \
+ ScorePageBase_PrintInfo.h ScoreItem.h DatabaseBeam.h ScoreItemBase.h \
+ ScoreDefs.h ScoreItemEdit_ParameterHistory.h
 
 ScorePageBase_StaffInfo.o: ScorePageBase_StaffInfo.cpp \
- ScorePageBase_StaffInfo.h ScoreItem.h ScoreItemBase.h
+ ScorePageBase_StaffInfo.h ScoreItem.h DatabaseBeam.h ScoreItemBase.h \
+ ScoreDefs.h ScoreItemEdit_ParameterHistory.h
 
-ScorePage_data.o: ScorePage_data.cpp ScorePage.h ScorePageBase.h \
- ScoreItem.h ScoreItemBase.h ScorePageBase_AnalysisInfo.h \
- ScorePageBase_PrintInfo.h ScorePageBase_StaffInfo.h
+ScorePageBase_filename.o: ScorePageBase_filename.cpp \
+ ScorePageBase.h ScoreItem.h DatabaseBeam.h ScoreItemBase.h ScoreDefs.h \
+ ScoreItemEdit_ParameterHistory.h ScorePageBase_AnalysisInfo.h \
+ DatabaseAnalysis.h ScorePageBase_PrintInfo.h ScorePageBase_StaffInfo.h \
+ DatabaseChord.h DatabaseP3.h
+
+ScorePageBase_read.o: ScorePageBase_read.cpp ScorePageBase.h ScoreItem.h \
+ DatabaseBeam.h ScoreItemBase.h ScoreDefs.h ScoreItemEdit_ParameterHistory.h \
+ ScorePageBase_AnalysisInfo.h DatabaseAnalysis.h ScorePageBase_PrintInfo.h \
+ ScorePageBase_StaffInfo.h DatabaseChord.h DatabaseP3.h
+
+ScorePageBase_trailer.o: ScorePageBase_trailer.cpp ScorePageBase.h \
+ ScoreItem.h DatabaseBeam.h ScoreItemBase.h ScoreDefs.h \
+ ScoreItemEdit_ParameterHistory.h ScorePageBase_AnalysisInfo.h \
+ DatabaseAnalysis.h ScorePageBase_PrintInfo.h ScorePageBase_StaffInfo.h \
+ DatabaseChord.h DatabaseP3.h
+
+ScorePageBase_write.o: ScorePageBase_write.cpp ScorePageBase.h ScoreItem.h \
+ DatabaseBeam.h ScoreItemBase.h ScoreDefs.h ScoreItemEdit_ParameterHistory.h \
+ ScorePageBase_AnalysisInfo.h DatabaseAnalysis.h ScorePageBase_PrintInfo.h \
+ ScorePageBase_StaffInfo.h DatabaseChord.h DatabaseP3.h
+
+ScorePageSet.o: ScorePageSet.cpp ScorePageSet.h ScorePage.h ScorePageBase.h \
+ ScoreItem.h DatabaseBeam.h ScoreItemBase.h ScoreDefs.h \
+ ScoreItemEdit_ParameterHistory.h ScorePageBase_AnalysisInfo.h \
+ DatabaseAnalysis.h ScorePageBase_PrintInfo.h ScorePageBase_StaffInfo.h \
+ DatabaseChord.h DatabaseP3.h
+
+ScorePage_beam.o: ScorePage_beam.cpp ScorePage.h ScorePageBase.h ScoreItem.h \
+ DatabaseBeam.h ScoreItemBase.h ScoreDefs.h ScoreItemEdit_ParameterHistory.h \
+ ScorePageBase_AnalysisInfo.h DatabaseAnalysis.h ScorePageBase_PrintInfo.h \
+ ScorePageBase_StaffInfo.h DatabaseChord.h DatabaseP3.h
+
+ScorePage_chord.o: ScorePage_chord.cpp ScorePage.h ScorePageBase.h ScoreItem.h \
+ DatabaseBeam.h ScoreItemBase.h ScoreDefs.h ScoreItemEdit_ParameterHistory.h \
+ ScorePageBase_AnalysisInfo.h DatabaseAnalysis.h ScorePageBase_PrintInfo.h \
+ ScorePageBase_StaffInfo.h DatabaseChord.h DatabaseP3.h
+
+ScorePage_data.o: ScorePage_data.cpp ScorePage.h ScorePageBase.h ScoreItem.h \
+ DatabaseBeam.h ScoreItemBase.h ScoreDefs.h ScoreItemEdit_ParameterHistory.h \
+ ScorePageBase_AnalysisInfo.h DatabaseAnalysis.h ScorePageBase_PrintInfo.h \
+ ScorePageBase_StaffInfo.h DatabaseChord.h DatabaseP3.h ScoreUtility.h
 
 ScorePage_duration.o: ScorePage_duration.cpp ScorePage.h ScorePageBase.h \
- ScoreItem.h ScoreItemBase.h ScorePageBase_AnalysisInfo.h \
- ScorePageBase_PrintInfo.h ScorePageBase_StaffInfo.h
+ ScoreItem.h DatabaseBeam.h ScoreItemBase.h ScoreDefs.h \
+ ScoreItemEdit_ParameterHistory.h ScorePageBase_AnalysisInfo.h \
+ DatabaseAnalysis.h ScorePageBase_PrintInfo.h ScorePageBase_StaffInfo.h \
+ DatabaseChord.h DatabaseP3.h
 
-ScorePage_staff.o: ScorePage_staff.cpp ScorePage.h ScorePageBase.h \
- ScoreItem.h ScoreItemBase.h ScorePageBase_AnalysisInfo.h \
- ScorePageBase_PrintInfo.h ScorePageBase_StaffInfo.h
+ScorePage_p3.o: ScorePage_p3.cpp ScorePage.h ScorePageBase.h ScoreItem.h \
+ DatabaseBeam.h ScoreItemBase.h ScoreDefs.h ScoreItemEdit_ParameterHistory.h \
+ ScorePageBase_AnalysisInfo.h DatabaseAnalysis.h ScorePageBase_PrintInfo.h \
+ ScorePageBase_StaffInfo.h DatabaseChord.h DatabaseP3.h
+
+ScorePage_pitch.o: ScorePage_pitch.cpp ScorePage.h ScorePageBase.h ScoreItem.h \
+ DatabaseBeam.h ScoreItemBase.h ScoreDefs.h ScoreItemEdit_ParameterHistory.h \
+ ScorePageBase_AnalysisInfo.h DatabaseAnalysis.h ScorePageBase_PrintInfo.h \
+ ScorePageBase_StaffInfo.h DatabaseChord.h DatabaseP3.h ScoreUtility.h
+
+ScorePage_staff.o: ScorePage_staff.cpp ScorePage.h ScorePageBase.h ScoreItem.h \
+ DatabaseBeam.h ScoreItemBase.h ScoreDefs.h ScoreItemEdit_ParameterHistory.h \
+ ScorePageBase_AnalysisInfo.h DatabaseAnalysis.h ScorePageBase_PrintInfo.h \
+ ScorePageBase_StaffInfo.h DatabaseChord.h DatabaseP3.h
+
+ScorePage_system.o: ScorePage_system.cpp ScorePage.h ScorePageBase.h \
+ ScoreItem.h DatabaseBeam.h ScoreItemBase.h ScoreDefs.h \
+ ScoreItemEdit_ParameterHistory.h ScorePageBase_AnalysisInfo.h \
+ DatabaseAnalysis.h ScorePageBase_PrintInfo.h ScorePageBase_StaffInfo.h \
+ DatabaseChord.h DatabaseP3.h
+
+ScoreUtility.o: ScoreUtility.cpp ScoreUtility.h ScoreDefs.h \
+ ScoreItemEdit_ParameterHistory.h ScoreItem.h DatabaseBeam.h ScoreItemBase.h
+
+ScoreUtility_sort.o: ScoreUtility_sort.cpp ScoreUtility.h ScoreDefs.h \
+ ScoreItemEdit_ParameterHistory.h ScoreItem.h DatabaseBeam.h ScoreItemBase.h
 

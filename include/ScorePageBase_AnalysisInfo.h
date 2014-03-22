@@ -44,6 +44,7 @@ class AnalysisInfo {
       int           beamsIsValid             (void);
       int           barlinesIsValid          (void);
       int           layersIsValid            (void);
+      int           p3IsValid                (void);
 
       void          setValid                 (const string& node);
       void          setInvalid               (const string& node);
@@ -99,6 +100,12 @@ class AnalysisInfo {
       // Dependencies for layers: barlines, (systems, staves, sorted, 
       // notmodified).
       int layers;
+
+      // p3: true if P3 analysis has been done.  This analysis 
+      // organizes ScoreItems* into a list of P3 values.  The P3 analysis
+      // also cross-indexes the P3 value and staff offset durations of 
+      // items on a system.
+      int p3;
 
    private:
       static DatabaseAnalysis database;

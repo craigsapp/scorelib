@@ -21,6 +21,7 @@
 
 using namespace std;
 
+using _SF = SCORE_FLOAT;
 
 string ScoreItemBase::emptyString("");
 
@@ -221,6 +222,68 @@ SCORE_FLOAT ScoreItemBase::getP(int pindex) {
 }
 
 
+_SF ScoreItemBase::getParameter1(void)  { return getParameter(P1);  }
+_SF ScoreItemBase::getParameter2(void)  { return getParameter(P2);  }
+_SF ScoreItemBase::getParameter3(void)  { return getParameter(P3);  }
+_SF ScoreItemBase::getParameter4(void)  { return getParameter(P4);  }
+_SF ScoreItemBase::getParameter5(void)  { return getParameter(P5);  }
+_SF ScoreItemBase::getParameter6(void)  { return getParameter(P6);  }
+_SF ScoreItemBase::getParameter7(void)  { return getParameter(P7);  }
+_SF ScoreItemBase::getParameter8(void)  { return getParameter(P8);  }
+_SF ScoreItemBase::getParameter9(void)  { return getParameter(P9);  }
+_SF ScoreItemBase::getParameter10(void) { return getParameter(P10); }
+_SF ScoreItemBase::getParameter11(void) { return getParameter(P11); }
+_SF ScoreItemBase::getParameter12(void) { return getParameter(P12); }
+_SF ScoreItemBase::getParameter13(void) { return getParameter(P13); }
+_SF ScoreItemBase::getParameter14(void) { return getParameter(P14); }
+_SF ScoreItemBase::getParameter15(void) { return getParameter(P15); }
+_SF ScoreItemBase::getParameter16(void) { return getParameter(P16); }
+_SF ScoreItemBase::getParameter17(void) { return getParameter(P17); }
+_SF ScoreItemBase::getParameter18(void) { return getParameter(P18); }
+_SF ScoreItemBase::getParameter19(void) { return getParameter(P19); }
+_SF ScoreItemBase::getParameter20(void) { return getParameter(P20); }
+_SF ScoreItemBase::getParameter21(void) { return getParameter(P21); }
+_SF ScoreItemBase::getParameter22(void) { return getParameter(P22); }
+_SF ScoreItemBase::getParameter23(void) { return getParameter(P23); }
+_SF ScoreItemBase::getParameter24(void) { return getParameter(P24); }
+_SF ScoreItemBase::getParameter25(void) { return getParameter(P25); }
+_SF ScoreItemBase::getParameter26(void) { return getParameter(P26); }
+_SF ScoreItemBase::getParameter27(void) { return getParameter(P27); }
+_SF ScoreItemBase::getParameter28(void) { return getParameter(P28); }
+_SF ScoreItemBase::getParameter29(void) { return getParameter(P29); }
+_SF ScoreItemBase::getParameter30(void) { return getParameter(P30); }
+
+_SF ScoreItemBase::getP1(void)  { return getParameter(P1);  }
+_SF ScoreItemBase::getP2(void)  { return getParameter(P2);  }
+_SF ScoreItemBase::getP3(void)  { return getParameter(P3);  }
+_SF ScoreItemBase::getP4(void)  { return getParameter(P4);  }
+_SF ScoreItemBase::getP5(void)  { return getParameter(P5);  }
+_SF ScoreItemBase::getP6(void)  { return getParameter(P6);  }
+_SF ScoreItemBase::getP7(void)  { return getParameter(P7);  }
+_SF ScoreItemBase::getP8(void)  { return getParameter(P8);  }
+_SF ScoreItemBase::getP9(void)  { return getParameter(P9);  }
+_SF ScoreItemBase::getP10(void) { return getParameter(P10); }
+_SF ScoreItemBase::getP11(void) { return getParameter(P11); }
+_SF ScoreItemBase::getP12(void) { return getParameter(P12); }
+_SF ScoreItemBase::getP13(void) { return getParameter(P13); }
+_SF ScoreItemBase::getP14(void) { return getParameter(P14); }
+_SF ScoreItemBase::getP15(void) { return getParameter(P15); }
+_SF ScoreItemBase::getP16(void) { return getParameter(P16); }
+_SF ScoreItemBase::getP17(void) { return getParameter(P17); }
+_SF ScoreItemBase::getP18(void) { return getParameter(P18); }
+_SF ScoreItemBase::getP19(void) { return getParameter(P19); }
+_SF ScoreItemBase::getP20(void) { return getParameter(P20); }
+_SF ScoreItemBase::getP21(void) { return getParameter(P21); }
+_SF ScoreItemBase::getP22(void) { return getParameter(P22); }
+_SF ScoreItemBase::getP23(void) { return getParameter(P23); }
+_SF ScoreItemBase::getP24(void) { return getParameter(P24); }
+_SF ScoreItemBase::getP25(void) { return getParameter(P25); }
+_SF ScoreItemBase::getP26(void) { return getParameter(P26); }
+_SF ScoreItemBase::getP27(void) { return getParameter(P27); }
+_SF ScoreItemBase::getP28(void) { return getParameter(P28); }
+_SF ScoreItemBase::getP29(void) { return getParameter(P29); }
+_SF ScoreItemBase::getP30(void) { return getParameter(P30); }
+
 
 //////////////////////////////
 //
@@ -358,6 +421,68 @@ void ScoreItemBase::setP(int index, SCORE_FLOAT value) {
    setParameter(index, value);
 }
 
+
+void ScoreItemBase::setParameter1(_SF  value) { setParameter(P1,  value); }
+void ScoreItemBase::setParameter2(_SF  value) { setParameter(P2,  value); }
+void ScoreItemBase::setParameter3(_SF  value) { setParameter(P3,  value); }
+void ScoreItemBase::setParameter4(_SF  value) { setParameter(P4,  value); }
+void ScoreItemBase::setParameter5(_SF  value) { setParameter(P5,  value); }
+void ScoreItemBase::setParameter6(_SF  value) { setParameter(P6,  value); }
+void ScoreItemBase::setParameter7(_SF  value) { setParameter(P7,  value); }
+void ScoreItemBase::setParameter8(_SF  value) { setParameter(P8,  value); }
+void ScoreItemBase::setParameter9(_SF  value) { setParameter(P9,  value); }
+void ScoreItemBase::setParameter10(_SF value) { setParameter(P10, value); }
+void ScoreItemBase::setParameter11(_SF value) { setParameter(P11, value); }
+void ScoreItemBase::setParameter12(_SF value) { setParameter(P12, value); }
+void ScoreItemBase::setParameter13(_SF value) { setParameter(P13, value); }
+void ScoreItemBase::setParameter14(_SF value) { setParameter(P14, value); }
+void ScoreItemBase::setParameter15(_SF value) { setParameter(P15, value); }
+void ScoreItemBase::setParameter16(_SF value) { setParameter(P16, value); }
+void ScoreItemBase::setParameter17(_SF value) { setParameter(P17, value); }
+void ScoreItemBase::setParameter18(_SF value) { setParameter(P18, value); }
+void ScoreItemBase::setParameter19(_SF value) { setParameter(P19, value); }
+void ScoreItemBase::setParameter20(_SF value) { setParameter(P20, value); }
+void ScoreItemBase::setParameter21(_SF value) { setParameter(P21, value); }
+void ScoreItemBase::setParameter22(_SF value) { setParameter(P22, value); }
+void ScoreItemBase::setParameter23(_SF value) { setParameter(P23, value); }
+void ScoreItemBase::setParameter24(_SF value) { setParameter(P24, value); }
+void ScoreItemBase::setParameter25(_SF value) { setParameter(P25, value); }
+void ScoreItemBase::setParameter26(_SF value) { setParameter(P26, value); }
+void ScoreItemBase::setParameter27(_SF value) { setParameter(P27, value); }
+void ScoreItemBase::setParameter28(_SF value) { setParameter(P28, value); }
+void ScoreItemBase::setParameter29(_SF value) { setParameter(P29, value); }
+void ScoreItemBase::setParameter30(_SF value) { setParameter(P30, value); }
+
+void ScoreItemBase::setP1(SCORE_FLOAT  value) { setParameter(P1,  value); }
+void ScoreItemBase::setP2(SCORE_FLOAT  value) { setParameter(P2,  value); }
+void ScoreItemBase::setP3(SCORE_FLOAT  value) { setParameter(P3,  value); }
+void ScoreItemBase::setP4(SCORE_FLOAT  value) { setParameter(P4,  value); }
+void ScoreItemBase::setP5(SCORE_FLOAT  value) { setParameter(P5,  value); }
+void ScoreItemBase::setP6(SCORE_FLOAT  value) { setParameter(P6,  value); }
+void ScoreItemBase::setP7(SCORE_FLOAT  value) { setParameter(P7,  value); }
+void ScoreItemBase::setP8(SCORE_FLOAT  value) { setParameter(P8,  value); }
+void ScoreItemBase::setP9(SCORE_FLOAT  value) { setParameter(P9,  value); }
+void ScoreItemBase::setP10(SCORE_FLOAT value) { setParameter(P10, value); }
+void ScoreItemBase::setP11(SCORE_FLOAT value) { setParameter(P11, value); }
+void ScoreItemBase::setP12(SCORE_FLOAT value) { setParameter(P12, value); }
+void ScoreItemBase::setP13(SCORE_FLOAT value) { setParameter(P13, value); }
+void ScoreItemBase::setP14(SCORE_FLOAT value) { setParameter(P14, value); }
+void ScoreItemBase::setP15(SCORE_FLOAT value) { setParameter(P15, value); }
+void ScoreItemBase::setP16(SCORE_FLOAT value) { setParameter(P16, value); }
+void ScoreItemBase::setP17(SCORE_FLOAT value) { setParameter(P17, value); }
+void ScoreItemBase::setP18(SCORE_FLOAT value) { setParameter(P18, value); }
+void ScoreItemBase::setP19(SCORE_FLOAT value) { setParameter(P19, value); }
+void ScoreItemBase::setP20(SCORE_FLOAT value) { setParameter(P20, value); }
+void ScoreItemBase::setP21(SCORE_FLOAT value) { setParameter(P21, value); }
+void ScoreItemBase::setP22(SCORE_FLOAT value) { setParameter(P22, value); }
+void ScoreItemBase::setP23(SCORE_FLOAT value) { setParameter(P23, value); }
+void ScoreItemBase::setP24(SCORE_FLOAT value) { setParameter(P24, value); }
+void ScoreItemBase::setP25(SCORE_FLOAT value) { setParameter(P25, value); }
+void ScoreItemBase::setP26(SCORE_FLOAT value) { setParameter(P26, value); }
+void ScoreItemBase::setP27(SCORE_FLOAT value) { setParameter(P27, value); }
+void ScoreItemBase::setP28(SCORE_FLOAT value) { setParameter(P28, value); }
+void ScoreItemBase::setP29(SCORE_FLOAT value) { setParameter(P29, value); }
+void ScoreItemBase::setP30(SCORE_FLOAT value) { setParameter(P30, value); }
 
 
 //////////////////////////////

@@ -168,3 +168,44 @@ int ScoreItem::inBeamGroup(void) {
 
 
 
+//////////////////////////////
+//
+// ScoreItem::getPageSystemIndex -- return the system index that the
+//      note belongs to.  Returns -1 if not attached to a page.
+//
+
+int ScoreItem::getPageSystemIndex(void) {
+   int p2 = getStaffNumber();
+   if (page_owner == NULL) {
+      return -1;
+   }
+   return ((ScorePage*)page_owner)->getSystemIndex(p2);
+}
+
+
+
+///////////////////////////////
+//
+// ScoreItem::getHPosOff -- Return the horizontal position of the
+//    time of the note-off for the note/rest.
+//
+
+SCORE_FLOAT ScoreItem::getHPosOff(void) {
+   if (!hasDuration()) {
+      // invalid, returning negative position.
+      return -1;
+   }
+   if (page_owner == NULL) {
+      // no information about page available.
+      return -1;
+   }
+
+   // Probably handle grace notes differently: go to next duration
+   // item on staff.
+   SCORE_FLOAT offset = getStaffOffsetDuration() + getDuration();
+   int sys = getPageSystemIndex();
+   return ((ScorePage*)page_owner)->getP3OfStaffDurationOffset(sys, offset);
+}
+
+
+

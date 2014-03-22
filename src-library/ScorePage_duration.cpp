@@ -36,6 +36,10 @@ void ScorePage::analyzeStaffDurations(void) {
    SCORE_FLOAT staffduration;
    unsigned int i;
    for (i=1; i<staffsequence.size(); i++) {
+      if (staffsequence[i].size() == 0) {
+         // nothing on staff
+         continue;
+      }
       staffduration = calculateStaffDuration(staffsequence[i]);
       setStaffDuration(i, staffduration);
       staff_info.getStaffItems()[i][0]->setParameter("analysis", 

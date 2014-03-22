@@ -10,6 +10,7 @@
 //
 
 #include "ScoreUtility.h"
+#include "ScoreItem.h"
 #include <iostream>
 
 using namespace std;

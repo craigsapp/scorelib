@@ -68,6 +68,7 @@ AnalysisInfo& AnalysisInfo::operator=(const AnalysisInfo& info) {
    staffslursties = info.staffslursties;
    chords         = info.chords;
    layers         = info.layers;
+   p3             = info.p3;
    return *this;
 }
 
@@ -89,6 +90,7 @@ void AnalysisInfo::clear(void) {
    staffslursties = 0;
    chords         = 0;
    layers         = 0;
+   p3             = 0;
 }
 
 
@@ -120,6 +122,7 @@ int AnalysisInfo::chordsIsValid          (void) { return chords; }
 int AnalysisInfo::beamsIsValid           (void) { return beams; }
 int AnalysisInfo::barlinesIsValid        (void) { return barlines; }
 int AnalysisInfo::layersIsValid          (void) { return layers; }
+int AnalysisInfo::p3IsValid              (void) { return p3; }
 
 
 
@@ -171,7 +174,10 @@ void AnalysisInfo::setValid(const string& nodename) {
 //////////////////////////////
 //
 // AnalysisInfo::initializeDatabase -- set up the dependencies between
-// analysises.
+// analysises.  First parameter is the parent analysis, second
+// parameter is the dependent analysis, third parameter is the
+// variable that keeps track of whether or not that analysis
+// is valid.
 //
 
 void AnalysisInfo::initializeDatabase(void) {
@@ -188,6 +194,8 @@ void AnalysisInfo::initializeDatabase(void) {
    database.addChild("barlines",    "layers",           &layers);
    database.addChild("staves",      "chords",           &chords);
    database.addChild("duration",    "beams",            &beams);
+   database.addChild("systems",     "p3",               &p3);
+   database.addChild("duration",    "p3",               &p3);
 }
 
 

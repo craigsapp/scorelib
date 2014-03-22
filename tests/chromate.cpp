@@ -14,10 +14,16 @@
 
 using namespace std;
 
-void       processData        (ScorePage& infile, Options& opts);
-void       HarmonicColors     (map<int, string>& colormap);
-void       TriadicColors      (map<int, string>& colormap);
-void       MelodicColors      (map<int, string>& colormap);
+void       processData          (ScorePage& infile, Options& opts);
+void       HarmonicColors       (map<int, string>& colormap);
+void       TriadicColors        (map<int, string>& colormap);
+void       MelodicColors        (map<int, string>& colormap);
+void       AccidentalColors     (map<int, string>& colormap, Options& opts);
+void       displayPianoRoll     (ScorePage& infile, Options& opts);
+void       colorizeNotes        (ScorePage& infile, Options& opts);
+void       colorizeNotes        (ScorePage& infile, Options& opts);
+void       printSystemPianoRoll (int sysindex, ScorePage& infile);
+int        getChroma            (ScoreItem* item);
 
 map<int, string> Base40ToHexColor;
 
@@ -31,12 +37,22 @@ int main(int argc, char** argv) {
          "Use Harmonic/Pythagorean note colors");
    opts.define("s|spacers=b", 
          "place white dots at P3=0 & P3=200 to fix SVG width");
+   opts.define("a|accidental=b", "Use accidental note colors");
+   opts.define("doublesharp=s:#ff2600", "Color of double sharps with -a");
+   opts.define("sharp=s:#ffc400",       "Color of sharps with -a");
+   opts.define("natural=s:#000000",     "Color of naturals with -a");
+   opts.define("flat=s:#4acbff",        "Color of flats with -a");
+   opts.define("doubleflat=s:#507aff",  "Color of double flats with -a");
+   opts.define("proll=b", "display overlay of piano roll");
+   opts.define("proll-only=b", "only display piano roll without notation");
    opts.process(argc, argv);
 
    if (opts.getBoolean("harmonic")) {
       HarmonicColors(Base40ToHexColor);
    } else if (opts.getBoolean("melodic")) {
       MelodicColors(Base40ToHexColor);
+   } else if (opts.getBoolean("accidental")) {
+      AccidentalColors(Base40ToHexColor, opts);
    } else {
       TriadicColors(Base40ToHexColor);
    }
@@ -68,10 +84,117 @@ int main(int argc, char** argv) {
 //
 
 void processData(ScorePage& infile, Options& opts) {
-
-   cout << infile;
-
    infile.analyzePitch();
+
+   if (opts.getBoolean("proll") || opts.getBoolean("proll-only")) {
+      displayPianoRoll(infile, opts);
+   } else {
+      colorizeNotes(infile, opts);
+   }
+}
+
+
+//////////////////////////////
+//
+// displayPianoRoll -- superimpose a piano roll display on top
+//    of the notation.
+//
+
+void displayPianoRoll(ScorePage& infile, Options& opts) {
+
+   int syscount = infile.getSystemCount();
+   for (int i=0; i<syscount; i++) {
+      printSystemPianoRoll(i, infile);
+   }
+
+   if (!opts.getBoolean("proll-only")) {
+      ScoreItem startopacity;
+      startopacity.makeSvgCode("<g style=\"opacity:1.00\">");
+      cout << startopacity;
+   
+      cout << infile;
+   
+      ScoreItem endopacity;
+      endopacity.makeSvgCode("</g>");
+      cout << endopacity;
+   }
+}
+
+
+
+//////////////////////////////
+//
+// printSystemPianoRoll --
+//
+
+void printSystemPianoRoll(int sysindex, ScorePage& infile) {
+
+   ScoreItem box;
+   box.setP1(12.0);   // make circle/box item
+   box.setP7(1.0);    // 1 diatonic step high
+   box.setP13(1.0);   // fill rectangle
+
+   ScoreItem startcolor;
+   ScoreItem endcolor;
+   endcolor.makeSvgCode("</g>");
+
+   string hexcode;
+   int chroma;
+   SCORE_FLOAT noteP2;
+   SCORE_FLOAT noteP3;
+   SCORE_FLOAT noteP6;
+   SCORE_FLOAT boxP3;
+   SCORE_FLOAT boxP4;
+   SCORE_FLOAT boxwidth;
+
+   for (auto& it : infile.systemItems(sysindex)) {
+      if (!it->isNoteItem()) {
+         continue;
+      }
+      noteP2 = it->getP2();
+      noteP3 = it->getHPos();
+      noteP6 = it->getHPosOff();
+      boxP4 = it->getVPos();
+      boxP3  = (noteP6 - noteP3)/2.0 + noteP3;
+      boxwidth = noteP6 - noteP3;
+      box.setP2(noteP2);
+      box.setP3(boxP3);
+      box.setP4(boxP4);
+      box.setP6(boxwidth);
+
+      chroma = getChroma(it);
+      hexcode = Base40ToHexColor[chroma];
+
+      startcolor.makeSvgCode("<g color=\"" + hexcode +
+                             "\" stroke=\"" + hexcode + "\">");
+
+      cout << startcolor;
+      cout << box;
+      cout << endcolor;
+   }
+}
+
+
+
+//////////////////////////////
+//
+// getChroma --
+//
+
+int getChroma(ScoreItem* item) {
+   int base40 = item->getParameterInt("analysis", "base40Pitch");
+   return base40 % 40;
+}
+
+
+
+/////////////////////////////
+//
+// processData --
+//
+
+void colorizeNotes(ScorePage& infile, Options& opts) {
+   cout << infile;
 
    int base40;
    int chroma;
@@ -96,7 +219,7 @@ void processData(ScorePage& infile, Options& opts) {
       tempnote.removeFlags();
       tempnote.setParameter(P16, -50);  // thin ledger lines of overlay note
       colormarker.makeSvgCode("<g color=\"" + hexcode +
-                                    "\" stroke=\"" + hexcode + "\">");
+                              "\" stroke=\"" + hexcode + "\">");
       cout << colormarker;
       cout << tempnote;
       cout << endcolormarker;
@@ -242,7 +365,7 @@ void TriadicColors(map<int, string>& colormap) {
 //
 
 void MelodicColors(map<int, string>& colormap) {
-   colormap = {  // Newton melodic colors
+   colormap = {
       { 0, "#e3275a"},     // Cbb
       { 1, "#f3252f"},     // Cb
       { 2, "#ff2600"},     // C		(red)
@@ -284,6 +407,93 @@ void MelodicColors(map<int, string>& colormap) {
       {37, "#9345ff"},     // B		(purple)
       {38, "#a43ee2"},     // B#
       {39, "#b537c3"}      // B##
+   };
+}
+
+
+
+////////////////////
+//
+// AccidentalColors -- Give each type of chromatic alteration of diatonic
+//    notes a different color.
+//     ##   = red
+//     #    = orange
+//     n    = black
+//     b    = light blue
+//     bb   = dark blue
+//
+
+void AccidentalColors(map<int, string>& colormap, Options& opts) {
+   string red    = "#ff2600";
+   string orange = "#ffc400";
+   string black  = "#000000";
+   string ltblue = "#4acbff";
+   string dkblue = "#507aff";
+
+   string doublesharp = red;
+   string sharp       = orange;
+   string natural     = black;
+   string flat        = ltblue;
+   string doubleflat  = dkblue;
+
+   if (opts.getBoolean("doublesharp")) {
+      doublesharp = opts.getString("doublesharp");
+   }
+   if (opts.getBoolean("sharp")) {
+      sharp = opts.getString("sharp");
+   }
+   if (opts.getBoolean("natural")) {
+      natural = opts.getString("natural");
+   }
+   if (opts.getBoolean("flat")) {
+      flat = opts.getString("flat");
+   }
+   if (opts.getBoolean("doubleflat")) {
+      doubleflat = opts.getString("doubleflat");
+   }
+
+   colormap = {
+      { 0, doubleflat},   // Cbb
+      { 1, flat},         // Cb
+      { 2, natural},      // C
+      { 3, sharp},        // C#
+      { 4, doublesharp},  // C##
+
+      { 6, doubleflat},   // Dbb
+      { 7, flat},         // Db
+      { 8, natural},      // D
+      { 9, sharp},        // D#
+      {10, doublesharp},  // D##
+
+      {12, doubleflat},   // Ebb
+      {13, flat},         // Eb
+      {14, natural},      // E
+      {15, sharp},        // E#
+      {16, doublesharp},  // E##
+
+      {17, doubleflat},   // Fbb
+      {18, flat},         // Fb
+      {19, natural},      // F
+      {20, sharp},        // F#
+      {21, doublesharp},  // F##
+
+      {23, doubleflat},   // Gbb
+      {24, flat},         // Gb
+      {25, natural},      // G
+      {26, sharp},        // G#
+      {27, doublesharp},  // G##
+
+      {29, doubleflat},   // Abb
+      {30, flat},         // Ab
+      {31, natural},      // A 
+      {32, sharp},        // A#
+      {33, doublesharp},  // A##
+
+      {35, doubleflat},   // Bbb
+      {36, flat},         // Bb
+      {37, natural},      // B
+      {38, sharp},        // B#
+      {39, doublesharp}   // B##
    };
 }
 
