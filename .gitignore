@@ -22,6 +22,7 @@ tests/beamtest
 tests/chordtest
 tests/chromate
 tests/courtesy
+tests/double2duration
 tests/extractstaff
 tests/extractsystem
 tests/itemtest

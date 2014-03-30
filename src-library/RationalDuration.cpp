@@ -15,7 +15,7 @@
 //
 
 #include "RationalDuration.h"
-
+#include <cmath>
 
 //////////////////////////////
 //
@@ -64,8 +64,9 @@ RationalDuration::~RationalDuration() {
 
 RationalDuration& RationalDuration::operator=(RationalDuration& value) { 
    if (this != &value) {
-      primaryvalue = value.primaryvalue;
-      dotcount     = value.dotcount;
+      primaryvalue  = value.primaryvalue;
+      dotcount      = value.dotcount;
+      tupletfactors = value.tupletfactors;
    }
    return *this;
 }
@@ -74,6 +75,7 @@ RationalDuration& RationalDuration::operator=(RationalDuration& value) {
 RationalDuration& RationalDuration::operator=(RationalNumber& value) { 
    primaryvalue = value;
    dotcount     = 0;
+   tupletfactors.clear();
    return *this;
 }
 
@@ -90,6 +92,7 @@ RationalDuration& RationalDuration::operator+=(RationalDuration& value) {
       return *this;
    }
    if (dotcount == value.dotcount) {
+      // handle tuplet adding later here
       primaryvalue += value.primaryvalue;
       return *this;
    } else {
@@ -176,6 +179,7 @@ void RationalDuration::clear(void) {
 void RationalDuration::zero(void) { 
    primaryvalue = 0;
    dotcount     = 0;
+   tupletfactors.clear();
 }
 
 
@@ -275,32 +279,36 @@ double RationalDuration::getDurationDouble(void) {
 //////////////////////////////
 //
 // RationalDuration::setDuration --
+//    default value: dcount = 0
 //
 
-void RationalDuration::setDuration(const RationalNumber& rn, int dcount) { }
+void RationalDuration::setDuration(const RationalNumber& rn, int dcount) { 
+   primaryvalue = rn;
+   dotcount = dcount;
+}
 
-void RationalDuration::setDuration(int numerator, int denominator, int dcount) { }
+
+void RationalDuration::setDuration(int numerator, int denominator, int dcount) {
+   primaryvalue.setValue(numerator, denominator);
+   dotcount = dcount;
+}
 
 
 
 //////////////////////////////
 //
 // RationalDuration::setRhythm --
+//    default value: dcount = 0
 //
 
-void RationalDuration::setRhythm(int denominator, int numerator, int dcount) { }
+void RationalDuration::setRhythm(int denominator, int numerator, int dcount) { 
+   setDuration(numerator, denominator, dcount);
+}
 
-void RationalDuration::setRhythm(int denominator, int dcount) { }
 
-
-
-//////////////////////////////
-//
-// RationalDuration::setDuration --
-//
-
-void RationalDuration::setDuration(double duration, int dcount) { }
-
+void RationalDuration::setRhythm(int denominator, int dcount) { 
+   setDuration(1, denominator, dcount);
+}
 
 
 
@@ -368,26 +376,182 @@ ostream& RationalDuration::printReduced(ostream& out) {
 //////////////////////////////
 //
 // RationalDuration::printHumdrum -- Print as Humdrum **recip rhythm
-//     format.  Examples: 
-//           quarter note duration     1/4   => 4 
-//           double dotted eighth note 1/8.. => 8..
-//           triplet whole note        2/3   => 3%2
-//           dotted breve              4/3.  => 3%4.
+//     format.  Durations in **recip are in units of whole notes,
+//     while those of RationalDuration are quarter notes, so
+//     multiply by 4 when converting.  Examples: 
+//           quarter note duration     1     => 4 
+//           double dotted eighth note 1/2.. => 8..
+//           triplet whole note        8/3   => 3%2
+//           dotted breve              8/3.  => 3%4.
 //
 
-ostream& RationalDuration::printHumdrum(ostream& out) { 
+ostream& RationalDuration::printHumdrum(ostream& out) {
    if (primaryvalue <= 0) {
       out << 'g';
       return out;
    }
-   out << primaryvalue.getDenominator();
-   if (primaryvalue.getNumerator() != 1) { 
-      out << '%' << primaryvalue.getNumerator();
+   RationalNumber rn = primaryvalue / 4;
+   out << rn.getDenominator();
+   if (rn.getNumerator() != 1) { 
+      out << '%' << rn.getNumerator();
    }
    for (int i=0; i<dotcount; i++) {
       out << '.';
    }
    return out;
+}
+
+
+
+//////////////////////////////
+//
+// RationalDuration::setDurationQuarterNoteUnits -- This is not a closed 
+//    solution.  Converting from a double to a rational duration will not 
+//    be possible for all inputs, and there may be multiple solutions to 
+//    the same input.
+//
+
+void RationalDuration::setDuration(double duration, int dcount) {
+   setDurationQuarterNoteUnits(duration, dcount);
+}
+
+
+void RationalDuration::setDurationWholeNoteUnits(double duration, int dcount) {
+   setDurationQuarterNoteUnits(duration / 4.0);
+}
+
+
+void RationalDuration::setDurationQuarterNoteUnits(double duration, 
+      int dcount) { 
+
+   // Ignore negative durations:
+   if (duration <= 0.0) {
+      zero();
+      return;
+   }
+
+   // limit dot counts from 0 to 16:
+   if ((dcount > 16) || (dcount < 0)) {
+      dcount = 0;
+   }
+
+   // Remove dots from duration:
+   //
+   // # dots    adding factor                removing factor
+   // 0 dots    x * (1)             = X      X * 1/1  = x
+   // 1 dot     x * (1+1/2)         = X      X * 2/3  = x
+   // 2 dots    x * (1+1/2+1/4)     = X      X * 4/7  = x
+   // 3 dots    x * (1+1/2+1/4+1/8) = X      X * 8/15 = x
+   //
+   // General function:
+   // F(dots) = 2^dots / (2^(dots+1) - 1)
+   //
+   double basedur     = duration;
+   double undotfactor = 1.0;
+   if (dcount > 0) {
+      undotfactor = ((double)(1 << dcount))/(double)(((1<<(dcount+1))-1));
+      basedur = duration * undotfactor;
+   }
+   
+
+   RationalDuration testrd;
+
+   // check for a power-of-two duration:
+   if (powerOfTwoDuration(testrd, basedur)) {
+      *this = testrd;
+      dotcount = dcount;
+      return;
+   }
+
+   // Not a power of two duration, so various tuplets
+   RationalNumber tuplet;
+   double tupletdur;
+
+   // Test if duration is a 3:2 tuplet
+   tuplet.setValue(3,1);
+   tupletdur = basedur * tuplet.getFloat();
+   if (powerOfTwoDuration(testrd, tupletdur)) {
+      *this = testrd;
+      primaryvalue /= tuplet;
+      tupletfactors.clear();
+      tupletfactors.push_back(tuplet);
+      dotcount = dcount;
+      return;
+   }
+
+   // Test if duration is a 5:4 tuplet
+   tuplet.setValue(5,2);
+   tupletdur = basedur * tuplet.getFloat();
+   if (powerOfTwoDuration(testrd, tupletdur)) {
+      *this = testrd;
+      tuplet.setValue(5,4);
+      primaryvalue /= tuplet;
+      tupletfactors.clear();
+      tupletfactors.push_back(tuplet);
+      dotcount = dcount;
+      return;
+   }
+
+   // don't know what the duration is, so set to -1
+   zero();
+   primaryvalue = -1;
+}
+
+
+
+//////////////////////////////
+//
+// RationalDuration::setValue --
+//
+
+void RationalDuration::setValue(int top, int bottom) {
+   primaryvalue.setValue(top, bottom);
+}
+
+
+
+//////////////////////////////
+//
+// RationalDuration::powerOfTwoDuration -- 
+//
+
+int RationalDuration::powerOfTwoDuration(RationalDuration& rd, double basedur) {
+   rd.clear();
+   // exponent tolerance
+   double etol = 0.003;
+
+   double exponent = log(basedur)/log(2.0);
+   int powtwo      = (int)(fabs(exponent));
+   double fraction = (fabs(exponent) - powtwo);
+   if (fraction > (1.0 - etol)) {
+      powtwo++;
+      fraction = 0.0;
+   } else if (fraction < etol) {
+      fraction = 0.0;
+   }
+   if (fraction == 0.0) {
+      // found a power of two duration, so store it and exit
+      if (exponent >= 0) {
+         rd.setValue(1<<powtwo, 1);
+      } else {
+         rd.setValue(1, 1<<powtwo);
+      }
+      return 1;
+   }
+
+   rd.setValue(-1, 1);
+   return 0;
+}
+
+
+
+//////////////////////////////
+//
+// operator<< --
+//
+
+ostream& operator<<(ostream& out, RationalDuration rd) {
+   return rd.print(out);
 }
 
 

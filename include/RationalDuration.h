@@ -18,6 +18,7 @@
 #define _RATIONALDURATION_H_INCLUDED
 
 #include "RationalNumber.h"
+#include <vector>
 
 using namespace std;
 
@@ -63,16 +64,38 @@ class RationalDuration {
                                                 int dcount = 0);
       void                  setDuration        (double duration, 
                                                 int dcount = 0);
+      void                  setDurationWholeNoteUnits(double duration, 
+                                                int dcount = 0);
+      void                  setDurationQuarterNoteUnits(double duration, 
+                                                int dcount = 0);
       // printing functions
-      ostream&              print              (ostream& out);
-      ostream&              printReduced       (ostream& out);
-      ostream&              printHumdrum       (ostream& out);
+      ostream&              print              (ostream& out = cout);
+      ostream&              printReduced       (ostream& out = cout);
+      ostream&              printHumdrum       (ostream& out = cout);
+
+      void                  setValue           (int top, int bottom);
 
    private:
-      RationalNumber primaryvalue;
-      int            dotcount;
-      
+
+      // storage for the primary rational duration
+      RationalNumber         primaryvalue;
+
+      // number of dots to apply to the primary duration.  First dot
+      // adds 1/2 of primary value, second dot adds 1/4, third adds 1.8, etc.
+      int                    dotcount;
+
+      // tuplet factors applied to primaryvalue.  Divide by these
+      // factors to get the power of two value.
+      vector<RationalNumber> tupletfactors;
+
+   protected:
+       int                   powerOfTwoDuration (RationalDuration& rd, 
+                                                 double basedur);
+
 };
+
+
+ostream& operator<<(ostream& out, RationalDuration rd);
 
 
 
