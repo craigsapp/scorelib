@@ -62,7 +62,7 @@ RationalDuration::~RationalDuration() {
 // RationalDuration::operator= -- Copy content from another duration.
 //
 
-RationalDuration& RationalDuration::operator=(RationalDuration& value) { 
+RationalDuration& RationalDuration::operator=(const RationalDuration& value) { 
    if (this != &value) {
       primaryvalue  = value.primaryvalue;
       dotcount      = value.dotcount;
@@ -72,7 +72,8 @@ RationalDuration& RationalDuration::operator=(RationalDuration& value) {
 }
 
 
-RationalDuration& RationalDuration::operator=(RationalNumber& value) { 
+
+RationalDuration& RationalDuration::operator=(const RationalNumber& value) { 
    primaryvalue = value;
    dotcount     = 0;
    tupletfactors.clear();
@@ -508,6 +509,12 @@ void RationalDuration::setDurationQuarterNoteUnits(double duration,
    // quarter notes in the time of three (a 5:3 tuplet, where the second 
    // number is not a power of two).  Figure out how to calculate this sort 
    // of case here...
+
+
+   // 3b. Another possibility is that dcount is invalid.  In some music
+   // (particularly Baroque), the dot does not have an exact arithmetic
+   // interpretation.  Another example are the augmentation dots in Chopin's
+   // Op. 28, No. 1 prelude.
 
 
    // 4. Give up: don't know what the duration is, so set to -1

@@ -26,6 +26,7 @@ tests/double2duration
 tests/extractstaff
 tests/extractsystem
 tests/itemtest
+tests/itemdur
 tests/readtest
 tests/scoreitems2xml
 tests/staffdurations

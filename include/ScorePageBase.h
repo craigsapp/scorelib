@@ -37,6 +37,7 @@ class ScorePageBase {
 
       void           clear                    (void);
       int            getItemCount             (void);
+      listSIp&       lowLevelDataAccess       (void);
 
       // File name functions:
       string&        getFilename              (string& output);

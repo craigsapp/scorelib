@@ -158,6 +158,20 @@ int ScorePageBase::getItemCount(void) {
 
 //////////////////////////////
 //
+// ScorePageBase::lowLevelDataAccess -- Direct access to the items on a page.
+//     If you change these items through this access point, analyses will be
+//     invalid, but the page will not know that they are invalid, so be
+//     careful.
+//
+
+listSIp& ScorePageBase::lowLevelDataAccess(void) {
+   return item_storage;
+}
+
+
+
+//////////////////////////////
+//
 // ScorePageBase::getFileOrderList -- Return a list of the SCORE items
 //   in the sequence in which they are found in the file (such as
 //   the input data read from a file).

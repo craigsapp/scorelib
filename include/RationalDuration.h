@@ -34,8 +34,8 @@ class RationalDuration {
                                                 int dcount = 0);
                            ~RationalDuration   ();
 
-      RationalDuration&     operator=          (RationalDuration& value);
-      RationalDuration&     operator=          (RationalNumber& value);
+      RationalDuration&     operator=          (const RationalDuration& value);
+      RationalDuration&     operator=          (const RationalNumber& value);
       RationalDuration&     operator+=         (RationalDuration& value);
       RationalDuration&     operator+=         (RationalNumber& value);
       RationalDuration      operator+          (RationalDuration& value);
