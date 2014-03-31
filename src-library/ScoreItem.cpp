@@ -475,6 +475,23 @@ SCORE_FLOAT ScoreItem::getDuration(void) {
 
 //////////////////////////////
 //
+// ScoreItem::getRationalDuration -- 
+//
+
+RationalDuration ScoreItem::getRationalDuration(void) {
+   RationalDuration rd;
+   rd.zero();
+   if (!hasDuration()) {
+      return rd;
+   }
+   rd.setDuration(this->getDuration(), this->getDotCount());
+   return rd;
+}
+
+
+
+//////////////////////////////
+//
 // ScoreItem::setStaffOffsetDuration -- set the durational offset from the
 //    start of the owning staff to the P3 position of this ScoreItem.
 //

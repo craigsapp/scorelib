@@ -452,47 +452,65 @@ void RationalDuration::setDurationQuarterNoteUnits(double duration,
       undotfactor = ((double)(1 << dcount))/(double)(((1<<(dcount+1))-1));
       basedur = duration * undotfactor;
    }
-   
 
    RationalDuration testrd;
 
-   // check for a power-of-two duration:
+   // 1. Check to see if the duration consists of only 
+   // a power of two (untupleted rhythmic value):
    if (powerOfTwoDuration(testrd, basedur)) {
       *this = testrd;
       dotcount = dcount;
       return;
    }
 
-   // Not a power of two duration, so various tuplets
-   RationalNumber tuplet;
-   double tupletdur;
+   // 2. Check to see if it is a simple tuplet where there is
+   // only one non-power of two factor involved in the denominator
+   // of the ratio, along with a power of two in the numerator
+   // of the ratio.  At the moment, only checking tuplets at
+   // 2^0 and less.
 
-   // Test if duration is a 3:2 tuplet
-   tuplet.setValue(3,1);
-   tupletdur = basedur * tuplet.getFloat();
-   if (powerOfTwoDuration(testrd, tupletdur)) {
-      *this = testrd;
-      primaryvalue /= tuplet;
-      tupletfactors.clear();
-      tupletfactors.push_back(tuplet);
-      dotcount = dcount;
-      return;
+   int ceilingexp = ceilingPowerOfTwo(basedur);
+   double ceiling = 1.0;
+   if (ceilingexp < 0) {
+      ceiling = 1.0 / (1 << (-ceilingexp));
+   } else {
+      ceiling = 1 << ceilingexp;
+   }
+   double testval = ceiling / basedur;
+
+   // only checking exponents 2^0 to 2^-7:
+   double rtol = 0.007;
+   double result;
+   for (int i=0; i<=8; i++) {
+      result = testval * (1 << i);
+      if ((fabs(result - int(result + rtol))) < rtol) {
+         // found the tuplet
+         int bottom = int(result + rtol);
+         int top    = 1;
+         int topexp = i + ceilingexp;
+         if (topexp > 0) {
+            top = (1 << topexp);
+         } else if (topexp < 0) {
+            bottom *= (1 << (-topexp));
+         }
+         dotcount = dcount;
+         setValue(top, bottom);
+         // set tupletfactors later...
+         tupletfactors.clear();
+         return;
+      }
    }
 
-   // Test if duration is a 5:4 tuplet
-   tuplet.setValue(5,2);
-   tupletdur = basedur * tuplet.getFloat();
-   if (powerOfTwoDuration(testrd, tupletdur)) {
-      *this = testrd;
-      tuplet.setValue(5,4);
-      primaryvalue /= tuplet;
-      tupletfactors.clear();
-      tupletfactors.push_back(tuplet);
-      dotcount = dcount;
-      return;
-   }
 
-   // don't know what the duration is, so set to -1
+   // 3. At this point the duration is not a power of two, and it is not
+   // a simple tuplet of a power of two.   It is a rational duration which 
+   // consists of a tuplet ratio not based on a power of two, such as five 
+   // quarter notes in the time of three (a 5:3 tuplet, where the second 
+   // number is not a power of two).  Figure out how to calculate this sort 
+   // of case here...
+
+
+   // 4. Give up: don't know what the duration is, so set to -1
    zero();
    primaryvalue = -1;
 }
@@ -547,12 +565,28 @@ int RationalDuration::powerOfTwoDuration(RationalDuration& rd, double basedur) {
 
 //////////////////////////////
 //
+// RationalDuration::ceilingPowerOfTwo -- return the next highest
+//      power of two for the given positive input value.
+//
+
+int RationalDuration::ceilingPowerOfTwo(double value) {
+   if (value <= 0.0) {
+      cerr << "ERORR: Input must be positive: " << value << endl;
+      exit(1);
+   }
+   double exp = log(value)/log(2.0);
+   return ceil(exp-0.0001);
+}
+
+
+
+//////////////////////////////
+//
 // operator<< --
 //
 
 ostream& operator<<(ostream& out, RationalDuration rd) {
    return rd.print(out);
 }
-
 
 

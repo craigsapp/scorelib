@@ -91,6 +91,7 @@ class RationalDuration {
    protected:
        int                   powerOfTwoDuration (RationalDuration& rd, 
                                                  double basedur);
+       int                   ceilingPowerOfTwo  (double value);
 
 };
 

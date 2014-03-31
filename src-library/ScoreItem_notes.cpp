@@ -426,3 +426,32 @@ void ScoreItem::removeFlags(void) {
 
 
 
+//////////////////////////////
+//
+// ScoreItem::getDotCount -- return the number of augmentation dots.
+//     The dot count is stored in the 10's digit of P9 for notes.  For
+//     rests, the dot count is a positive value in P6 (-1 in P6 for rests
+//     make it invisible).
+//
+
+int ScoreItem::getDotCount(void) {
+   if (!hasDuration()) {
+      return 0;
+   }
+   if (isNoteItem()) {
+      return getParameterDigit(P9, 1);
+   } else if (isRestItem()) {
+      int p6 = getParameterInt(P6);
+      if (p6 < 0)  {
+         // invisible, augmentation dots, if any, are lost.
+         return 0;
+      } else {
+         return p6;
+      }
+   } 
+
+   return 0;
+}
+
+
+

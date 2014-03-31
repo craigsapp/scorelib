@@ -16,6 +16,7 @@
 #define _SCOREITEM_H_INCLUDED
 
 #include "DatabaseBeam.h"
+#include "RationalDuration.h"
 #include <list>
 #include <vector>
 
@@ -113,8 +114,9 @@ using vectorVSIp  = vector<vector<ScoreItem*>>;
       SCORE_FLOAT  getStaffOffsetDuration (void);
       bool         hasDuration            (void);
       SCORE_FLOAT  getDuration            (void);
+      RationalDuration getRationalDuration(void);
 
-      // Note (P1=1) processing functions
+      // Note (P1=1) processing functions  (defined in ScoreItem_notes.cpp)
       int          hasStem                (void);
       int          getStemDirection       (void);
       int          stemUp                 (void);
@@ -135,6 +137,7 @@ using vectorVSIp  = vector<vector<ScoreItem*>>;
       void         setAccidentalParentheses(void);
       void         removeAccidentalParentheses(void); 
       void         removeFlags            (void);
+      int          getDotCount            (void);
 
       // Rest (P1=2) processing functions
 
