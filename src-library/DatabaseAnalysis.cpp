@@ -98,3 +98,21 @@ void DatabaseAnalysis::validateNode(const string& nodename) {
 
 
 
+///////////////////////////////
+//
+// DatabaseAnalysis::print --
+//
+
+ostream& DatabaseAnalysis::print(ostream& out) {
+   out << "==========================\n";
+   for (auto& it : nodes) {
+      out << "+ " << it.first << "\t";
+      out << (*(it.second.data)) << "\t";
+      out << (unsigned long)(it.second.data) << endl;
+   }
+   out << "==========================\n";
+   return out;
+}
+
+
+

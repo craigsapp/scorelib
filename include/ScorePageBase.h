@@ -110,7 +110,7 @@ class ScorePageBase {
       listSIp item_storage;
 
       // Various horizontally sorted organizations of the item_storage data.
-      vectorSIp itemlist_P3sorted;
+      vectorSIp  itemlist_P3sorted;
       vectorVSIp itemlist_staffsorted;
       vectorVSIp itemlist_systemsorted;
 

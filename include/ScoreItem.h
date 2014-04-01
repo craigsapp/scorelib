@@ -52,6 +52,7 @@ using vectorVSIp  = vector<vector<ScoreItem*>>;
                    ~ScoreItem             ();
 
       ScoreItem&    operator=             (const ScoreItem& anItem);
+      bool          operator==            (const ScoreItemBase& item2);
 
       int          getParameterDigit      (int pindex, int position);
       int          getPDigit              (int pindex, int position);

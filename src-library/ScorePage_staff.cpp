@@ -70,7 +70,7 @@ void ScorePage::fillStaffScoreItemLists(void) {
    if (!analysis_info.stavesIsValid()) {
       analyzeStaves();
    }
-
+   
    vectorVSIp& stafflist = itemlist_staffsorted;
    vectorSIp& itemlist = itemlist_P3sorted;
    int maxstaff = getMaxStaff();

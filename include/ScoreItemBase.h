@@ -28,6 +28,7 @@ using namespace std;
 class ScoreItemBase {
 
    friend class ScorePageBase;
+   friend class ScoreItem;
 
    public:
                     ScoreItemBase     (void);

@@ -15,9 +15,6 @@
 using namespace std;
 
 
-int AnalysisInfo::database_initialized = 0;
-DatabaseAnalysis AnalysisInfo::database;
-
 
 //////////////////////////////
 //
@@ -25,10 +22,7 @@ DatabaseAnalysis AnalysisInfo::database;
 //
 
 AnalysisInfo::AnalysisInfo(void) {
-   if (!database_initialized) {
-      initializeDatabase();
-      database_initialized = 1;
-   }
+   initializeDatabase();
    clear();
 }
 
@@ -89,6 +83,8 @@ void AnalysisInfo::clear(void) {
    systempitches  = 0;
    staffslursties = 0;
    chords         = 0;
+   beams          = 0;
+   barlines       = 0;
    layers         = 0;
    p3             = 0;
 }
@@ -102,6 +98,17 @@ void AnalysisInfo::clear(void) {
 
 void AnalysisInfo::invalidateModified(void) {
    clear();
+}
+
+
+
+//////////////////////////////
+//
+// AnalysisInfo::print --
+//
+
+ostream& AnalysisInfo::print(ostream& out) {
+   return database.print(out);
 }
 
 

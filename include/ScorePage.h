@@ -56,7 +56,9 @@ class ScorePage : public ScorePageBase {
       vectorSIp&  staffItemList          (int p2index);
       void        setStaffDuration       (int staffnum, SCORE_FLOAT duration);
       SCORE_FLOAT getStaffDuration       (int staffnum);
+   protected:
       void        fillStaffScoreItemLists(void);
+   public:
       vectorVSIp& staffItems             (void);
       vectorSIp&  staffItems             (int p2index);
 

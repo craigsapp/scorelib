@@ -518,4 +518,44 @@ SCORE_FLOAT ScoreItem::getStaffOffsetDuration(void) {
 
 
 
+//////////////////////////////
+//
+// ScoreItem::operator== -- Returns true if the objects have the same values
+//    Currently only considering fixed paramter values, not the name parameters.
+//
+
+bool ScoreItem::operator==(const ScoreItemBase& item2) {
+   if (this == &item2) {
+      return true;
+   }
+
+   int count1 = fixed_parameters.size();
+   int count2 = item2.fixed_parameters.size();
+   int maxcount = max(count1, count2);
+
+   int i;
+   for (i=0; i<maxcount; i++) {
+      if (fixed_parameters[i] != item2.fixed_parameters[i]) {
+         return false;
+      }
+   }
+
+   if (count1 < count2) {
+      for (i=count1; i<count2; i++) {
+         if (item2.fixed_parameters[i] != 0.0) {
+            return false;
+         }
+      }
+   } else if (count2 < count1) {
+      for (i=count2; i<count1; i++) {
+         if (fixed_parameters[i] != 0.0) {
+            return false;
+         }
+      }
+   }
+
+   return (fixed_text == item2.fixed_text);
+}
+
+
 

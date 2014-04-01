@@ -16,6 +16,7 @@
 #include <map>
 #include <list>
 #include <string>
+#include <iostream>
 
 using namespace std;
 
@@ -37,6 +38,8 @@ class DatabaseAnalysis {
                                  int* cstate);
       void    invalidateNode    (const string& nodename);
       void    validateNode      (const string& nodename);
+
+      ostream& print            (ostream& out = cout);
 
    private:
       map<string, _AnalysisGraph> nodes;

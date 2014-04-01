@@ -14,6 +14,7 @@
 
 #include "ScoreItem.h"
 #include "DatabaseAnalysis.h"
+#include <iostream>
 
 using namespace std;
 
@@ -31,6 +32,7 @@ class AnalysisInfo {
       void          clear                    (void);
 
       void          invalidateModified       (void);
+      ostream&      print                    (ostream& out = cout);
 
       // Tests to see if various analyses have been done.
       int           isModified               (void);
@@ -108,9 +110,7 @@ class AnalysisInfo {
       int p3;
 
    private:
-      static DatabaseAnalysis database;
-      static int              database_initialized;
-
+      DatabaseAnalysis database;
       void          initializeDatabase       (void);
 };
 

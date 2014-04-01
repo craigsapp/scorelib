@@ -28,6 +28,7 @@ tests/extractsystem
 tests/itemtest
 tests/itemdur
 tests/readtest
+tests/scorediff
 tests/scoreitems2xml
 tests/staffdurations
 tests/staffoffsets

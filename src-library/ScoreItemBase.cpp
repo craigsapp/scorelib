@@ -1193,5 +1193,3 @@ int ScoreItemBase::writeBinary(ostream& out) {
 }
 
 
-
-
