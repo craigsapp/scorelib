@@ -11,5 +11,5 @@ Download
 Documentation
 =============
 
-Not much yet.  [https://github.com/craigsapp/scorelib/wiki/Class-Hierarchy-Overview Here is an class overview].
+Not much yet.  [Here is a class overview](https://github.com/craigsapp/scorelib/wiki/Class-Hierarchy-Overview "Scorelib class overview").
 
