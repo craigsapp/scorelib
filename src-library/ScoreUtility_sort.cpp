@@ -77,6 +77,17 @@ bool ScoreUtility::sortP3P2P1(ScoreItem* a, ScoreItem* b) {
 //
 
 bool ScoreUtility::sortP3P2P1P4(ScoreItem* a, ScoreItem* b) {
+
+if ((unsigned long)a < 500) {
+cerr << "ERROR A is too small" << endl;
+return true;
+}
+
+if ((unsigned long)b < 500) {
+cerr << "ERROR B is too small" << endl;
+return true;
+}
+
    // Compare P3 (horizontal position):
    if (a->getHorizontalPosition() < b->getHorizontalPosition()) {
       return true;
@@ -86,10 +97,6 @@ bool ScoreUtility::sortP3P2P1P4(ScoreItem* a, ScoreItem* b) {
    if (a->getStaffNumber() < b->getStaffNumber()) {
       return true;
    }
-
-return false;
-// problem after here for some reason...
-// segmentation fault will be generated
 
    // Compare P4 (excluding any values abouve fabs(99));
    if (a->getVerticalPosition() < b->getVerticalPosition()) {

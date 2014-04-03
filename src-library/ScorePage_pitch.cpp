@@ -120,7 +120,7 @@ void ScorePage::analyzeSystemPitch(vectorSIp& systemitems) {
          // if the printed accidental matches the pitch state,
          // then mark the note item as possessing a cautionary accidental
          if (printedaccidental == pitchstate[sysstaff][diatonic]) {
-            curr->setParameter("cautionaryAccidental", "true");
+            curr->setParameter("analysis", "courtesy", "true");
          }
          if (abs(printedaccidental) < 100) {
             // extrema range means no accidental on the note.
@@ -133,7 +133,7 @@ void ScorePage::analyzeSystemPitch(vectorSIp& systemitems) {
       base40string += SU::base40ToKern(base40);
       base40string += ")";
 
-      curr->setParameter("analysis", "base40Pitch", base40string);
+      curr->setParameter("analysis", "base40", base40string);
    }
 
 }

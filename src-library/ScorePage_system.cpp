@@ -196,7 +196,7 @@ void ScorePage::fillSystemScoreItemLists(void) {
          }
       }
 
-      sort(systemlist[i].begin(), systemlist[i].end(), SU::sortP3P2P1P4);
+      sort(systemlist[i].begin(), systemlist[i].begin()+4, SU::sortP3P2P1P4);
    }
 }
 

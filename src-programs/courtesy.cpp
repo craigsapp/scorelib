@@ -40,9 +40,9 @@ enum {
 
 int main(int argc, char** argv) {
    Options opts;
-   opts.define("h|hide=b",   "hide courtesy/cautionary accidentals");
-   opts.define("p|paren=b",  "put parentheses around courtesy accidentals");
-   opts.define("r|remove=b", "remove parentheses around courtesy accidentals");
+   opts.define("h|hide=b",    "hide courtesy/cautionary accidentals");
+   opts.define("p|paren=b",   "put parentheses around courtesy accidentals");
+   opts.define("r|remove=b",  "remove parentheses around courtesy accidentals");
    opts.define("e|editorial=b", "put editorial accs. on all non-natural notes");
    opts.process(argc, argv);
    
@@ -75,6 +75,7 @@ int main(int argc, char** argv) {
 void processData(ScorePage& infile, Options& opts) {
    infile.analyzePitch();
 
+
    int style = STYLE_HIGHLIGHT;
    if (opts.getBoolean("hide")) {
       style = STYLE_HIDE;
@@ -105,9 +106,11 @@ void processData(ScorePage& infile, Options& opts) {
 
 void doHighlightStyle(ScorePage& infile) {
    cout << infile;
+   cout << "\n# Courtesy note markup data:\n\n";
 
    ScoreItem tempitem;
    tempitem.makeSvgCode("<g color=\"red\" stroke=\"red\">");
+   tempitem.setParameter("markup", "1");
    cout << tempitem;
    cout << endl;
 
@@ -117,17 +120,20 @@ void doHighlightStyle(ScorePage& infile) {
       if (!item->isNoteItem()) {
          continue;
       }
-      if (item->getP("cautionaryAccidental") == "true") {
+      if (item->getP("analysis", "courtesy") == "true") {
          tempitem = *item;
          tempitem.removeArticulation();
          tempitem.hideStem();
+         tempitem.setParameter("markup", "1");
          cout << tempitem;
       }
    }
 
    tempitem.makeSvgCode("</g>");
+   tempitem.setParameter("markup", "1");
    cout << endl;
    cout << tempitem;
+   cout << endl;
 }
 
 
@@ -141,7 +147,7 @@ void doHideStyle(ScorePage& infile) {
    vectorSIp items;
    infile.getFileOrderList(items);
    for (auto& item : items) {
-      if (item->getParameter("cautionaryAccidental") == "true") {
+      if (item->getParameter("analysis", "courtesy") == "true") {
          item->setNoAccidental(); 
       }
    }
@@ -159,7 +165,7 @@ void doParenStyle(ScorePage& infile) {
    vectorSIp items;
    infile.getFileOrderList(items);
    for (auto& item : items) {
-      if (item->getParameter("cautionaryAccidental") == "true") {
+      if (item->getParameter("analysis", "courtesy") == "true") {
          item->setAccidentalParentheses(); 
       }
    }
@@ -177,7 +183,7 @@ void doRemoveStyle(ScorePage& infile) {
    vectorSIp items;
    infile.getFileOrderList(items);
    for (auto& item : items) {
-      if (item->getParameter("cautionaryAccidental") == "true") {
+      if (item->getParameter("analysis", "courtesy") == "true") {
          item->removeAccidentalParentheses(); 
       }
    }
@@ -196,7 +202,7 @@ void doEditorialStyle(ScorePage& infile) {
    vectorSIp items;
    infile.getFileOrderList(items);
    for (auto& item : items) {
-      if (item->getParameter("cautionaryAccidental") == "true") {
+      if (item->getParameter("analysis", "courtesy") == "true") {
          int accidental = item->getPrintedAccidental();
          item->setNoAccidental(); 
          switch (accidental) {

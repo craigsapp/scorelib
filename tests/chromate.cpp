@@ -182,7 +182,7 @@ void printSystemPianoRoll(int sysindex, ScorePage& infile) {
 //
 
 int getChroma(ScoreItem* item) {
-   int base40 = item->getParameterInt("analysis", "base40Pitch");
+   int base40 = item->getParameterInt("analysis", "base40");
    return base40 % 40;
 }
 
@@ -210,7 +210,7 @@ void colorizeNotes(ScorePage& infile, Options& opts) {
       if (!item->isNoteItem()) {
          continue;
       }
-      base40 = item->getParameterInt("analysis", "base40Pitch");
+      base40 = item->getParameterInt("analysis", "base40");
       chroma = base40 % 40;
       hexcode = Base40ToHexColor[chroma];
       tempnote = *item;
