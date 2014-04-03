@@ -9,7 +9,7 @@
 ##
 ## To run this makefile, type (without quotes) "make -f Makefile.library",
 ## (or "gmake -f Makefile.library" on FreeBSD computers). Although it is 
-## intended to be used the file "Makefile" which runs this makefile with 
+## intended to be used with the file "Makefile" which runs this makefile with 
 ## the command "make library".  After the library file is created, you 
 ## can compile specific programs with the Makefile.programs file.
 ##

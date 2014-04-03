@@ -1,0 +1,148 @@
+##
+## Programmer:    Craig Stuart Sapp <craig@ccrma.stanford.edu>
+## Creation Date: Thu Apr  3 02:11:57 PDT 2014
+## Last Modified: Thu Apr  3 02:12:00 PDT 2014
+## Filename:      ...scorelib/Makefile.library
+##
+## Description:   This Makefile creates programs which use the scorelib library.
+##
+## To run this makefile, type (without quotes) "make -f Makefile.programs",
+## (or "gmake -f Makefile.library" on FreeBSD computers). Although it is 
+## intended to be used with the file "Makefile" which runs this makefile with 
+## the command "make programs".  The program executables will be placed 
+## in the bin directory.  Note that you have to first create the library
+## files with the makefile "Makefile.library" using the command "make library",
+## or type "make" to first compile the library and then the programs.
+##
+## Without arguments or with the argument "programs", this makefile will 
+## compile all programs.  If you give a program name as an argument, it 
+## will compile just that program. E.g.: "make -f Makefile.programs courtesy" 
+## or used in conjunction with "Makefile", type "make courtesy", which will
+## compile the "courtesy" program and place it in the ./bin directory.
+##
+
+# Set the environmental variable $MACOSX_DEPLOYMENT_TARGET to
+# "10.4" in Apple OS X to compile for OS X 10.4 and later (for example,
+# you can compile for OS X 10.4 computers even if you are using a 10.6
+# computer).  C++11 probably requires a minimum of OS X 10.6.
+ENV = 
+
+# if OSTYPE is not defined, then this if statement will be run:
+ifeq ($(origin OSTYPE), undefined)
+   ifeq ($(shell uname),Darwin)
+      OSTYPE = OSXPC
+      ENV = MACOSX_DEPLOYMENT_TARGET=10.6
+      # use the following to compile for 32-bit architecture on 64-bit comps:
+      #ARCH = -m32 -arch i386
+   else 
+      OSTYPE = LINUX
+      # use the following to compile for 32-bit architecture on 64-bit comps:
+      # (you will need 32-bit libraries in order to do this)
+      # ARCH = -m32 
+   endif
+endif
+# Next if statement needed for some versions of make which already set OSTYPE:
+ifeq ($(OSTYPE),linux)
+   OSTYPE = LINUX
+   # use the following to compile for 32-bit architecture on 64-bit comps:
+   # (you will need 32-bit libraries in order to do this)
+   # ARCH = -m32 
+endif
+
+# Cygwin (and MinGW?) adds the string ".exe" to the end of compiled programs.
+# so select EXTEN = .exe when compiling in cygwin
+EXTEN     =
+ifeq ($(shell uname),CYGWIN_NT-5.1)
+   EXTEN   = .exe
+endif
+
+
+###########################################################################
+#                                                                         #
+# Beginning of user-modifiable configuration variables                    #
+#                                                                         #
+
+SRCDIR    = src-programs
+INCDIR    = include
+OBJDIR    = obj
+LIBDIR    = lib
+LIBFILE   = scorelib
+TARGDIR   = bin
+
+# LANG=C: Nuts to the GCC error beautification committee.
+COMPILER  = LANG=C $(ENV) g++ $(ARCH)
+
+DEFINES   = $(addprefix -D,$(OSTYPE))
+DEFINES  += $(addprefix -D,$(OSSUBTYPE))
+
+PREFLAGS  = -O3 -Wall -I$(INCDIR) $(DEFINES)
+PREFLAGS += -Iexternal/optionlib/include
+
+# using C++ 2011 standard:
+PREFLAGS += -std=c++11
+
+# Add -static flag to compile without dynamics libraries for better portability:
+#PREFLAGS += -static
+
+POSTFLAGS ?= -L$(LIBDIR) -l$(LIBFILE)
+POSTFLAGS += -Lexternal/optionlib/lib -loptionlib
+
+#                                                                         #
+# End of user-modifiable variables.                                       #
+#                                                                         #
+###########################################################################
+
+
+# setting up the directory paths to search for program source code
+vpath %.cpp   $(SRCDIR)
+
+# generating a list of the programs to compile with "make all"
+PROGS1=$(notdir $(patsubst %.cpp,%,$(wildcard $(SRCDIR)/*.cpp)))
+PROGS=$(PROGS1)
+
+# Targets which don't actually refer to files
+.PHONY : bin src-programs src-library include obj bin
+
+
+###########################################################################
+#                                                                         #
+#                                                                         #
+
+examples: all
+all: bin $(addprefix $(TARGDIR)/,$(PROGS))
+	@echo Finished compiling all programs.
+
+info:
+	@echo "Programs to compile: $(PROGS)" | fmt
+
+bin:
+ifeq ($(wildcard $(TARGDIR)),)
+	-mkdir -p $(TARGDIR)
+endif
+
+
+###########################################################################
+#
+# Defining explicit rules for program sourcefile dependencies:
+#
+
+$(TARGDIR)/% : $(notdir %.cpp)
+ifeq ($(wildcard $(TARGDIR)),)
+	-mkdir -p $(TARGDIR)
+endif
+	$(COMPILER) $(PREFLAGS) -o $@ $< $(POSTFLAGS) \
+	&& strip $@$(EXTEN)
+
+% : $(notdir %.cpp)
+ifeq ($(wildcard $(TARGDIR)),)
+	-mkdir -p $(TARGDIR)
+endif
+	$(COMPILER) $(PREFLAGS) -o $(TARGDIR)/$@ $< $(POSTFLAGS) \
+	&& strip $(TARGDIR)/$@$(EXTEN)
+
+#                                                                         #
+#                                                                         #
+###########################################################################
+
+
+

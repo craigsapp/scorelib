@@ -1,6 +1,7 @@
 
 obj
 lib
+bin
 
 # Compiled Object files
 *.slo
@@ -21,7 +22,6 @@ tests/analyzestaves
 tests/beamtest
 tests/chordtest
 tests/chromate
-tests/courtesy
 tests/double2duration
 tests/extractstaff
 tests/extractsystem
