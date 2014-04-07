@@ -526,6 +526,20 @@ int ScoreItemBase::hasParameter(const string& testkey) {
 }
 
 
+//
+// Aliases:
+//
+
+int ScoreItemBase::isDefined(const string& nspace, const string& testkey) {
+   return hasParameter(nspace, testkey);
+}
+
+
+int ScoreItemBase::isDefined(const string& testkey) {
+   return hasParameter("", testkey);
+}
+
+
 
 //////////////////////////////
 //
@@ -545,6 +559,24 @@ void ScoreItemBase::eraseNamespace(const string& nspace) {
 
 void ScoreItemBase::clearNamespace(const string& nspace) {
    clearNamespace(nspace);
+}
+
+
+
+//////////////////////////////
+//
+// ScoreItemBase::changeNamespace --  Move a named parameter from
+//    one namespace to another.
+//
+
+void ScoreItemBase::changeNamespace(const string& newspace, 
+      const string& oldspace, const string& parameter) {
+   if (!isDefined(oldspace, parameter)) {
+      return;
+   }
+   setParameter(newspace, parameter, getParameter(oldspace, parameter));
+   deleteParameter(oldspace, parameter);
+   // deleteParameter does notifyPageOfChange("named");
 }
 
 

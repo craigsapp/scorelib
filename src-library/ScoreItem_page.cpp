@@ -182,6 +182,14 @@ int ScoreItem::getPageSystemIndex(void) {
    return ((ScorePage*)page_owner)->getSystemIndex(p2);
 }
 
+//
+// Alias:
+//
+
+int ScoreItem::getSystemIndex(void) {
+   return getPageSystemIndex();
+}
+
 
 
 ///////////////////////////////

@@ -123,6 +123,10 @@ class ScoreItemBase {
                                        const string& key, int value);
       void          setParameter      (const string& nspace, 
                                        const string& key, SCORE_FLOAT value);
+      void          changeNamespace   (const string& newspace, 
+                                       const string& oldspace, 
+                                       const string& parameter);
+
       // global namespace parameters
       void          setParameter      (const string& key, const string& value);
       void          setParameter      (const string& key, int value);
@@ -205,6 +209,9 @@ class ScoreItemBase {
       int           getCompactFixedParameterCount(void);
       int           hasParameter      (const string& testkey);
       int           hasParameter      (const string& nspace, 
+                                      const string& testkey);
+      int           isDefined         (const string& testkey);
+      int           isDefined         (const string& nspace, 
                                       const string& testkey);
       void          deleteNamespace   (const string& nspace);
       void          eraseNamespace    (const string& nspace);

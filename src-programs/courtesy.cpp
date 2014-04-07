@@ -1,19 +1,19 @@
 //
 // Programmer:    Craig Stuart Sapp <craig@ccrma.stanford.edu>
 // Creation Date: Sun Mar 16 23:30:54 PDT 2014
-// Last Modified: Sun Mar 16 23:30:56 PDT 2014
+// Last Modified: Mon Apr  7 00:28:23 PDT 2014
 // Filename:      courtesy.cpp
-// URL: 	  https://github.com/craigsapp/scorelib/blob/master/tests/courtesy.cpp
+// URL: 	  https://github.com/craigsapp/scorelib/blob/master/src-programs/courtesy.cpp
 // Syntax:        C++ 11
 //
-// Description:   Change display style of courtesy accidentals to:
-// 			(1) put parentheses around them
-// 			(2) remove parenthenses from around them
-// 			(3) highlight courtesy accidentals in red
-// 			(4) hide cautionary accidentals
-// 			(5) add editorial accidentals on all notes which
-// 			    are sharpened or flattened but the accidental
-// 			    is not being shown.
+// Description:   Identify and process courtesy accidentals.
+// 			* put parentheses around them
+// 			* remove parenthenses from around them
+// 			* highlight courtesy accidentals in red
+// 			* hide cautionary accidentals
+// 			* add editorial accidentals on all notes which
+// 			  are sharpened or flattened but the accidental
+// 			  is not being shown.
 //
 
 #include "ScorePage.h"
@@ -22,27 +22,36 @@
 using namespace std;
 
 void       processData        (ScorePage& infile, Options& opts);
-void       doHighlightStyle   (ScorePage& infile);
-void       doHideStyle        (ScorePage& infile);
-void       doParenStyle       (ScorePage& infile);
-void       doRemoveStyle      (ScorePage& infile);
-void       doEditorialStyle   (ScorePage& infile);
+void       doMarkStyle        (ScorePage& infile, Options& opts);
+void       doHighlightStyle   (ScorePage& infile, Options& opts);
+void       doHideStyle        (ScorePage& infile, Options& opts);
+void       doParenStyle       (ScorePage& infile, Options& opts);
+void       doRemoveParens     (ScorePage& infile, Options& opts);
+void       doEditorialStyle   (ScorePage& infile, Options& opts);
+void       printLjMacro       (ScorePage& infile, vectorI& states);
+void       moveCourtesyAnalysisToGlobalNamespace(ScorePage& infile);
 
-enum {
+enum style {
    STYLE_HIGHLIGHT = 0,
+   STYLE_MARK,
    STYLE_REMOVE,
    STYLE_PAREN,
    STYLE_HIDE,
    STYLE_EDITORIAL
-} styles;
+};
 
 ///////////////////////////////////////////////////////////////////////////
 
 int main(int argc, char** argv) {
    Options opts;
-   opts.define("h|hide=b",    "hide courtesy/cautionary accidentals");
    opts.define("p|paren=b",   "put parentheses around courtesy accidentals");
-   opts.define("r|remove=b",  "remove parentheses around courtesy accidentals");
+   opts.define("P|no-paren=b","remove parentheses around courtesy accidentals");
+   opts.define("r|remove|hide=b",  "hide courtesy/cautionary accidentals");
+   opts.define("R|replace|show=b", "show courtesy/cautionary accidentals");
+   opts.define("k|keep=b",    "keep courtey accidental note states");
+   opts.define("m|mark=b",    "mark courtesy accidentals (no highlighting)");
+   opts.define("lj|LJ=b",       "Add LJ commands for changed systems");
+   opts.define("A|analysis=b", "Include pitch analysis data in output");
    opts.define("e|editorial=b", "put editorial accs. on all non-natural notes");
    opts.process(argc, argv);
    
@@ -73,26 +82,27 @@ int main(int argc, char** argv) {
 //
 
 void processData(ScorePage& infile, Options& opts) {
-   infile.analyzePitch();
-
 
    int style = STYLE_HIGHLIGHT;
    if (opts.getBoolean("hide")) {
       style = STYLE_HIDE;
+   } else if (opts.getBoolean("mark")) {
+      style = STYLE_MARK;
    } else if (opts.getBoolean("paren")) {
       style = STYLE_PAREN;
-   } else if (opts.getBoolean("remove")) {
+   } else if (opts.getBoolean("no-paren")) {
       style = STYLE_REMOVE;
    } else if (opts.getBoolean("editorial")) {
       style = STYLE_EDITORIAL;
    }
 
    switch (style) {
-      case STYLE_HIGHLIGHT:  doHighlightStyle(infile); break;
-      case STYLE_HIDE:       doHideStyle(infile);      break;
-      case STYLE_PAREN:      doParenStyle(infile);     break;
-      case STYLE_REMOVE:     doRemoveStyle(infile);    break;
-      case STYLE_EDITORIAL:  doEditorialStyle(infile); break;
+      case STYLE_HIGHLIGHT:  doHighlightStyle(infile, opts); break;
+      case STYLE_MARK:       doMarkStyle(infile, opts);      break;
+      case STYLE_HIDE:       doHideStyle(infile, opts);      break;
+      case STYLE_PAREN:      doParenStyle(infile, opts);     break;
+      case STYLE_REMOVE:     doRemoveParens(infile, opts);   break;
+      case STYLE_EDITORIAL:  doEditorialStyle(infile, opts); break;
    }
 }
 
@@ -100,12 +110,37 @@ void processData(ScorePage& infile, Options& opts) {
 
 /////////////////////////////
 //
-// doHighlightStyle -- Mark all courtesy/cautionary accidentals in
-//     red.
+// doMarkStyle -- Mark all courtesy/cautionary accidentals with
+//     the named parameter "@coutesy: true".
 //
 
-void doHighlightStyle(ScorePage& infile) {
+void doMarkStyle(ScorePage& infile, Options& opts) {
+   infile.analyzePitch();
+   moveCourtesyAnalysisToGlobalNamespace(infile);
+   if (!opts.getBoolean("analysis")) {
+      infile.deleteNamespace("analysis");
+   }
    cout << infile;
+}
+
+
+
+/////////////////////////////
+//
+// doHighlightStyle -- Mark all courtesy/cautionary accidentals in
+//     red (currently only SVG coloring implemented).
+//
+
+void doHighlightStyle(ScorePage& infile, Options& opts) {
+   infile.analyzePitch();
+   if (opts.getBoolean("keep")) {
+      moveCourtesyAnalysisToGlobalNamespace(infile);
+   }
+   if (!opts.getBoolean("analysis")) {
+      infile.deleteNamespace("analysis");
+   }
+   cout << infile;
+   infile.analyzePitch();
    cout << "\n# Courtesy note markup data:\n\n";
 
    ScoreItem tempitem;
@@ -125,6 +160,9 @@ void doHighlightStyle(ScorePage& infile) {
          tempitem.removeArticulation();
          tempitem.hideStem();
          tempitem.setParameter("markup", "1");
+         if (!opts.getBoolean("analysis")) {
+            tempitem.deleteNamespace("analysis");
+         }
          cout << tempitem;
       }
    }
@@ -143,15 +181,34 @@ void doHighlightStyle(ScorePage& infile) {
 // doHideStyle -- Remove courtesy accidentals from notes.
 //
 
-void doHideStyle(ScorePage& infile) {
+void doHideStyle(ScorePage& infile, Options& opts) {
+   infile.analyzePitch();
+   vectorSIp items;
+   infile.getFileOrderList(items);
+   if (opts.getBoolean("keep")) {
+      moveCourtesyAnalysisToGlobalNamespace(infile);
+   }
+   if (!opts.getBoolean("analysis")) {
+      infile.deleteNamespace("analysis");
+   }
+   cout << infile;
+}
+
+
+
+//////////////////////////////
+//
+// moveCourtesyAnalysisToGlobalNamespace --
+//
+
+void moveCourtesyAnalysisToGlobalNamespace(ScorePage& infile) {
    vectorSIp items;
    infile.getFileOrderList(items);
    for (auto& item : items) {
       if (item->getParameter("analysis", "courtesy") == "true") {
-         item->setNoAccidental(); 
+         item->changeNamespace("", "analysis", "courtesy");
       }
    }
-   cout << infile;
 }
 
 
@@ -161,31 +218,51 @@ void doHideStyle(ScorePage& infile) {
 // doParenStyle -- Add parenthese around all courtesy accidentals.
 //
 
-void doParenStyle(ScorePage& infile) {
+void doParenStyle(ScorePage& infile, Options& opts) {
+   infile.analyzePitch();
    vectorSIp items;
+   vectorI systemschanged;
+   systemschanged.resize(infile.getSystemCount());
+   fill(systemschanged.begin(), systemschanged.end(), 0);
+ 
+   int ljQ = opts.getBoolean("lj");
    infile.getFileOrderList(items);
    for (auto& item : items) {
       if (item->getParameter("analysis", "courtesy") == "true") {
          item->setAccidentalParentheses(); 
+         if (ljQ) {
+            systemschanged[item->getSystemIndex()] = 1;
+         }
       }
    }
+   if (!opts.getBoolean("analysis")) {
+      infile.deleteNamespace("analysis");
+   }
    cout << infile;
+
+   if (ljQ) {
+      printLjMacro(infile, systemschanged);
+   }
 }
 
 
 
 /////////////////////////////
 //
-// doRemoveStyle -- Remove parenthese around all courtesy accidentals.
+// doRemoveParens -- Remove parentheses around all courtesy accidentals.
 //
 
-void doRemoveStyle(ScorePage& infile) {
+void doRemoveParens(ScorePage& infile, Options& opts) {
+   infile.analyzePitch();
    vectorSIp items;
    infile.getFileOrderList(items);
    for (auto& item : items) {
       if (item->getParameter("analysis", "courtesy") == "true") {
          item->removeAccidentalParentheses(); 
       }
+   }
+   if (!opts.getBoolean("analysis")) {
+      infile.deleteNamespace("analysis");
    }
    cout << infile;
 }
@@ -198,7 +275,8 @@ void doRemoveStyle(ScorePage& infile) {
 //      Currently cannot handle double sharp/flats.
 //
 
-void doEditorialStyle(ScorePage& infile) {
+void doEditorialStyle(ScorePage& infile, Options& opts) {
+   infile.analyzePitch();
    vectorSIp items;
    infile.getFileOrderList(items);
    for (auto& item : items) {
@@ -212,9 +290,36 @@ void doEditorialStyle(ScorePage& infile) {
          }
       }
    }
+   if (!opts.getBoolean("analysis")) {
+      infile.deleteNamespace("analysis");
+   }
    cout << infile;
 }
 
+
+
+///////////////////////////////
+//
+// printLjMacro -- Pring an LJ command for each system which
+//      has any cautionary accidentals within it.
+//
+
+void printLjMacro(ScorePage& infile, vectorI& states) {
+   int bottomstaff;
+   int staffcount;
+   vectorVI& systeminfo = infile.reverseSystemMap();
+   for (unsigned int i=0; i<states.size(); i++) {
+      if (!states[i]) {
+         continue;
+      }
+      // get the bottom P2 staff number of the system
+      bottomstaff =  systeminfo[i][0];
+      // get the count of staves in the system
+      staffcount = systeminfo[i].size();
+      cout << "LJ\n";
+      cout << bottomstaff << " " << staffcount << endl;
+   }
+}
 
 
 

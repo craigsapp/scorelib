@@ -265,3 +265,16 @@ void ScorePageBase::clearAnalysisStates(void) {
 
 
 
+//////////////////////////////
+//
+// ScorePageBase::deleteNamespace --
+//
+
+void ScorePageBase::deleteNamespace(const string& nspace) {
+   for (auto& it : item_storage) {
+      it->deleteNamespace(nspace);
+   }
+}
+
+
+

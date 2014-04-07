@@ -185,6 +185,7 @@ using vectorVSIp  = vector<vector<ScoreItem*>>;
 
       // Page-related functions (defined in ScoreItem_page.cpp):
       int          getPageSystemIndex     (void);
+      int          getSystemIndex         (void);
 
       vectorSIp*   getChordNotes          (void);
       bool         isPrimaryChordNote     (void);
