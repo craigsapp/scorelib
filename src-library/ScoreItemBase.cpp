@@ -569,14 +569,15 @@ void ScoreItemBase::clearNamespace(const string& nspace) {
 //    one namespace to another.
 //
 
-void ScoreItemBase::changeNamespace(const string& newspace, 
+int ScoreItemBase::changeNamespace(const string& newspace, 
       const string& oldspace, const string& parameter) {
    if (!isDefined(oldspace, parameter)) {
-      return;
+      return 0;
    }
    setParameter(newspace, parameter, getParameter(oldspace, parameter));
    deleteParameter(oldspace, parameter);
    // deleteParameter does notifyPageOfChange("named");
+   return 1;
 }
 
 

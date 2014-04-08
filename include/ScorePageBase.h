@@ -39,6 +39,13 @@ class ScorePageBase {
       int            getItemCount             (void);
       listSIp&       lowLevelDataAccess       (void);
       void           deleteNamespace          (const string& nspace);
+      int            changeNamespace          (const string& newspace, 
+                                               const string& oldspace, 
+                                               const string& parameter);
+      int            changeNamespace          (const string& newspace, 
+                                               const string& oldspace, 
+                                               const string& parameter,
+                                               int itemtype);
 
       // File name functions:
       string&        getFilename              (string& output);

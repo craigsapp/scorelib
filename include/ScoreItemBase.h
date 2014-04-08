@@ -123,7 +123,7 @@ class ScoreItemBase {
                                        const string& key, int value);
       void          setParameter      (const string& nspace, 
                                        const string& key, SCORE_FLOAT value);
-      void          changeNamespace   (const string& newspace, 
+      int           changeNamespace   (const string& newspace, 
                                        const string& oldspace, 
                                        const string& parameter);
 

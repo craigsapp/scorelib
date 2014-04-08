@@ -278,3 +278,40 @@ void ScorePageBase::deleteNamespace(const string& nspace) {
 
 
 
+//////////////////////////////
+//
+// ScorePageBase::changeNamespace --  These functions will overwrite
+//     parameters in the new namespace.  Maybe add a set of functions
+//     which do not overwrite if parameter already exists in new namespace.
+//     Also a copyNamespace function might be good.  Returns the number
+//     of items which had the paramter moved to another namespace.
+//
+
+int ScorePageBase::changeNamespace(const string& newspace, 
+      const string& oldspace, const string& parameter) {
+   int count = 0;
+   for (auto& it : item_storage) {
+      if (it->isDefined(oldspace, parameter)) {
+         count += it->changeNamespace(newspace, oldspace, parameter);
+      }
+   }
+   return count;
+}
+
+
+int ScorePageBase::changeNamespace(const string& newspace, 
+      const string& oldspace, const string& parameter, int itemtype) {
+   int count = 0;
+   for (auto& it : item_storage) {
+      if (itemtype != it->getItemType()) {
+         continue;
+      }
+      if (it->isDefined(oldspace, parameter)) {
+         count += it->changeNamespace(newspace, oldspace, parameter);
+      }
+   }
+   return count;
+}
+
+
+

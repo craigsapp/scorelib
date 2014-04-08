@@ -6,14 +6,13 @@
 // URL: 	  https://github.com/craigsapp/scorelib/blob/master/src-programs/courtesy.cpp
 // Syntax:        C++ 11
 //
-// Description:   Identify and process courtesy accidentals.
-// 			* put parentheses around them
-// 			* remove parenthenses from around them
-// 			* highlight courtesy accidentals in red
-// 			* hide cautionary accidentals
-// 			* add editorial accidentals on all notes which
-// 			  are sharpened or flattened but the accidental
-// 			  is not being shown.
+// Description:   Identify and process courtesy accidentals:
+// 			* put parentheses around them.
+// 			* remove parenthenses from around them.
+// 			* highlight courtesy accidentals in red.
+// 			* hide courtesy accidentals.
+// 			* restore courtesy accidentals.
+// 			* convert courtesy accidentals to editorial accidentals.
 //
 
 #include "ScorePage.h"
@@ -21,15 +20,14 @@
 
 using namespace std;
 
-void       processData        (ScorePage& infile, Options& opts);
-void       doMarkStyle        (ScorePage& infile, Options& opts);
-void       doHighlightStyle   (ScorePage& infile, Options& opts);
-void       doHideStyle        (ScorePage& infile, Options& opts);
-void       doParenStyle       (ScorePage& infile, Options& opts);
-void       doRemoveParens     (ScorePage& infile, Options& opts);
-void       doEditorialStyle   (ScorePage& infile, Options& opts);
-void       printLjMacro       (ScorePage& infile, vectorI& states);
-void       moveCourtesyAnalysisToGlobalNamespace(ScorePage& infile);
+void   processData          (ScorePage& infile, Options& opts);
+void   doMarkStyle          (ScorePage& infile, Options& opts);
+void   doHighlightStyle     (ScorePage& infile, Options& opts);
+void   doHideStyle          (ScorePage& infile, Options& opts);
+void   doParenStyle         (ScorePage& infile, Options& opts);
+void   doRemoveParens       (ScorePage& infile, Options& opts);
+void   doEditorialStyle     (ScorePage& infile, Options& opts);
+void   printLjMacro         (ScorePage& infile, vectorI& states);
 
 enum style {
    STYLE_HIGHLIGHT = 0,
@@ -44,14 +42,14 @@ enum style {
 
 int main(int argc, char** argv) {
    Options opts;
-   opts.define("p|paren=b",   "put parentheses around courtesy accidentals");
-   opts.define("P|no-paren=b","remove parentheses around courtesy accidentals");
    opts.define("r|remove|hide=b",  "hide courtesy/cautionary accidentals");
    opts.define("R|replace|show=b", "show courtesy/cautionary accidentals");
-   opts.define("k|keep=b",    "keep courtey accidental note states");
-   opts.define("m|mark=b",    "mark courtesy accidentals (no highlighting)");
+   opts.define("p|paren=b",   "put parentheses around courtesy accidentals");
+   opts.define("P|no-paren=b","remove parentheses around courtesy accidentals");
+   opts.define("k|keep=b",      "keep courtey accidental note states");
+   opts.define("m|mark=b",      "mark courtesy accidentals (no highlighting)");
    opts.define("lj|LJ=b",       "Add LJ commands for changed systems");
-   opts.define("A|analysis=b", "Include pitch analysis data in output");
+   opts.define("a|analysis=b",  "Include pitch analysis data in output");
    opts.define("e|editorial=b", "put editorial accs. on all non-natural notes");
    opts.process(argc, argv);
    
@@ -65,7 +63,7 @@ int main(int argc, char** argv) {
          infile.read(opts.getArg(i+1));
       }
       if (argcount > 1) {
-         cout << "### FILE " << infile.getFilename() << endl;
+         cout << "###FILE:\t" << infile.getFilename() << endl;
       }
       processData(infile, opts);
    }
@@ -78,7 +76,8 @@ int main(int argc, char** argv) {
 
 /////////////////////////////
 //
-// processData --
+// processData -- Decide what to do based on the command-line option
+//      settings.
 //
 
 void processData(ScorePage& infile, Options& opts) {
@@ -116,7 +115,7 @@ void processData(ScorePage& infile, Options& opts) {
 
 void doMarkStyle(ScorePage& infile, Options& opts) {
    infile.analyzePitch();
-   moveCourtesyAnalysisToGlobalNamespace(infile);
+   infile.changeNamespace("", "analysis", "courtesy", P1_Note);
    if (!opts.getBoolean("analysis")) {
       infile.deleteNamespace("analysis");
    }
@@ -134,7 +133,7 @@ void doMarkStyle(ScorePage& infile, Options& opts) {
 void doHighlightStyle(ScorePage& infile, Options& opts) {
    infile.analyzePitch();
    if (opts.getBoolean("keep")) {
-      moveCourtesyAnalysisToGlobalNamespace(infile);
+      infile.changeNamespace("", "analysis", "courtesy", P1_Note);
    }
    if (!opts.getBoolean("analysis")) {
       infile.deleteNamespace("analysis");
@@ -186,29 +185,12 @@ void doHideStyle(ScorePage& infile, Options& opts) {
    vectorSIp items;
    infile.getFileOrderList(items);
    if (opts.getBoolean("keep")) {
-      moveCourtesyAnalysisToGlobalNamespace(infile);
+      infile.changeNamespace("", "analysis", "courtesy", P1_Note);
    }
    if (!opts.getBoolean("analysis")) {
       infile.deleteNamespace("analysis");
    }
    cout << infile;
-}
-
-
-
-//////////////////////////////
-//
-// moveCourtesyAnalysisToGlobalNamespace --
-//
-
-void moveCourtesyAnalysisToGlobalNamespace(ScorePage& infile) {
-   vectorSIp items;
-   infile.getFileOrderList(items);
-   for (auto& item : items) {
-      if (item->getParameter("analysis", "courtesy") == "true") {
-         item->changeNamespace("", "analysis", "courtesy");
-      }
-   }
 }
 
 
@@ -271,7 +253,7 @@ void doRemoveParens(ScorePage& infile, Options& opts) {
 
 /////////////////////////////
 //
-// doEditorialStyle -- Convert cautionary accidental to editorial accidental.
+// doEditorialStyle -- Convert courtesy accidental to editorial accidental.
 //      Currently cannot handle double sharp/flats.
 //
 
@@ -301,7 +283,7 @@ void doEditorialStyle(ScorePage& infile, Options& opts) {
 ///////////////////////////////
 //
 // printLjMacro -- Pring an LJ command for each system which
-//      has any cautionary accidentals within it.
+//      has any courtesy accidentals within it.
 //
 
 void printLjMacro(ScorePage& infile, vectorI& states) {
