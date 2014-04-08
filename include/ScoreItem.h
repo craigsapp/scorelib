@@ -174,8 +174,14 @@ using vectorVSIp  = vector<vector<ScoreItem*>>;
       // ImportedEPSGraphic (P1=15) processing functions
 
       // Text (P1=16) processing functions
-      void         make99Text             (const string& text);
-      void         makeSvgCode            (const string& text);
+      void          make99Text            (const string& text);
+      void          makeSvgCode           (const string& text);
+      const string& getText               (void);
+      void          setText               (const string& text);
+      string        getTextWithoutInitialFontCode(void);
+      string        getTextNoFont         (void);
+      string        getInitialFontCode    (void);
+      int           getInitialFontCodeAsInteger(void);
 
       // KeySignature (P1=17) processing functions
       int          getDiatonicAccidentalState(vectorI& states);

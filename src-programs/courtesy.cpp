@@ -4,6 +4,7 @@
 // Last Modified: Mon Apr  7 00:28:23 PDT 2014
 // Filename:      courtesy.cpp
 // URL: 	  https://github.com/craigsapp/scorelib/blob/master/src-programs/courtesy.cpp
+// Documentation: https://github.com/craigsapp/scorelib/wiki/courtesy
 // Syntax:        C++ 11
 //
 // Description:   Identify and process courtesy accidentals:
