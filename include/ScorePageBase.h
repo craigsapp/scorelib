@@ -88,12 +88,14 @@ class ScorePageBase {
       void           read            (const string& filename, int verboseQ = 0);
       void           read            (istream& infile, int verboseQ = 0);
       void           readFile        (const char* filename, int verboseQ = 0);
-      void           readFile        (istream& infile, int verboseQ = 0);
+      void           readStream      (istream& instream, int verboseQ = 0);
       void           readPmx         (const char* filename, int verboseQ = 0);
       void           readPmx         (istream& infile, int verboseQ = 0);
       ScoreItem*     readPmxScoreLine(istream& infile, int verboseQ = 0);
       void           readBinary      (const char* filename, int verboseQ = 0);
       void           readBinary      (istream& infile, int verboseQ = 0);
+      void           addPmxData      (istream& data);
+      void           addPmxData      (const string& data);
 
       // file writing functions:
       void           writeBinary     (const char* filename);

@@ -1,7 +1,7 @@
 ##
 ## Programmer:    Craig Stuart Sapp <craig@ccrma.stanford.edu>
 ## Creation Date: Thu Apr  3 02:11:57 PDT 2014
-## Last Modified: Thu Apr  3 02:12:00 PDT 2014
+## Last Modified: Fri Apr 11 23:42:59 PDT 2014
 ## Filename:      ...scorelib/Makefile.library
 ##
 ## Description:   This Makefile creates programs which use the scorelib library.
@@ -20,10 +20,16 @@
 ## or used in conjunction with "Makefile", type "make courtesy", which will
 ## compile the "courtesy" program and place it in the ./bin directory.
 ##
+## The scorelib library is written using the C++11 standard.  C++11 is fully
+## implemented in gcc 4.9 and higher, and partially implemented in gcc 4.7.
+## All code except for the use of regex should work in gcc 4.7, but regex
+## needs version 4.9.  Since this is not available on my systems at the moment,
+## the clang compiler version 3.3 is being used to compile the library.
+##
 
 # Set the environmental variable $MACOSX_DEPLOYMENT_TARGET to
-# "10.4" in Apple OS X to compile for OS X 10.4 and later (for example,
-# you can compile for OS X 10.4 computers even if you are using a 10.6
+# "10.6" in Apple OS X to compile for OS X 10.6 and later (for example,
+# you can compile for OS X 10.6 computers even if you are using a 10.6
 # computer).  C++11 probably requires a minimum of OS X 10.6.
 ENV = 
 
@@ -76,7 +82,6 @@ DEFINES   = $(addprefix -D,$(OSTYPE))
 DEFINES  += $(addprefix -D,$(OSSUBTYPE))
 
 PREFLAGS  = -O3 -Wall -I$(INCDIR) $(DEFINES)
-PREFLAGS += -Iexternal/optionlib/include
 
 # using C++ 2011 standard:
 PREFLAGS += -std=c++11
@@ -85,7 +90,11 @@ PREFLAGS += -std=c++11
 #PREFLAGS += -static
 
 POSTFLAGS ?= -L$(LIBDIR) -l$(LIBFILE)
-POSTFLAGS += -Lexternal/optionlib/lib -loptionlib
+
+
+# Use clang++ v3.3 since gcc <4.9 does not have regex of C++11 standard.
+COMPILER      = clang++
+PREFLAGS     += -stdlib=libc++
 
 #                                                                         #
 # End of user-modifiable variables.                                       #

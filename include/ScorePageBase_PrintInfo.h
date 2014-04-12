@@ -43,7 +43,7 @@ class PrintInfo {
       // will be scaled by 50%.  The origin of the scaling is the point
       // where P3=0.0 and P4=0.0 for staff 1 on the page (bottom left
       // corner of music excluding page margins).
-      int scale;
+      double scale;
 
       // The SCORE print menu selects the paper type.  In this case
       // the paper type will be described as two variables.  The width
@@ -53,8 +53,8 @@ class PrintInfo {
       // converting/calculating bitmap images, since the origin for
       // PostScript is the bottom left corner of the page, while for bitmaps
       // the origin is the top left corner.
-      int width;
-      int height;
+      double width;
+      double height;
 
       // The left margin setting in the SCORE print menu (parameter 4, 
       // first number).  This is the distance from the left margin of the

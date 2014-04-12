@@ -1,7 +1,7 @@
 ##
 ## Programmer:    Craig Stuart Sapp <craig@ccrma.stanford.edu>
 ## Creation Date: Thu Feb  6 22:44:11 PST 2014
-## Last Modified: Mon Mar  3 23:48:21 PST 2014
+## Last Modified: Fri Apr 11 23:42:42 PDT 2014
 ## Filename:      ...scorelib/Makefile.library
 ##
 ## Description:   This Makefile creates the score library 
@@ -12,6 +12,12 @@
 ## intended to be used with the file "Makefile" which runs this makefile with 
 ## the command "make library".  After the library file is created, you 
 ## can compile specific programs with the Makefile.programs file.
+##
+## The scorelib library is written using the C++11 standard.  C++11 is fully
+## implemented in gcc 4.9 and higher, and partially implemented in gcc 4.7.
+## All code except for the use of regex should work in gcc 4.7, but regex
+## needs version 4.9.  Since this is not available on my systems at the moment,
+## the clang compiler version 3.3 is being used to compile the library.
 ##
 
 #OSTYPE = LINUX
@@ -75,6 +81,11 @@ PREFLAGS += -std=c++11
 POSTFLAGS = 
 # POSTFLAGS += -static
 
+
+# Use clang++ v3.3 since gcc <4.9 does not have regex of C++11 standard.
+COMPILER      = clang++
+PREFLAGS     += -stdlib=libc++
+
 #                                                                         #
 # End of user-modifiable variables.                                       #
 #                                                                         #
@@ -90,7 +101,7 @@ vpath %.o   $(OBJDIR)
 OBJS = $(notdir $(patsubst %.cpp,%.o,$(wildcard $(SRCDIR)/*.cpp)))
 
 # targets which don't actually refer to files
-.PHONY : all clean makedirs external
+.PHONY : all clean makedirs
 
 
 ###########################################################################
@@ -98,7 +109,7 @@ OBJS = $(notdir $(patsubst %.cpp,%.o,$(wildcard $(SRCDIR)/*.cpp)))
 # Hardware Configurations:                                                #
 #                                                                         #
 
-all: makedirs external library editlibrary
+all: makedirs library editlibrary
 
 library: $(OBJS)
 

@@ -2,15 +2,14 @@
 ##
 ## Programmer:    Craig Stuart Sapp <craig@ccrma.stanford.edu>
 ## Creation Date: Sun Mar  2 21:07:02 PST 2014
-## Last Modified: Mon Mar  3 00:09:19 PST 2014
-## Filename:      ...optionlib/tests/Makefile
+## Last Modified: Fri Apr 11 23:25:21 PDT 2014 Using clang++ v3.3 for regex
+## Filename:      ...tests/Makefile
 ##
 ## Description: This Makefile compiles various test programs for using
 ##              the scorelib library.
 ##
 ## To run this makefile, type (without quotes) "make tests" (or 
-## "gmake library" on FreeBSD computers).  The options library must be
-## created first.
+## "gmake library" on FreeBSD computers). 
 ##
 
 CPP_FILES     := $(wildcard *.cpp)
@@ -18,15 +17,16 @@ PROGRAM_FILES := ${CPP_FILES:.cpp=}
 
 .PHONY: $(CPP_FILES)
 
+COMPILER       = g++
 FLAGS          = -std=c++11
-FLAGS_EDIT     = -std=c++11 -DSCOREITEMEDIT
+FLAGS_EDIT     = -DSCOREITEMEDIT
 INCLUDE        = -I../include
-LIBS           = -L../lib -lscorelib
+LIBS           = -L../lib -lscorelib 
 LIBS_EDIT      = -L../lib -lscorelib
 
-# Add optionlib to include and libraries:
-INCLUDE       += -I../external/optionlib/include
-LIBS          += -L../external/optionlib/lib -loptionlib
+# Using clang 3.3 for now since gcc < 4.9 does not have C++11 regex implemented
+COMPILER       = clang++
+FLAGS         += -stdlib=libc++
 
 help:
 	@echo
@@ -54,10 +54,10 @@ touch:
 	touch *.cpp
 
 %: %.cpp
-	g++ $(FLAGS) $(INCLUDE) -o $@ $@.cpp $(LIBS) && strip $@
+	$(COMPILER) $(FLAGS) $(INCLUDE) -o $@ $@.cpp $(LIBS) && strip $@
 
+# compile itemtest with edit-history enabled.
 itemtest: itemtest.cpp
-	g++ $(FLAGS_EDIT) $(INCLUDE) -o $@ $@.cpp $(LIBS_EDIT) && strip $@
-
-
+	$(COMPILER) $(FLAGS) $(FLAGS_EDIT) $(INCLUDE) -o $@ $@.cpp \
+	      $(LIBS_EDIT) && strip $@
 

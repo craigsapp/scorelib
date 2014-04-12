@@ -12,7 +12,7 @@
 ##
 
 # targets which don't actually refer to files
-.PHONY: src-programs src-library include bin lib obj external tests
+.PHONY: src-programs src-library include bin lib obj tests
 
 ###########################################################################
 #                                                                         #
@@ -36,14 +36,11 @@ info:
 	@echo Typing \"make\" alone with compile both the library and all programs.
 	@echo ""
 
-library: external
+library: 
 	$(MAKE) -f Makefile.library
 
 tests: library
 	(cd tests; $(MAKE) all)
-
-external:
-	(cd external; $(MAKE))
 
 update: library-update programs-update
 
@@ -69,12 +66,7 @@ clean: cleantests
 cleantests:
 	(cd tests; $(MAKE) clean)
 
-cleanexternal: 
-ifneq ($(wildcard external),)
-	(cd external; make clean)
-endif
-
-superclean: clean cleanexternal
+superclean: clean
 	@echo "Erased all compiled content"
 
 examples: programs

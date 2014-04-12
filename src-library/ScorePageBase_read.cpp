@@ -12,6 +12,7 @@
 #include "ScorePageBase.h"
 #include <fstream>
 #include <string.h>
+#include <sstream>
 
 using namespace std;
 
@@ -36,8 +37,8 @@ void ScorePageBase::read(const string& filename, int verboseQ) {
 }
 
 
-void ScorePageBase::read(istream& infile, int verboseQ) {
-   readFile(infile, verboseQ);
+void ScorePageBase::read(istream& instream, int verboseQ) {
+   readStream(instream, verboseQ);
 }
 
 
@@ -51,11 +52,7 @@ void ScorePageBase::read(istream& infile, int verboseQ) {
 void ScorePageBase::readFile(const char* filename, int verboseQ) {
    int binaryQ = 0;  // to test if reading a binary or PMX data file.
 
-   #ifdef VISUAL
-      ifstream testfile(filename, ios::binary);
-   #else
-      ifstream testfile(filename);
-   #endif
+   ifstream testfile(filename);
 
    if (!testfile.is_open()) {
       cerr << "Error: cannot read the file: " << filename << endl;
@@ -85,7 +82,7 @@ void ScorePageBase::readFile(const char* filename, int verboseQ) {
 
 
 
-void ScorePageBase::readFile(istream& testfile, int verboseQ) {
+void ScorePageBase::readStream(istream& testfile, int verboseQ) {
    int binaryQ = 0;  // to test if reading a binary or PMX data file.
 
    if (&testfile == &cin) {
@@ -150,8 +147,10 @@ void ScorePageBase::readPmx(istream& infile, int verboseQ) {
    while (!infile.eof()) {
       sip = readPmxScoreLine(infile, verboseQ);
       if (sip != NULL) {
+         // setPageOwner will store the pointer for the ScoreItem
+         // on the given page.  The page will delete it when it
+         // is deconstructed.
          sip->setPageOwner(this);
-         item_storage.push_back(sip);
       }
    }
 }
@@ -227,7 +226,29 @@ ScoreItem* ScorePageBase::readPmxScoreLine(istream& infile, int verboseQ) {
    if (text.size() > 0) {
       sip->setFixedText(text);
    }
+   item_storage.push_back(sip);
    return sip;
+}
+
+
+
+//////////////////////////////
+//
+// ScorePageBase::addPmxData -- Add one or more PMX line of data to the 
+//     page.
+//
+
+void ScorePageBase::addPmxData(istream& data) {
+   while (!data.eof()) {
+      readPmxScoreLine(data);
+   }
+}
+
+void ScorePageBase::addPmxData(const string& data) {
+   istringstream instream(data);
+   while (!instream.eof()) {
+      readPmxScoreLine(instream);
+   }
 }
 
 

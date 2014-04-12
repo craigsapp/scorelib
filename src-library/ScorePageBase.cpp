@@ -44,7 +44,7 @@ ScorePageBase::ScorePageBase(istream& instream) {
    trailer.reserve(8);
    setDefaultPrintParameters();
    clearAnalysisStates();
-   readFile(instream);
+   readStream(instream);
 }
 
 

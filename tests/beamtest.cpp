@@ -2,7 +2,7 @@
 // Programmer:    Craig Stuart Sapp <craig@ccrma.stanford.edu>
 // Creation Date: Sun Mar 16 23:30:54 PDT 2014
 // Last Modified: Sun Mar 16 23:30:56 PDT 2014
-// Filename:      chordtest.cpp
+// Filename:      beamtest.cpp
 // URL: 	  https://github.com/craigsapp/scorelib/blob/master/tests/beamtest.cpp
 // Syntax:        C++ 11
 //
