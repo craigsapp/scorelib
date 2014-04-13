@@ -28,16 +28,44 @@ bool ScoreUtility::sortP3(ScoreItem* a, ScoreItem* b) {
 
 //////////////////////////////
 //
+// ScoreUtility::sortP3P1 -- sort by horizontal position/item number.
+//
+
+bool ScoreUtility::sortP3P1(ScoreItem* a, ScoreItem* b) {
+   if (a->getHorizontalPosition() < b->getHorizontalPosition()) {
+      return true;
+   } else if (a->getHorizontalPosition() < b->getHorizontalPosition()) {
+      return false;
+   }
+
+   // Compare P1 values (int part only):
+   if (a->getItemType() < b->getItemType()) {
+      return true;
+   } else if (a->getItemType() > b->getItemType()) {
+      return false;
+   }
+
+   return false;
+}
+
+
+
+//////////////////////////////
+//
 // ScoreUtility::sortP3P2 -- sort by horizontal position/staff number.
 //
 
 bool ScoreUtility::sortP3P2(ScoreItem* a, ScoreItem* b) {
    if (a->getHorizontalPosition() < b->getHorizontalPosition()) {
       return true;
+   } else if (a->getHorizontalPosition() > b->getHorizontalPosition()) {
+      return false;
    }
 
    if (a->getStaffNumber() < b->getStaffNumber()) {
       return true;
+   } else if (a->getStaffNumber() > b->getStaffNumber()) {
+      return false;
    }
 
    return false;
@@ -54,58 +82,22 @@ bool ScoreUtility::sortP3P2P1(ScoreItem* a, ScoreItem* b) {
    // Compare P3 (horizontal position):
    if (a->getHorizontalPosition() < b->getHorizontalPosition()) {
       return true;
+   } else if (a->getHorizontalPosition() > b->getHorizontalPosition()) {
+      return false;
    }
 
    // Compare P2 values (int part only):
    if (a->getStaffNumber() < b->getStaffNumber()) {
       return true;
+   } else if (a->getStaffNumber() > b->getStaffNumber()) {
+      return false;
    }
 
    // Compare P1 values (int part only):
    if (a->getItemType() < b->getItemType()) {
       return true;
-   }
-
-   return false;
-}
-
-
-
-//////////////////////////////
-//
-// ScoreUtility::sortP3P2P1P4 -- sort by P3, P2, P1, then P4
-//
-
-bool ScoreUtility::sortP3P2P1P4(ScoreItem* a, ScoreItem* b) {
-
-if ((unsigned long)a < 500) {
-cerr << "ERROR A is too small" << endl;
-return true;
-}
-
-if ((unsigned long)b < 500) {
-cerr << "ERROR B is too small" << endl;
-return true;
-}
-
-   // Compare P3 (horizontal position):
-   if (a->getHorizontalPosition() < b->getHorizontalPosition()) {
-      return true;
-   }
-
-   // Compare P2 values (int part only):
-   if (a->getStaffNumber() < b->getStaffNumber()) {
-      return true;
-   }
-
-   // Compare P4 (excluding any values abouve fabs(99));
-   if (a->getVerticalPosition() < b->getVerticalPosition()) {
-      return true;
-   } 
-
-   // Compare P1 values (int part only):
-   if (a->getItemType() < b->getItemType()) {
-      return true;
+   } else if (a->getItemType() > b->getItemType()) {
+      return false;
    }
 
    return false;
@@ -196,6 +188,86 @@ bool ScoreUtility::sortP3P4P1(ScoreItem* a, ScoreItem* b) {
    b_test = b->getPInt(P1);
 
    return a_test < b_test;
+}
+
+
+
+//////////////////////////////
+//
+// ScoreUtility::sortP3P1P2P4 -- sort by P3, P1, P2, then P4
+//
+
+bool ScoreUtility::sortP3P1P2P4(ScoreItem* a, ScoreItem* b) {
+
+   // Compare P3 (horizontal position):
+   if (a->getHorizontalPosition() < b->getHorizontalPosition()) {
+      return true;
+   } else if (a->getHorizontalPosition() > b->getHorizontalPosition()) {
+      return false;
+   }
+
+   // Compare P1 values (int part only):
+   if (a->getItemType() < b->getItemType()) {
+      return true;
+   } else if (a->getItemType() > b->getItemType()) {
+      return false;
+   }
+
+   // Compare P2 values (int part only):
+   if (a->getStaffNumber() < b->getStaffNumber()) {
+      return true;
+   } else if (a->getStaffNumber() > b->getStaffNumber()) {
+      return false;
+   }
+
+   // Compare P4 (excluding any values abouve fabs(99));
+   if (a->getVerticalPosition() < b->getVerticalPosition()) {
+      return true;
+   } else if (a->getVerticalPosition() > b->getVerticalPosition()) {
+      return false;
+   }
+
+   return false;
+}
+
+
+
+//////////////////////////////
+//
+// ScoreUtility::sortP3P2P1P4 -- sort by P3, P2, P1, then P4
+//
+
+bool ScoreUtility::sortP3P2P1P4(ScoreItem* a, ScoreItem* b) {
+
+   // Compare P3 (horizontal position):
+   if (a->getHorizontalPosition() < b->getHorizontalPosition()) {
+      return true;
+   } else if (a->getHorizontalPosition() > b->getHorizontalPosition()) {
+      return false;
+   }
+
+   // Compare P2 values (int part only):
+   if (a->getStaffNumber() < b->getStaffNumber()) {
+      return true;
+   } else if (a->getStaffNumber() > b->getStaffNumber()) {
+      return false;
+   }
+
+   // Compare P1 values (int part only):
+   if (a->getItemType() < b->getItemType()) {
+      return true;
+   } else if (a->getItemType() > b->getItemType()) {
+      return false;
+   }
+
+   // Compare P4 (excluding any values abouve fabs(99));
+   if (a->getVerticalPosition() < b->getVerticalPosition()) {
+      return true;
+   } else if (a->getVerticalPosition() > b->getVerticalPosition()) {
+      return false;
+   }
+
+   return false;
 }
 
 

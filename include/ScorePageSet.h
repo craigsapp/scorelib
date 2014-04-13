@@ -31,7 +31,7 @@ class ScorePageSet {
       ScorePage*  getPage                       (int pindex);
       ScorePage*  getPage                       (int pindex, int oindex);
 
-      ScorePageOverlay* operator[]              (int oindex);
+      ScorePageOverlay&  operator[]             (int oindex);
       ScorePage*  createPage                    (void);
       int         appendPage                    (ScorePage* page);
       int         appendPage                    (ScorePage* page, int pindex);

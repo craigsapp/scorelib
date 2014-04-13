@@ -25,11 +25,13 @@ namespace ScoreUtility {
 
    // ScoreItem sorting functions (defined in ScoreUtility.cpp):
    bool   sortP3              (ScoreItem* a, ScoreItem* b);
+   bool   sortP3P1            (ScoreItem* a, ScoreItem* b);
    bool   sortP3P2            (ScoreItem* a, ScoreItem* b);
    bool   sortP3P4P1          (ScoreItem* a, ScoreItem* b);
    bool   sortP3P1P4          (ScoreItem* a, ScoreItem* b);
    bool   sortP3P2P1          (ScoreItem* a, ScoreItem* b);
    bool   sortP3P2P1P4        (ScoreItem* a, ScoreItem* b);
+   bool   sortP3P1P2P4        (ScoreItem* a, ScoreItem* b);
 
 }  // end of namespace ScoreUtility
 

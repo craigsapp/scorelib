@@ -78,12 +78,8 @@ int ScorePageOverlay::size(void) {
 // ScorePageOverlay::operator[] --
 //
 
-ScorePage* ScorePageOverlay::operator[](int oindex) { 
-   if ((oindex < 0) || (oindex > size())) {
-      return NULL;
-   } else {
-      return overlay_sequence[oindex];
-   }
+ScorePage& ScorePageOverlay::operator[](int oindex) { 
+   return *overlay_sequence[oindex];
 }
 
 

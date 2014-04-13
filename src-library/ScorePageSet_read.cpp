@@ -16,7 +16,6 @@
 using namespace std;
 
 
-
 //////////////////////////////
 //
 // ScorePageSet::appendReadFromOptionArguments -- Read earch argument
@@ -26,6 +25,10 @@ using namespace std;
 //
 
 void ScorePageSet::appendReadFromOptionArguments(Options& opts) {
+   if (opts.getArgumentCount() == 0) {
+      appendRead(cin, "<stdin>");
+      return;
+   }
    for (int i=1; i<=opts.getArgumentCount(); i++) {
       appendRead(opts.getArgument(i));
    }
@@ -123,6 +126,7 @@ void ScorePageSet::appendReadBinary(istream& instream, const string& filename) {
 
 void ScorePageSet::appendReadPmx(istream& instream, const string& filename,
       const string& pagetype) {
+
    int dataQ        = 0;
    int pagestart    = 0;
    int overlaystart = 0;
@@ -153,8 +157,10 @@ void ScorePageSet::appendReadPmx(istream& instream, const string& filename,
          break;
       }
 
-      if (regex_search(transfer, pmxdataline)) {
-         dataQ = 1;
+      if (dataQ == 0) {
+         if (regex_search(transfer, pmxdataline)) {
+            dataQ = 1;
+         }
       }
 
       if (regex_search(transfer, startpage)) {
@@ -210,7 +216,6 @@ void ScorePageSet::appendReadPmx(istream& instream, const string& filename,
          }
 
       }
-
       data << transfer << "\n";
    }
 
@@ -228,6 +233,14 @@ void ScorePageSet::appendReadPmx(istream& instream, const string& filename,
       appendOverlay(pageptr);
       localfile = testname;
       overlaystart = 0;
+   } else if (dataQ) {
+      // catch possible unlabeled page
+      ScorePage* pageptr = new ScorePage;
+      pageptr->read(data);
+      pageptr->setFilename(localfile);
+      appendPage(pageptr);
+      localfile = testname;
+      pagestart = 0;
    }
 
    if (nextpage) {
@@ -241,6 +254,7 @@ void ScorePageSet::appendReadPmx(istream& instream, const string& filename,
    if (!instream.eof()) {
       appendReadPmx(instream, localfile, localtype);
    }
+
 }
 
 

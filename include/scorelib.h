@@ -13,6 +13,7 @@
 #define _SCORELIB_H_INCLUDED
 
 #include "ScorePageSet.h"
+#include "ScoreUtility.h"
 
 #endif  /* _SCORELIB_INCLUDED */
 

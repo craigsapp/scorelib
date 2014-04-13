@@ -87,16 +87,17 @@ int ScorePageSet::getOverlayCount(int pindex) {
 
 //////////////////////////////
 //
-// ScorePageSet::getPage --
+// ScorePageSet::getPage -- Return a pointer to the requested page.
+//     When a single index, return the first page in an overlay.
 //
 
 ScorePage* ScorePageSet::getPage(int pindex) {
-   return (*page_sequence[pindex])[0];
+   return &((*page_sequence[pindex])[0]);
 }
 
 
 ScorePage* ScorePageSet::getPage(int pindex, int oindex) {
-   return (*page_sequence[pindex])[oindex];
+   return &((*page_sequence[pindex])[oindex]);
 }
 
 
@@ -166,8 +167,8 @@ void ScorePageSet::appendOverlay(ScorePage* page, int pindex) {
 // ScorePageSet::operator[] --
 //
 
-ScorePageOverlay* ScorePageSet::operator[](int oindex) {
-   return page_sequence[oindex];
+ScorePageOverlay& ScorePageSet::operator[](int oindex) {
+   return *(page_sequence[oindex]);
 }
 
 

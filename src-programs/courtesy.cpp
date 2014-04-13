@@ -16,8 +16,7 @@
 // 			* convert courtesy accidentals to editorial accidentals.
 //
 
-#include "ScorePage.h"
-#include "Options.h"
+#include "scorelib.h"
 
 using namespace std;
 

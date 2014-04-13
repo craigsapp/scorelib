@@ -29,7 +29,7 @@ class ScorePageOverlay {
       ScorePage*  createOverlay                 (void);
       int         getOverlayCount               (void);
       int         size                          (void);
-      ScorePage*  operator[]                    (int oindex);
+      ScorePage&  operator[]                    (int oindex);
       int         appendOverlay                 (ScorePage* page);
 
    protected:
