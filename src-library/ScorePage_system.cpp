@@ -48,6 +48,8 @@ int ScorePage::analyzeSystems(void) {
    }
    analysis_info.invalidate("systems");
 
+
+
    int i, j, k;
 
    int maxstaff = getMaxStaff();
@@ -173,6 +175,9 @@ void ScorePage::fillSystemScoreItemLists(void) {
    vectorVSIp& systemlist = itemlist_systemsorted;
    vectorVSIp& stafflist  = itemlist_staffsorted;
 
+   vectorVVSIp& p8items = p8BySystem;
+   p8items.resize(systemcount);
+
    systemlist.resize(systemcount);
    int i, j, k;
    int itemcount;
@@ -188,11 +193,16 @@ void ScorePage::fillSystemScoreItemLists(void) {
       }
       systemlist[i].reserve(itemcount);
       systemlist[i].resize(0);
+      p8items[i].resize(systemstaffcount);
       for (j=0; j<systemstaffcount; j++) {
          p2 = reverseSystemMap()[i][j];
          staffitemcount = stafflist[p2].size();
+         p8items[i][j].resize(0);
          for (k=0; k<staffitemcount; k++) {
             systemlist[i].push_back(stafflist[p2][k]);
+            if (stafflist[p2][k]->isStaffItem()) {
+               p8items[i][j].push_back(stafflist[p2][k]);
+            }
          }
       }
 
@@ -318,6 +328,36 @@ vectorSIp& ScorePage::systemItems(int sindex) {
    return itemlist_systemsorted[sindex];
 }
 
+
+
+//////////////////////////////
+//
+// ScorePage::getP8BySystem -- Return the staff items for each
+//    system staff.
+//
+
+vectorVVSIp& ScorePage::getP8BySystem(void) {
+   if (!analysis_info.systemsIsValid()) {
+      analyzeSystems();
+   }
+   return p8BySystem;
+}
+
+
+vectorSIp& ScorePage::getP8BySystem(int p2index) {
+   int i, j;
+   vectorVVSIp& data = getP8BySystem();
+   for (i=0; i<data.size(); i++) {
+      for (j=0; j<data[i].size(); j++) {
+         if (data[i][j][0]->getStaffNumber() == p2index) {
+            return data[i][j];
+         }
+      }
+   }
+
+   cerr << "Error: staff " << p2index << " does not have an entry." << endl;
+   exit(1);
+}
 
 
 

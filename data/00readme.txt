@@ -1,7 +1,12 @@
 Data test files for scorelib.
 ==============================================
 
-chopin-preludes/
-	Chopin Preludes, op. 28
+bach-chorales
+	J.S. Bach four-part chorales
+	
+brahms-op76
+	Johannes Brahms, op. 76
 
+chopin-preludes/
+	Frederic Chopin preludes, op. 28
 

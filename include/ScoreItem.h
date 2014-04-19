@@ -28,6 +28,7 @@ class ScoreItem;
 using listSIp     = list<ScoreItem*>;
 using vectorSIp   = vector<ScoreItem*>;
 using vectorVSIp  = vector<vector<ScoreItem*>>;
+using vectorVVSIp = vector<vector<vector<ScoreItem*>>>;
 
 
 // define SCOREITEMEDIT when compiling this class to use the ScoreItemEdit
@@ -156,6 +157,10 @@ using vectorVSIp  = vector<vector<ScoreItem*>>;
       // Trill (P1=7) processing functions
 
       // Staff (P1=8) processing functions
+      double         getPartNumber         (void);
+      int            getPartNumberInt      (void);
+      double         getInstrumentNumber   (void);
+      int            getInstrumentNumberInt(void);
 
       // Symbol (P1=9) processing functions
 
@@ -242,7 +247,7 @@ int    selectBarlines      (vectorSIp& output, const vectorSIp& input);
 int    selectBarlines      (vectorSIp& output, const listSIp& input);
 
 
-
-
 #endif  /* _SCOREITEM_H_INCLUDED */
+
+
 

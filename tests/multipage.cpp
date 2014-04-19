@@ -24,8 +24,8 @@ int main(int argc, char** argv) {
    ScorePage* page2 = outfile.createPage();
    ScorePage* page3 = outfile.createPage();
 
-   ScorePage* overlay1 = outfile[0]->createOverlay();
-   ScorePage* overlay2 = outfile[1]->createOverlay();
+   ScorePage* overlay1 = outfile[0].createOverlay();
+   ScorePage* overlay2 = outfile[1].createOverlay();
 
    page1->setFilename("page1");
    overlay1->setFilename("overlay1");

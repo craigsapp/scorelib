@@ -146,10 +146,10 @@ void ScorePageSet::appendReadPmx(istream& instream, const string& filename,
    string localtype    = pagetype;
    string localfile    = filename;
    regex  pmxdataline  (R"(^\s*[\dtT+-])");
-   regex  startpage    (  "###StartPage");
-   regex  spname       (R"(###StartPage:\s*([^\s]+))");
-   regex  overlaypage  (  "###StartOverlay");
-   regex  opname       (R"(###StartOverlay:\s*([^\s]+))");
+   regex  startpage    (  "###ScorePage");
+   regex  spname       (R"(###ScorePage:\s*([^\s]+))");
+   regex  overlaypage  (  "###ScoreOverlay");
+   regex  opname       (R"(###ScoreOverlay:\s*([^\s]+))");
    smatch match;
 
    while (getline(instream, transfer)) {

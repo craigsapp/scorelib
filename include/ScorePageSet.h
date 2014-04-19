@@ -13,12 +13,14 @@
 #define _SCOREPAGESET_H_INCLUDED
 
 #include "ScorePageOverlay.h"
+#include "ScoreSegment.h"
 #include "Options.h"
 
 using namespace std;
 
 typedef vector<ScorePageOverlay*> vectorSPOp;
 typedef list<ScorePageOverlay*>   listSPOp;
+typedef vector<ScoreSegment*>     vectorSSp;
 
 class ScorePageSet { 
    public:
@@ -48,6 +50,14 @@ class ScorePageSet {
       void        appendReadStandardInput       (void);
       void        appendOverlay                 (ScorePage* page);
       void        appendOverlay                 (ScorePage* page, int pindex);
+      void        analyzeSegmentsByIndent       (SCORE_FLOAT threshold1 = 7.0,
+                                                 SCORE_FLOAT threshold2 = 40.0);
+
+      // Segmentation functions (defined in ScorePageSet_segment.cpp):
+      int         getSegmentCount               (void);
+      void        clearSegments                 (void);
+      void        createSegment                 (SystemAddress& startaddress, 
+                                                 SystemAddress& endaddress);
 
    protected:
       // page_storage contains all of the data for SCORE pages.
@@ -59,6 +69,12 @@ class ScorePageSet {
       // should be arranged.  The first dimension is the page sequence,
       // and the second dimension is the overlay sequence.
       vectorSPOp page_sequence;
+
+      // score_segments is a list of score segmentations across multiple
+      // pages.  Each segment is assumed to have a constant number of 
+      // parts, and typically represents one movement of a work.  The
+      // segments are destroyed when the object is deconstructed.
+      vectorSSp segment_storage;
 
 };
 

@@ -52,8 +52,8 @@ class ScorePage : public ScorePageBase {
       int         getMaxStaff            (void);
       bool        stavesAreConsecutive   (void);
       const vectorVSIp& getStaffItemList (void);
-      vectorVSIp& staffItemList          (void);
-      vectorSIp&  staffItemList          (int p2index);
+      vectorVVSIp& getP8BySystem          (void);
+      vectorSIp&  getP8BySystem          (int p2index);
       void        setStaffDuration       (int staffnum, SCORE_FLOAT duration);
       SCORE_FLOAT getStaffDuration       (int staffnum);
    protected:

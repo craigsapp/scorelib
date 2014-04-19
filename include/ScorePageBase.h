@@ -124,6 +124,9 @@ class ScorePageBase {
       vectorVSIp itemlist_staffsorted;
       vectorVSIp itemlist_systemsorted;
 
+      // Staff items sorted by system
+      vectorVVSIp p8BySystem;
+
       // Variable "trailer" is for storing the trailer of a SCORE binary file.
       // The trailer consists of at least 5 floats.  The numbers in
       // reverse order are:

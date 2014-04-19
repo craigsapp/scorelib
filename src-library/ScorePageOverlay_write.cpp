@@ -21,20 +21,20 @@ using namespace std;
 //
 
 ostream& operator<<(ostream& out, ScorePageOverlay& overlay) {
-   out << "###StartPage:\t" << overlay[0]->getFilenameBase() << endl;
+   out << "###StartPage:\t" << overlay[0].getFilenameBase() << endl;
    out << "\n";
-   out << *overlay[0];
+   out << overlay[0];
    for (int i=1; i<overlay.getOverlayCount(); i++) {
       out << "\n";
       out << "###StartOverlay:\t";
-      if (overlay[i]->getFilenameBase() != "") {
-         out << overlay[i]->getFilenameBase();
+      if (overlay[i].getFilenameBase() != "") {
+         out << overlay[i].getFilenameBase();
       } else {
-         out << overlay[0]->getFilenameBase() << "-" << i;
+         out << overlay[0].getFilenameBase() << "-" << i;
       }
       out  << endl;
       out << "\n";
-      out << *overlay[i];
+      out << overlay[i];
    }
    return out;
 }

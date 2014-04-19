@@ -26,7 +26,7 @@ ostream& operator<<(ostream& out, ScorePageSet& set) {
       if (i > 0) {
          out << "\n";
       }
-      out << *set[i];
+      out << set[i];
    }
    return out;
 }

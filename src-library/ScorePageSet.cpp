@@ -53,6 +53,7 @@ void ScorePageSet::clear(void) {
    }
    page_storage.resize(0);
    page_sequence.resize(0);
+   clearSegments();
 }
 
 
