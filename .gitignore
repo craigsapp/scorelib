@@ -30,6 +30,7 @@ tests/itemdur
 tests/readtest
 tests/scorediff
 tests/scoreitems2xml
+tests/segmentinfo
 tests/staffdurations
 tests/staffoffsets
 tests/stemtest
@@ -37,4 +38,4 @@ tests/systeminfo
 tests/systemrhythm
 tests/systemsort
 
-
+data/dufay

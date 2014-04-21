@@ -26,19 +26,25 @@ void ScorePageSet::analyzeSegmentsByIndent(SCORE_FLOAT threshold1,
    SystemAddress lastIndent(0,0,0,0);
    SystemAddress currentIndent(0,0,0,0);
 
-   double indent = -1;
+   double indent;
+   int segmentstart = 1;
    vector<int> address;
 
    for (p=0; p<pageset.getPageCount(); p++) {
       int scount = pageset[p][0].getSystemCount();
-      cout << "SYSTEM count on page " << p << " is " << scount << endl;
+      // cout << "SYSTEM count on page " << p << " is " << scount << endl;
       for (s=0; s<scount; s++) {
          indent = pageset[p][0].getP8BySystem()[s][0][0]->getHPos();
          address = {p, 0, s, 0};
          currentIndent = address;
+         if (segmentstart) {
+            lastIndent = currentIndent;
+            segmentstart = 0;
+         }
          if ((indent >= threshold1) && (indent <= threshold2)) {
             if (currentIndent != lastIndent) {
                createSegment(lastIndent, currentIndent);   
+               segmentstart = 1;
                // cout << "SEGMENT: " << lastIndent << " TO " 
                //      << currentIndent << endl;
             }
@@ -91,6 +97,20 @@ void ScorePageSet::clearSegments(void) {
 int ScorePageSet::getSegmentCount(void) {
    return segment_storage.size();
 }
+
+
+
+//////////////////////////////
+//
+// ScorePageSet::getSegment -- Return the requested segment structure.
+//
+
+ScoreSegment& ScorePageSet::getSegment(int index) {
+   return *segment_storage[index];
+}
+
+
+
 
 
 

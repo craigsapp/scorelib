@@ -74,8 +74,16 @@ void SystemAddress::clear(void) {
 //     Offset from 0.
 //
 
-int SystemAddress::getPage(void) { 
+int SystemAddress::getPage(void) const { 
    return page;
+}
+
+//
+// Alias:
+//
+
+int SystemAddress::getPageIndex(void) const {
+   return getPage();
 }
 
 
@@ -86,8 +94,16 @@ int SystemAddress::getPage(void) {
 //     primary overlay.
 //
 
-int SystemAddress::getOverlay(void) { 
+int SystemAddress::getOverlay(void) const { 
    return overlay;
+}
+
+//
+// Alias:
+//
+
+int SystemAddress::getOverlayIndex(void) const {
+   return getOverlay();
 }
 
 
@@ -98,8 +114,16 @@ int SystemAddress::getOverlay(void) {
 //     with the page/overlay index.
 //
 
-int SystemAddress::getSystem(void) { 
+int SystemAddress::getSystem(void) const { 
    return system;
+}
+
+//
+// Alias:
+//
+
+int SystemAddress::getSystemIndex(void) const { 
+   return getSystem();
 }
 
 
@@ -112,8 +136,16 @@ int SystemAddress::getSystem(void) {
 //    with the duration and barring of the existing parts on the system.
 //
 
-int SystemAddress::getSystemStaff(void) { 
+int SystemAddress::getSystemStaff(void) const { 
    return systemstaff;
+}
+
+//
+// Alias:
+//
+
+int SystemAddress::getSystemStaffIndex(void) const { 
+   return getSystemStaffIndex();
 }
 
 
@@ -253,7 +285,7 @@ void SystemAddress::setSystemStaff(int aSystemStaff) {
 // operator<< -- print an address.
 //
 
-ostream& operator<<(ostream& out, SystemAddress& anAddress) {
+ostream& operator<<(ostream& out, const SystemAddress& anAddress) {
    out << "{";
    out << anAddress.getPage()        << ", ";
    out << anAddress.getOverlay()     << ", ";

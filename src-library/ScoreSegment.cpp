@@ -77,9 +77,9 @@ void ScoreSegment::defineSegment(ScorePageSet& pageset,
    start_system = starting;
    end_system   = ending;
 
-//   if (debug) {
+   if (debug) {
       cout << "DEFINING SEGMENT " << starting << " TO " << ending << endl;
-//   }
+   }
 
    vector<int> partlist;
    getPartList(partlist, pageset, start_system, end_system);
@@ -91,6 +91,7 @@ void ScoreSegment::defineSegment(ScorePageSet& pageset,
       }
       cout << endl;
 //   }
+//   ggg
 
    analyzePartStaves(partlist, pageset, start_system, end_system);
 }
@@ -174,6 +175,16 @@ void ScoreSegment::analyzePartStaves(vector<int>& partlist, ScorePageSet&
 //   numbers extracted from staff items.  Currently only processing
 //   the first page in ScorePageOverlay objects.
 //
+//   If the partnumber of a staff is zero, then an automatic identification of 
+//   parts by system staff number will be used.  The bottom staff will be labeled
+//   as part -1, the next higher staff will be part -2, and so on.  If part numbers
+//   (P9|P1=8) are zero, then it is expected that the staff number for each system
+//   is constant (otherwise you should number the staves by parts).  If the staff
+//   counts are not constant, then the staves will be assumed to be removed starting
+//   from the top.  So if there are nominally 4 staves/system and there is a system
+//   with three staves, and all staves are labeled as part 0, then the top staff on the
+//   4-staff system will be assumed to be removed in the 3-staff system.
+//
 
 void ScoreSegment::getPartList(vector<int>& partlist, ScorePageSet& pageset, 
       SystemAddress& sp, SystemAddress& ep) {
@@ -183,7 +194,10 @@ void ScoreSegment::getPartList(vector<int>& partlist, ScorePageSet& pageset,
    int p;
    int startsys;
    int endsys;
+   int staff;
    int overlay = 0;  // make variable later.
+   int partnum;
+   int zeropart = 0;
 
    for (p = sp.getPage(); p <= ep.getPage(); p++) {
       startsys = 0;
@@ -202,8 +216,16 @@ void ScoreSegment::getPartList(vector<int>& partlist, ScorePageSet& pageset,
          if (sys >= staffitems.size()) {
             break;
          }
-         if (staffitems[sys].size() > 0) {
-            partnums.insert(staffitems[sys][0][0]->getPartNumber());
+         zeropart = 0;
+         for (staff=0; staff<staffitems[sys].size(); staff++) {
+            if (staffitems[sys][staff].size() == 0) {
+               continue;
+            } 
+            partnum = staffitems[sys][staff][0]->getPartNumber();
+            if (partnum == 0) {
+               partnum = --zeropart;
+            }
+            partnums.insert(partnum);
          }
       }
    }
@@ -213,6 +235,75 @@ void ScoreSegment::getPartList(vector<int>& partlist, ScorePageSet& pageset,
    for (auto& it : partnums) {
       partlist.push_back(it);
    }   
+}
+
+
+
+//////////////////////////////
+//
+// ScoreSegment::getBeginSystem -- return the first system in a ScorePageSet which defines
+//      the segment.
+//
+
+const SystemAddress& ScoreSegment::getBeginSystem(void) const {
+   return start_system;
+}
+
+//
+// Alias: 
+//
+
+const SystemAddress& ScoreSegment::getStartSystem(void) const {
+   return getBeginSystem();
+}
+
+
+
+//////////////////////////////
+//
+// ScoreSegment::getBeginSystem -- return the first system in a ScorePageSet which defines
+//      the segment.
+//
+
+const SystemAddress& ScoreSegment::getEndSystem(void) const {
+   return end_system;
+}
+
+
+
+//////////////////////////////
+//
+// ScoreSegment::printInfo --
+//
+
+ostream& ScoreSegment::printInfo(ostream& out) const {
+   out << "Start_system:\t" << getStartSystem() << endl;
+   out << "Start_system:\t" << getEndSystem() << endl;
+   out << "Part_count:\t" << getPartCount() << endl;
+
+   return out;
+}
+
+
+
+//////////////////////////////
+//
+// ScoreSegment::getPartCount --
+//
+
+int ScoreSegment::getPartCount(void) const {
+   return part_storage.size();
+}
+
+
+
+//////////////////////////////
+//
+// operator<< --
+//
+
+ostream& operator<<(ostream& out, const ScoreSegment& segment) {
+   return segment.printInfo(out);
 }
 
 

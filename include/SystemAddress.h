@@ -29,14 +29,14 @@ class SystemAddress {
            ~SystemAddress();
 
       void  clear               (void);
-      int   getPage             (void);
-      int   getPageIndex        (void);
-      int   getOverlay          (void);
-      int   getOverlayIndex     (void);
-      int   getSystem           (void);
-      int   getSystemIndex      (void);
-      int   getSystemStaff      (void);
-      int   getSystemStaffIndex (void);
+      int   getPage             (void) const;
+      int   getPageIndex        (void) const;
+      int   getOverlay          (void) const;
+      int   getOverlayIndex     (void) const;
+      int   getSystem           (void) const;
+      int   getSystemIndex      (void) const;
+      int   getSystemStaff      (void) const;
+      int   getSystemStaffIndex (void) const;
       void  setAddress          (int aPage, int anOverlay, int aSystem, 
                                  int aSystemStaff);
       SystemAddress& operator=  (SystemAddress& anAddress);
@@ -59,7 +59,7 @@ class SystemAddress {
 };
 
 
-ostream& operator<<(ostream& out, SystemAddress& anAddress);
+ostream& operator<<(ostream& out, const SystemAddress& anAddress);
 
 
 #endif  /* _SYSTEMADDRESS_H_INCLUDED */

@@ -54,9 +54,10 @@ class ScorePageSet {
                                                  SCORE_FLOAT threshold2 = 40.0);
 
       // Segmentation functions (defined in ScorePageSet_segment.cpp):
-      int         getSegmentCount               (void);
-      void        clearSegments                 (void);
-      void        createSegment                 (SystemAddress& startaddress, 
+      int           getSegmentCount             (void);
+      ScoreSegment& getSegment                  (int index);
+      void          clearSegments               (void);
+      void          createSegment               (SystemAddress& startaddress, 
                                                  SystemAddress& endaddress);
 
    protected:

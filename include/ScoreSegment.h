@@ -32,6 +32,8 @@ class ScoreSegment {
                 ~ScoreSegment        ();
 
       void       clear               (void);
+      int        getPartCount        (void) const;
+      ostream&   printInfo           (ostream& out) const;
       void       defineSegment       (ScorePageSet& pageset, 
                                       SystemAddress& starting, 
                                       SystemAddress& ending, int debug = 0);
@@ -39,6 +41,9 @@ class ScoreSegment {
                                       ScorePageSet& scoreset, 
                                       SystemAddress& startsys, 
                                       SystemAddress& endsys);
+      const SystemAddress& getBeginSystem(void) const;
+      const SystemAddress& getStartSystem(void) const;
+      const SystemAddress& getEndSystem(void) const;
    
    protected:
       SystemAddress        start_system;
@@ -53,6 +58,10 @@ class ScoreSegment {
                                       SystemAddress& ep);
 
 };
+
+
+ostream& operator<<(ostream& out, const ScoreSegment& segment);
+
 
 #endif  /* _SCORESEGMENT_H_INCLUDED */
 
