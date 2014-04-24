@@ -21,6 +21,7 @@
 #include "DatabaseChord.h"
 #include "DatabaseBeam.h"
 #include "DatabaseP3.h"
+#include "SystemMeasure.h"
 
 using namespace std;
 
@@ -120,12 +121,15 @@ class ScorePageBase {
       listSIp item_storage;
 
       // Various horizontally sorted organizations of the item_storage data.
-      vectorSIp  itemlist_P3sorted;
-      vectorVSIp itemlist_staffsorted;
-      vectorVSIp itemlist_systemsorted;
+      vectorSIp   itemlist_P3sorted;
+      vectorVSIp  itemlist_staffsorted;
+      vectorVSIp  itemlist_systemsorted;
+      vectorVSMp  system_measures; // system:barline:p3 sorted items.
+      listSMp     measure_storage; // data storage for system_measures;
 
-      // Staff items sorted by system
-      vectorVVSIp p8BySystem;
+      vectorVVSIp p8BySystem; // Staff items (P1=8 only) sorted by system.
+                              // Last dimension is in case there is more
+                              // than one staff item for a staff position.
 
       // Variable "trailer" is for storing the trailer of a SCORE binary file.
       // The trailer consists of at least 5 floats.  The numbers in

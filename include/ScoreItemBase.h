@@ -251,6 +251,7 @@ class ScoreItemBase {
       ostream&      printPmx         (ostream& out);
       ostream&      printPmxFixedParameters(ostream& out);
       ostream&      printPmxNamedParameters(ostream& out);
+      ostream&      printPmxNamedParametersNoAnalysis(ostream& out);
       ostream&      printXml         (ostream& out, int indentcount = 0, 
                                       const string& indentstring = "\t");
 

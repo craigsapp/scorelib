@@ -15,6 +15,53 @@
 using namespace std;
 
 
+
+//////////////////////////////
+//
+// ScoreItem::printNoAnalysis -- print a ScoreItem, excluding any 
+//      named parameters in the "analysis" namespace.
+//
+
+ostream& ScoreItem::printNoAnalysis(ostream& out) {
+   auto& si = *this;
+   si.printPmxFixedParameters(out);
+   si.printPmxNamedParametersNoAnalysis(out);
+   return out;
+}
+
+
+
+//////////////////////////////
+//
+// printNoAnalysis -- print a list of ScoreItems, excluding any 
+//      named parameters in the "analysis" namespace.
+//
+
+ostream& printNoAnalysis(ostream& out, vectorSIp& sipvector) {
+   for (auto& it : sipvector) {
+      it->printNoAnalysis(out);
+   }
+   return out;
+}
+
+
+ostream& printNoAnalysis(ostream& out, listSIp& siplist) {
+   for (auto& it : siplist) {
+      it->printNoAnalysis(out);
+   }
+   return out;
+}
+
+
+ostream& printNoAnalysis(ostream& out, vectorVSIp& sipvvector) {
+   for (auto& it : sipvvector) {
+      printNoAnalysis(out, it);
+   }
+   return out;
+}
+
+
+
 //////////////////////////////
 //
 // operator<< -- Printing ScoreItems with <<

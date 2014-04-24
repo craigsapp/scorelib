@@ -111,6 +111,3 @@ ScoreSegment& ScorePageSet::getSegment(int index) {
 
 
 
-
-
-

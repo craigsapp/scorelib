@@ -29,7 +29,6 @@ ScoreSegment::ScoreSegment(void) {
 }
 
 
-
 ScoreSegment::ScoreSegment(ScorePageSet& pageset, SystemAddress& starting, 
       SystemAddress& ending, int debug) {
 
@@ -57,8 +56,19 @@ ScoreSegment::~ScoreSegment() {
 void ScoreSegment::clear(void) {
    start_system.clear();
    end_system.clear();
-   int i;
-   for (i=0; i<part_storage.size(); i++) {
+   clearPartStorage();
+}
+
+
+
+//////////////////////////////
+//
+// ScoreSegment::clearPartStorage -- delete the contents of the part storage
+//      array, but do not clear the start/end system information.
+//
+
+void ScoreSegment::clearPartStorage(void) {
+   for (int i=0; i<part_storage.size(); i++) {
       delete part_storage[i];
       part_storage[i] = 0;
    }
@@ -84,14 +94,13 @@ void ScoreSegment::defineSegment(ScorePageSet& pageset,
    vector<int> partlist;
    getPartList(partlist, pageset, start_system, end_system);
 
-//   if (debug) {
+   if (debug) {
       cout << "List of instrument numbers in segment: ";
       for (auto& it : partlist) {
          cout << it << " ";
       }
       cout << endl;
-//   }
-//   ggg
+   }
 
    analyzePartStaves(partlist, pageset, start_system, end_system);
 }
@@ -110,9 +119,21 @@ void ScoreSegment::analyzePartStaves(vector<int>& partlist, ScorePageSet&
    SystemAddress& ep = endsys;
 
    map<int,int> reverselist;
+   clearPartStorage();
+   part_storage.resize(partlist.size());
+   fill(part_storage.begin(), part_storage.end(), (SegmentPart*)NULL);
+
    for (int i=0; i<partlist.size(); i++) {
       reverselist[partlist[i]] = i;
+      SegmentPart* spart = new SegmentPart;
+      spart->setPartIndex(i);
+      spart->setPartNumber(partlist[i]);
+      spart->setPartName(extractPartName(pageset, startsys, partlist[i]));
+      spart->setOwner(&pageset);
+      part_storage[i] = spart;
    }
+
+   // store part information
 
    vector<int> counter;
    counter.resize(partlist.size());
@@ -124,9 +145,15 @@ void ScoreSegment::analyzePartStaves(vector<int>& partlist, ScorePageSet&
    int partnum;
    int staffcount;
    int partindex;
-   int partcount;
    string partmarker;
+   int zerocounter = 0;
 
+   int partcount = part_storage.size();
+   vector<int> foundpart;
+   foundpart.resize(partcount);
+   SystemAddress current;
+
+   // Label the part index for each staff in segment.
    for (p = sp.getPage(); p <= ep.getPage(); p++) {
       sysstart = 0;
       if (p == sp.getPage()) {
@@ -142,7 +169,9 @@ void ScoreSegment::analyzePartStaves(vector<int>& partlist, ScorePageSet&
       vectorVVSIp& staffitems = page.getP8BySystem();
       for (int sys = sysstart; sys <= sysend; sys++) {
          fill(counter.begin(), counter.end(), 0);
+         fill(foundpart.begin(), foundpart.end(), 0);
          staffcount = staffitems[sys].size();
+         zerocounter = 0;
          for (int sysstaff = 0; sysstaff < staffcount; sysstaff++) {
             if ((p == sp.getPage()) && (sys == sp.getSystem())) {
                staffitems[sys][sysstaff][0]->setParameter("segment", 
@@ -154,17 +183,95 @@ void ScoreSegment::analyzePartStaves(vector<int>& partlist, ScorePageSet&
             }
             if (staffitems[sys][sysstaff].size() > 0) {
                partnum = staffitems[sys][sysstaff][0]->getPartNumberInt();
+               if (partnum == 0) {
+                  partnum = --zerocounter;
+               }
             } else {
                partnum = 0;
+            }
+            if ((p == sp.getPage()) && (sys == sp.getSystem())) {
+               if (staffitems[sys][sysstaff][0]->isDefined("partname")) {
+                  string partname = 
+                     staffitems[sys][sysstaff][0]->getParameter("partname");
+                  if (partname != "") {
+                     staffitems[sys][sysstaff][0]->setParameter("segment", 
+                              "partname", partname);
+                  }
+               } else {
+                  string partname = 
+                        part_storage[reverselist[partnum]]->getPartName();
+                  if (partname != "") {
+                     staffitems[sys][sysstaff][0]->setParameter("segment", 
+                           "partname", partname);
+                  }
+               }
             }
             partindex = reverselist[partnum];
             partcount = counter[partindex]++;
             partmarker = to_string(partindex) + "." + to_string(partcount);
             staffitems[sys][sysstaff][0]->setParameter("segment", 
                "partstaff", partmarker);
+
+            // Store the system addresses for each system for each part.
+            current.setPage(p);
+            current.setOverlay(0);
+            current.setSystem(sys);
+            current.setSystemStaff(sysstaff);
+            foundpart[partindex] = 1;
+            if (partcount == 0) {
+               part_storage[partindex]->appendAddress(current);
+            } else {
+               part_storage[partindex]->addToLastAddress(current);
+            }
+         }
+         // For all parts which were not found, add empty address for system.
+         for (int i=0; i<foundpart.size(); i++) {
+            if (foundpart[i]) {
+               continue;
+            }
+            current.setSystemStaff(-1);
+            part_storage[i]->appendAddress(current);
          }
       }
    }
+}
+
+
+
+//////////////////////////////
+//
+// ScoreSegment::extractPartName -- Extract text in front of a staff.  Expand 
+//      in the future to deal with instrument name split onto two (or more 
+//      lines).
+//
+
+string ScoreSegment::extractPartName(ScorePageSet& pageset, 
+      SystemAddress& startsys, int partnum) {
+   int pageindex = startsys.getPage();
+   int overlay = 0;
+   ScorePage& page = pageset[pageindex][overlay];
+   int sysindex = startsys.getSystem();
+   int pagestaff = page.getPageStaff(sysindex, partnum);
+   vectorSIp staffitems;
+   page.getSortedStaffItems(staffitems, pagestaff);
+   double p4;
+   for (int i=0; i<staffitems.size(); i++) {
+      if (staffitems[i]->isStaffItem()) {
+         break;
+      }
+      if (!staffitems[i]->isTextItem()) {
+         continue;
+      }
+      p4 = staffitems[i]->getVPos();
+      if (p4 > 9) {
+         continue;
+      }
+      if (p4 < 1) {
+         continue;
+      }
+      return staffitems[i]->getTextNoFont();
+   }
+   return "";
 }
 
 
@@ -176,13 +283,14 @@ void ScoreSegment::analyzePartStaves(vector<int>& partlist, ScorePageSet&
 //   the first page in ScorePageOverlay objects.
 //
 //   If the partnumber of a staff is zero, then an automatic identification of 
-//   parts by system staff number will be used.  The bottom staff will be labeled
-//   as part -1, the next higher staff will be part -2, and so on.  If part numbers
-//   (P9|P1=8) are zero, then it is expected that the staff number for each system
-//   is constant (otherwise you should number the staves by parts).  If the staff
-//   counts are not constant, then the staves will be assumed to be removed starting
-//   from the top.  So if there are nominally 4 staves/system and there is a system
-//   with three staves, and all staves are labeled as part 0, then the top staff on the
+//   parts by system staff number will be used.  The bottom staff will be 
+//   labeled as part -1, the next higher staff will be part -2, and so on.  
+//   If part numbers (P9|P1=8) are zero, then it is expected that the staff 
+//   number for each system is constant (otherwise you should number the 
+//   staves by parts).  If the staff counts are not constant, then the 
+//   staves will be assumed to be removed starting from the top.  So if 
+//   there are nominally 4 staves/system and there is a system with three 
+//   staves, and all staves are labeled as part 0, then the top staff on the
 //   4-staff system will be assumed to be removed in the 3-staff system.
 //
 
@@ -261,8 +369,8 @@ const SystemAddress& ScoreSegment::getStartSystem(void) const {
 
 //////////////////////////////
 //
-// ScoreSegment::getBeginSystem -- return the first system in a ScorePageSet which defines
-//      the segment.
+// ScoreSegment::getBeginSystem -- return the first system in a ScorePageSet 
+//      which defines the segment.
 //
 
 const SystemAddress& ScoreSegment::getEndSystem(void) const {
@@ -277,9 +385,14 @@ const SystemAddress& ScoreSegment::getEndSystem(void) const {
 //
 
 ostream& ScoreSegment::printInfo(ostream& out) const {
-   out << "Start_system:\t" << getStartSystem() << endl;
-   out << "Start_system:\t" << getEndSystem() << endl;
-   out << "Part_count:\t" << getPartCount() << endl;
+   out << "Start system:\t" << getStartSystem() << endl;
+   out << "End system:\t"   << getEndSystem()   << endl;
+   out << "Part count:\t"   << getPartCount()   << endl;
+   out << "System count:\t" << getSystemCount() << endl;
+   for (int i=0; i<getPartCount(); i++) {
+      out << "\nPart " << i << endl;
+      out << *part_storage[i];
+   }
 
    return out;
 }
@@ -288,11 +401,55 @@ ostream& ScoreSegment::printInfo(ostream& out) const {
 
 //////////////////////////////
 //
-// ScoreSegment::getPartCount --
+// ScoreSegment::getPartCount -- Return the number of parts in the segment.
 //
 
 int ScoreSegment::getPartCount(void) const {
    return part_storage.size();
+}
+
+
+
+//////////////////////////////
+//
+// ScoreSegment::getSystemCount -- Return the number of systems
+//    in the segment.  All parts are required to have the same number
+//    of systems.  If not then something strange is happening.  If a
+//    part is not found on a particular system, it should still have
+//    an entry of -1 representing that it is resting in that system.
+//
+
+int ScoreSegment::getSystemCount(void) const {
+   if (part_storage.size() == 0) {
+      return 0;
+   }
+   return part_storage[0]->getAddresses().size();
+}
+
+
+//////////////////////////////
+//
+// ScoreSegment::getSystem -- Return the requested system address.
+//     All parts are expected to have the same number of systems
+//     and they line up exactly.
+//
+
+SystemAddress& ScoreSegment::getSystem(int index) {
+   return part_storage[0]->getAddress(index);
+}
+
+
+//////////////////////////////
+//
+// ScoreSegment::getPartName -- 
+//
+
+string ScoreSegment::getPartName(int partindex) {
+   if ((partindex < 0) || (partindex >= part_storage.size())) {
+      return "";
+   } else {
+      return part_storage[partindex]->getPartName();
+   }
 }
 
 
@@ -305,6 +462,3 @@ int ScoreSegment::getPartCount(void) const {
 ostream& operator<<(ostream& out, const ScoreSegment& segment) {
    return segment.printInfo(out);
 }
-
-
-

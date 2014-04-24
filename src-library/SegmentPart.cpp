@@ -70,6 +70,28 @@ SystemAddress& SegmentPart::getAddress(int index, int index2) {
 
 //////////////////////////////
 //
+// SegmentPart::getAddresses --
+//
+
+const vectorVSAp& SegmentPart::getAddresses(void) const {
+   return address_storage;
+}
+
+
+
+//////////////////////////////
+//
+// SegmentPart::getAddressCount. --
+//
+
+int SegmentPart::getAddressCount(void) const {
+   return address_storage.size();
+}
+
+
+
+//////////////////////////////
+//
 // SegmentPart::getScoreOverlay --
 //
 
@@ -195,8 +217,119 @@ void SegmentPart::appendAddress(SystemAddress& anAddress) {
 void SegmentPart::addAddress(SystemAddress& anAddress, int index) {
    SystemAddress* sa = new SystemAddress(anAddress);
    address_storage[index].push_back(sa);
-
-
 }
+
+
+
+//////////////////////////////
+//
+// SegmentPart::addToLastAddress --
+//
+
+void SegmentPart::addToLastAddress(SystemAddress& anAddress) {
+   SystemAddress* sa = new SystemAddress(anAddress);
+   if (address_storage.size() == 0) {
+      cerr << "Cannot append to last element because size is zero" << endl;
+      exit(1);
+   }
+   address_storage.back().push_back(sa);
+}
+
+
+
+//////////////////////////////
+//
+// SegmentPart::setPartIndex --
+//
+
+void SegmentPart::setPartIndex(unsigned int index) {
+   part_index = index;
+}
+
+
+//////////////////////////////
+//
+// SegmentPart::setPartNumber --
+//
+
+void SegmentPart::setPartNumber(int number) {
+   part_number = number;
+}
+
+
+//////////////////////////////
+//
+// SegmentPart::getPartIndex --
+//
+
+unsigned int SegmentPart::getPartIndex(void) const {
+   return part_index;
+}
+
+
+//////////////////////////////
+//
+// SegmentPart::getPartNumber --
+//
+
+int SegmentPart::getPartNumber(void) const {
+   return part_number;
+}
+
+
+//////////////////////////////
+//
+// SegmentPart::setPartName --
+//
+
+void SegmentPart::setPartName(const string& name) {
+   part_name = name; 
+}
+
+
+//////////////////////////////
+//
+// SegmentPart::getPartName --
+//
+
+const string& SegmentPart::getPartName(void) const {
+   return part_name;
+}
+
+
+
+//////////////////////////////
+//
+// operator<< -- Print information about SegmentParts.
+//
+
+ostream& operator<<(ostream& out, const SegmentPart& part) {
+   if (part.getPartName() != "") {
+      out << "Part name:\t" << part.getPartName() << endl;
+   }
+   out << "Part index:\t"  << part.getPartIndex()  << endl;
+   out << "Part number:\t" << part.getPartNumber() << endl;
+   int i, j;
+   out << "Part staff addresses:" << endl;
+   for (i=0; i<part.getAddresses().size(); i++) {
+      out << "\t";
+      if (part.getAddresses()[i].size() > 1) {
+         out << "{ ";
+      }
+      for (j=0; j<part.getAddresses()[i].size(); j++) {
+         out << *part.getAddresses()[i][j];
+         if (j < part.getAddresses()[i].size() - 1) {
+            out << ", ";
+         } 
+      }
+      if (part.getAddresses()[i].size() > 1) {
+         out << " }";
+      }
+      out << endl;
+   }
+   
+   return out;
+}
+
 
 

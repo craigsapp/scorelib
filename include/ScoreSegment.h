@@ -32,7 +32,10 @@ class ScoreSegment {
                 ~ScoreSegment        ();
 
       void       clear               (void);
+      void       clearPartStorage    (void);
       int        getPartCount        (void) const;
+      int        getSystemCount      (void) const;
+      SystemAddress& getSystem       (int index);
       ostream&   printInfo           (ostream& out) const;
       void       defineSegment       (ScorePageSet& pageset, 
                                       SystemAddress& starting, 
@@ -41,9 +44,13 @@ class ScoreSegment {
                                       ScorePageSet& scoreset, 
                                       SystemAddress& startsys, 
                                       SystemAddress& endsys);
-      const SystemAddress& getBeginSystem(void) const;
-      const SystemAddress& getStartSystem(void) const;
-      const SystemAddress& getEndSystem(void) const;
+
+      const SystemAddress& getBeginSystem (void) const;
+      const SystemAddress& getStartSystem (void) const;
+      const SystemAddress& getEndSystem   (void) const;
+
+      // accessors for vector<SegmentPart*> data
+      string     getPartName         (int partindex);
    
    protected:
       SystemAddress        start_system;
@@ -56,6 +63,7 @@ class ScoreSegment {
                                       ScorePageSet& pageset, 
                                       SystemAddress& sp, 
                                       SystemAddress& ep);
+      string      extractPartName    (ScorePageSet& pageset, SystemAddress& startsys, int partnum);
 
 };
 

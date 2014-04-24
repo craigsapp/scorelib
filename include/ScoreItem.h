@@ -157,9 +157,9 @@ using vectorVVSIp = vector<vector<vector<ScoreItem*>>>;
       // Trill (P1=7) processing functions
 
       // Staff (P1=8) processing functions
-      double         getPartNumber         (void);
+      SCORE_FLOAT    getPartNumber         (void);
       int            getPartNumberInt      (void);
-      double         getInstrumentNumber   (void);
+      SCORE_FLOAT    getInstrumentNumber   (void);
       int            getInstrumentNumberInt(void);
 
       // Symbol (P1=9) processing functions
@@ -212,6 +212,9 @@ using vectorVVSIp = vector<vector<vector<ScoreItem*>>>;
       SCORE_FLOAT  getHPosOff             (void);
 
 
+      // internal print functions (defined in ScoreItem_print.cpp):
+      ostream&     printNoAnalysis        (ostream& out);
+
       /////////////////////////////////////////////////////////////////////
       //
       // Analysis dependent functions: (the analysis is not checked before
@@ -221,15 +224,19 @@ using vectorVVSIp = vector<vector<vector<ScoreItem*>>>;
       // Chord analysis dependent functions:
       string       getHumdrumPitch        (void);
 
+      
 };
 
 
 // external printing functions (defined in ScoreItem_print.cpp):
-ostream& operator<<(ostream& out, ScoreItem& si);
-ostream& operator<<(ostream& out, ScoreItem* si);
-ostream& operator<<(ostream& out, listSIp& sipvector);
-ostream& operator<<(ostream& out, vectorSIp& sipvector);
-ostream& operator<<(ostream& out, vectorVSIp& sipvvector);
+ostream&    operator<<        (ostream& out, ScoreItem& si);
+ostream&    operator<<        (ostream& out, ScoreItem* si);
+ostream&    operator<<        (ostream& out, listSIp& sipvector);
+ostream&    operator<<        (ostream& out, vectorSIp& sipvector);
+ostream&    operator<<        (ostream& out, vectorVSIp& sipvvector);
+ostream&    printNoAnalysis   (ostream& out, listSIp& siplist);
+ostream&    printNoAnalysis   (ostream& out, vectorSIp& sipvector);
+ostream&    printNoAnalysis   (ostream& out, vectorVSIp& sipvvector);
 
 
 // Selecting filters for list of ScoreItems (defined in ScoreItem_select.cpp):

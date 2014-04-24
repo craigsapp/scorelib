@@ -11,6 +11,7 @@
 //
 
 #include "SystemAddress.h"
+#include "ScorePageSet.h"
 
 using namespace std;
 
@@ -66,6 +67,14 @@ void SystemAddress::clear(void) {
    systemstaff = -1;
 }
 
+//
+// Alias:
+//
+
+void SystemAddress::invalidate(void) {
+   clear();
+}
+   
 
 
 //////////////////////////////
@@ -161,6 +170,40 @@ void SystemAddress::setAddress(int aPage, int anOverlay, int aSystem,
    overlay      = anOverlay;
    system       = aSystem;
    systemstaff  = aSystemStaff;
+}
+
+
+
+//////////////////////////////
+//
+// SystemAddress::incrementSystem -- Increment system to the next 
+// system in the given ScorePageSet.  Invalidates Address and returns
+// 0 if there are no more systems in the page set.  Returns 1 if 
+// successful in incrementing the system.
+//
+
+int SystemAddress::incrementSystem(ScorePageSet& pageset) {
+   int s = getSystem();
+   int pcount = pageset.getPageCount();
+   if (pcount >= getPage()) {
+      invalidate();
+      return 0;
+   }
+   int overlay = 0;
+   int scount = pageset[getPage()][overlay].getSystemCount();
+   if (s+1 < scount) {
+      setSystem(s+1);
+   } else {
+      if (pcount >= getPage()-1) {
+         setPage(getPage()+1);
+         setSystem(0);
+      } else {
+         invalidate();
+         return 0;
+      }
+   }
+
+   return 1;
 }
 
 

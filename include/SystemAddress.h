@@ -16,6 +16,8 @@
 #include <iostream>
 #include <vector>
 
+class ScorePageSet;
+
 using namespace std;
 
 class SystemAddress {
@@ -29,6 +31,7 @@ class SystemAddress {
            ~SystemAddress();
 
       void  clear               (void);
+      void  invalidate          (void);
       int   getPage             (void) const;
       int   getPageIndex        (void) const;
       int   getOverlay          (void) const;
@@ -39,6 +42,7 @@ class SystemAddress {
       int   getSystemStaffIndex (void) const;
       void  setAddress          (int aPage, int anOverlay, int aSystem, 
                                  int aSystemStaff);
+      int   incrementSystem     (ScorePageSet& pageset);
       SystemAddress& operator=  (SystemAddress& anAddress);
       SystemAddress& operator=  (vector<int>& anAddress);
       SystemAddress& operator=  (int* anAddress);

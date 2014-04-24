@@ -91,6 +91,16 @@ void ScorePageBase::clear(void) {
          it = NULL;
       }
    }
+   item_storage.resize(0);
+
+   for (auto& it : measure_storage) {
+      if (it != NULL) {
+         delete it;
+         it = NULL;
+      }
+   }
+   measure_storage.resize(0);
+   system_measures.resize(0);
 }
 
 

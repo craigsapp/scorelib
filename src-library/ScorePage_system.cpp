@@ -361,3 +361,31 @@ vectorSIp& ScorePage::getP8BySystem(int p2index) {
 
 
 
+//////////////////////////////
+//
+// ScorePage::getPageStaff -- Given a system number and a part number,
+//     return the staff that it indicates.
+//
+
+int ScorePage::getPageStaff(int sysindex, int partnum) {
+   vectorVVSIp p8items = getP8BySystem();
+   int zeroindex = 0;
+   int p;
+   for (int i=0; i<p8items[sysindex].size(); i++) {
+      if (p8items[sysindex][i].size() == 0) {
+         continue;
+      }
+      p = (int)p8items[sysindex][i][0]->getPartNumberInt();
+      if (p == 0) {
+         p = --zeroindex;
+      }
+      if (p == partnum) {
+         return p8items[sysindex][i][0]->getStaffNumber();
+      }
+   } 
+
+   return -1;
+}
+
+
+

@@ -42,7 +42,7 @@ int main(int argc, char** argv) {
    if (opts.getBoolean("info")) {
       cout << "Segment count:\t" << infiles.getSegmentCount() << endl;
       for (int i=0; i<infiles.getSegmentCount(); i++) {
-         cout << "\nSEGMENT:\t" << i << endl;
+         cout << "\nSEGMENT:\t" << i << "\t======================" << endl;
          cout << infiles.getSegment(i);
       }
       exit(0);

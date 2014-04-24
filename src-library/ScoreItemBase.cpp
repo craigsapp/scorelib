@@ -809,6 +809,27 @@ ostream& ScoreItemBase::printPmxNamedParameters(ostream& out) {
 }
 
 
+ostream& ScoreItemBase::printPmxNamedParametersNoAnalysis(ostream& out) {
+   mapNamespace& np = named_parameters;
+   mapNamespace::iterator it;
+   mapSS::iterator its;
+   for (it = np.begin(); it != np.end(); it++) {
+      for (its = it->second.begin(); its != it->second.end(); its++) {
+         if (it->first == "analysis") {
+            continue;
+         }
+         if (it->first == "") {
+            out << '@' << its->first << ":\t" << its->second << endl;
+         } else {
+            out << '@' << it->first << "@" << its->first 
+                << ":\t" << its->second << endl;
+         }
+      }
+   }
+   return out;
+}
+
+
 
 //////////////////////////////
 //

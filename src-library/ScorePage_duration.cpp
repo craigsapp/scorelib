@@ -83,6 +83,7 @@ SCORE_FLOAT ScorePage::calculateStaffDuration(vectorSIp& staffitems) {
 
    for (i=0; i<staffitems.size(); i++) {
       if (!staffitems[i]->hasDuration()) {
+         staffitems[i]->setStaffOffsetDuration(nextevent);
          continue;
       }
       dur  = staffitems[i]->getDuration();

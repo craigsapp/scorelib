@@ -197,6 +197,7 @@ void AnalysisInfo::initializeDatabase(void) {
    database.addChild("staves",      "staffslursties",   &staffslursties);
    database.addChild("staves",      "systems",          &systems);
    database.addChild("systems",     "barlines",         &barlines);
+   database.addChild("duration",    "barlines",         &barlines);
    database.addChild("systems",     "systempitches",    &systempitches);
    database.addChild("barlines",    "layers",           &layers);
    database.addChild("staves",      "chords",           &chords);

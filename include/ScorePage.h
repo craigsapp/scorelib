@@ -75,6 +75,7 @@ class ScorePage : public ScorePageBase {
       int         getSystemStaffIndex   (int staffnumber);
       void        fillSystemScoreItemLists(void);
       vectorSIp&  systemItems           (int sindex);
+      int         getPageStaff          (int sysindex, int partnum);
 
 
       // Staff duration analysis functions (defined in ScorePage_duration.cpp):
@@ -85,6 +86,15 @@ class ScorePage : public ScorePageBase {
       void        analyzePitch          (void);
       void        analyzeSystemPitch    (vectorSIp& systemitems);
 
+      // Measure analysis functions (defined in ScorePage_barline.cpp):
+      void        analyzeBarlines       (void);
+      int         getSystemBarCount     (int sysindex);
+      int         getSystemMeasureCount (int sysindex);
+      vectorSMp&  getSystemMeasures     (int sysindex);
+      SystemMeasure& getSystemMeasure   (int sysindex, int measureindex);
+   protected:
+      void        analyzeBarlines       (vectorSMp& sysmeasures, int sysindex);
+   public:
 
       // Chord analysis functions (defined in ScorePage_chord.cpp):
       void        analyzeChords         (void);
@@ -102,7 +112,6 @@ class ScorePage : public ScorePageBase {
       // P3 analysis functions (defined in ScorePage_p3.cpp):
       void        analyzeP3                 (void);
       SCORE_FLOAT getP3OfStaffDurationOffset(int sys, SCORE_FLOAT offset);
-
 
 
    private:
