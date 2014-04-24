@@ -1,3 +1,0 @@
-[submodule "external/optionlib"]
-	path = external/optionlib
-	url = git://github.com/craigsapp/optionlib.git
