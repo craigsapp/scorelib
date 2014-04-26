@@ -15,6 +15,7 @@
 #define _SCOREPAGE_H_INCLUDED
 
 #include "ScorePageBase.h"
+#include "SystemAddress.h"
 #include "DatabaseP3.h"
 
 using namespace std;
@@ -52,10 +53,8 @@ class ScorePage : public ScorePageBase {
       int         getMaxStaff            (void);
       bool        stavesAreConsecutive   (void);
       const vectorVSIp& getStaffItemList (void);
-      vectorVVSIp& getP8BySystem          (void);
+      vectorVVSIp& getP8BySystem         (void);
       vectorSIp&  getP8BySystem          (int p2index);
-      void        setStaffDuration       (int staffnum, SCORE_FLOAT duration);
-      SCORE_FLOAT getStaffDuration       (int staffnum);
    protected:
       void        fillStaffScoreItemLists(void);
    public:
@@ -64,23 +63,31 @@ class ScorePage : public ScorePageBase {
 
 
       //  System analysis functions (defined in ScorePage_system.cpp):
-      int         analyzeSystems        (void);
-      int         getSystemCount        (void);
-      vectorI&    systemMap             (void);
-      vectorI&    systemStaffMap        (void);
-      int&        systemMap             (int index);
-      int&        systemStaffMap        (int index);
-      vectorVI&   reverseSystemMap      (void);
-      int         getSystemIndex        (int staffnumber);
-      int         getSystemStaffIndex   (int staffnumber);
+      int         analyzeSystems         (void);
+      int         getSystemCount         (void);
+      vectorI&    systemMap              (void);
+      vectorI&    systemStaffMap         (void);
+      int&        systemMap              (int index);
+      int&        systemStaffMap         (int index);
+      vectorVI&   reverseSystemMap       (void);
+      int         getSystemIndex         (int staffnumber);
+      int         getSystemStaffIndex    (int staffnumber);
       void        fillSystemScoreItemLists(void);
-      vectorSIp&  systemItems           (int sindex);
-      int         getPageStaff          (int sysindex, int partnum);
+      vectorSIp&  systemItems            (int sindex);
+      int         getPageStaff           (int sysindex, int partnum);
+      int         getPageStaff           (SystemAddress& partaddress);
 
 
       // Staff duration analysis functions (defined in ScorePage_duration.cpp):
-      void        analyzeStaffDurations (void);
+      void        analyzeStaffDurations  (void);
+      SCORE_FLOAT getStaffDuration       (int staffnum);
+      void        setStaffDuration       (int staffnum, SCORE_FLOAT duration);
+   private:
+      SCORE_FLOAT calculateStaffDuration(vectorSIp& staffitems);
+   public:
 
+      // Rhythm analysis functions (defined in ScorePage_rhythm.cpp):
+      int         getSystemLCMRhythm    (int systemindex);
 
       // Pitch analysis functions (defined in ScorePage_pitch.cpp):
       void        analyzePitch          (void);
@@ -113,7 +120,6 @@ class ScorePage : public ScorePageBase {
       void        analyzeP3                 (void);
       SCORE_FLOAT getP3OfStaffDurationOffset(int sys, SCORE_FLOAT offset);
 
-
    private:
       // private sorting functions:
       void        sortPageHorizontally  (void);
@@ -129,8 +135,6 @@ class ScorePage : public ScorePageBase {
       void        analyzeChordsOnStaff  (int p2index);
       void        analyzeVerticalNoteSet(vectorSIp& data);
 
-      // private duration analysis functions:
-      SCORE_FLOAT calculateStaffDuration(vectorSIp& staffitems);
 
 };
 

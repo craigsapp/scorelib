@@ -284,6 +284,37 @@ _SF ScoreItemBase::getP28(void) { return getParameter(P28); }
 _SF ScoreItemBase::getP29(void) { return getParameter(P29); }
 _SF ScoreItemBase::getP30(void) { return getParameter(P30); }
 
+int ScoreItemBase::getP1Int(void)  { return (int)getParameter(P1);  }
+int ScoreItemBase::getP2Int(void)  { return (int)getParameter(P2);  }
+int ScoreItemBase::getP3Int(void)  { return (int)getParameter(P3);  }
+int ScoreItemBase::getP4Int(void)  { return (int)getParameter(P4);  }
+int ScoreItemBase::getP5Int(void)  { return (int)getParameter(P5);  }
+int ScoreItemBase::getP6Int(void)  { return (int)getParameter(P6);  }
+int ScoreItemBase::getP7Int(void)  { return (int)getParameter(P7);  }
+int ScoreItemBase::getP8Int(void)  { return (int)getParameter(P8);  }
+int ScoreItemBase::getP9Int(void)  { return (int)getParameter(P9);  }
+int ScoreItemBase::getP10Int(void) { return (int)getParameter(P10); }
+int ScoreItemBase::getP11Int(void) { return (int)getParameter(P11); }
+int ScoreItemBase::getP12Int(void) { return (int)getParameter(P12); }
+int ScoreItemBase::getP13Int(void) { return (int)getParameter(P13); }
+int ScoreItemBase::getP14Int(void) { return (int)getParameter(P14); }
+int ScoreItemBase::getP15Int(void) { return (int)getParameter(P15); }
+int ScoreItemBase::getP16Int(void) { return (int)getParameter(P16); }
+int ScoreItemBase::getP17Int(void) { return (int)getParameter(P17); }
+int ScoreItemBase::getP18Int(void) { return (int)getParameter(P18); }
+int ScoreItemBase::getP19Int(void) { return (int)getParameter(P19); }
+int ScoreItemBase::getP20Int(void) { return (int)getParameter(P20); }
+int ScoreItemBase::getP21Int(void) { return (int)getParameter(P21); }
+int ScoreItemBase::getP22Int(void) { return (int)getParameter(P22); }
+int ScoreItemBase::getP23Int(void) { return (int)getParameter(P23); }
+int ScoreItemBase::getP24Int(void) { return (int)getParameter(P24); }
+int ScoreItemBase::getP25Int(void) { return (int)getParameter(P25); }
+int ScoreItemBase::getP26Int(void) { return (int)getParameter(P26); }
+int ScoreItemBase::getP27Int(void) { return (int)getParameter(P27); }
+int ScoreItemBase::getP28Int(void) { return (int)getParameter(P28); }
+int ScoreItemBase::getP29Int(void) { return (int)getParameter(P29); }
+int ScoreItemBase::getP30Int(void) { return (int)getParameter(P30); }
+
 
 //////////////////////////////
 //

@@ -427,6 +427,7 @@ int ScoreSegment::getSystemCount(void) const {
 }
 
 
+
 //////////////////////////////
 //
 // ScoreSegment::getSystem -- Return the requested system address.
@@ -437,6 +438,15 @@ int ScoreSegment::getSystemCount(void) const {
 SystemAddress& ScoreSegment::getSystem(int index) {
    return part_storage[0]->getAddress(index);
 }
+
+//
+// Alias:
+//
+
+SystemAddress& ScoreSegment::getPartAddress(int systemindex, int partindex) {
+   return part_storage[partindex]->getAddress(systemindex);
+}
+
 
 
 //////////////////////////////

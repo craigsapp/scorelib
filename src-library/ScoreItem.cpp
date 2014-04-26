@@ -257,6 +257,8 @@ bool ScoreItem::isKeySignatureItem (void)
       { return isKeySigItem(); }
 bool ScoreItem::isTimeSigItem(void) 
       { return getItemType() == P1_MeterSignature     ? true : false; }
+bool ScoreItem::isTimeSignatureItem(void) 
+      { return isTimeSigItem(); }
 
 
 

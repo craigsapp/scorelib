@@ -15,15 +15,21 @@
 
 #include "ScoreDefs.h"
 #include "ScoreItemEdit_ParameterHistory.h"
+#include <set>
 
 class ScoreItem;
 
 namespace ScoreUtility {
 
-   string  base40ToKern        (int base40);
-   int     base7ToBase40       (int base7);
+   // ScoreItem sorting functions (defined in ScoreUtility_pitch.cpp):
+   string  base40ToKern                (int base40);
+   int     base7ToBase40               (int base7);
+   int     base40ToBase7               (int base40);
+   int     base40ToBase7PitchClass     (int base40);
+   int     base40ToChromaticAlteration (int base40);
+   char    base40ToUCDiatonicLetter    (int base40);
 
-   // ScoreItem sorting functions (defined in ScoreUtility.cpp):
+   // ScoreItem sorting functions (defined in ScoreUtility_sort.cpp):
    bool   sortP3              (ScoreItem* a, ScoreItem* b);
    bool   sortP3P1            (ScoreItem* a, ScoreItem* b);
    bool   sortP3P2            (ScoreItem* a, ScoreItem* b);
@@ -32,6 +38,19 @@ namespace ScoreUtility {
    bool   sortP3P2P1          (ScoreItem* a, ScoreItem* b);
    bool   sortP3P2P1P4        (ScoreItem* a, ScoreItem* b);
    bool   sortP3P1P2P4        (ScoreItem* a, ScoreItem* b);
+
+   // ScoreItem comparison functions (defined in ScoreUtility_compare.cpp):
+   bool   equalClefs          (ScoreItem* a, ScoreItem* b);
+   bool   equalClef           (ScoreItem* a, ScoreItem* b);
+   bool   equalTimeSignature  (ScoreItem* a, ScoreItem* b);
+   bool   equalTimeSignatures (ScoreItem* a, ScoreItem* b);
+   bool   equalTimeSig        (ScoreItem* a, ScoreItem* b);
+   bool   equalTimeSigs       (ScoreItem* a, ScoreItem* b);
+
+   // math-related functions (defined in ScoreUtility_math.cpp):
+   int    gcd                 (int x, int y);
+   int    lcm                 (int x, int y);
+   int    lcm                 (set<int>& numbers);
 
 }  // end of namespace ScoreUtility
 

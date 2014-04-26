@@ -50,7 +50,8 @@ class ScoreSegment {
       const SystemAddress& getEndSystem   (void) const;
 
       // accessors for vector<SegmentPart*> data
-      string     getPartName         (int partindex);
+      string         getPartName         (int partindex);
+      SystemAddress& getPartAddress      (int systemindex, int partindex);
    
    protected:
       SystemAddress        start_system;

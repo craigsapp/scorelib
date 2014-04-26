@@ -140,14 +140,16 @@ ifeq ($(wildcard $(TARGDIR)),)
 	-mkdir -p $(TARGDIR)
 endif
 	$(COMPILER) $(PREFLAGS) -o $@ $< $(POSTFLAGS) \
-	&& strip $@$(EXTEN)
+
+#	&& strip $@$(EXTEN)
 
 % : $(notdir %.cpp)
 ifeq ($(wildcard $(TARGDIR)),)
 	-mkdir -p $(TARGDIR)
 endif
 	$(COMPILER) $(PREFLAGS) -o $(TARGDIR)/$@ $< $(POSTFLAGS) \
-	&& strip $(TARGDIR)/$@$(EXTEN)
+
+#	&& strip $(TARGDIR)/$@$(EXTEN)
 
 #                                                                         #
 #                                                                         #

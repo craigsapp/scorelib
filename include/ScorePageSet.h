@@ -52,6 +52,13 @@ class ScorePageSet {
       void        appendOverlay                 (ScorePage* page, int pindex);
       void        analyzeSegmentsByIndent       (SCORE_FLOAT threshold1 = 7.0,
                                                  SCORE_FLOAT threshold2 = 40.0);
+     
+      // Page-related functions
+      void        analyzePitch                  (void);
+
+      // funcs related to SystemAddress (defined in ScorePageSet_address.cpp):
+      ScorePage&  getPage                       (SystemAddress& anAddress);
+
 
       // Segmentation functions (defined in ScorePageSet_segment.cpp):
       int           getSegmentCount             (void);
@@ -59,6 +66,7 @@ class ScorePageSet {
       void          clearSegments               (void);
       void          createSegment               (SystemAddress& startaddress, 
                                                  SystemAddress& endaddress);
+      int           getLCMRhythm                (int segmentindex);
 
    protected:
       // page_storage contains all of the data for SCORE pages.

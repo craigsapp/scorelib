@@ -24,6 +24,7 @@ class SystemMeasure {
       void           clear                    (void);
       void           addItem                  (ScoreItem* item);
       vectorSIp&     getItems                 (void);
+      SCORE_FLOAT    getP3Width               (void);
       SCORE_FLOAT    getSystemOffsetDuration  (void);
       SCORE_FLOAT    getMeasureDuration       (void);
       SCORE_FLOAT    getDuration              (void);

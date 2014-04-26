@@ -41,6 +41,21 @@ vectorSIp* ScoreItem::getChordNotes(void) {
 
 //////////////////////////////
 //
+// ScoreItem::getChordNoteCount -- return the number of notes contained
+//     in the chord.
+//
+
+int ScoreItem::getChordNoteCount(void) {
+   if (page_owner == NULL) {
+      return -1;
+   }
+   return ((ScorePage*)page_owner)->chordNotes(this)->size();
+}
+
+
+
+//////////////////////////////
+//
 // ScoreItem::isPrimaryChordNote -- returns true if the ScoreItem is
 //     the first note in a chord group.  This is the chord note which 
 //     posses the stem for the chord.  Returns true if the note

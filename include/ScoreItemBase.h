@@ -109,6 +109,37 @@ class ScoreItemBase {
       SCORE_FLOAT   getP29            (void);
       SCORE_FLOAT   getP30            (void);
 
+      int           getP1Int          (void);
+      int           getP2Int          (void);
+      int           getP3Int          (void);
+      int           getP4Int          (void);
+      int           getP5Int          (void);
+      int           getP6Int          (void);
+      int           getP7Int          (void);
+      int           getP8Int          (void);
+      int           getP9Int          (void);
+      int           getP10Int         (void);
+      int           getP11Int         (void);
+      int           getP12Int         (void);
+      int           getP13Int         (void);
+      int           getP14Int         (void);
+      int           getP15Int         (void);
+      int           getP16Int         (void);
+      int           getP17Int         (void);
+      int           getP18Int         (void);
+      int           getP19Int         (void);
+      int           getP20Int         (void);
+      int           getP21Int         (void);
+      int           getP22Int         (void);
+      int           getP23Int         (void);
+      int           getP24Int         (void);
+      int           getP25Int         (void);
+      int           getP26Int         (void);
+      int           getP27Int         (void);
+      int           getP28Int         (void);
+      int           getP29Int         (void);
+      int           getP30Int         (void);
+
       int           getParameterInt   (const string& nspace, const string& key);
       int           getParameterInt   (const string& key);
       double        getParameterDouble(const string& key);

@@ -368,7 +368,7 @@ vectorSIp& ScorePage::getP8BySystem(int p2index) {
 //
 
 int ScorePage::getPageStaff(int sysindex, int partnum) {
-   vectorVVSIp p8items = getP8BySystem();
+   vectorVVSIp& p8items = getP8BySystem();
    int zeroindex = 0;
    int p;
    for (int i=0; i<p8items[sysindex].size(); i++) {
@@ -385,6 +385,22 @@ int ScorePage::getPageStaff(int sysindex, int partnum) {
    } 
 
    return -1;
+}
+
+
+
+//////////////////////////////
+//
+// ScorePage::getPageStaff --
+//
+
+int ScorePage::getPageStaff(SystemAddress& partaddress) {
+   int sysindex         = partaddress.getSystem();
+   int sysstaffindex    = partaddress.getSystemStaff();
+   vectorVVSIp& p8items = getP8BySystem();
+
+   ScoreItem* partstaff = p8items[sysindex][sysstaffindex][0];
+   return partstaff->getStaffNumber();
 }
 
 

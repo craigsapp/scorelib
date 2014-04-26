@@ -27,6 +27,7 @@ tests/extractstaff
 tests/extractsystem
 tests/itemtest
 tests/itemdur
+tests/lcminfo
 tests/readtest
 tests/scorediff
 tests/scoreitems2xml

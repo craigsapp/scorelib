@@ -127,7 +127,7 @@ int ScoreItem::stemFlip(void) {
 //     4 = -2 (double flat)
 //     5 = +2 (double sharp)
 //
-//     Maybe also consider editorial accidentals.
+//     To see editorial accidental use getEditorialAccidental() and hasEditorialAccidental().
 //
 
 int ScoreItem::getPrintedAccidental(void) {
@@ -146,6 +146,49 @@ int ScoreItem::getPrintedAccidental(void) {
       case 5:  return +2;       // double sharp sign
       default: return  1234556; // unknown
    }
+}
+
+
+
+//////////////////////////////
+//
+// ScoreItem::getEditorialAccidental -- 
+//         -1 == flat
+//          0 == natural
+//         +1 == sharp
+//    -123456 == no accidental
+//
+
+int ScoreItem::getEditorialAccidental(void) {
+   int articulation = getP11Int();
+   switch (articulation) {
+      case 1: return -1;   // editorial flat
+      case 2: return +1;   // editorial sharp
+      case 3: return 0;    // editorial natural
+   }
+   return -123456;
+}
+
+
+
+//////////////////////////////
+//
+// ScoreItem::hasEditorialAccidental -- Returns true if there is an editorial accidental
+//    on the note.
+//
+
+bool ScoreItem::hasEditorialAccidental(void) {
+   if (!isNoteItem()) {
+      return 0;
+   }
+   int articulation = getP11Int();
+   switch (articulation) {
+      case 1:   // editorial flat
+      case 2:   // editorial sharp
+      case 3:   // editorial natural
+         return true;
+   }
+   return false;
 }
 
 
@@ -193,31 +236,6 @@ int ScoreItem::hasNatural(void) {
    } else {
       return 0;
    }
-}
-
-
-
-//////////////////////////////
-//
-// ScoreItem::hasEditorialAccidental -- True if there is an editorial 
-//     accidental.  The editorial accidental is stored in P11 for 
-//     articulations.
-//     P11 == 1 = flat
-//            2 = sharp
-//            3 = natural
-//
-
-int ScoreItem::hasEditorialAccidental(void) {
-   if (!isNoteItem()) {
-      return 0;
-   }
-   int artic = getPInt(P11);
-   switch (artic) {
-      case 1:  return 1;
-      case 2:  return 2;
-      case 3:  return 3;
-   }
-   return 0;
 }
 
 
@@ -334,6 +352,39 @@ void ScoreItem::removeArticulation(void) {
 
 //////////////////////////////
 //
+// ScoreItem::getArticulation -- return P11 of P1=1 (note) items.
+//
+
+int ScoreItem::getArticulation(void) {
+   if (!isNoteItem()) {
+      return 0;
+   }
+   return getP11Int(); 
+}
+
+
+
+//////////////////////////////
+//
+// ScoreItem::hasFermata -- returns true if note has a fermata.  If negative
+//    return value, then fermata is inverted. 
+//
+
+int ScoreItem::hasFermata(void) {
+   if (!isNoteItem()) {
+      return 0;
+   }
+   int articulation = getArticulation();
+   if (abs(articulation) != 14) {
+      return 0;
+   }
+   return articulation;
+}
+
+
+
+//////////////////////////////
+//
 // ScoreItem::hideNotehead -- Hide the notehead.  This is currently
 //     not reversible.  A named parameter could store the notehead style
 //     to make it recoverable.  To hide a notehead, set P6 to 7 or -1.
@@ -443,7 +494,7 @@ int ScoreItem::getDotCount(void) {
    } else if (isRestItem()) {
       int p6 = getParameterInt(P6);
       if (p6 < 0)  {
-         // invisible, augmentation dots, if any, are lost.
+         // Invisible rest. Augmentation dots, if any, are lost.
          return 0;
       } else {
          return p6;

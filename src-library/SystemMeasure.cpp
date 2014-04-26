@@ -172,6 +172,38 @@ vectorSIp& SystemMeasure::getItems(void) {
 
 //////////////////////////////
 //
+// SystemMeasure::getP3Width -- return the difference in P3
+//     between the first barline and the last barline (or item P3 if no
+//     barline at end).
+//
+
+SCORE_FLOAT SystemMeasure::getP3Width(void) {
+   SCORE_FLOAT startP3;
+   SCORE_FLOAT endP3;
+
+   if (start_bars.size() > 0) {
+      startP3 = start_bars[0]->getHPos();
+   } else if (measure_items.size() > 0) {
+      startP3 = measure_items[0]->getHPos();
+   } else {
+      startP3 = 0.0;
+   }
+
+   if (end_bars.size() > 0) {
+      endP3 = end_bars.back()->getHPos();
+   } else if (measure_items.size() > 0) {
+      endP3 = measure_items.back()->getHPos();
+   } else {
+      endP3 = 200.0;
+   }
+
+   return endP3 - startP3;
+}
+
+
+
+//////////////////////////////
+//
 // operator<< --
 //
 

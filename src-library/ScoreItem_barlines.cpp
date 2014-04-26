@@ -21,13 +21,13 @@ using namespace std;
 //    is invisible.  This function currently does not allow the P4 value 
 //    to be larger than 99 (or less than -99).  This is because SCORE
 //    limits the number of staves on the page (MS-DOS versions of SCORE
-//    limit the staff count for a page to 32).  Returns -1 if the item
+//    limit the staff count for a page to 32).  Returns 0 if the item
 //    is not a barline.
 //
 
 int ScoreItem::getBarlineHeight(void) { 
    if (!isBarlineItem()) {
-      return -1;
+      return 0;
    }
    int p4 = abs(getParameterInt(P4));
    if (p4 == 0) {
@@ -38,7 +38,16 @@ int ScoreItem::getBarlineHeight(void) {
 }
 
 
+//
+// Aliases:
+//
+
 int ScoreItem::getBarHeight(void) { 
+   return getBarlineHeight();
+}
+
+
+int ScoreItem::getHeight(void) { 
    return getBarlineHeight();
 }
 

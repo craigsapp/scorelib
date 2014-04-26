@@ -46,14 +46,14 @@ using vectorVVSIp = vector<vector<vector<ScoreItem*>>>;
 #endif
 
    public:
-                    ScoreItem             (void);
-                    ScoreItem             (const ScoreItem& anItem);
-                    ScoreItem             (const ScoreItemBase& anItem);
-                    ScoreItem             (const vectorSF& parameters);
-                   ~ScoreItem             ();
+                   ScoreItem              (void);
+                   ScoreItem              (const ScoreItem& anItem);
+                   ScoreItem              (const ScoreItemBase& anItem);
+                   ScoreItem              (const vectorSF& parameters);
+                  ~ScoreItem              ();
 
-      ScoreItem&    operator=             (const ScoreItem& anItem);
-      bool          operator==            (const ScoreItemBase& item2);
+      ScoreItem&   operator=              (const ScoreItem& anItem);
+      bool         operator==             (const ScoreItemBase& item2);
 
       int          getParameterDigit      (int pindex, int position);
       int          getPDigit              (int pindex, int position);
@@ -86,6 +86,7 @@ using vectorVVSIp = vector<vector<vector<ScoreItem*>>>;
       bool         isKeySigItem           (void);    // P1==17
       bool         isKeySignatureItem     (void);    // P1==17
       bool         isTimeSigItem          (void);    // P1==18
+      bool         isTimeSignatureItem    (void);    // P1==18
 
       // P2 accessors
       unsigned int getStaffNumber         (void);
@@ -119,29 +120,38 @@ using vectorVVSIp = vector<vector<vector<ScoreItem*>>>;
       RationalDuration getRationalDuration(void);
 
       // Note (P1=1) processing functions  (defined in ScoreItem_notes.cpp)
+      // functions related to stems:
       int          hasStem                (void);
       int          getStemDirection       (void);
       int          stemUp                 (void);
       int          stemDown               (void);
       int          stemFlip               (void);
-      int          getPrintedAccidental   (void);
-      bool         hasPrintedAccidental   (void);
-      int          hasNatural             (void);
-      int          hasEditorialAccidental (void);
       int          getStemBottomVPos      (void);
       int          getStemTopVPos         (void);
       int          getStemLength          (void);
-      int          isCueSize              (void);
-      void         removeArticulation     (void);
-      void         hideNotehead           (void);
       void         hideStem               (void);
+      // functions related to accidentals:
+      int          getPrintedAccidental   (void);
+      bool         hasPrintedAccidental   (void);
+      int          getEditorialAccidental (void);
+      bool         hasEditorialAccidental (void);
+      int          hasNatural             (void);
       void         setNoAccidental        (void); 
       void         setAccidentalParentheses(void);
       void         removeAccidentalParentheses(void); 
+      // functions related to articulations
+      int          getArticulation        (void);
+      void         removeArticulation     (void);
+      int          hasFermata             (void);
+      // functions related to noteheads
+      int          isCueSize              (void);
+      void         hideNotehead           (void);
+      // functions related to rhythm
       void         removeFlags            (void);
       int          getDotCount            (void);
 
-      // Rest (P1=2) processing functions
+      // Rest (P1=2) processing functions (defined in ScoreItem_rests.cpp)
+      int          isInvisible            (void);
 
       // Clef (P1=3) processing functions
       int          getMiddleCVpos         (void);
@@ -175,6 +185,7 @@ using vectorVVSIp = vector<vector<vector<ScoreItem*>>>;
       // Barline (P1=14) processing functions
       int          getBarlineHeight       (void);
       int          getBarHeight           (void);
+      int          getHeight              (void);
 
       // ImportedEPSGraphic (P1=15) processing functions
 
@@ -200,6 +211,7 @@ using vectorVVSIp = vector<vector<vector<ScoreItem*>>>;
 
       vectorSIp*   getChordNotes          (void);
       bool         isPrimaryChordNote     (void);
+      int          getChordNoteCount      (void);
       bool         isSecondaryChordNote   (void);
       ScoreItem*   getPrimaryChordNote    (void);
 

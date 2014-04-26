@@ -250,7 +250,7 @@ ScoreItemBase.o: ScoreItemBase.cpp ScorePageBase.h \
  ScoreItemEdit_ParameterHistory.h \
  ScorePageBase_AnalysisInfo.h DatabaseAnalysis.h \
  ScorePageBase_PrintInfo.h ScorePageBase_StaffInfo.h \
- DatabaseChord.h DatabaseP3.h
+ DatabaseChord.h DatabaseP3.h SystemMeasure.h
 
 ScoreItemEdit.o: ScoreItemEdit.cpp ScoreItemEdit.h \
  ScoreItemBase.h ScoreDefs.h \
@@ -293,7 +293,7 @@ ScoreItem_page.o: ScoreItem_page.cpp ScoreItem.h \
  ScorePageBase.h ScoreItem.h \
  ScorePageBase_AnalysisInfo.h DatabaseAnalysis.h \
  ScorePageBase_PrintInfo.h ScorePageBase_StaffInfo.h \
- DatabaseChord.h DatabaseP3.h
+ DatabaseChord.h DatabaseP3.h SystemMeasure.h
 
 ScoreItem_print.o: ScoreItem_print.cpp ScoreItem.h \
  DatabaseBeam.h RationalDuration.h \
@@ -322,7 +322,8 @@ ScorePage.o: ScorePage.cpp ScorePage.h \
  ScoreItemEdit_ParameterHistory.h \
  ScorePageBase_AnalysisInfo.h DatabaseAnalysis.h \
  ScorePageBase_PrintInfo.h ScorePageBase_StaffInfo.h \
- DatabaseChord.h DatabaseP3.h ScoreUtility.h
+ DatabaseChord.h DatabaseP3.h SystemMeasure.h \
+ ScoreUtility.h
 
 ScorePageBase.o: ScorePageBase.cpp ScorePageBase.h \
  ScoreItem.h DatabaseBeam.h RationalDuration.h \
@@ -330,7 +331,8 @@ ScorePageBase.o: ScorePageBase.cpp ScorePageBase.h \
  ScoreItemEdit_ParameterHistory.h \
  ScorePageBase_AnalysisInfo.h DatabaseAnalysis.h \
  ScorePageBase_PrintInfo.h ScorePageBase_StaffInfo.h \
- DatabaseChord.h DatabaseP3.h ScoreUtility.h
+ DatabaseChord.h DatabaseP3.h SystemMeasure.h \
+ ScoreUtility.h
 
 ScorePageBase_AnalysisInfo.o: ScorePageBase_AnalysisInfo.cpp \
  ScorePageBase_AnalysisInfo.h ScoreItem.h \
@@ -357,7 +359,7 @@ ScorePageBase_filename.o: ScorePageBase_filename.cpp \
  ScoreItemEdit_ParameterHistory.h \
  ScorePageBase_AnalysisInfo.h DatabaseAnalysis.h \
  ScorePageBase_PrintInfo.h ScorePageBase_StaffInfo.h \
- DatabaseChord.h DatabaseP3.h
+ DatabaseChord.h DatabaseP3.h SystemMeasure.h
 
 ScorePageBase_read.o: ScorePageBase_read.cpp \
  ScorePageBase.h ScoreItem.h DatabaseBeam.h \
@@ -366,7 +368,7 @@ ScorePageBase_read.o: ScorePageBase_read.cpp \
  ScoreItemEdit_ParameterHistory.h \
  ScorePageBase_AnalysisInfo.h DatabaseAnalysis.h \
  ScorePageBase_PrintInfo.h ScorePageBase_StaffInfo.h \
- DatabaseChord.h DatabaseP3.h
+ DatabaseChord.h DatabaseP3.h SystemMeasure.h
 
 ScorePageBase_trailer.o: ScorePageBase_trailer.cpp \
  ScorePageBase.h ScoreItem.h DatabaseBeam.h \
@@ -375,7 +377,7 @@ ScorePageBase_trailer.o: ScorePageBase_trailer.cpp \
  ScoreItemEdit_ParameterHistory.h \
  ScorePageBase_AnalysisInfo.h DatabaseAnalysis.h \
  ScorePageBase_PrintInfo.h ScorePageBase_StaffInfo.h \
- DatabaseChord.h DatabaseP3.h
+ DatabaseChord.h DatabaseP3.h SystemMeasure.h
 
 ScorePageBase_write.o: ScorePageBase_write.cpp \
  ScorePageBase.h ScoreItem.h DatabaseBeam.h \
@@ -384,7 +386,7 @@ ScorePageBase_write.o: ScorePageBase_write.cpp \
  ScoreItemEdit_ParameterHistory.h \
  ScorePageBase_AnalysisInfo.h DatabaseAnalysis.h \
  ScorePageBase_PrintInfo.h ScorePageBase_StaffInfo.h \
- DatabaseChord.h DatabaseP3.h
+ DatabaseChord.h DatabaseP3.h SystemMeasure.h
 
 ScorePageOverlay.o: ScorePageOverlay.cpp \
  ScorePageOverlay.h ScorePage.h ScorePageBase.h \
@@ -393,7 +395,8 @@ ScorePageOverlay.o: ScorePageOverlay.cpp \
  ScoreItemEdit_ParameterHistory.h \
  ScorePageBase_AnalysisInfo.h DatabaseAnalysis.h \
  ScorePageBase_PrintInfo.h ScorePageBase_StaffInfo.h \
- DatabaseChord.h DatabaseP3.h Options.h
+ DatabaseChord.h DatabaseP3.h SystemMeasure.h \
+ Options.h
 
 ScorePageOverlay_write.o: ScorePageOverlay_write.cpp \
  ScorePageOverlay.h ScorePage.h ScorePageBase.h \
@@ -402,7 +405,8 @@ ScorePageOverlay_write.o: ScorePageOverlay_write.cpp \
  ScoreItemEdit_ParameterHistory.h \
  ScorePageBase_AnalysisInfo.h DatabaseAnalysis.h \
  ScorePageBase_PrintInfo.h ScorePageBase_StaffInfo.h \
- DatabaseChord.h DatabaseP3.h Options.h
+ DatabaseChord.h DatabaseP3.h SystemMeasure.h \
+ Options.h
 
 ScorePageSet.o: ScorePageSet.cpp ScorePageSet.h \
  ScorePageOverlay.h ScorePage.h ScorePageBase.h \
@@ -411,8 +415,19 @@ ScorePageSet.o: ScorePageSet.cpp ScorePageSet.h \
  ScoreItemEdit_ParameterHistory.h \
  ScorePageBase_AnalysisInfo.h DatabaseAnalysis.h \
  ScorePageBase_PrintInfo.h ScorePageBase_StaffInfo.h \
- DatabaseChord.h DatabaseP3.h Options.h \
- ScoreSegment.h SystemAddress.h
+ DatabaseChord.h DatabaseP3.h SystemMeasure.h \
+ Options.h ScoreSegment.h SystemAddress.h
+
+ScorePageSet_address.o: ScorePageSet_address.cpp \
+ ScorePageSet.h ScorePageOverlay.h ScorePage.h \
+ ScorePageBase.h ScoreItem.h DatabaseBeam.h \
+ RationalDuration.h RationalNumber.h \
+ ScoreItemBase.h ScoreDefs.h \
+ ScoreItemEdit_ParameterHistory.h \
+ ScorePageBase_AnalysisInfo.h DatabaseAnalysis.h \
+ ScorePageBase_PrintInfo.h ScorePageBase_StaffInfo.h \
+ DatabaseChord.h DatabaseP3.h SystemMeasure.h \
+ Options.h ScoreSegment.h SystemAddress.h
 
 ScorePageSet_read.o: ScorePageSet_read.cpp \
  ScorePageSet.h ScorePageOverlay.h ScorePage.h \
@@ -422,8 +437,8 @@ ScorePageSet_read.o: ScorePageSet_read.cpp \
  ScoreItemEdit_ParameterHistory.h \
  ScorePageBase_AnalysisInfo.h DatabaseAnalysis.h \
  ScorePageBase_PrintInfo.h ScorePageBase_StaffInfo.h \
- DatabaseChord.h DatabaseP3.h Options.h \
- ScoreSegment.h SystemAddress.h
+ DatabaseChord.h DatabaseP3.h SystemMeasure.h \
+ Options.h ScoreSegment.h SystemAddress.h
 
 ScorePageSet_segment.o: ScorePageSet_segment.cpp \
  ScorePageSet.h ScorePageOverlay.h ScorePage.h \
@@ -433,8 +448,8 @@ ScorePageSet_segment.o: ScorePageSet_segment.cpp \
  ScoreItemEdit_ParameterHistory.h \
  ScorePageBase_AnalysisInfo.h DatabaseAnalysis.h \
  ScorePageBase_PrintInfo.h ScorePageBase_StaffInfo.h \
- DatabaseChord.h DatabaseP3.h Options.h \
- ScoreSegment.h SystemAddress.h
+ DatabaseChord.h DatabaseP3.h SystemMeasure.h \
+ Options.h ScoreSegment.h SystemAddress.h
 
 ScorePageSet_write.o: ScorePageSet_write.cpp \
  ScorePageSet.h ScorePageOverlay.h ScorePage.h \
@@ -444,8 +459,17 @@ ScorePageSet_write.o: ScorePageSet_write.cpp \
  ScoreItemEdit_ParameterHistory.h \
  ScorePageBase_AnalysisInfo.h DatabaseAnalysis.h \
  ScorePageBase_PrintInfo.h ScorePageBase_StaffInfo.h \
- DatabaseChord.h DatabaseP3.h Options.h \
- ScoreSegment.h SystemAddress.h
+ DatabaseChord.h DatabaseP3.h SystemMeasure.h \
+ Options.h ScoreSegment.h SystemAddress.h
+
+ScorePage_barline.o: ScorePage_barline.cpp \
+ ScorePage.h ScorePageBase.h ScoreItem.h \
+ DatabaseBeam.h RationalDuration.h \
+ RationalNumber.h ScoreItemBase.h ScoreDefs.h \
+ ScoreItemEdit_ParameterHistory.h \
+ ScorePageBase_AnalysisInfo.h DatabaseAnalysis.h \
+ ScorePageBase_PrintInfo.h ScorePageBase_StaffInfo.h \
+ DatabaseChord.h DatabaseP3.h SystemMeasure.h
 
 ScorePage_beam.o: ScorePage_beam.cpp ScorePage.h \
  ScorePageBase.h ScoreItem.h DatabaseBeam.h \
@@ -454,7 +478,7 @@ ScorePage_beam.o: ScorePage_beam.cpp ScorePage.h \
  ScoreItemEdit_ParameterHistory.h \
  ScorePageBase_AnalysisInfo.h DatabaseAnalysis.h \
  ScorePageBase_PrintInfo.h ScorePageBase_StaffInfo.h \
- DatabaseChord.h DatabaseP3.h
+ DatabaseChord.h DatabaseP3.h SystemMeasure.h
 
 ScorePage_chord.o: ScorePage_chord.cpp ScorePage.h \
  ScorePageBase.h ScoreItem.h DatabaseBeam.h \
@@ -463,7 +487,7 @@ ScorePage_chord.o: ScorePage_chord.cpp ScorePage.h \
  ScoreItemEdit_ParameterHistory.h \
  ScorePageBase_AnalysisInfo.h DatabaseAnalysis.h \
  ScorePageBase_PrintInfo.h ScorePageBase_StaffInfo.h \
- DatabaseChord.h DatabaseP3.h
+ DatabaseChord.h DatabaseP3.h SystemMeasure.h
 
 ScorePage_data.o: ScorePage_data.cpp ScorePage.h \
  ScorePageBase.h ScoreItem.h DatabaseBeam.h \
@@ -472,7 +496,8 @@ ScorePage_data.o: ScorePage_data.cpp ScorePage.h \
  ScoreItemEdit_ParameterHistory.h \
  ScorePageBase_AnalysisInfo.h DatabaseAnalysis.h \
  ScorePageBase_PrintInfo.h ScorePageBase_StaffInfo.h \
- DatabaseChord.h DatabaseP3.h ScoreUtility.h
+ DatabaseChord.h DatabaseP3.h SystemMeasure.h \
+ ScoreUtility.h
 
 ScorePage_duration.o: ScorePage_duration.cpp \
  ScorePage.h ScorePageBase.h ScoreItem.h \
@@ -481,7 +506,7 @@ ScorePage_duration.o: ScorePage_duration.cpp \
  ScoreItemEdit_ParameterHistory.h \
  ScorePageBase_AnalysisInfo.h DatabaseAnalysis.h \
  ScorePageBase_PrintInfo.h ScorePageBase_StaffInfo.h \
- DatabaseChord.h DatabaseP3.h
+ DatabaseChord.h DatabaseP3.h SystemMeasure.h
 
 ScorePage_p3.o: ScorePage_p3.cpp ScorePage.h \
  ScorePageBase.h ScoreItem.h DatabaseBeam.h \
@@ -490,7 +515,7 @@ ScorePage_p3.o: ScorePage_p3.cpp ScorePage.h \
  ScoreItemEdit_ParameterHistory.h \
  ScorePageBase_AnalysisInfo.h DatabaseAnalysis.h \
  ScorePageBase_PrintInfo.h ScorePageBase_StaffInfo.h \
- DatabaseChord.h DatabaseP3.h
+ DatabaseChord.h DatabaseP3.h SystemMeasure.h
 
 ScorePage_pitch.o: ScorePage_pitch.cpp ScorePage.h \
  ScorePageBase.h ScoreItem.h DatabaseBeam.h \
@@ -499,7 +524,8 @@ ScorePage_pitch.o: ScorePage_pitch.cpp ScorePage.h \
  ScoreItemEdit_ParameterHistory.h \
  ScorePageBase_AnalysisInfo.h DatabaseAnalysis.h \
  ScorePageBase_PrintInfo.h ScorePageBase_StaffInfo.h \
- DatabaseChord.h DatabaseP3.h ScoreUtility.h
+ DatabaseChord.h DatabaseP3.h SystemMeasure.h \
+ ScoreUtility.h
 
 ScorePage_staff.o: ScorePage_staff.cpp ScorePage.h \
  ScorePageBase.h ScoreItem.h DatabaseBeam.h \
@@ -508,7 +534,7 @@ ScorePage_staff.o: ScorePage_staff.cpp ScorePage.h \
  ScoreItemEdit_ParameterHistory.h \
  ScorePageBase_AnalysisInfo.h DatabaseAnalysis.h \
  ScorePageBase_PrintInfo.h ScorePageBase_StaffInfo.h \
- DatabaseChord.h DatabaseP3.h
+ DatabaseChord.h DatabaseP3.h SystemMeasure.h
 
 ScorePage_system.o: ScorePage_system.cpp ScorePage.h \
  ScorePageBase.h ScoreItem.h DatabaseBeam.h \
@@ -517,7 +543,8 @@ ScorePage_system.o: ScorePage_system.cpp ScorePage.h \
  ScoreItemEdit_ParameterHistory.h \
  ScorePageBase_AnalysisInfo.h DatabaseAnalysis.h \
  ScorePageBase_PrintInfo.h ScorePageBase_StaffInfo.h \
- DatabaseChord.h DatabaseP3.h ScoreUtility.h
+ DatabaseChord.h DatabaseP3.h SystemMeasure.h \
+ ScoreUtility.h
 
 ScoreSegment.o: ScoreSegment.cpp ScoreSegment.h \
  SystemAddress.h SegmentPart.h ScorePageSet.h \
@@ -527,8 +554,8 @@ ScoreSegment.o: ScoreSegment.cpp ScoreSegment.h \
  ScoreItemEdit_ParameterHistory.h \
  ScorePageBase_AnalysisInfo.h DatabaseAnalysis.h \
  ScorePageBase_PrintInfo.h ScorePageBase_StaffInfo.h \
- DatabaseChord.h DatabaseP3.h Options.h \
- ScoreSegment.h
+ DatabaseChord.h DatabaseP3.h SystemMeasure.h \
+ Options.h ScoreSegment.h
 
 ScoreUtility.o: ScoreUtility.cpp ScoreUtility.h \
  ScoreDefs.h ScoreItemEdit_ParameterHistory.h \
@@ -549,8 +576,22 @@ SegmentPart.o: SegmentPart.cpp SegmentPart.h \
  ScoreItemEdit_ParameterHistory.h \
  ScorePageBase_AnalysisInfo.h DatabaseAnalysis.h \
  ScorePageBase_PrintInfo.h ScorePageBase_StaffInfo.h \
- DatabaseChord.h DatabaseP3.h Options.h \
- ScoreSegment.h
+ DatabaseChord.h DatabaseP3.h SystemMeasure.h \
+ Options.h ScoreSegment.h
 
-SystemAddress.o: SystemAddress.cpp SystemAddress.h
+SystemAddress.o: SystemAddress.cpp SystemAddress.h \
+ ScorePageSet.h ScorePageOverlay.h ScorePage.h \
+ ScorePageBase.h ScoreItem.h DatabaseBeam.h \
+ RationalDuration.h RationalNumber.h \
+ ScoreItemBase.h ScoreDefs.h \
+ ScoreItemEdit_ParameterHistory.h \
+ ScorePageBase_AnalysisInfo.h DatabaseAnalysis.h \
+ ScorePageBase_PrintInfo.h ScorePageBase_StaffInfo.h \
+ DatabaseChord.h DatabaseP3.h SystemMeasure.h \
+ Options.h ScoreSegment.h SystemAddress.h
+
+SystemMeasure.o: SystemMeasure.cpp SystemMeasure.h \
+ ScoreItem.h DatabaseBeam.h RationalDuration.h \
+ RationalNumber.h ScoreItemBase.h ScoreDefs.h \
+ ScoreItemEdit_ParameterHistory.h
 
