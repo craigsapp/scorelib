@@ -42,8 +42,8 @@ void ScorePage::analyzeStaffDurations(void) {
       }
       staffduration = calculateStaffDuration(staffsequence[i]);
       setStaffDuration(i, staffduration);
-      staff_info.getStaffItems()[i][0]->setParameter("analysis", 
-            "staffDuration", staffduration);
+      ScoreItem* si = staff_info.getStaffItemsNotConst()[i][0];
+      si->setParameter(ns_auto, np_staffDuration, staffduration);
    }
 
    analysis_info.setValid("duration");

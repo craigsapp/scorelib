@@ -54,10 +54,10 @@ touch:
 	touch *.cpp
 
 %: %.cpp
-	$(COMPILER) $(FLAGS) $(INCLUDE) -o $@ $@.cpp $(LIBS) && strip $@
+	$(COMPILER) $(FLAGS) $(INCLUDE) -o $@ $@.cpp $(LIBS)  # && strip $@
 
 # compile itemtest with edit-history enabled.
 itemtest: itemtest.cpp
 	$(COMPILER) $(FLAGS) $(FLAGS_EDIT) $(INCLUDE) -o $@ $@.cpp \
-	      $(LIBS_EDIT) && strip $@
+	      $(LIBS_EDIT)  # && strip $@
 

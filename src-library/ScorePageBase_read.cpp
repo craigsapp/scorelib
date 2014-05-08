@@ -171,7 +171,7 @@ ScoreItem* ScorePageBase::readPmxScoreLine(istream& infile, int verboseQ) {
       cout << "#Read line: " << buffer << endl;
    }
 
-   vector<SCORE_FLOAT> parameters;
+   vectorSF parameters;
    parameters.reserve(ScoreItemBase::SCORE_MAX_FIXED_PARAMETERS);
    string text;
    

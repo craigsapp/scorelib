@@ -6,7 +6,7 @@
 // URL:           https://github.com/craigsapp/scorelib/blob/master/src-library/ScorePageSet_address.cpp
 // Syntax:        C++11
 //
-// Description:   Functions related to SystemAddress access into ScorePageSets.
+// Description:   Functions related to AddressSystem access into ScorePageSets.
 //
 
 #include "ScorePageSet.h"
@@ -17,16 +17,29 @@ using namespace std;
 //////////////////////////////
 //
 // ScorePageSet::getPage -- Return a ScorePage related to the given 
-//       SystemAddress.
+//       AddressSystem.
 //
 
-ScorePage& ScorePageSet::getPage(SystemAddress& anAddress) {
-   int page    = anAddress.getPage();
-   int overlay = anAddress.getOverlay();
+ScorePage* ScorePageSet::getPage(const AddressSystem& anAddress) {
+   int page    = anAddress.getPageIndex();
+   int overlay = anAddress.getOverlayIndex();
    if (overlay < 0) {
       overlay = 0;
    }
-   return (*this)[page][overlay];
+   return &(*this)[page][overlay];
+}
+
+
+//////////////////////////////
+//
+// ScorePageSet::getSystemItems -- Return a list of ScoreItems on the
+//     given page/system address.
+//
+
+vectorSIp& ScorePageSet::getSystemItems(const AddressSystem& anAddress) {
+   ScorePage* page = getPage(anAddress);
+   int sysindex = anAddress.getSystemIndex();
+   return page->getSystemItems(sysindex);
 }
 
 

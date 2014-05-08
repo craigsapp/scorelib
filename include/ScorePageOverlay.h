@@ -17,9 +17,15 @@
 #include "Options.h"
 
 using namespace std;
+using listSPp = list<ScorePage*>;
 
-typedef vector<ScorePage*>  vectorSPp;
-typedef list<ScorePage*>    listSPp;
+#ifndef UseBoundVector
+   using vectorSPp    = vector<ScorePage*>;
+#else
+   #include "BoundVector.h"
+   using vectorSPp    = BoundVector<ScorePage*>;
+#endif
+
 
 class ScorePageOverlay { 
    public:
@@ -30,6 +36,7 @@ class ScorePageOverlay {
       int         getOverlayCount               (void);
       int         size                          (void);
       ScorePage&  operator[]                    (int oindex);
+      ScorePage*  getPage                       (int oindex);
       int         appendOverlay                 (ScorePage* page);
 
    protected:

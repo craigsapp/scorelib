@@ -84,6 +84,18 @@ ScorePage& ScorePageOverlay::operator[](int oindex) {
 
 
 
+//////////////////////////////
+//
+// ScorePageOverlay::getPage -- similar to operator[], but returns a pointer
+//     to a ScorePage.
+//
+
+ScorePage* ScorePageOverlay::getPage(int oindex) {
+   return overlay_sequence[oindex];
+}
+
+
+
 ///////////////////////////////
 //
 // ScorePageOverlay::createOverlay --

@@ -28,6 +28,7 @@ class StaffInfo {
       int           getStaffItemsSize    (void);
       int           getStaffItemSize     (int staffnum);
       const vectorVSIp& getStaffItems    (void);
+      vectorVSIp&   getStaffItemsNotConst(void);
       void          appendStaffItem      (int staffnum, ScoreItem* item);
       vectorI&      systemMap            (void);
       vectorI&      systemStaffMap       (void);

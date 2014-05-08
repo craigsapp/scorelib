@@ -132,6 +132,10 @@ const vectorVSIp& StaffInfo::getStaffItems(void) {
    return staffitems;
 }
 
+vectorVSIp& StaffInfo::getStaffItemsNotConst(void) {
+   return staffitems;
+}
+
 
 
 ///////////////////////////////

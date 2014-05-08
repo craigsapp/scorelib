@@ -26,11 +26,12 @@ using namespace std;
 ScoreSegment::ScoreSegment(void) {
    start_system.clear();
    end_system.clear();
+   pageset_owner = NULL;
 }
 
 
-ScoreSegment::ScoreSegment(ScorePageSet& pageset, SystemAddress& starting, 
-      SystemAddress& ending, int debug) {
+ScoreSegment::ScoreSegment(ScorePageSet& pageset, AddressSystem& starting, 
+      AddressSystem& ending, int debug) {
 
    defineSegment(pageset, starting, ending, debug);
 }
@@ -57,6 +58,7 @@ void ScoreSegment::clear(void) {
    start_system.clear();
    end_system.clear();
    clearPartStorage();
+   setOwner((ScorePageSet*)NULL);
 }
 
 
@@ -79,11 +81,23 @@ void ScoreSegment::clearPartStorage(void) {
 
 //////////////////////////////
 //
+// ScoreSegment::setOwner --
+//
+
+void ScoreSegment::setOwner(ScorePageSet* owner) {
+   pageset_owner = owner;
+}
+
+
+
+//////////////////////////////
+//
 // ScoreSegment::defineSegment --
 //
 
 void ScoreSegment::defineSegment(ScorePageSet& pageset, 
-      SystemAddress& starting, SystemAddress& ending, int debug) {
+      AddressSystem& starting, AddressSystem& ending, int debug) {
+   pageset_owner = &pageset;
    start_system = starting;
    end_system   = ending;
 
@@ -91,7 +105,7 @@ void ScoreSegment::defineSegment(ScorePageSet& pageset,
       cout << "DEFINING SEGMENT " << starting << " TO " << ending << endl;
    }
 
-   vector<int> partlist;
+   vectorI partlist;
    getPartList(partlist, pageset, start_system, end_system);
 
    if (debug) {
@@ -112,11 +126,11 @@ void ScoreSegment::defineSegment(ScorePageSet& pageset,
 // ScoreSegment::analyzePartStaves --
 //
 
-void ScoreSegment::analyzePartStaves(vector<int>& partlist, ScorePageSet&
-     pageset, SystemAddress& startsys, SystemAddress& endsys) {
+void ScoreSegment::analyzePartStaves(vectorI& partlist, ScorePageSet&
+     pageset, AddressSystem& startsys, AddressSystem& endsys) {
 
-   SystemAddress& sp = startsys;
-   SystemAddress& ep = endsys;
+   AddressSystem& sp = startsys;
+   AddressSystem& ep = endsys;
 
    map<int,int> reverselist;
    clearPartStorage();
@@ -135,7 +149,7 @@ void ScoreSegment::analyzePartStaves(vector<int>& partlist, ScorePageSet&
 
    // store part information
 
-   vector<int> counter;
+   vectorI counter;
    counter.resize(partlist.size());
 
    int p;
@@ -149,20 +163,20 @@ void ScoreSegment::analyzePartStaves(vector<int>& partlist, ScorePageSet&
    int zerocounter = 0;
 
    int partcount = part_storage.size();
-   vector<int> foundpart;
+   vectorI foundpart;
    foundpart.resize(partcount);
-   SystemAddress current;
+   AddressSystem current;
 
    // Label the part index for each staff in segment.
-   for (p = sp.getPage(); p <= ep.getPage(); p++) {
+   for (p = sp.getPageIndex(); p <= ep.getPageIndex(); p++) {
       sysstart = 0;
-      if (p == sp.getPage()) {
-         sysstart = sp.getSystem();
+      if (p == sp.getPageIndex()) {
+         sysstart = sp.getSystemIndex();
       }
       sysend = pageset[p][overlay].getSystemCount() - 1;
-      if (p == ep.getPage()) {
-         if (ep.getSystem() >= 0) {
-            sysend = ep.getSystem();
+      if (p == ep.getPageIndex()) {
+         if (ep.getSystemIndex() >= 0) {
+            sysend = ep.getSystemIndex();
          }
       }
       ScorePage& page = pageset[p][overlay];
@@ -173,11 +187,11 @@ void ScoreSegment::analyzePartStaves(vector<int>& partlist, ScorePageSet&
          staffcount = staffitems[sys].size();
          zerocounter = 0;
          for (int sysstaff = 0; sysstaff < staffcount; sysstaff++) {
-            if ((p == sp.getPage()) && (sys == sp.getSystem())) {
+            if ((p == sp.getPageIndex()) && (sys == sp.getSystemIndex())) {
                staffitems[sys][sysstaff][0]->setParameter("segment", 
                      "start", "true");
             }
-            if ((p == ep.getPage()) && (sys == ep.getSystem())) {
+            if ((p == ep.getPageIndex()) && (sys == ep.getSystemIndex())) {
                staffitems[sys][sysstaff][0]->setParameter("segment", 
                      "end", "true");
             }
@@ -189,7 +203,7 @@ void ScoreSegment::analyzePartStaves(vector<int>& partlist, ScorePageSet&
             } else {
                partnum = 0;
             }
-            if ((p == sp.getPage()) && (sys == sp.getSystem())) {
+            if ((p == sp.getPageIndex()) && (sys == sp.getSystemIndex())) {
                if (staffitems[sys][sysstaff][0]->isDefined("partname")) {
                   string partname = 
                      staffitems[sys][sysstaff][0]->getParameter("partname");
@@ -246,12 +260,12 @@ void ScoreSegment::analyzePartStaves(vector<int>& partlist, ScorePageSet&
 //
 
 string ScoreSegment::extractPartName(ScorePageSet& pageset, 
-      SystemAddress& startsys, int partnum) {
-   int pageindex = startsys.getPage();
+      AddressSystem& startsys, int partindex) {
+   int pageindex = startsys.getPageIndex();
    int overlay = 0;
    ScorePage& page = pageset[pageindex][overlay];
-   int sysindex = startsys.getSystem();
-   int pagestaff = page.getPageStaff(sysindex, partnum);
+   int sysindex = startsys.getSystemIndex();
+   int pagestaff = page.getPageStaffIndex(sysindex, partindex);
    vectorSIp staffitems;
    page.getSortedStaffItems(staffitems, pagestaff);
    double p4;
@@ -275,6 +289,32 @@ string ScoreSegment::extractPartName(ScorePageSet& pageset,
 }
 
 
+//////////////////////////////
+//
+// ScoreSegment::getSystemStaffIndex --
+//
+
+int ScoreSegment::getSystemStaffIndex(int systemindex, int partindex, 
+      int subpartindex) {
+   return part_storage[partindex]->getSystemStaffIndex(systemindex, 
+      subpartindex);
+}
+
+
+
+//////////////////////////////
+//
+// ScoreSegment::getPageStaffIndex -- Get the P2 page staff number
+//    for the part on the given system in the segment.
+//
+
+int ScoreSegment::getPageStaffIndex(int systemindex, int partindex, 
+      int subpartindex) {
+   return part_storage[partindex]->getPageStaffIndex(systemindex,
+      subpartindex); 
+}
+
+
 
 //////////////////////////////
 //
@@ -294,8 +334,8 @@ string ScoreSegment::extractPartName(ScorePageSet& pageset,
 //   4-staff system will be assumed to be removed in the 3-staff system.
 //
 
-void ScoreSegment::getPartList(vector<int>& partlist, ScorePageSet& pageset, 
-      SystemAddress& sp, SystemAddress& ep) {
+void ScoreSegment::getPartList(vectorI& partlist, ScorePageSet& pageset, 
+      AddressSystem& sp, AddressSystem& ep) {
 
    partlist.resize(0);
    set<int> partnums;
@@ -307,15 +347,15 @@ void ScoreSegment::getPartList(vector<int>& partlist, ScorePageSet& pageset,
    int partnum;
    int zeropart = 0;
 
-   for (p = sp.getPage(); p <= ep.getPage(); p++) {
+   for (p = sp.getPageIndex(); p <= ep.getPageIndex(); p++) {
       startsys = 0;
-      if (p == sp.getPage()) {
-         startsys = sp.getSystem();
+      if (p == sp.getPageIndex()) {
+         startsys = sp.getSystemIndex();
       }
       endsys = pageset[p][overlay].getSystemCount() - 1;
-      if (p == ep.getPage()) {
-         if (ep.getSystem() >= 0) {
-            endsys = ep.getSystem();
+      if (p == ep.getPageIndex()) {
+         if (ep.getSystemIndex() >= 0) {
+            endsys = ep.getSystemIndex();
          }
       }
       ScorePage& page = pageset[p][overlay];
@@ -353,7 +393,7 @@ void ScoreSegment::getPartList(vector<int>& partlist, ScorePageSet& pageset,
 //      the segment.
 //
 
-const SystemAddress& ScoreSegment::getBeginSystem(void) const {
+const AddressSystem& ScoreSegment::getBeginSystem(void) const {
    return start_system;
 }
 
@@ -361,7 +401,7 @@ const SystemAddress& ScoreSegment::getBeginSystem(void) const {
 // Alias: 
 //
 
-const SystemAddress& ScoreSegment::getStartSystem(void) const {
+const AddressSystem& ScoreSegment::getStartSystem(void) const {
    return getBeginSystem();
 }
 
@@ -373,7 +413,7 @@ const SystemAddress& ScoreSegment::getStartSystem(void) const {
 //      which defines the segment.
 //
 
-const SystemAddress& ScoreSegment::getEndSystem(void) const {
+const AddressSystem& ScoreSegment::getEndSystem(void) const {
    return end_system;
 }
 
@@ -430,12 +470,12 @@ int ScoreSegment::getSystemCount(void) const {
 
 //////////////////////////////
 //
-// ScoreSegment::getSystem -- Return the requested system address.
+// ScoreSegment::getSystemAddress -- Return the requested system address.
 //     All parts are expected to have the same number of systems
 //     and they line up exactly.
 //
 
-SystemAddress& ScoreSegment::getSystem(int index) {
+const AddressSystem& ScoreSegment::getSystemAddress(int index) {
    return part_storage[0]->getAddress(index);
 }
 
@@ -443,8 +483,40 @@ SystemAddress& ScoreSegment::getSystem(int index) {
 // Alias:
 //
 
-SystemAddress& ScoreSegment::getPartAddress(int systemindex, int partindex) {
+AddressSystem& ScoreSegment::getPartAddress(int systemindex, int partindex) {
    return part_storage[partindex]->getAddress(systemindex);
+}
+
+
+
+//////////////////////////////
+//
+// ScoreSegment::getSystemAddresses --
+//
+
+const vectorVASp& ScoreSegment::getSystemAddresses(int partindex) {
+   return part_storage[partindex]->getSystemAddresses();
+}
+
+
+
+//////////////////////////////
+//
+// ScoreSegment::getSystemItems --
+//
+
+vectorSIp& ScoreSegment::getSystemItems(const AddressSystem& address) {
+   if (pageset_owner == NULL) {
+      cerr << "Error: cannot access NULL scoreset." << endl;
+      exit(1);
+   }
+   return pageset_owner->getSystemItems(address);
+}
+
+
+vectorSIp& ScoreSegment::getSystemItems(int sysindex) {
+   const AddressSystem& address = getSystemAddress(sysindex);
+   return getSystemItems(address);
 }
 
 

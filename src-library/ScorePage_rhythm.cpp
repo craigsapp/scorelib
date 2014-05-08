@@ -38,7 +38,7 @@ int ScorePage::getSystemLCMRhythm(int systemindex) {
 
    set<int> numbers;
    RationalNumber rn;
-   vectorSIp& sysitems = this->systemItems(systemindex);
+   vectorSIp& sysitems = this->getSystemItems(systemindex);
    for (auto& it : sysitems) {
       if (!it->hasDuration()) {
          continue;

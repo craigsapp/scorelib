@@ -13,12 +13,10 @@
 #ifndef _SEGMENTPART_H_INCLUDED
 #define _SEGMENTPART_H_INCLUDED
 
-#include "SystemAddress.h"
+#include "AddressSystem.h"
 #include "ScorePageSet.h"
 
 using namespace std;
-
-using vectorVSAp  = vector<vector<SystemAddress*>>;
 
 
 class SegmentPart {
@@ -27,21 +25,27 @@ class SegmentPart {
                         ~SegmentPart         ();
 
       void               clear               (void);
-      SystemAddress&     getAddress          (int index, int index2 = 0);
-      const vectorVSAp&  getAddresses        (void) const;
+      AddressSystem&     getAddress          (int systemindex, 
+                                              int staffindex = 0);
+      const vectorVASp&  getAddresses        (void) const;
+      const vectorVASp&  getSystemAddresses  (void) const;
       int                getAddressCount     (void) const;
-      ScorePageOverlay&  getScoreOverlay     (int index, int index2 = 0);
-      ScorePage&         getScorePage        (int index, int index2 = 0);
-      int                getScorePageIndex   (int index, int index2 = 0);
-      int                getPageSystemIndex  (int index, int index2 = 0);
-      int                getSystemStaffIndex (int index, int index2 = 0);
+      ScorePageOverlay&  getScoreOverlay     (int partindex, int pindex = 0);
+      ScorePage&         getScorePage        (int partindex, int pindex = 0);
+      int                getScorePageIndex   (int partindex, int pindex = 0);
+      int                getPageSystemIndex  (int partindex, 
+                                                 int subpartindex = 0);
+      int                getSystemStaffIndex (int systemindex, 
+                                              int subpartindex = 0);
+      int                getPageStaffIndex   (int systemindex, 
+                                              int subpartindex = 0);
       int                systemCount         (void);
       void               setOwner            (ScorePageSet* owner);
       int                hasOwner            (void);
       ScorePageSet*      getOwner            (void);
-      void               appendAddress       (SystemAddress& anAddress);
-      void               addToLastAddress    (SystemAddress& anAddress);
-      void               addAddress          (SystemAddress& anAddress, 
+      void               appendAddress       (AddressSystem& anAddress);
+      void               addToLastAddress    (AddressSystem& anAddress);
+      void               addAddress          (AddressSystem& anAddress, 
                                               int index);
       void               setPartIndex        (unsigned int index);
       void               setPartNumber       (int number);
@@ -55,7 +59,7 @@ class SegmentPart {
       int           part_number; // whatever is in P9 of staves, or negative
                                  // numbers if P9==0.
       string        part_name;
-      vectorVSAp    address_storage;
+      vectorVASp    address_storage;
       ScorePageSet* pageset_owner;
 };
 

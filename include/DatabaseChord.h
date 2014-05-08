@@ -36,7 +36,6 @@ class DatabaseChord {
    private:
       map<ScoreItem*, vectorSIp*> interface;
       list<vectorSIp> database;
-      vectorSIp dummylist;
 };
 
 

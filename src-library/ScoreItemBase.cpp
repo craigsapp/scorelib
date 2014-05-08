@@ -11,6 +11,7 @@
 //
 
 #include "ScorePageBase.h"
+#include "ScoreUtility.h"
 #include <stdlib.h>
 #include <string>
 #include <cstdint>
@@ -167,6 +168,25 @@ int ScoreItemBase::getParameterInt(const string& nspace, const string& key) {
 }
 
 
+bool ScoreItemBase::getParameterBool(const string& nspace, const string& key) {
+   if (!isDefined(nspace, key)) {
+      return false;
+   }
+   if (getParameter(nspace, key) == "false") {
+      return false;
+   } else if (getParameter(nspace, key) == "0") {
+      return false;
+   }
+
+   return true;
+}
+
+
+bool ScoreItemBase::getParameterBool(const string& key) {
+   return getParameterBool("", key);
+}
+
+
 double ScoreItemBase::getParameterDouble(const string& key) {
    double value;
    try {
@@ -191,6 +211,9 @@ double ScoreItemBase::getParameterDouble(const string& nspace,
 
 
 SCORE_FLOAT ScoreItemBase::getParameter(int pindex) {
+   if ((pindex < 0) || (pindex >= fixed_parameters.size())) {
+      return 0.0;
+   }
    return fixed_parameters[pindex];
 }
 
@@ -331,6 +354,10 @@ int ScoreItemBase::getPInt(int pindex) {
 }
 
 
+bool ScoreItemBase::getParameterBool(int pindex) {
+   return getParameterInt(pindex) ? true : false;
+}
+
 
 //////////////////////////////
 //
@@ -355,9 +382,14 @@ SCORE_FLOAT ScoreItemBase::getParameterFraction(int pindex) {
 //     first argument is a string.
 //
 
-void ScoreItemBase::setParameter(const string& nspace, const string& key, 
+void ScoreItemBase::setParameterQuiet(const string& nspace, const string& key, 
       const string& value) {
    named_parameters[nspace][key] = value;
+}
+
+void ScoreItemBase::setParameter(const string& nspace, const string& key, 
+      const string& value) {
+   setParameterQuiet(nspace, key, value);
    notifyPageOfChange("named");
 }
 
@@ -803,15 +835,20 @@ ostream& ScoreItemBase::printPmx(ostream& out) {
 ostream& ScoreItemBase::printPmxFixedParameters(ostream& out) {
    int count = getCompactFixedParameterCount();
    // print the first number, using "t" if P1
-   SCORE_FLOAT p1 = getParameter(P1);
-   if (p1 == 16) {
+   SCORE_FLOAT p1 = getP1();
+   if (((int)p1) == 16) {
       out << 't';
    } else {
       out << p1;
    }
    int i;
+   SCORE_FLOAT value;
    for (i=P2; i<=count; i++) {
-      out << ' ' << getParameter(i);
+      value = getParameter(i);
+      if (fabs(value) < 0.000001) {
+         value = 0.0;
+      }
+      out << ' ' << value;
    }
    out << '\n';
    // if P1==15|16, then print the text associated with it here.
@@ -846,7 +883,7 @@ ostream& ScoreItemBase::printPmxNamedParametersNoAnalysis(ostream& out) {
    mapSS::iterator its;
    for (it = np.begin(); it != np.end(); it++) {
       for (its = it->second.begin(); its != it->second.end(); its++) {
-         if (it->first == "analysis") {
+         if (it->first == ns_auto) {
             continue;
          }
          if (it->first == "") {
@@ -919,45 +956,6 @@ ostream& ScoreItemBase::printXml(ostream& out, int indentcount,
 
 //////////////////////////////
 //
-// ScoreItemBase::printXmlTextEscaped --
-//
-
-ostream& ScoreItemBase::printXmlTextEscaped(ostream& out, 
-      const string& text) {
-
-   int length = text.size();
-   char ch;
-   int i;
-   for (i=0; i<length; i++) {
-      ch = text[i];
-      switch (ch) {
-         case '&':
-            out << "&amp;";
-            break;
-         case '"':
-            out << "&quot;";
-            break;
-         case '\'':
-            out << "&apos;";
-            break;
-         case '>':
-            out << "&gt;";
-            break;
-         case '<':
-            out << "&lt;";
-            break;
-         default:
-            out << ch;
-      }
-   }
-
-   return out;
-}
-
-
-
-//////////////////////////////
-//
 // ScoreItemBase::printFixedListPieceXml -- Print the fixed parameter
 //    portion of an XML element.  Not closing the tag.
 //
@@ -973,15 +971,15 @@ ostream& ScoreItemBase::printFixedListPieceXml(ostream& out) {
          out << " p" << i << "=\"" << value << "\"";
       }
    }
-   int p1 = getParameter(P1);
+   int p1 = getP1();
    if (p1 == 15) {
       out << " filename=\"";
-      printXmlTextEscaped(out, getFixedText());
+      SU::printXmlTextEscapedUTF8(out, getFixedText());
       out << "\"";
    }
    if (p1 == 16) {
       out << " text=\"";
-      printXmlTextEscaped(out, getFixedText());
+      SU::printXmlTextEscapedUTF8(out, getFixedText());
       out << "\"";
    }
 
@@ -1003,9 +1001,9 @@ ostream& ScoreItemBase::printNamedParametersXml(ostream& out,
    for (it = np.begin(); it != np.end(); it++) {
       printIndent(out, indentcount, indentstring);
       out << "<parameter name=\"";
-      printXmlTextEscaped(out, it->first);
+      SU::printXmlTextEscapedUTF8(out, it->first);
       out << "\" value=\"";
-      printXmlTextEscaped(out, it->second);
+      SU::printXmlTextEscapedUTF8(out, it->second);
       out << "\" />";
       out << endl;
    }
@@ -1047,7 +1045,7 @@ void ScoreItemBase::readPmx(istream& instream, int verboseQ) {
       cout << "#Read line: " << buffer << endl;
    }
 
-   vector<SCORE_FLOAT> parameters;
+   vectorSF parameters;
    parameters.reserve(16);
    parameters.push_back(0);  // first index (0) is not used.
    string text;

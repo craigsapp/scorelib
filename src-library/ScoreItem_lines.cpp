@@ -161,3 +161,25 @@ bool ScoreItem::isPlainLine(void) {
 
 
 
+/////////////////////////////
+//
+// ScoreItem::isHorizontal -- returns true if the object is horizontal.
+//     This is useful for analyzing the orientation of objects which have
+//     two horizontal endpoints, such as beams, slurs, and lines.  Will
+//     need to be extended some from the basic algorithm given here (such
+//     as monitoring angle parameters).
+//
+
+bool ScoreItem::isHorizontal(void) {
+   SCORE_FLOAT p4 = getVPos();
+   SCORE_FLOAT p4r = getVPosRight();
+   if (fabs(p4 - p4r) < 0.001) {
+      return true;
+   }
+
+   return false;
+}
+
+
+
+

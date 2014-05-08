@@ -15,7 +15,7 @@
 #define _SCOREPAGE_H_INCLUDED
 
 #include "ScorePageBase.h"
-#include "SystemAddress.h"
+#include "AddressSystem.h"
 #include "DatabaseP3.h"
 
 using namespace std;
@@ -73,9 +73,9 @@ class ScorePage : public ScorePageBase {
       int         getSystemIndex         (int staffnumber);
       int         getSystemStaffIndex    (int staffnumber);
       void        fillSystemScoreItemLists(void);
-      vectorSIp&  systemItems            (int sindex);
-      int         getPageStaff           (int sysindex, int partnum);
-      int         getPageStaff           (SystemAddress& partaddress);
+      vectorSIp&  getSystemItems         (int sindex);
+      int         getPageStaffIndex      (int sysindex, int partnum);
+      int         getPageStaffIndex      (const AddressSystem& partaddress);
 
 
       // Staff duration analysis functions (defined in ScorePage_duration.cpp):
@@ -107,6 +107,8 @@ class ScorePage : public ScorePageBase {
       void        analyzeChords         (void);
       vectorSIp*  chordNotes            (ScoreItem* chordtone);
 
+      // Lyrics analysis functions (defined in ScorePage_lyrics.cpp):
+      vectorSIp*   getLyricsGroup       (ScoreItem* item);
 
       // Beam analysis functions (defined in ScorePage_beam.cpp):
       void        analyzeBeams          (SCORE_FLOAT tolerance = 0.001);
@@ -119,6 +121,20 @@ class ScorePage : public ScorePageBase {
       // P3 analysis functions (defined in ScorePage_p3.cpp):
       void        analyzeP3                 (void);
       SCORE_FLOAT getP3OfStaffDurationOffset(int sys, SCORE_FLOAT offset);
+
+      // Global parameter processing functions (ScorePage_parameter.cpp):
+      void         copyParameterOverwrite (const string& newnamespace, 
+                                           const string& oldnamespace, 
+                                           const string& parameter);
+      void         copyParameterNoOverwrite(const string& newnamespace, 
+                                           const string& oldnamespace, 
+                                           const string& parameter);
+
+      // Segment data (defined in ScorePage_segment.cpp):
+      void         setStaffPartIndex      (int p2val, int partindex);
+      int          getPartIndex           (int p2value);
+
+
 
    private:
       // private sorting functions:

@@ -186,6 +186,42 @@ void ScoreItem::setPIntPart(int pindex, int intval) {
 }
 
 
+
+//////////////////////////////
+//
+// ScoreItem::copyParameterOverwrite -- Copy a named parameter to a different
+//      namespace.  If the new namespace already has the same parameter,
+//      it will be overwritten with the copied value.
+//
+
+void ScoreItem::copyParameterOverwrite(const string& newnamespace, 
+      const string& oldnamespace, const string& parameter) {
+   if (isDefined(oldnamespace, parameter)) {
+      setParameter(newnamespace, parameter, 
+            getParameter(oldnamespace, parameter));
+   }
+}
+
+
+
+//////////////////////////////
+//
+// ScoreItem::copyParameterNoOverwrite -- Copy a named parameter to a different
+//     namespace only if it does not already exist in the new namespace.
+//
+
+void ScoreItem::copyParameterNoOverwrite(const string& newnamespace, 
+      const string& oldnamespace, const string& parameter) {
+   if (!isDefined(newnamespace, parameter)) {
+      if (isDefined(oldnamespace, parameter)) {
+         setParameter(newnamespace, parameter, 
+               getParameter(oldnamespace, parameter));
+      }
+   }
+}
+
+
+
 ///////////////////////////////////////////////////////////////////////////
 //
 // P1 processing functions.
@@ -197,7 +233,7 @@ void ScoreItem::setPIntPart(int pindex, int intval) {
 //
 
 int ScoreItem::getItemType(void) {
-   return (int)getParameter(P1);
+   return getP1Int();
 }
 
 
@@ -208,7 +244,7 @@ int ScoreItem::getItemType(void) {
 //
 
 void ScoreItem::setItemType(SCORE_FLOAT type) {
-   setParameter(P1, type);
+   setP1(type);
 }
 
 
@@ -273,7 +309,7 @@ bool ScoreItem::isTimeSignatureItem(void)
 //
 
 unsigned int ScoreItem::getStaffNumber(void) {
-   int value = (int)getParameter(P2);
+   int value = getP2Int();
    if (value < 0) {
       return 0;
    } else {
@@ -317,7 +353,7 @@ void ScoreItem::setStaffNum(int staffnum) {
 //
 
 SCORE_FLOAT ScoreItem::getHorizontalPosition(void) {
-   return getParameter(P3);
+   return getP3();
 }
 
 // Aliases:
@@ -342,12 +378,32 @@ SCORE_FLOAT ScoreItem::getHPosL(void) {
 //
 
 void ScoreItem::setHorizontalPosition(SCORE_FLOAT pos) {
-   setParameter(P3, pos);
+   setP3(pos);
 }
 
 
 void ScoreItem::setHPos(SCORE_FLOAT pos) {
    setHorizontalPosition(pos);
+}
+
+
+
+//////////////////////////////
+//
+// ScoreItem::getHorizontalOffset --
+//    Deal with slurs (two different parameters control offsets)
+//
+
+SCORE_FLOAT ScoreItem::getHorizontalOffset(void) {
+   int p1 = getP1Int();
+   switch (p1) {
+      case P1_Note: return getP10(); // 10 & 20 have special meaning.
+      case P1_Rest: return getP10(); 
+      case P1_Beam: return getP14();  // P15 is for right side's offset
+      case P1_Text: return getP11();
+   }
+
+   return 0.0;
 }
 
 
@@ -364,7 +420,7 @@ void ScoreItem::setHPos(SCORE_FLOAT pos) {
 //
 
 SCORE_FLOAT ScoreItem::getVerticalPosition(void) {
-   SCORE_FLOAT value = getParameter(P4);
+   SCORE_FLOAT value = getP4();
    if ((value < 100.0) && (value > -100.0)) {
       return value;
    }
@@ -389,6 +445,41 @@ SCORE_FLOAT ScoreItem::getVPos(void) {
 }
 
 
+
+///////////////////////////////////////////////////////////////////////////
+//
+// P5 related functions.
+//
+
+//////////////////////////////
+//
+// ScoreItem::getVerticalPositionRight --
+//
+
+SCORE_FLOAT ScoreItem::getVerticalPositionRight(void) {
+   switch (getItemType()) {
+      case P1_Line:
+      case P1_Slur:
+      case P1_Beam:
+      case P1_Staff:
+         return getP5();
+         break;
+   }
+   
+   // Item does not have a right side (or is unknown), so return P4 value:
+   return getVerticalPosition();
+}
+
+//
+// Alias: 
+//
+
+SCORE_FLOAT ScoreItem::getVPosRight(void) {
+   return getVerticalPositionRight();
+}
+
+
+
 ///////////////////////////////////////////////////////////////////////////
 //
 // P6 related functions.
@@ -400,11 +491,11 @@ SCORE_FLOAT ScoreItem::getHorizontalPositionRight(void) {
       case P1_Line:
       case P1_Slur:
       case P1_Beam:
-         return getParameter(P6);
+         return getP6();
          break;
 	 
       case P1_Staff:
-         p6 = getParameter(P6);
+         p6 = getP6();
          if (p6 == 0.0) {
             return 200.0;
          } else {
@@ -414,7 +505,7 @@ SCORE_FLOAT ScoreItem::getHorizontalPositionRight(void) {
    }
    
    // Item does not have a right side (or is unknown), so return P3 value:
-   return getParameter(P3);
+   return getP3();
 }
 
 //
@@ -500,7 +591,7 @@ RationalDuration ScoreItem::getRationalDuration(void) {
 
 void ScoreItem::setStaffOffsetDuration(SCORE_FLOAT duration) {
 //   staff_duration_offset = duration;
-   setParameter("analysis", "staffOffsetDuration", duration);
+   setParameter(ns_auto, np_staffOffsetDuration, duration);
 }
 
 
@@ -515,7 +606,7 @@ void ScoreItem::setStaffOffsetDuration(SCORE_FLOAT duration) {
 
 SCORE_FLOAT ScoreItem::getStaffOffsetDuration(void) {
 //   return staff_duration_offset;
-   return getParameterDouble("analysis", "staffOffsetDuration");
+   return getParameterDouble(ns_auto, np_staffOffsetDuration);
 }
 
 

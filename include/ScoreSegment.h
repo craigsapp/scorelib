@@ -13,12 +13,13 @@
 #ifndef _SCORESEGMENT_H_INCLUDED
 #define _SCORESEGMENT_H_INCLUDED
 
-#include "SystemAddress.h"
+#include "AddressSystem.h"
+#include "ScoreItem.h"
 #include <vector>
-//#include "ScorePageSet.h"
 
 class ScorePageSet;
 class SegmentPart;
+
 
 using namespace std;
 
@@ -27,49 +28,62 @@ class ScoreSegment {
    public:
                  ScoreSegment        (void);
                  ScoreSegment        (ScorePageSet& pageset, 
-                                      SystemAddress& starting, 
-                                      SystemAddress& ending, int debug = 0);
+                                      AddressSystem& starting, 
+                                      AddressSystem& ending, int debug = 0);
                 ~ScoreSegment        ();
 
       void       clear               (void);
       void       clearPartStorage    (void);
+      void       setOwner            (ScorePageSet* owner);
       int        getPartCount        (void) const;
       int        getSystemCount      (void) const;
-      SystemAddress& getSystem       (int index);
+      const AddressSystem& getSystemAddress (int index);
+      vectorSIp& getSystemItems      (const AddressSystem& address);
+      vectorSIp& getSystemItems      (int sysindex);
+      
+      const vectorVASp& getSystemAddresses (int partindex);
       ostream&   printInfo           (ostream& out) const;
       void       defineSegment       (ScorePageSet& pageset, 
-                                      SystemAddress& starting, 
-                                      SystemAddress& ending, int debug = 0);
-      void       analyzePartStaves   (vector<int>& partlist, 
+                                      AddressSystem& starting, 
+                                      AddressSystem& ending, int debug = 0);
+      void       analyzePartStaves   (vectorI& partlist, 
                                       ScorePageSet& scoreset, 
-                                      SystemAddress& startsys, 
-                                      SystemAddress& endsys);
+                                      AddressSystem& startsys, 
+                                      AddressSystem& endsys);
+      int        getSystemStaffIndex (int systemindex, int partindex, 
+                                      int subpartindex);
+      int        getPageStaffIndex   (int systemindex, int partindex, 
+                                      int subpartindex = 0);
 
-      const SystemAddress& getBeginSystem (void) const;
-      const SystemAddress& getStartSystem (void) const;
-      const SystemAddress& getEndSystem   (void) const;
+      const AddressSystem& getBeginSystem (void) const;
+      const AddressSystem& getStartSystem (void) const;
+      const AddressSystem& getEndSystem   (void) const;
 
       // accessors for vector<SegmentPart*> data
       string         getPartName         (int partindex);
-      SystemAddress& getPartAddress      (int systemindex, int partindex);
+      AddressSystem& getPartAddress      (int systemindex, int partindex);
    
    protected:
-      SystemAddress        start_system;
-      SystemAddress        end_system;
+      AddressSystem        start_system;
+      AddressSystem        end_system;
       vector<SegmentPart*> part_storage;
+      ScorePageSet*        pageset_owner;
+      
 
    private:
       void        prepareParts       (ScorePageSet& page);
-      void        getPartList        (vector<int>& partlist, 
+      void        getPartList        (vectorI& partlist, 
                                       ScorePageSet& pageset, 
-                                      SystemAddress& sp, 
-                                      SystemAddress& ep);
-      string      extractPartName    (ScorePageSet& pageset, SystemAddress& startsys, int partnum);
+                                      AddressSystem& sp, 
+                                      AddressSystem& ep);
+      string      extractPartName    (ScorePageSet& pageset, 
+                                      AddressSystem& startsys, int partnum);
 
 };
 
 
 ostream& operator<<(ostream& out, const ScoreSegment& segment);
+
 
 
 #endif  /* _SCORESEGMENT_H_INCLUDED */

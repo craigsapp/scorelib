@@ -20,6 +20,8 @@
 
 using namespace std;
 
+using vectorS      = vector<string>;
+
 class Option_register {
    public:
                    Option_register    (void);
@@ -65,7 +67,7 @@ class Options {
                      ~Options           ();
 
       int             argc              (void) const;
-      const vector<string>& argv        (void) const;
+      const vectorS&  argv              (void) const;
       int             define            (const string& aDefinition);
       int             define            (const string& aDefinition, 
                                          const string& description);
@@ -73,8 +75,8 @@ class Options {
       const string&   getArgument       (int index);
       int             getArgCount       (void);
       int             getArgumentCount  (void);
-      const vector<string>& getArgList  (void);
-      const vector<string>& getArgumentList (void);
+      const vectorS&  getArgList        (void);
+      const vectorS&  getArgumentList   (void);
       int             getBoolean        (const string& optionName);
       string          getCommand        (void);
       const string&   getCommandLine    (void);
@@ -107,17 +109,17 @@ class Options {
       void            setOptions        (int argc, char** argv);
       void            appendOptions     (int argc, char** argv);
       void            appendOptions     (const string& strang);
-      void            appendOptions     (const vector<string>& argv);
+      void            appendOptions     (const vectorS& argv);
       ostream&        printRegister     (ostream& out);
       int             isDefined         (const string& name);
 
    protected:
       int                      options_error_check;  // for verify command
       int                      oargc;
-      vector<string>           oargv;
+      vectorS                  oargv;
       string                   commandString;
       char                     optionFlag;
-      vector<string>           argument;
+      vectorS                  argument;
 
       vector<Option_register*> optionRegister;
       map<string, int>         optionList;
@@ -126,8 +128,8 @@ class Options {
       int                      suppressQ;       // prevent the --options option
       int                      optionsArgument; // indicates --options present
 
-      vector<string>           extraArgv;
-      vector<string>           extraArgv_strings;
+      vectorS                  extraArgv;
+      vectorS                  extraArgv_strings;
 
       int         getRegIndex             (const string& optionName);
       int         optionQ                 (const string& aString, int& argp);

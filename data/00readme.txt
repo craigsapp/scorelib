@@ -10,3 +10,6 @@ brahms-op76
 chopin-preludes/
 	Frederic Chopin preludes, op. 28
 
+densmore
+	Native American songs collected by Francis Densmore
+

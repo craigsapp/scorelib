@@ -19,6 +19,7 @@
 #include "ScorePageBase_PrintInfo.h"
 #include "ScorePageBase_StaffInfo.h"
 #include "DatabaseChord.h"
+#include "DatabaseLyrics.h"
 #include "DatabaseBeam.h"
 #include "DatabaseP3.h"
 #include "SystemMeasure.h"
@@ -28,6 +29,7 @@ using namespace std;
 class ScorePageBase {
 
    friend class ScoreItemBase;
+   friend class ScorePageSet;
 
    public:
                      ScorePageBase            (void);
@@ -131,6 +133,12 @@ class ScorePageBase {
                               // Last dimension is in case there is more
                               // than one staff item for a staff position.
 
+      // segmentpart_map is a mapping from P2 value to part index.
+      // The Part index is provided by ScoreSegment data which contains
+      // SegmentPart info.
+      vectorI segmentpart_map;
+
+
       // Variable "trailer" is for storing the trailer of a SCORE binary file.
       // The trailer consists of at least 5 floats.  The numbers in
       // reverse order are:
@@ -174,6 +182,9 @@ class ScorePageBase {
 
       // chord_database contains information about chrods on the page.
       DatabaseChord chord_database;
+
+      // chord_database contains information about chrods on the page.
+      DatabaseLyrics lyrics_database;
 
       // beam_database contains information about beams on the page.
       DatabaseBeam beam_database;

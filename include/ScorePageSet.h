@@ -23,6 +23,7 @@ typedef list<ScorePageOverlay*>   listSPOp;
 typedef vector<ScoreSegment*>     vectorSSp;
 
 class ScorePageSet { 
+
    public:
                   ScorePageSet                  (void);
                   ScorePageSet                  (Options& opts);
@@ -56,17 +57,67 @@ class ScorePageSet {
       // Page-related functions
       void        analyzePitch                  (void);
 
-      // funcs related to SystemAddress (defined in ScorePageSet_address.cpp):
-      ScorePage&  getPage                       (SystemAddress& anAddress);
+      // funcs related to AddressSystem (defined in ScorePageSet_address.cpp):
+      ScorePage*  getPage                     (const AddressSystem& anAddress);
+      vectorSIp&  getSystemItems              (const AddressSystem& anAddress);
+
+
+      // ScoreItem parameter manipulation (ScorePageSet_parameters.cpp):
+      void         copyParameterOverwrite (const string& newnamespace, 
+                                           const string& oldnamespace, 
+                                           const string& parameter);
+      void         copyParameterNoOverwrite(const string& newnamespace, 
+                                           const string& oldnamespace, 
+                                           const string& parameter);
+      void         deleteNamespace         (const string& nspace);
 
 
       // Segmentation functions (defined in ScorePageSet_segment.cpp):
       int           getSegmentCount             (void);
+      int           getPartCount                (int segmentindex);
+      int           getPartCountInSegment       (int segmentindex);
       ScoreSegment& getSegment                  (int index);
+      const vectorVASp& getSystemAddresses      (int segmentindex, 
+                                                 int partindex);
       void          clearSegments               (void);
-      void          createSegment               (SystemAddress& startaddress, 
-                                                 SystemAddress& endaddress);
+      void          createSegment               (AddressSystem& startaddress, 
+                                                 AddressSystem& endaddress);
       int           getLCMRhythm                (int segmentindex);
+
+      // Lyrics identification (defined in ScorePageSet_lyrics.cpp):
+      void          analyzeLyrics               (void);
+      void          analyzeLyrics               (int segmentindex);
+      void          analyzeLyrics               (int segmentindex, 
+                                                 int partindex);
+   private:
+      void          linkLyricsToNotes           (int segmentindex, 
+                                                 int partindex);
+      void          identifyExtraVerses         (int segmentindex, 
+                                                 int partindex, 
+                                                 int systemindex,
+                                                 vectorI& verses, 
+                                                 vectorSF& average,
+                                                 int staffindex);
+      void          identifyLyricsOnStaff       (vectorSIp& items, 
+                                                 int staffidx,
+                                                 vectorI& verseP4s);
+      void          processVerse                (int verse, int vpos, 
+                                                 int staffidx, 
+                                                 vectorI& objlist, 
+                                                 vectorSF& vposes, 
+                                                 vectorSIp& data);
+      void          stitchLyricsHyphensAcrossSystems(int segmentindex, 
+                                                 int partindex,
+                                                 int lyriccount);
+      void          changeVerseLine             (vectorVSIp& vertical, 
+                                                 int oldnum, int newnum,
+                                                 int tolerance, 
+                                                 SCORE_FLOAT p4target);
+      void          addVerseLine                (vectorVSIp& vertical, 
+                                                 int newnum, int tolerance, 
+                                                 SCORE_FLOAT p4target,
+                                                 int staffindex);
+
 
    protected:
       // page_storage contains all of the data for SCORE pages.

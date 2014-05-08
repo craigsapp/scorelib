@@ -15,6 +15,26 @@
 using namespace std;
 
 
+///////////////////////////////////////////////////////////////////////////
+//
+// Functions related to DatabaseLyrics of the owning page.
+//
+
+
+//////////////////////////////
+//
+// ScoreItem::getLyricsGroup -- Return any notes/lyrics syllables which
+//     are associated with this ScoreItem.
+//
+
+vectorSIp* ScoreItem::getLyricsGroup(void) {
+   if (page_owner == NULL) {
+      return NULL;
+   }
+   return ((ScorePage*)page_owner)->getLyricsGroup(this);
+}
+
+
 
 ///////////////////////////////////////////////////////////////////////////
 //
@@ -229,6 +249,23 @@ SCORE_FLOAT ScoreItem::getHPosOff(void) {
    int sys = getPageSystemIndex();
    return ((ScorePage*)page_owner)->getP3OfStaffDurationOffset(sys, offset);
 }
+
+
+
+//////////////////////////////
+//
+// ScoreItem::getPartIndex --
+//
+
+int ScoreItem::getPartIndex(void) {
+   int p2 = getStaffNumber();
+   if (page_owner == NULL) {
+      return -1;
+   }
+   return ((ScorePage*)page_owner)->getPartIndex(p2);
+}
+
+
 
 
 

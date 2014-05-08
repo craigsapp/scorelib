@@ -6,7 +6,7 @@
 // URL:           https://github.com/craigsapp/scorelib/blob/master/src-library/ScorePageSet_page.cpp
 // Syntax:        C++11
 //
-// Description:   Functions related to SystemAddress access into ScorePageSets.
+// Description:   Functions related to AddressSystem  access into ScorePageSets.
 //
 
 #include "ScorePageSet.h"

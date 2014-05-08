@@ -53,43 +53,48 @@ void     printSystem                (vector<stringstream*>& partouts,
                                      int divisions);
 void     printPartMeasure           (stringstream& out, ScorePageSet& infiles, 
                                      ScorePage& page, 
-                                     SystemAddress& partaddress,
+                                     AddressSystem& partaddress,
                                      SystemMeasure& measureitems, 
                                      int sysindex, int measureindex, 
                                      int partindex, vectorVSIp& curclef, 
                                      vectorVSIp& curkey, vectorVSIp& curtime, 
-                                     int mcounter, int indent, int divisions);
+                                     int mcounter, int indent, int divisions,
+                                     int systemindex);
 void     printNote                  (ostream& out, ScoreItem* si,
                                      int partstaff, int indent, int divisions);
 void     printRest                  (ostream& out, ScoreItem* si, int partstaff, 
                                      int indent, int divisions);
 void     printMeasureAttributes     (ostream& out, vectorSIp& items, int index, 
                                      int sysindex, int partindex, 
-                                     int partstaff, int measureindex, int divisions, 
-                                     int indent, ScoreItem* currkey, 
-                                     ScoreItem* currtime, ScoreItem* currclef);
+                                     int partstaff, int measureindex, 
+                                     int divisions, int indent, 
+                                     ScoreItem* currkey, ScoreItem* currtime, 
+                                     ScoreItem* currclef);
 int      printClefItem              (stringstream& stream, ScoreItem* item, 
                                      int indent);
 int      printTimeSigItem           (stringstream& stream, ScoreItem* item, 
                                      int indent);
-void     printBarlineStyle          (ostream& out, 
-                                     SystemMeasure& measureitems, 
+void     printBarlineStyle          (ostream& out, SystemMeasure& measureitems, 
                                      int partstaff, int indent);
-void     printForwardBarlineStyle   (ostream& out, 
-                                     SystemMeasure& measureitems, 
+void     printForwardBarlineStyle   (ostream& out, SystemMeasure& measureitems, 
                                      int partstaff, int indent);
-void     printNoteNotations         (ostream& out, ScoreItem* si, int indent);
-void     printNoteType              (ostream& out, int indent, ScoreItem* si);
-void     printRestType              (ostream& out, int indent, ScoreItem* si);
+void     printNoteNotations         (ostream& out, ScoreItem* si, int indent, 
+                                     string& notetype);
+string   getNoteType                (ScoreItem* si);
+string   getRestType                (ScoreItem* si);
+void     printLyrics                (ostream& out, ScoreItem* si, int indent);
 
 
 #define INDENT_STRING "\t"
 
-int      locationQ = 1;
-int      debugQ    = 0;
+int      locationQ        = 1;
+int      debugQ           = 0;
 int      rhythmicScalingQ = 0;
-int      invisibleQ = 0;
-int      Scaling   = 0;
+int      invisibleQ       = 0;
+int      Scaling          = 0;
+int      lyricsQ          = 1;
+int      systemBreaksQ    = 1;
+int      pageBreaksQ      = 1;
 
 ///////////////////////////////////////////////////////////////////////////
 
@@ -104,6 +109,10 @@ int main(int argc, char** argv) {
    opts.define("scale|scaling|rhythmic-scaling=i:0", 
          "Global rhythmic scaling of durations");
    opts.define("I|no-invisible=b", "Don't convert invisible rests/notes");
+   opts.define("no-lyrics=b", "Don't process Lyrics");
+   opts.define("no-system-breaks=b", "Don't print system break information");
+   opts.define("no-page-breaks=b", "Don't print page break information");
+   opts.define("dufay=b", "Use default options for Dufay translations");
    opts.process(argc, argv);
 
    locationQ        = !opts.getBoolean("no-location");
@@ -111,10 +120,16 @@ int main(int argc, char** argv) {
    rhythmicScalingQ =  opts.getBoolean("rhythmic-scaling");
    invisibleQ       =  opts.getBoolean("no-invisible");
    Scaling          =  opts.getInteger("rhythmic-scaling");
+   lyricsQ          = !opts.getBoolean("no-lyrics");
+   systemBreaksQ    = !opts.getBoolean("no-system-breaks");
+   pageBreaksQ      = !opts.getBoolean("no-page-breaks");
+   if (opts.getBoolean("dufay")) {
+      rhythmicScalingQ = 1;
+      Scaling          = 1;
+      invisibleQ       = 1;
+   }
    
    ScorePageSet infiles(opts);
-
-   infiles.analyzePitch();
 
    processData(infiles, opts);
 
@@ -131,6 +146,10 @@ int main(int argc, char** argv) {
 
 void processData(ScorePageSet& infiles, Options& opts) {
    infiles.analyzeSegmentsByIndent();
+   infiles.analyzePitch();
+   if (lyricsQ) {
+      infiles.analyzeLyrics();
+   }
 
    if (opts.getBoolean("segment")) {
       // Segment on command line is indexed to 1, but in
@@ -509,25 +528,25 @@ void printSystem(vector<stringstream*>& partouts, ScorePageSet& infiles,
       vectorVSIp& curkey, vectorVSIp& curtime, int& mcounter, int divisions) {
 
    ScoreSegment& seg = infiles.getSegment(segment);
-   SystemAddress sys = seg.getSystem(systemindex);
+   const AddressSystem& sys = seg.getSystemAddress(systemindex);
 
-   ScorePage& page = infiles.getPage(sys);
+   ScorePage* page = infiles.getPage(sys);
 
-   int sysindex = sys.getSystem();
-   int barcount = page.getSystemBarCount(sysindex);
+   int sysindex = sys.getSystemIndex();
+   int barcount = page->getSystemBarCount(sysindex);
    int partcount = partouts.size();
-   SystemAddress  partaddress;
+   AddressSystem partaddress;
    int i, j;
    for (i=0; i<barcount; i++) {
-      SystemMeasure& measureitems = page.getSystemMeasure(sysindex, i);
+      SystemMeasure& measureitems = page->getSystemMeasure(sysindex, i);
       if (measureitems.getDuration() == 0.0) {
          continue;
       }
       for (j=0; j<partcount; j++) {
          partaddress = seg.getPartAddress(systemindex, j);
-         printPartMeasure(*partouts[j], infiles, page, partaddress, 
+         printPartMeasure(*partouts[j], infiles, *page, partaddress, 
                measureitems, sysindex, i, j, curclef, curkey, curtime, 
-               mcounter, indent, divisions);
+               mcounter, indent, divisions, systemindex);
       }
       for (j=0; j<partcount; j++) {
          printIndent(*partouts[j], indent, 
@@ -545,10 +564,10 @@ void printSystem(vector<stringstream*>& partouts, ScorePageSet& infiles,
 //
 
 void printPartMeasure(stringstream& out, ScorePageSet& infiles, 
-      ScorePage& page, SystemAddress& partaddress, SystemMeasure& measureitems,
+      ScorePage& page, AddressSystem& partaddress, SystemMeasure& measureitems,
       int sysindex, int measureindex, int partindex, vectorVSIp& curclef, 
       vectorVSIp& curkey, vectorVSIp& curtime, int mcounter, int indent,
-      int divisions) {
+      int divisions, int systemindex) {
 
    ScoreItem* currentclef = curclef[partindex][0];
    ScoreItem* currentkey  = curkey[partindex][0];
@@ -558,7 +577,8 @@ void printPartMeasure(stringstream& out, ScorePageSet& infiles,
    ScoreItem* nexttime = NULL;
    
    double measuredur = measureitems.getDuration();
-   int partstaff = page.getPageStaff(partaddress);
+   int partstaff = page.getPageStaffIndex(partaddress);
+
 
    double width = measureitems.getP3Width();
    width = width * 7.0 / 6.0 * 5.0;
@@ -566,9 +586,9 @@ void printPartMeasure(stringstream& out, ScorePageSet& infiles,
 
    if (locationQ) {
       printIndent(out, indent, "<!--");
-      out << " page=\"" << to_string(partaddress.getPage()+1) << "\"";
-      out << " system=\"" << to_string(partaddress.getSystem()+1) << "\"";
-      out << " systemstaff=\"" << to_string(partaddress.getSystemStaff()+1);
+      out << " page=\"" << to_string(partaddress.getPageIndex()+1) << "\"";
+      out << " system=\"" << to_string(partaddress.getSystemIndex()+1) << "\"";
+      out << " systemstaff=\"" << to_string(partaddress.getSystemStaffIndex()+1);
       out << "\"";
       out << " pagestaff=\"" << to_string(partstaff) << "\"";
       out << " staffmeasure=\"" << to_string(measureindex+1) << "\"";
@@ -589,6 +609,11 @@ void printPartMeasure(stringstream& out, ScorePageSet& infiles,
    printForwardBarlineStyle(out, measureitems, partstaff, indent);
 
    // <print>
+   if (pageBreaksQ && (measureindex == 0) && (partaddress.getSystemIndex() == 0) && (systemindex != 0)) {
+      printIndent(out, indent, "<print new-page=\"yes\"/>\n");
+   } else if (systemBreaksQ && (measureindex == 0) && (sysindex != 0)) {
+      printIndent(out, indent, "<print new-system=\"yes\"/>\n");
+   }
 
    // <attributes>
    printMeasureAttributes(out, items, 0, sysindex, partindex, partstaff, 
@@ -596,6 +621,7 @@ void printPartMeasure(stringstream& out, ScorePageSet& infiles,
 
    // <sound>
 
+   // <note>
    for (i=0; i<items.size(); i++) {
       si = items[i];
       staff = si->getStaffNumber();
@@ -652,6 +678,7 @@ void printPartMeasure(stringstream& out, ScorePageSet& infiles,
       curtime[partindex][0] = nexttime;
    }
 }
+
 
 
 //////////////////////////////
@@ -1006,7 +1033,10 @@ void printRest(ostream& out, ScoreItem* si, int partstaff, int indent,
    // <voice>
 
    // <type>
-   printRestType(out, indent, si);
+   string resttype = getRestType(si);
+   if (resttype.size() > 0) {
+      printIndent(out, indent, "<type>" + resttype + "</type>\n");
+   }
 
    // <dot>
    int dotcount = si->getDotCount();
@@ -1024,16 +1054,33 @@ void printRest(ostream& out, ScoreItem* si, int partstaff, int indent,
 // printNoteNotations -- fermatas, ...
 //
 
-void printNoteNotations(ostream& out, ScoreItem* si, int indent) {
+void printNoteNotations(ostream& out, ScoreItem* si, int indent, 
+      string& notetype) {
+   stringstream fermatastream;
+   int printnotations = 0;
+
+   // <fermata>
    if (si->hasFermata()) {
-      printIndent(out, indent, "<notations>\n");
-      printIndent(out, indent+1, "<fermata");
+      printnotations = 1;
+      printIndent(fermatastream, indent+1, "<fermata");
       if (si->getArticulation() > 0) {
-         out << " type=\"upright\"";
+         fermatastream << " type=\"upright\"";
       } else {
-         out << " type=\"inverted\"";
+         fermatastream << " type=\"inverted\"";
       }
-      out << "/>\n";
+
+      // @default-y can be used to control vertical placement of fermata.
+
+      fermatastream << "/>\n";
+   }
+
+   if (printnotations) {
+      printIndent(out, indent, "<notations>\n");
+
+      if (fermatastream.rdbuf()->in_avail()) {
+         out << fermatastream.str();
+      }
+         
       printIndent(out, indent, "</notations>\n");
    }
 }
@@ -1065,7 +1112,7 @@ void printNote(ostream& out, ScoreItem* si, int partstaff, int indent,
    }
 
 
-   int  base40 = si->getParameterInt("analysis", "base40");
+   int  base40 = si->getParameterInt(ns_auto, np_base40Pitch);
    char step   = SU::base40ToUCDiatonicLetter(base40);
    int  alter  = SU::base40ToChromaticAlteration(base40);
    if (si->hasEditorialAccidental()) {
@@ -1101,7 +1148,10 @@ void printNote(ostream& out, ScoreItem* si, int partstaff, int indent,
    // <voice> ////////////////////////////////////////////////
 
    // <type> /////////////////////////////////////////////////
-   printNoteType(out, indent, si);
+   string notetype = getNoteType(si);
+   if (notetype.size() > 0) {
+      printIndent(out, indent, "<type>" + notetype + "</type>\n");
+   }
 
    // <dot>
    int dotcount = si->getDotCount();
@@ -1150,8 +1200,9 @@ void printNote(ostream& out, ScoreItem* si, int partstaff, int indent,
    // <beam>
 
    // <notations>
-   printNoteNotations(out, si, indent);
+   printNoteNotations(out, si, indent, notetype);
 
+   printLyrics(out, si, indent);
 
    printIndent(out, --indent, "</note>\n");
 
@@ -1175,10 +1226,119 @@ void printNote(ostream& out, ScoreItem* si, int partstaff, int indent,
 
 //////////////////////////////
 //
-// printNoteType --
+// printLyrics --
+//
+// <lyrics>
+//    <lyric default-y="-80" number="1">
+//       <syllabic>begin</syllabic>
+//       <text>A</text>
+//    </lyric>
+//    <lyric default-y="-97" number="2">
+//       <syllabic>begin</syllabic>
+//       <text>F</text>
+//    </lyric>
+// <lyrics>
 //
 
-void printNoteType(ostream& out, int indent, ScoreItem* si) {
+void printLyrics(ostream& out, ScoreItem* si, int indent) {
+   if (!si->isPrimaryChordNote()) {
+      // Only attach lyrics to primary notes of chords (also single notes
+      // are considered primary chord notes)
+      return;
+   }
+   vectorSIp* testlyrics = si->getLyricsGroup();
+   if (testlyrics == NULL) {
+      // no lyrics attached to this note.
+      return;
+   }
+
+   vectorSIp& lyrics = *testlyrics;
+   int number;
+   vectorSIp notes;
+   vectorVSIp verses(100);
+   int count = 0;
+   int i, j;
+   // first extract the verse lines:
+   for (i=0; i<lyrics.size(); i++) {
+      if (lyrics[i]->isNoteItem()) {
+         notes.push_back(lyrics[i]);
+      }
+      if (!lyrics[i]->isTextItem()) {
+         continue;
+      }
+      number = lyrics[i]->getParameterInt(ns_auto, np_verseLine);
+      if ((number > 0) && (number < verses.size())) {
+         verses[number].push_back(lyrics[i]);
+         count++;
+      }
+   }
+
+   if (count == 0) {
+      // nothing to do
+      return;
+   }
+
+   int before;
+   int after;
+
+   for (i=1; i<verses.size(); i++) {
+      if (verses[i].size() == 0) {
+         continue;
+      }
+      printIndent(out, indent++, "<lyric");
+      out << " number=\"" << to_string(i) << "\"";
+      out << ">\n";
+
+      for (j=0; j<verses[i].size(); j++) {
+         // <syllabic>
+         before = verses[i][j]->getParameterBool(ns_auto, np_hyphenBefore);
+         after  = verses[i][j]->getParameterBool(ns_auto, np_hyphenAfter);
+         if (j<verses[i].size()-1) {
+            printIndent(out, indent, "<syllabic>single</syllabic>\n");
+         } else {
+            if (before && after) {
+               printIndent(out, indent, "<syllabic>continue</syllabic>\n");
+            } else if (before) {
+               printIndent(out, indent, "<syllabic>end</syllabic>\n");
+            } else if (after) {
+               printIndent(out, indent, "<syllabic>begin</syllabic>\n");
+            } else {
+               printIndent(out, indent, "<syllabic>single</syllabic>\n");
+            }
+         }
+ 
+         // <text>
+         // only considering initial lyric attached
+         // have to figure out what happens with multiple syllables
+         // of the same verse number.
+         printIndent(out, indent, "<text>");
+         SU::printXmlTextEscapedUTF8(out, 
+               verses[i][j]->getTextWithoutInitialFontCode());
+         out << "</text>\n";
+
+         if (j<verses[i].size()-1) {
+            printIndent(out, indent, "<elision> </elision>\n");
+         }
+
+      }
+
+      printIndent(out, --indent, "</lyric>\n");
+   }
+
+}
+
+
+
+//////////////////////////////
+//
+// getNoteType --
+//
+
+
+string getNoteType(ScoreItem* si) {
+   if (si->isRestItem()) {
+      return getRestType(si);
+   }
    int headtype = si->getP6Int();
    if (rhythmicScalingQ) {
       headtype += Scaling;
@@ -1186,22 +1346,15 @@ void printNoteType(ostream& out, int indent, ScoreItem* si) {
    switch (headtype) {
       case 0:   // quarter note or smaller, determine below
          break;
-      case 1:   // half note shape
-         printIndent(out, indent, "<type>half</type>\n"); 
-         return;
-      case 2:   // whole note shape
-         printIndent(out, indent, "<type>whole</type>\n"); 
-         return;
-      case 3:   // breve note shape
-         printIndent(out, indent, "<type>breve</type>\n"); 
-         return;
-      default:  // unknown type (diamond, X, invisible notehead)
-         return;
+      case 1:   return "half";
+      case 2:   return "whole";
+      case 3:   return "breve";
+      default:  return "";      // unknown type (diamond, X, invisible notehead)
    }
    double duration = si->getDuration();
    if (duration <= 0) {
-      // deal with grace note note types later...
-      return;
+      // deal with grace note notehead types later...
+      return "";
    }
 
    double exp = log(duration)/log(2.0);
@@ -1211,69 +1364,46 @@ void printNoteType(ostream& out, int indent, ScoreItem* si) {
    }
 
    switch (type) {
-      case 0:   // quarter note
-         printIndent(out, indent, "<type>quarter</type>\n"); 
-         return;
-      case -1:   // eighth note
-         printIndent(out, indent, "<type>eighth</type>\n"); 
-         return;
-      case -2:   // sixteenth note
-         printIndent(out, indent, "<type>16th</type>\n"); 
-         return;
-      case -3:   // thirty-second note
-         printIndent(out, indent, "<type>32nd</type>\n"); 
-         return;
-      case -4:   // sixty-fourth note
-         printIndent(out, indent, "<type>64th</type>\n"); 
-         return;
-      case -5:   // one-hundred-twenty-eighth note
-         printIndent(out, indent, "<type>128th</type>\n"); 
-         return;
+      case 0:   return "quarter";
+      case -1:  return "eighth";
+      case -2:  return "16th";
+      case -3:  return "32nd";
+      case -4:  return "64th";
+      case -5:  return "128th";
    }
    
    // unknown type
+   return "";
 }
 
 
 
 //////////////////////////////
 //
-// printRestType --
+// getRestType --
 //
 
-void printRestType(ostream& out, int indent, ScoreItem* si) {
+string getRestType(ScoreItem* si) {
+   if (si->isNoteItem()) {
+      return getNoteType(si);
+   }
    int headtype = si->getP5Int();
    if (rhythmicScalingQ) {
       headtype -= Scaling;
    }
    switch (headtype) {
-      case 0:   // quarter rest
-         printIndent(out, indent, "<type>quarter</type>\n"); 
-         return;
-      case 1:   // eighth rest
-         printIndent(out, indent, "<type>eighth</type>\n"); 
-         return;
-      case 2:   // sixteenth rest
-         printIndent(out, indent, "<type>16th</type>\n"); 
-         return;
-      case 3:   // thirty-second rest
-         printIndent(out, indent, "<type>32th</type>\n"); 
-         return;
-      case 4:   // sixth-fourth rest
-         printIndent(out, indent, "<type>64th</type>\n"); 
-         return;
-      case -1:   // half rest
-         printIndent(out, indent, "<type>half</type>\n"); 
-         return;
-      case -2:   // whole rest
-         printIndent(out, indent, "<type>whole</type>\n"); 
-         return;
-      case -3:   // breve rest
-         printIndent(out, indent, "<type>breve</type>\n"); 
-         return;
+      case  0:  return "quarter";
+      case  1:  return "eighth";
+      case  2:  return "16th";
+      case  3:  return "32nd";
+      case  4:  return "64th";
+      case -1:  return "half";
+      case -2:  return "whole";
+      case -3:  return "breve";
    }
 
    // unknown type
+   return "";
 }
 
 

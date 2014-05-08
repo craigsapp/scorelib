@@ -17,6 +17,7 @@
 
 #include "DatabaseBeam.h"
 #include "RationalDuration.h"
+#include "ScoreDefs.h"
 #include <list>
 #include <vector>
 
@@ -26,9 +27,17 @@ class ScoreItem;
 
 // ScoreItem typedefs:
 using listSIp     = list<ScoreItem*>;
-using vectorSIp   = vector<ScoreItem*>;
-using vectorVSIp  = vector<vector<ScoreItem*>>;
-using vectorVVSIp = vector<vector<vector<ScoreItem*>>>;
+
+#ifndef UseBoundVector
+   using vectorSIp   = vector<ScoreItem*>;
+   using vectorVSIp  = vector<vector<ScoreItem*>>;
+   using vectorVVSIp = vector<vector<vector<ScoreItem*>>>;
+#else
+   #include "BoundVector.h"
+   using vectorSIp   = BoundVector<ScoreItem*>;
+   using vectorVSIp  = BoundVector<BoundVector<ScoreItem*>>;
+   using vectorVVSIp = BoundVector<BoundVector<BoundVector<ScoreItem*>>>;
+#endif
 
 
 // define SCOREITEMEDIT when compiling this class to use the ScoreItemEdit
@@ -61,6 +70,12 @@ using vectorVVSIp = vector<vector<vector<ScoreItem*>>>;
       void         setPDigit              (int pindex, int position, int value);
       void         setParameterIntegerPart(int pindex, int intval);
       void         setPIntPart            (int pindex, int intval);
+      void         copyParameterOverwrite (const string& newnamespace, 
+                                           const string& oldnamespace, 
+                                           const string& parameter);
+      void         copyParameterNoOverwrite(const string& newnamespace, 
+                                           const string& oldnamespace, 
+                                           const string& parameter);
 
       // P1-P4 are the same for most P1 item types.
 
@@ -101,16 +116,20 @@ using vectorVVSIp = vector<vector<vector<ScoreItem*>>>;
       SCORE_FLOAT  getHPosL               (void);
       void         setHorizontalPosition  (SCORE_FLOAT pos);
       void         setHPos                (SCORE_FLOAT pos);
+      // Horizontal offset (secondary to P3 position):
+      SCORE_FLOAT  getHorizontalOffset    (void);
 
       // P4 accessors
       SCORE_FLOAT  getVerticalPosition    (void);
       SCORE_FLOAT  getVPos                (void);
 
       // P5 vertical position of right end accessors
+      SCORE_FLOAT  getVerticalPositionRight(void);
+      SCORE_FLOAT  getVPosRight           (void);
 
       // P6 horizontal position of right end accessors
       SCORE_FLOAT  getHorizontalPositionRight(void);
-      SCORE_FLOAT  getHPosR(void);
+      SCORE_FLOAT  getHPosR               (void);
 
       // Duration processing
       void         setStaffOffsetDuration(SCORE_FLOAT duration);
@@ -119,7 +138,7 @@ using vectorVVSIp = vector<vector<vector<ScoreItem*>>>;
       SCORE_FLOAT  getDuration            (void);
       RationalDuration getRationalDuration(void);
 
-      // Note (P1=1) processing functions  (defined in ScoreItem_notes.cpp)
+      // Note (P1=1) processing functions  (defined in ScoreItem_notes.cpp):
       // functions related to stems:
       int          hasStem                (void);
       int          getStemDirection       (void);
@@ -150,19 +169,28 @@ using vectorVVSIp = vector<vector<vector<ScoreItem*>>>;
       void         removeFlags            (void);
       int          getDotCount            (void);
 
-      // Rest (P1=2) processing functions (defined in ScoreItem_rests.cpp)
+      // Rest (P1=2) processing functions (defined in ScoreItem_rests.cpp):
       int          isInvisible            (void);
 
       // Clef (P1=3) processing functions
       int          getMiddleCVpos         (void);
 
-      // Line (P1=4) processing functions
+      // Line (P1=4) processing function (defined in ScoreItem_lines.cpp):
+      bool         isHairpin              (void);
+      bool         isWavyLine             (void);
+      bool         isHairpinCrescendo     (void);
+      bool         isHairpinDecrescendo   (void);
+      bool         isDashedLine           (void);
+      bool         isPlainLine            (void);
+      bool         isHorizontal           (void);
 
       // Slur (P1=5) processing functions
+      //    see isHorizontal() in P1=4 list.
 
       // Beam (P1=6) processing functions
-      // int hasStem(void) from Note section also works for Beams.
-      // int getStemDirection(void) from Note section also works for Beams.
+      //    see isHorizontal() in P1=4 functions.
+      //    see hasStem() from P1=1 functions.
+      //    see getStemDirection() from P1=1 functions.
 
       // Trill (P1=7) processing functions
 
@@ -208,6 +236,7 @@ using vectorVVSIp = vector<vector<vector<ScoreItem*>>>;
       // Page-related functions (defined in ScoreItem_page.cpp):
       int          getPageSystemIndex     (void);
       int          getSystemIndex         (void);
+      int          getPartIndex           (void);
 
       vectorSIp*   getChordNotes          (void);
       bool         isPrimaryChordNote     (void);
@@ -222,6 +251,9 @@ using vectorVVSIp = vector<vector<vector<ScoreItem*>>>;
       int          inBeamGroup            (void);
 
       SCORE_FLOAT  getHPosOff             (void);
+
+      // Lyrics:
+      vectorSIp*   getLyricsGroup         (void);
 
 
       // internal print functions (defined in ScoreItem_print.cpp):

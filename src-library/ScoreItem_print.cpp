@@ -19,7 +19,7 @@ using namespace std;
 //////////////////////////////
 //
 // ScoreItem::printNoAnalysis -- print a ScoreItem, excluding any 
-//      named parameters in the "analysis" namespace.
+//      named parameters in the "auto" namespace.
 //
 
 ostream& ScoreItem::printNoAnalysis(ostream& out) {
@@ -34,7 +34,7 @@ ostream& ScoreItem::printNoAnalysis(ostream& out) {
 //////////////////////////////
 //
 // printNoAnalysis -- print a list of ScoreItems, excluding any 
-//      named parameters in the "analysis" namespace.
+//      named parameters in the "auto" namespace.
 //
 
 ostream& printNoAnalysis(ostream& out, vectorSIp& sipvector) {

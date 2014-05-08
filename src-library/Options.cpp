@@ -318,7 +318,7 @@ int Options::argc(void) const {
 // Options::argv -- returns the arguments strings as input from main().
 //
 
-const vector<string>& Options::argv(void) const {
+const vectorS& Options::argv(void) const {
    return oargv;
 }
 
@@ -485,13 +485,13 @@ int Options::getArgumentCount(void) {
 //     after the options have been parsed out of it.  
 //
 
-const vector<string>& Options::getArgList(void) {
+const vectorS& Options::getArgList(void) {
    return argument;
 }
 
 // Alias:
 
-const vector<string>& Options::getArgumentList(void) { 
+const vectorS& Options::getArgumentList(void) { 
    return getArgList();
 }
 
@@ -789,7 +789,7 @@ void Options::appendOptions(int argc, char** argv) {
 }
 
 
-void Options::appendOptions(const vector<string>& argv) {
+void Options::appendOptions(const vectorS& argv) {
    processedQ = 0;
 
    int oldsize = extraArgv.size();
@@ -825,8 +825,8 @@ void Options::appendOptions(const string& strang) {
    int doublequote = 0;
    int singlequote = 0;
 
-   vector<string> tokens;
-   vector<string> tempargv;
+   vectorS tokens;
+   vectorS tempargv;
    string tempvalue;
 
    tokens.reserve(100);

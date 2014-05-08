@@ -43,9 +43,16 @@ class SystemMeasure {
 
 ostream& operator<<(ostream& out, SystemMeasure& measure);
 
-using vectorVSMp = vector<vector<SystemMeasure*>>;
-using vectorSMp  = vector<SystemMeasure*>;
-using listSMp    = list<SystemMeasure*>;
+using listSMp = list<SystemMeasure*>;
+
+#ifndef UseBoundVector
+   using vectorVSMp = vector<vector<SystemMeasure*>>;
+   using vectorSMp  = vector<SystemMeasure*>;
+#else
+   #include "BoundVector.h"
+   using vectorVSMp = BoundVector<BoundVector<SystemMeasure*>>;
+   using vectorSMp  = BoundVector<SystemMeasure*>;
+#endif
 
 
 #endif /* _SYSTEMMEASURE_H_INCLUDED */

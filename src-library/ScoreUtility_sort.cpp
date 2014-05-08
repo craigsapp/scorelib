@@ -21,7 +21,26 @@ using namespace std;
 //
 
 bool ScoreUtility::sortP3(ScoreItem* a, ScoreItem* b) {
-   return a->getHorizontalPosition() < b->getHorizontalPosition();
+   SCORE_FLOAT ap3  = a->getHorizontalPosition();
+   SCORE_FLOAT bp3  = b->getHorizontalPosition();
+   SCORE_FLOAT diff = bp3-ap3;
+
+   if (fabs(diff) > 0.0001) {
+      if (diff > 0) {
+         return true;
+      } else {
+         return false;
+      }
+   } else {
+
+      // If the objects are at the same P3 location, then use the
+      // horizontal offset to break the tie.
+      if (a->getHorizontalOffset() < b->getHorizontalOffset()) {
+         return true;
+      }
+   }
+
+   return false;
 }
 
 
@@ -32,6 +51,7 @@ bool ScoreUtility::sortP3(ScoreItem* a, ScoreItem* b) {
 //
 
 bool ScoreUtility::sortP3P1(ScoreItem* a, ScoreItem* b) {
+
    if (a->getHorizontalPosition() < b->getHorizontalPosition()) {
       return true;
    } else if (a->getHorizontalPosition() < b->getHorizontalPosition()) {
@@ -45,6 +65,12 @@ bool ScoreUtility::sortP3P1(ScoreItem* a, ScoreItem* b) {
       return false;
    }
 
+   // If the objects are at the same P3 location, then use the
+   // horizontal offset to break the tie.
+   if (a->getHorizontalOffset() < b->getHorizontalOffset()) {
+      return true;
+   }
+
    return false;
 }
 
@@ -56,6 +82,7 @@ bool ScoreUtility::sortP3P1(ScoreItem* a, ScoreItem* b) {
 //
 
 bool ScoreUtility::sortP3P2(ScoreItem* a, ScoreItem* b) {
+
    if (a->getHorizontalPosition() < b->getHorizontalPosition()) {
       return true;
    } else if (a->getHorizontalPosition() > b->getHorizontalPosition()) {
@@ -66,6 +93,12 @@ bool ScoreUtility::sortP3P2(ScoreItem* a, ScoreItem* b) {
       return true;
    } else if (a->getStaffNumber() > b->getStaffNumber()) {
       return false;
+   }
+
+   // If the objects are at the same P3 location, then use the
+   // horizontal offset to break the tie.
+   if (a->getHorizontalOffset() < b->getHorizontalOffset()) {
+      return true;
    }
 
    return false;
@@ -79,6 +112,7 @@ bool ScoreUtility::sortP3P2(ScoreItem* a, ScoreItem* b) {
 //
 
 bool ScoreUtility::sortP3P2P1(ScoreItem* a, ScoreItem* b) {
+
    // Compare P3 (horizontal position):
    if (a->getHorizontalPosition() < b->getHorizontalPosition()) {
       return true;
@@ -98,6 +132,12 @@ bool ScoreUtility::sortP3P2P1(ScoreItem* a, ScoreItem* b) {
       return true;
    } else if (a->getItemType() > b->getItemType()) {
       return false;
+   }
+
+   // If the objects are at the same P3 location, then use the
+   // horizontal offset to break the tie.
+   if (a->getHorizontalOffset() < b->getHorizontalOffset()) {
+      return true;
    }
 
    return false;
@@ -186,8 +226,17 @@ bool ScoreUtility::sortP3P4P1(ScoreItem* a, ScoreItem* b) {
 
    a_test = a->getPInt(P1);
    b_test = b->getPInt(P1);
+   if (a_test < b_test) {
+      return true;
+   }
 
-   return a_test < b_test;
+   // If the objects are at the same P3/P4 location, then use the
+   // horizontal offset to break the tie.
+   if (a->getHorizontalOffset() < b->getHorizontalOffset()) {
+      return true;
+   }
+
+   return false;
 }
 
 
@@ -225,6 +274,12 @@ bool ScoreUtility::sortP3P1P2P4(ScoreItem* a, ScoreItem* b) {
       return true;
    } else if (a->getVerticalPosition() > b->getVerticalPosition()) {
       return false;
+   }
+
+   // If the objects are at the same P3/P4 location, then use the
+   // horizontal offset to break the tie.
+   if (a->getHorizontalOffset() < b->getHorizontalOffset()) {
+      return true;
    }
 
    return false;
@@ -265,6 +320,12 @@ bool ScoreUtility::sortP3P2P1P4(ScoreItem* a, ScoreItem* b) {
       return true;
    } else if (a->getVerticalPosition() > b->getVerticalPosition()) {
       return false;
+   }
+
+   // If the objects are at the same P3/P4 location, then use the
+   // horizontal offset to break the tie.
+   if (a->getHorizontalOffset() < b->getHorizontalOffset()) {
+      return true;
    }
 
    return false;

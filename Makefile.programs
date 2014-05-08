@@ -81,7 +81,8 @@ COMPILER  = LANG=C $(ENV) g++ $(ARCH)
 DEFINES   = $(addprefix -D,$(OSTYPE))
 DEFINES  += $(addprefix -D,$(OSSUBTYPE))
 
-PREFLAGS  = -O3 -Wall -I$(INCDIR) $(DEFINES)
+PREFLAGS  = -Wall -I$(INCDIR) $(DEFINES)
+PREFLAGS += -O3
 
 # using C++ 2011 standard:
 PREFLAGS += -std=c++11

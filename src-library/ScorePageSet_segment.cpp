@@ -25,19 +25,24 @@ void ScorePageSet::analyzeSegmentsByIndent(SCORE_FLOAT threshold1,
       SCORE_FLOAT threshold2) {
    int p, s;
    ScorePageSet& pageset = *this;
-   SystemAddress lastIndent(0,0,0,0);
-   SystemAddress currentIndent(0,0,0,0);
+   AddressSystem  lastIndent(0,0,0,0);
+   AddressSystem  currentIndent(0,0,0,0);
 
    double indent;
    int segmentstart = 1;
-   vector<int> address;
+   vectorI address;
 
    for (p=0; p<pageset.getPageCount(); p++) {
       int scount = pageset[p][0].getSystemCount();
       // cout << "SYSTEM count on page " << p << " is " << scount << endl;
       for (s=0; s<scount; s++) {
          indent = pageset[p][0].getP8BySystem()[s][0][0]->getHPos();
-         address = {p, 0, s, 0};
+         // address = {p, 0, s, 0};
+         address.resize(4);
+         address[0] = p;
+         address[1] = 0;
+         address[2] = s;
+         address[3] = 0;
          currentIndent = address;
          if (segmentstart) {
             lastIndent = currentIndent;
@@ -59,6 +64,29 @@ void ScorePageSet::analyzeSegmentsByIndent(SCORE_FLOAT threshold1,
       // cout << "SEGMENT: " << lastIndent << " TO " 
       //      << currentIndent << endl;
    }
+
+
+   // store part index values within each page.
+   int segcount = getSegmentCount();
+   int partcount;
+   int systemcount;
+   int p2val;
+   int i, j, k;
+   ScorePage* page;
+   for (i=0; i<segcount; i++) {
+      ScoreSegment& seg = getSegment(i);
+      partcount = seg.getPartCount();
+      for (j=0; j<partcount; j++) {
+         systemcount = seg.getSystemCount();
+         for (k=0; k<systemcount; k++) {
+            const AddressSystem& address = seg.getSystemAddress(k);
+            page = getPage(address);
+            p2val = page->getPageStaffIndex(address);
+            page->setStaffPartIndex(p2val, j);
+         }
+      }
+   }
+
 }
 
 
@@ -68,8 +96,8 @@ void ScorePageSet::analyzeSegmentsByIndent(SCORE_FLOAT threshold1,
 // ScorePageSet::createSegment --
 //
 
-void ScorePageSet::createSegment(SystemAddress& startaddress, 
-      SystemAddress& endaddress) {
+void ScorePageSet::createSegment(AddressSystem & startaddress, 
+      AddressSystem & endaddress) {
    ScoreSegment* segment = new ScoreSegment(*this, startaddress, endaddress);
    segment_storage.push_back(segment);
 }
@@ -132,15 +160,47 @@ int  ScorePageSet::getLCMRhythm(int segmentindex) {
    int systemindex;
    
    for (int i=0; i<syscount; i++) {
-      SystemAddress& current = seg.getSystem(i);
-      pageindex    = current.getPage();
-      overlayindex = current.getOverlay();
-      systemindex  = current.getSystem();
+      const AddressSystem& current = seg.getSystemAddress(i);
+      pageindex    = current.getPageIndex();
+      overlayindex = current.getOverlayIndex();
+      systemindex  = current.getSystemIndex();
       ScorePage* page = this->getPage(pageindex, overlayindex);
       numbers.insert(page->getSystemLCMRhythm(systemindex));
    }
 
    return ScoreUtility::lcm(numbers);
+}
+
+
+
+//////////////////////////////
+//
+// ScorePageSet::getPartCount -- Return the number of parts in the specified
+//      segment.
+//
+
+int ScorePageSet::getPartCount(int segmentindex) {
+   return getSegment(segmentindex).getPartCount();
+}
+
+//
+// Alias:
+//
+
+int ScorePageSet::getPartCountInSegment(int segmentindex) {
+   return getPartCount(segmentindex);
+}
+
+
+
+//////////////////////////////
+//
+// ScorePageSet::getSystemAddresses --
+//
+
+const vectorVASp& ScorePageSet::getSystemAddresses(int segmentindex, 
+      int partindex) {
+   return getSegment(segmentindex).getSystemAddresses(partindex);
 }
 
 

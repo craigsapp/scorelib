@@ -12,6 +12,7 @@
 
 #include "ScorePage.h"
 #include "ScoreUtility.h"
+#include "ScoreDefs.h"
 #include <algorithm>
 #include <set>
 
@@ -120,7 +121,7 @@ void ScorePage::analyzeSystemPitch(vectorSIp& systemitems) {
          // if the printed accidental matches the pitch state,
          // then mark the note item as possessing a cautionary accidental
          if (printedaccidental == pitchstate[sysstaff][diatonic]) {
-            curr->setParameter("analysis", "courtesy", "true");
+            curr->setParameter(ns_auto, np_courtesy, "true");
          }
          if (abs(printedaccidental) < 100) {
             // extrema range means no accidental on the note.
@@ -129,11 +130,13 @@ void ScorePage::analyzeSystemPitch(vectorSIp& systemitems) {
       }
       base40 += accidental;
       base40string  = to_string(base40);
+
+      // Add a textual pitch name for readability:
       base40string += "\t(";
       base40string += SU::base40ToKern(base40);
       base40string += ")";
 
-      curr->setParameter("analysis", "base40", base40string);
+      curr->setParameter(ns_auto, np_base40Pitch, base40string);
    }
 
 }

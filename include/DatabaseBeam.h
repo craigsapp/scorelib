@@ -13,7 +13,22 @@
 #ifndef _DATABASEBEAM_H_INCLUDED
 #define _DATABASEBEAM_H_INCLUDED
 
+#include <vector>
 class ScoreItem;
+#include "ScoreDefs.h"
+
+using namespace std;
+
+#ifndef UseBoundVector
+   using vectorSIp   = vector<ScoreItem*>;
+   using vectorVSIp  = vector<vector<ScoreItem*>>;
+   using vectorVVSIp = vector<vector<vector<ScoreItem*>>>;
+#else
+   #include "BoundVector.h"
+   using vectorSIp   = BoundVector<ScoreItem*>;
+   using vectorVSIp  = BoundVector<BoundVector<ScoreItem*>>;
+   using vectorVVSIp = BoundVector<BoundVector<BoundVector<ScoreItem*>>>;
+#endif
 
 #include <map>
 #include <list>
@@ -21,7 +36,6 @@ class ScoreItem;
 #include <string>
 #include <iostream>
 
-using namespace std;
 
 
 class BeamGroup {
@@ -29,8 +43,8 @@ class BeamGroup {
       // complex beams will be composed from separate beam items, so
       // in practice there can be more than one beam item generating
       // the visual display of the beam.
-      vector<ScoreItem*> beams;
-      vector<ScoreItem*> notes;
+      vectorSIp beams;
+      vectorSIp notes;
 };
 
 

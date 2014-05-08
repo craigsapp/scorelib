@@ -2,52 +2,48 @@
 // Programmer:    Craig Stuart Sapp <craig@ccrma.stanford.edu>
 // Creation Date: Sun Apr 13 22:26:50 PDT 2014
 // Last Modified: Sun Apr 13 22:26:53 PDT 2014
-// Filename:      SystemAddress.h
-// URL:           https://github.com/craigsapp/scorelib/blob/master/include/SystemAddress.h
+// Filename:      AddressSystem.h
+// URL:           https://github.com/craigsapp/scorelib/blob/master/include/AddressSystem.h
 // Syntax:        C++11
 //
 // Description:   Used for keeping track of a part across multiple systems.
-//                ScorePageBase class.
 //
 
-#ifndef _SYSTEMADDRESS_H_INCLUDED
-#define _SYSTEMADDRESS_H_INCLUDED
+#ifndef _ADDRESSSYSTEM_H_INCLUDED
+#define _ADDRESSSYSTEM_H_INCLUDED
 
 #include <iostream>
 #include <vector>
+#include "ScoreDefs.h"
 
 class ScorePageSet;
 
 using namespace std;
 
-class SystemAddress {
+class AddressSystem {
 
    public:
-            SystemAddress       (void);
-            SystemAddress       (vector<int>& anAddress);
-            SystemAddress       (SystemAddress& anAddress);
-            SystemAddress       (int aPage, int anOverlay, int aSystem, 
+            AddressSystem       (void);
+            AddressSystem       (vectorI& anAddress);
+            AddressSystem       (AddressSystem& anAddress);
+            AddressSystem       (int aPage, int anOverlay, int aSystem, 
                                  int aSystemStaff);
-           ~SystemAddress();
+           ~AddressSystem();
 
       void  clear               (void);
       void  invalidate          (void);
-      int   getPage             (void) const;
       int   getPageIndex        (void) const;
-      int   getOverlay          (void) const;
       int   getOverlayIndex     (void) const;
-      int   getSystem           (void) const;
       int   getSystemIndex      (void) const;
-      int   getSystemStaff      (void) const;
       int   getSystemStaffIndex (void) const;
       void  setAddress          (int aPage, int anOverlay, int aSystem, 
                                  int aSystemStaff);
       int   incrementSystem     (ScorePageSet& pageset);
-      SystemAddress& operator=  (SystemAddress& anAddress);
-      SystemAddress& operator=  (vector<int>& anAddress);
-      SystemAddress& operator=  (int* anAddress);
-      bool           operator== (SystemAddress& anAddress);
-      bool           operator!= (SystemAddress& anAddress);
+      AddressSystem& operator=  (AddressSystem& anAddress);
+      AddressSystem& operator=  (vectorI& anAddress);
+      AddressSystem& operator=  (int* anAddress);
+      bool           operator== (AddressSystem& anAddress);
+      bool           operator!= (AddressSystem& anAddress);
 
       void  setPage             (int aPage);
       void  setOverlay          (int anOverlay);
@@ -63,10 +59,18 @@ class SystemAddress {
 };
 
 
-ostream& operator<<(ostream& out, const SystemAddress& anAddress);
+#ifndef UseBoundVector
+   #include "BoundVector.h"
+   using vectorVASp  = BoundVector<BoundVector<AddressSystem*>>;
+#else
+   using vectorVASp  = vector<vector<AddressSystem*>>;
+#endif
 
 
-#endif  /* _SYSTEMADDRESS_H_INCLUDED */
+ostream& operator<<(ostream& out, const AddressSystem& anAddress);
+
+
+#endif  /* _ADDRESSSYSTEM_H_INCLUDED */
 
 
 

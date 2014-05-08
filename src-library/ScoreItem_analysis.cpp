@@ -22,7 +22,7 @@ using namespace std;
 //
 
 string ScoreItem::getHumdrumPitch(void) {
-   int base40 = getParameterInt("analysis", "base40Pitch");
+   int base40 = getParameterInt(ns_auto, np_base40Pitch);
    if (base40 <= 0) {
       return "";
    }

@@ -48,8 +48,6 @@ int ScorePage::analyzeSystems(void) {
    }
    analysis_info.invalidate("systems");
 
-
-
    int i, j, k;
 
    int maxstaff = getMaxStaff();
@@ -98,14 +96,15 @@ int ScorePage::analyzeSystems(void) {
          continue;
       }
       systemMap()[i] = currentSystem;
-      if (tempsystem[i+1] < 0) {
+      if ((i < maxstaff) && (tempsystem[i+1] < 0)) {
          continue;
       }
-      if (tempsystem[i] != tempsystem[i+1]) {
+      if ((i<maxstaff) && (tempsystem[i] != tempsystem[i+1])) {
          currentSystem++;
       }
       // laststaff = tempsystem[i+1];
    }
+   currentSystem++;
 
 
    // The system numbering is for system 0 at the top of the page so the 
@@ -137,7 +136,6 @@ int ScorePage::analyzeSystems(void) {
       }
       systemStaffMap()[i] = sysstaffindex; 
    }
-
 
    // Build the reverse system mapping:
    reverseSystemMap().clear();
@@ -277,7 +275,7 @@ vectorVI& ScorePage::reverseSystemMap(void) {
 
 //////////////////////////////
 //
-// ScorePage::getSystemIndex -- return the system index of the given P2
+// ScorePage::getSystemIndex -- Return the page system index of the given P2
 //      staff number on the page.  Return -1 if no systems.
 //
 
@@ -297,7 +295,7 @@ int ScorePage::getSystemIndex(int staffnumber) {
 
 //////////////////////////////
 //
-// ScorePage::getSystemStaffIndex -- return the system staff index of 
+// ScorePage::getSystemStaffIndex -- Return the system staff index of 
 //      the given P2 staff number on the page.  Return -1 if no systems.
 //
 
@@ -317,11 +315,11 @@ int ScorePage::getSystemStaffIndex(int staffnumber) {
 
 //////////////////////////////
 //
-// ScorePage::systemItems --  Return a list of ScoreItems found on the
+// ScorePage::getSystemItems --  Return a list of ScoreItems found on the
 //     given system.
 //
 
-vectorSIp& ScorePage::systemItems(int sindex) {
+vectorSIp& ScorePage::getSystemItems(int sindex) {
    if (!analysis_info.systemsIsValid()) {
       analyzeSystems();
    }
@@ -363,11 +361,11 @@ vectorSIp& ScorePage::getP8BySystem(int p2index) {
 
 //////////////////////////////
 //
-// ScorePage::getPageStaff -- Given a system number and a part number,
+// ScorePage::getPageStaffIndex -- Given a system number and a part number,
 //     return the staff that it indicates.
 //
 
-int ScorePage::getPageStaff(int sysindex, int partnum) {
+int ScorePage::getPageStaffIndex(int sysindex, int partnum) {
    vectorVVSIp& p8items = getP8BySystem();
    int zeroindex = 0;
    int p;
@@ -391,12 +389,15 @@ int ScorePage::getPageStaff(int sysindex, int partnum) {
 
 //////////////////////////////
 //
-// ScorePage::getPageStaff --
+// ScorePage::getPageStaffIndex --
 //
 
-int ScorePage::getPageStaff(SystemAddress& partaddress) {
-   int sysindex         = partaddress.getSystem();
-   int sysstaffindex    = partaddress.getSystemStaff();
+int ScorePage::getPageStaffIndex(const AddressSystem & partaddress) {
+   if (!analysis_info.stavesIsValid()) {
+      analyzeStaves();
+   }
+   int sysindex         = partaddress.getSystemIndex();
+   int sysstaffindex    = partaddress.getSystemStaffIndex();
    vectorVVSIp& p8items = getP8BySystem();
 
    ScoreItem* partstaff = p8items[sysindex][sysstaffindex][0];

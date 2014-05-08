@@ -34,7 +34,7 @@ int ScoreUtility::lcm(int x, int y) {
 //
 
 int ScoreUtility::lcm(set<int>& numbers) {
-   vector<int> nums;
+   vectorI nums;
    nums.reserve(numbers.size());
    for (auto& it : numbers) {
       nums.push_back(it);

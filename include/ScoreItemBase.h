@@ -23,6 +23,7 @@
 #include <list>
 #include <iostream>
 
+
 using namespace std;
 
 class ScoreItemBase {
@@ -43,6 +44,7 @@ class ScoreItemBase {
       // Accessor functions
       SCORE_FLOAT   getParameter      (int pindex);
       int           getParameterInt   (int pindex);
+      bool          getParameterBool  (int pindex);
       const string& getParameter      (const string& nspace, 
                                        const string& key);
       const string& getParameter      (const string& key);
@@ -142,6 +144,8 @@ class ScoreItemBase {
 
       int           getParameterInt   (const string& nspace, const string& key);
       int           getParameterInt   (const string& key);
+      bool          getParameterBool  (const string& nspace, const string& key);
+      bool          getParameterBool  (const string& key);
       double        getParameterDouble(const string& key);
       double        getParameterDouble(const string& nspace, const string& key);
       const string& getFixedText      (void) const;
@@ -157,6 +161,8 @@ class ScoreItemBase {
       int           changeNamespace   (const string& newspace, 
                                        const string& oldspace, 
                                        const string& parameter);
+      void          setParameterQuiet (const string& nspace, 
+                                       const string& key, const string& value);
 
       // global namespace parameters
       void          setParameter      (const string& key, const string& value);

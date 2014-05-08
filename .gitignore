@@ -17,6 +17,7 @@ bin
 *.la
 *.a
 
+tests/analyzelyrics
 tests/analyzepitch
 tests/analyzestaves
 tests/beamtest

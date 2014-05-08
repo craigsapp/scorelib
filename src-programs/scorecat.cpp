@@ -123,9 +123,9 @@ void printPageBySystem(ScorePage& page) {
          count++;
       }
       cout << "##System:\t" << count << "\n";
-      sort(page.systemItems(i).begin(), page.systemItems(i).end(), 
+      sort(page.getSystemItems(i).begin(), page.getSystemItems(i).end(), 
             SU::sortP3P1P2P4);
-      cout << page.systemItems(i); 
+      cout << page.getSystemItems(i); 
    }
 }
 

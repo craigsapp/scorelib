@@ -59,24 +59,29 @@ void SegmentPart::clear(void) {
 
 //////////////////////////////
 //
-// SegmentPart::getAddress --
+// SegmentPart::getAddress --  First dimension is the part index
 //
 
-SystemAddress& SegmentPart::getAddress(int index, int index2) { 
-   return *(address_storage[index][index2]);
+AddressSystem& SegmentPart::getAddress(int systemindex, int staffindex) { 
+   return *(address_storage[systemindex][staffindex]);
+}
+
+
+const vectorVASp& SegmentPart::getAddresses(void) const {
+   return address_storage;
 }
 
 
 
 //////////////////////////////
 //
-// SegmentPart::getAddresses --
+// SegmentPart::getSystemAddress --
 //
 
-const vectorVSAp& SegmentPart::getAddresses(void) const {
-   return address_storage;
-}
 
+const vectorVASp& SegmentPart::getSystemAddresses(void) const {
+   return getAddresses();
+}
 
 
 //////////////////////////////
@@ -95,9 +100,9 @@ int SegmentPart::getAddressCount(void) const {
 // SegmentPart::getScoreOverlay --
 //
 
-ScorePageOverlay& SegmentPart::getScoreOverlay(int index, int index2) { 
+ScorePageOverlay& SegmentPart::getScoreOverlay(int systemindex, int pindex) { 
    ScorePageSet& sps = *getOwner();
-   return sps[address_storage[index][index2]->getPage()];
+   return sps[address_storage[systemindex][pindex]->getPageIndex()];
 }
 
 
@@ -107,10 +112,10 @@ ScorePageOverlay& SegmentPart::getScoreOverlay(int index, int index2) {
 // SegmentPart::getScorePage --
 //
 
-ScorePage& SegmentPart::getScorePage(int index, int index2) { 
+ScorePage& SegmentPart::getScorePage(int systemindex, int pindex) { 
    ScorePageSet& sps = *getOwner();
-   ScorePageOverlay& so = sps[address_storage[index][index2]->getPage()];
-   return so[address_storage[index][index2]->getOverlay()];
+   ScorePageOverlay& so = sps[address_storage[systemindex][pindex]->getPageIndex()];
+   return so[address_storage[systemindex][pindex]->getOverlayIndex()];
 }
 
 
@@ -120,8 +125,8 @@ ScorePage& SegmentPart::getScorePage(int index, int index2) {
 // SegmentPart::getScorePageIndex --
 //
 
-int SegmentPart::getScorePageIndex(int index, int index2) { 
-   return address_storage[index][index2]->getPage();
+int SegmentPart::getScorePageIndex(int systemindex, int pindex) { 
+   return address_storage[systemindex][pindex]->getPageIndex();
 }
 
 
@@ -131,8 +136,8 @@ int SegmentPart::getScorePageIndex(int index, int index2) {
 // SegmentPart::getPageSystemIndex --
 //
 
-int SegmentPart::getPageSystemIndex(int index, int index2) { 
-   return address_storage[index][index2]->getSystem();
+int SegmentPart::getPageSystemIndex(int systemindex, int subpartindex) { 
+   return address_storage[systemindex][subpartindex]->getSystemIndex();
 }
 
 
@@ -142,8 +147,21 @@ int SegmentPart::getPageSystemIndex(int index, int index2) {
 // SegmentPart::getSystemStaffIndex --
 //
 
-int SegmentPart::getSystemStaffIndex(int index, int index2) { 
-   return address_storage[index][index2]->getSystemStaff();
+int SegmentPart::getSystemStaffIndex(int systemindex, int subpartindex) { 
+   return address_storage[systemindex][subpartindex]->getSystemStaffIndex();
+}
+
+
+
+//////////////////////////////
+//
+// SegmentPart::getPageStaffIndex --
+//
+
+int SegmentPart::getPageStaffIndex(int systemindex, int subpartindex) { 
+   AddressSystem systemaddress = getAddress(systemindex, subpartindex);
+   ScorePage* page = pageset_owner->getPage(systemaddress);
+   return page->getPageStaffIndex(systemaddress);
 }
 
 
@@ -201,8 +219,8 @@ ScorePageSet* SegmentPart::getOwner(void) {
 // SegmentPart::appendAddress --
 //
 
-void SegmentPart::appendAddress(SystemAddress& anAddress) { 
-   SystemAddress* sa = new SystemAddress(anAddress);
+void SegmentPart::appendAddress(AddressSystem & anAddress) { 
+   AddressSystem * sa = new AddressSystem (anAddress);
    address_storage.resize(address_storage.size()+1); 
    address_storage.back().push_back(sa);
 }
@@ -214,8 +232,8 @@ void SegmentPart::appendAddress(SystemAddress& anAddress) {
 // SegmentPart::addAddress --
 //
 
-void SegmentPart::addAddress(SystemAddress& anAddress, int index) {
-   SystemAddress* sa = new SystemAddress(anAddress);
+void SegmentPart::addAddress(AddressSystem & anAddress, int index) {
+   AddressSystem * sa = new AddressSystem (anAddress);
    address_storage[index].push_back(sa);
 }
 
@@ -226,8 +244,8 @@ void SegmentPart::addAddress(SystemAddress& anAddress, int index) {
 // SegmentPart::addToLastAddress --
 //
 
-void SegmentPart::addToLastAddress(SystemAddress& anAddress) {
-   SystemAddress* sa = new SystemAddress(anAddress);
+void SegmentPart::addToLastAddress(AddressSystem & anAddress) {
+   AddressSystem * sa = new AddressSystem (anAddress);
    if (address_storage.size() == 0) {
       cerr << "Cannot append to last element because size is zero" << endl;
       exit(1);

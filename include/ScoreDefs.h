@@ -12,6 +12,12 @@
 #ifndef _SCOREDEFS_H_INCLUDED
 #define _SCOREDEFS_H_INCLUDED
 
+#include "ScoreNamedParameters.h"
+
+// When UseBoundVector is defined, use out-of-bounds checking
+// on scorelib data types derived typedefed from the vector class.
+#define UseBoundVector
+
 #include <map>
 #include <vector>
 #include <string>
@@ -21,10 +27,21 @@ using namespace std;
 using SCORE_FLOAT  = double;
 using mapSS        = map<string, string>;
 using mapNamespace = map<string, mapSS>;
-using vectorSF     = vector<SCORE_FLOAT>;
-using vectorF      = vector<float>;
-using vectorI      = vector<int>;
-using vectorVI     = vector<vector<int>>;
+
+#ifndef UseBoundVector
+   using vectorSF     = vector<SCORE_FLOAT>;
+   using vectorVSF    = vector<vector<SCORE_FLOAT>>;
+   using vectorF      = vector<float>;
+   using vectorI      = vector<int>;
+   using vectorVI     = vector<vector<int>>;
+#else
+   #include "BoundVector.h"
+   using vectorSF     = BoundVector<SCORE_FLOAT>;
+   using vectorVSF    = BoundVector<BoundVector<SCORE_FLOAT>>;
+   using vectorF      = BoundVector<float>;
+   using vectorI      = BoundVector<int>;
+   using vectorVI     = BoundVector<BoundVector<int>>;
+#endif
 
 
 // enum PARAM is a list of SCORE fixed parameter indexes.  These are indexed

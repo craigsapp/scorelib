@@ -72,7 +72,8 @@ RANLIB        = ranlib
 
 # DEFINES   = $(addprefix -D,$(OSTYPE))
 
-PREFLAGS  = -c -g -Wall -O3 $(DEFINES) -I$(INCDIR)
+PREFLAGS  = -c -g -Wall $(DEFINES) -I$(INCDIR)
+PREFLAGS += -O3
 
 # using C++ 2011 standard:
 PREFLAGS += -std=c++11
@@ -213,24 +214,42 @@ makedirs:
 # done
 # 
 
+AddressSystem.o: AddressSystem.cpp AddressSystem.h \
+ ScorePageSet.h ScorePageOverlay.h ScorePage.h \
+ ScorePageBase.h ScoreItem.h DatabaseBeam.h \
+ RationalDuration.h RationalNumber.h \
+ ScoreItemBase.h ScoreDefs.h \
+ ScoreNamedParameters.h ScoreItemEdit_ParameterHistory.h \
+ ScorePageBase_AnalysisInfo.h DatabaseAnalysis.h \
+ ScorePageBase_PrintInfo.h ScorePageBase_StaffInfo.h \
+ DatabaseChord.h DatabaseLyrics.h DatabaseP3.h \
+ SystemMeasure.h AddressSystem.h Options.h \
+ ScoreSegment.h
+
 DatabaseAnalysis.o: DatabaseAnalysis.cpp \
  DatabaseAnalysis.h
 
 DatabaseBeam.o: DatabaseBeam.cpp DatabaseBeam.h \
  ScoreItem.h DatabaseBeam.h RationalDuration.h \
  RationalNumber.h ScoreItemBase.h ScoreDefs.h \
- ScoreItemEdit_ParameterHistory.h ScoreUtility.h
+ ScoreNamedParameters.h ScoreItemEdit_ParameterHistory.h \
+ ScoreUtility.h
 
 DatabaseChord.o: DatabaseChord.cpp DatabaseChord.h \
  ScoreItem.h DatabaseBeam.h RationalDuration.h \
  RationalNumber.h ScoreItemBase.h ScoreDefs.h \
- ScoreItemEdit_ParameterHistory.h
+ ScoreNamedParameters.h ScoreItemEdit_ParameterHistory.h
+
+DatabaseLyrics.o: DatabaseLyrics.cpp DatabaseLyrics.h \
+ ScoreItem.h DatabaseBeam.h RationalDuration.h \
+ RationalNumber.h ScoreItemBase.h ScoreDefs.h \
+ ScoreNamedParameters.h ScoreItemEdit_ParameterHistory.h
 
 DatabaseP3.o: DatabaseP3.cpp DatabaseP3.h \
  ScoreItem.h DatabaseBeam.h RationalDuration.h \
  RationalNumber.h ScoreItemBase.h ScoreDefs.h \
- ScoreItemEdit_ParameterHistory.h ScoreItem.h \
- ScoreUtility.h
+ ScoreNamedParameters.h ScoreItemEdit_ParameterHistory.h \
+ ScoreItem.h ScoreUtility.h
 
 Options.o: Options.cpp Options.h
 
@@ -242,356 +261,463 @@ RationalNumber.o: RationalNumber.cpp RationalNumber.h
 ScoreItem.o: ScoreItem.cpp ScoreItem.h \
  DatabaseBeam.h RationalDuration.h \
  RationalNumber.h ScoreItemBase.h ScoreDefs.h \
- ScoreItemEdit_ParameterHistory.h
+ ScoreNamedParameters.h ScoreItemEdit_ParameterHistory.h
 
 ScoreItemBase.o: ScoreItemBase.cpp ScorePageBase.h \
  ScoreItem.h DatabaseBeam.h RationalDuration.h \
  RationalNumber.h ScoreItemBase.h ScoreDefs.h \
- ScoreItemEdit_ParameterHistory.h \
+ ScoreNamedParameters.h ScoreItemEdit_ParameterHistory.h \
  ScorePageBase_AnalysisInfo.h DatabaseAnalysis.h \
  ScorePageBase_PrintInfo.h ScorePageBase_StaffInfo.h \
- DatabaseChord.h DatabaseP3.h SystemMeasure.h
+ DatabaseChord.h DatabaseLyrics.h DatabaseP3.h \
+ SystemMeasure.h
 
 ScoreItemEdit.o: ScoreItemEdit.cpp ScoreItemEdit.h \
  ScoreItemBase.h ScoreDefs.h \
- ScoreItemEdit_ParameterHistory.h
+ ScoreNamedParameters.h ScoreItemEdit_ParameterHistory.h
 
 ScoreItemEdit_ParameterHistory.o: \
  ScoreItemEdit_ParameterHistory.cpp \
  ScoreItemEdit_ParameterHistory.h ScoreDefs.h \
- ScoreItemBase.h ScoreItemEdit_ParameterHistory.h
+ ScoreNamedParameters.h ScoreItemBase.h \
+ ScoreItemEdit_ParameterHistory.h
 
 ScoreItem_analysis.o: ScoreItem_analysis.cpp \
  ScoreItem.h DatabaseBeam.h RationalDuration.h \
  RationalNumber.h ScoreItemBase.h ScoreDefs.h \
- ScoreItemEdit_ParameterHistory.h ScoreUtility.h
+ ScoreNamedParameters.h ScoreItemEdit_ParameterHistory.h \
+ ScoreUtility.h
 
 ScoreItem_barlines.o: ScoreItem_barlines.cpp \
  ScoreItem.h DatabaseBeam.h RationalDuration.h \
  RationalNumber.h ScoreItemBase.h ScoreDefs.h \
- ScoreItemEdit_ParameterHistory.h
+ ScoreNamedParameters.h ScoreItemEdit_ParameterHistory.h
 
 ScoreItem_clefs.o: ScoreItem_clefs.cpp ScoreItem.h \
  DatabaseBeam.h RationalDuration.h \
  RationalNumber.h ScoreItemBase.h ScoreDefs.h \
- ScoreItemEdit_ParameterHistory.h
+ ScoreNamedParameters.h ScoreItemEdit_ParameterHistory.h
 
 ScoreItem_keysigs.o: ScoreItem_keysigs.cpp \
  ScoreItem.h DatabaseBeam.h RationalDuration.h \
  RationalNumber.h ScoreItemBase.h ScoreDefs.h \
- ScoreItemEdit_ParameterHistory.h
+ ScoreNamedParameters.h ScoreItemEdit_ParameterHistory.h
+
+ScoreItem_lines.o: ScoreItem_lines.cpp ScoreItem.h \
+ DatabaseBeam.h RationalDuration.h \
+ RationalNumber.h ScoreItemBase.h ScoreDefs.h \
+ ScoreNamedParameters.h ScoreItemEdit_ParameterHistory.h
 
 ScoreItem_notes.o: ScoreItem_notes.cpp ScoreItem.h \
  DatabaseBeam.h RationalDuration.h \
  RationalNumber.h ScoreItemBase.h ScoreDefs.h \
- ScoreItemEdit_ParameterHistory.h
+ ScoreNamedParameters.h ScoreItemEdit_ParameterHistory.h
 
 ScoreItem_page.o: ScoreItem_page.cpp ScoreItem.h \
  DatabaseBeam.h RationalDuration.h \
  RationalNumber.h ScoreItemBase.h ScoreDefs.h \
- ScoreItemEdit_ParameterHistory.h ScorePage.h \
- ScorePageBase.h ScoreItem.h \
+ ScoreNamedParameters.h ScoreItemEdit_ParameterHistory.h \
+ ScorePage.h ScorePageBase.h ScoreItem.h \
  ScorePageBase_AnalysisInfo.h DatabaseAnalysis.h \
  ScorePageBase_PrintInfo.h ScorePageBase_StaffInfo.h \
- DatabaseChord.h DatabaseP3.h SystemMeasure.h
+ DatabaseChord.h DatabaseLyrics.h DatabaseP3.h \
+ SystemMeasure.h AddressSystem.h
 
 ScoreItem_print.o: ScoreItem_print.cpp ScoreItem.h \
  DatabaseBeam.h RationalDuration.h \
  RationalNumber.h ScoreItemBase.h ScoreDefs.h \
- ScoreItemEdit_ParameterHistory.h
+ ScoreNamedParameters.h ScoreItemEdit_ParameterHistory.h
+
+ScoreItem_rests.o: ScoreItem_rests.cpp ScoreItem.h \
+ DatabaseBeam.h RationalDuration.h \
+ RationalNumber.h ScoreItemBase.h ScoreDefs.h \
+ ScoreNamedParameters.h ScoreItemEdit_ParameterHistory.h
 
 ScoreItem_select.o: ScoreItem_select.cpp ScoreItem.h \
  DatabaseBeam.h RationalDuration.h \
  RationalNumber.h ScoreItemBase.h ScoreDefs.h \
- ScoreItemEdit_ParameterHistory.h
+ ScoreNamedParameters.h ScoreItemEdit_ParameterHistory.h
 
 ScoreItem_staff.o: ScoreItem_staff.cpp ScoreItem.h \
  DatabaseBeam.h RationalDuration.h \
  RationalNumber.h ScoreItemBase.h ScoreDefs.h \
- ScoreItemEdit_ParameterHistory.h
+ ScoreNamedParameters.h ScoreItemEdit_ParameterHistory.h
 
 ScoreItem_text.o: ScoreItem_text.cpp ScoreItem.h \
  DatabaseBeam.h RationalDuration.h \
  RationalNumber.h ScoreItemBase.h ScoreDefs.h \
- ScoreItemEdit_ParameterHistory.h
+ ScoreNamedParameters.h ScoreItemEdit_ParameterHistory.h
 
 ScorePage.o: ScorePage.cpp ScorePage.h \
  ScorePageBase.h ScoreItem.h DatabaseBeam.h \
  RationalDuration.h RationalNumber.h \
  ScoreItemBase.h ScoreDefs.h \
- ScoreItemEdit_ParameterHistory.h \
+ ScoreNamedParameters.h ScoreItemEdit_ParameterHistory.h \
  ScorePageBase_AnalysisInfo.h DatabaseAnalysis.h \
  ScorePageBase_PrintInfo.h ScorePageBase_StaffInfo.h \
- DatabaseChord.h DatabaseP3.h SystemMeasure.h \
- ScoreUtility.h
+ DatabaseChord.h DatabaseLyrics.h DatabaseP3.h \
+ SystemMeasure.h AddressSystem.h ScoreUtility.h
 
 ScorePageBase.o: ScorePageBase.cpp ScorePageBase.h \
  ScoreItem.h DatabaseBeam.h RationalDuration.h \
  RationalNumber.h ScoreItemBase.h ScoreDefs.h \
- ScoreItemEdit_ParameterHistory.h \
+ ScoreNamedParameters.h ScoreItemEdit_ParameterHistory.h \
  ScorePageBase_AnalysisInfo.h DatabaseAnalysis.h \
  ScorePageBase_PrintInfo.h ScorePageBase_StaffInfo.h \
- DatabaseChord.h DatabaseP3.h SystemMeasure.h \
- ScoreUtility.h
+ DatabaseChord.h DatabaseLyrics.h DatabaseP3.h \
+ SystemMeasure.h ScoreUtility.h
 
 ScorePageBase_AnalysisInfo.o: ScorePageBase_AnalysisInfo.cpp \
  ScorePageBase_AnalysisInfo.h ScoreItem.h \
  DatabaseBeam.h RationalDuration.h \
  RationalNumber.h ScoreItemBase.h ScoreDefs.h \
- ScoreItemEdit_ParameterHistory.h DatabaseAnalysis.h
+ ScoreNamedParameters.h ScoreItemEdit_ParameterHistory.h \
+ DatabaseAnalysis.h
 
 ScorePageBase_PrintInfo.o: ScorePageBase_PrintInfo.cpp \
  ScorePageBase_PrintInfo.h ScoreItem.h \
  DatabaseBeam.h RationalDuration.h \
  RationalNumber.h ScoreItemBase.h ScoreDefs.h \
- ScoreItemEdit_ParameterHistory.h
+ ScoreNamedParameters.h ScoreItemEdit_ParameterHistory.h
 
 ScorePageBase_StaffInfo.o: ScorePageBase_StaffInfo.cpp \
  ScorePageBase_StaffInfo.h ScoreItem.h \
  DatabaseBeam.h RationalDuration.h \
  RationalNumber.h ScoreItemBase.h ScoreDefs.h \
- ScoreItemEdit_ParameterHistory.h
+ ScoreNamedParameters.h ScoreItemEdit_ParameterHistory.h
 
 ScorePageBase_filename.o: ScorePageBase_filename.cpp \
  ScorePageBase.h ScoreItem.h DatabaseBeam.h \
  RationalDuration.h RationalNumber.h \
  ScoreItemBase.h ScoreDefs.h \
- ScoreItemEdit_ParameterHistory.h \
+ ScoreNamedParameters.h ScoreItemEdit_ParameterHistory.h \
  ScorePageBase_AnalysisInfo.h DatabaseAnalysis.h \
  ScorePageBase_PrintInfo.h ScorePageBase_StaffInfo.h \
- DatabaseChord.h DatabaseP3.h SystemMeasure.h
+ DatabaseChord.h DatabaseLyrics.h DatabaseP3.h \
+ SystemMeasure.h
 
 ScorePageBase_read.o: ScorePageBase_read.cpp \
  ScorePageBase.h ScoreItem.h DatabaseBeam.h \
  RationalDuration.h RationalNumber.h \
  ScoreItemBase.h ScoreDefs.h \
- ScoreItemEdit_ParameterHistory.h \
+ ScoreNamedParameters.h ScoreItemEdit_ParameterHistory.h \
  ScorePageBase_AnalysisInfo.h DatabaseAnalysis.h \
  ScorePageBase_PrintInfo.h ScorePageBase_StaffInfo.h \
- DatabaseChord.h DatabaseP3.h SystemMeasure.h
+ DatabaseChord.h DatabaseLyrics.h DatabaseP3.h \
+ SystemMeasure.h
 
 ScorePageBase_trailer.o: ScorePageBase_trailer.cpp \
  ScorePageBase.h ScoreItem.h DatabaseBeam.h \
  RationalDuration.h RationalNumber.h \
  ScoreItemBase.h ScoreDefs.h \
- ScoreItemEdit_ParameterHistory.h \
+ ScoreNamedParameters.h ScoreItemEdit_ParameterHistory.h \
  ScorePageBase_AnalysisInfo.h DatabaseAnalysis.h \
  ScorePageBase_PrintInfo.h ScorePageBase_StaffInfo.h \
- DatabaseChord.h DatabaseP3.h SystemMeasure.h
+ DatabaseChord.h DatabaseLyrics.h DatabaseP3.h \
+ SystemMeasure.h
 
 ScorePageBase_write.o: ScorePageBase_write.cpp \
  ScorePageBase.h ScoreItem.h DatabaseBeam.h \
  RationalDuration.h RationalNumber.h \
  ScoreItemBase.h ScoreDefs.h \
- ScoreItemEdit_ParameterHistory.h \
+ ScoreNamedParameters.h ScoreItemEdit_ParameterHistory.h \
  ScorePageBase_AnalysisInfo.h DatabaseAnalysis.h \
  ScorePageBase_PrintInfo.h ScorePageBase_StaffInfo.h \
- DatabaseChord.h DatabaseP3.h SystemMeasure.h
+ DatabaseChord.h DatabaseLyrics.h DatabaseP3.h \
+ SystemMeasure.h
 
 ScorePageOverlay.o: ScorePageOverlay.cpp \
  ScorePageOverlay.h ScorePage.h ScorePageBase.h \
  ScoreItem.h DatabaseBeam.h RationalDuration.h \
  RationalNumber.h ScoreItemBase.h ScoreDefs.h \
- ScoreItemEdit_ParameterHistory.h \
+ ScoreNamedParameters.h ScoreItemEdit_ParameterHistory.h \
  ScorePageBase_AnalysisInfo.h DatabaseAnalysis.h \
  ScorePageBase_PrintInfo.h ScorePageBase_StaffInfo.h \
- DatabaseChord.h DatabaseP3.h SystemMeasure.h \
- Options.h
+ DatabaseChord.h DatabaseLyrics.h DatabaseP3.h \
+ SystemMeasure.h AddressSystem.h Options.h
 
 ScorePageOverlay_write.o: ScorePageOverlay_write.cpp \
  ScorePageOverlay.h ScorePage.h ScorePageBase.h \
  ScoreItem.h DatabaseBeam.h RationalDuration.h \
  RationalNumber.h ScoreItemBase.h ScoreDefs.h \
- ScoreItemEdit_ParameterHistory.h \
+ ScoreNamedParameters.h ScoreItemEdit_ParameterHistory.h \
  ScorePageBase_AnalysisInfo.h DatabaseAnalysis.h \
  ScorePageBase_PrintInfo.h ScorePageBase_StaffInfo.h \
- DatabaseChord.h DatabaseP3.h SystemMeasure.h \
- Options.h
+ DatabaseChord.h DatabaseLyrics.h DatabaseP3.h \
+ SystemMeasure.h AddressSystem.h Options.h
 
 ScorePageSet.o: ScorePageSet.cpp ScorePageSet.h \
  ScorePageOverlay.h ScorePage.h ScorePageBase.h \
  ScoreItem.h DatabaseBeam.h RationalDuration.h \
  RationalNumber.h ScoreItemBase.h ScoreDefs.h \
- ScoreItemEdit_ParameterHistory.h \
+ ScoreNamedParameters.h ScoreItemEdit_ParameterHistory.h \
  ScorePageBase_AnalysisInfo.h DatabaseAnalysis.h \
  ScorePageBase_PrintInfo.h ScorePageBase_StaffInfo.h \
- DatabaseChord.h DatabaseP3.h SystemMeasure.h \
- Options.h ScoreSegment.h SystemAddress.h
+ DatabaseChord.h DatabaseLyrics.h DatabaseP3.h \
+ SystemMeasure.h AddressSystem.h Options.h \
+ ScoreSegment.h
 
 ScorePageSet_address.o: ScorePageSet_address.cpp \
  ScorePageSet.h ScorePageOverlay.h ScorePage.h \
  ScorePageBase.h ScoreItem.h DatabaseBeam.h \
  RationalDuration.h RationalNumber.h \
  ScoreItemBase.h ScoreDefs.h \
- ScoreItemEdit_ParameterHistory.h \
+ ScoreNamedParameters.h ScoreItemEdit_ParameterHistory.h \
  ScorePageBase_AnalysisInfo.h DatabaseAnalysis.h \
  ScorePageBase_PrintInfo.h ScorePageBase_StaffInfo.h \
- DatabaseChord.h DatabaseP3.h SystemMeasure.h \
- Options.h ScoreSegment.h SystemAddress.h
+ DatabaseChord.h DatabaseLyrics.h DatabaseP3.h \
+ SystemMeasure.h AddressSystem.h Options.h \
+ ScoreSegment.h
+
+ScorePageSet_lyrics.o: ScorePageSet_lyrics.cpp \
+ ScorePageSet.h ScorePageOverlay.h ScorePage.h \
+ ScorePageBase.h ScoreItem.h DatabaseBeam.h \
+ RationalDuration.h RationalNumber.h \
+ ScoreItemBase.h ScoreDefs.h \
+ ScoreNamedParameters.h ScoreItemEdit_ParameterHistory.h \
+ ScorePageBase_AnalysisInfo.h DatabaseAnalysis.h \
+ ScorePageBase_PrintInfo.h ScorePageBase_StaffInfo.h \
+ DatabaseChord.h DatabaseLyrics.h DatabaseP3.h \
+ SystemMeasure.h AddressSystem.h Options.h \
+ ScoreSegment.h ScoreUtility.h
+
+ScorePageSet_page.o: ScorePageSet_page.cpp \
+ ScorePageSet.h ScorePageOverlay.h ScorePage.h \
+ ScorePageBase.h ScoreItem.h DatabaseBeam.h \
+ RationalDuration.h RationalNumber.h \
+ ScoreItemBase.h ScoreDefs.h \
+ ScoreNamedParameters.h ScoreItemEdit_ParameterHistory.h \
+ ScorePageBase_AnalysisInfo.h DatabaseAnalysis.h \
+ ScorePageBase_PrintInfo.h ScorePageBase_StaffInfo.h \
+ DatabaseChord.h DatabaseLyrics.h DatabaseP3.h \
+ SystemMeasure.h AddressSystem.h Options.h \
+ ScoreSegment.h
+
+ScorePageSet_parameters.o: ScorePageSet_parameters.cpp \
+ ScorePageSet.h ScorePageOverlay.h ScorePage.h \
+ ScorePageBase.h ScoreItem.h DatabaseBeam.h \
+ RationalDuration.h RationalNumber.h \
+ ScoreItemBase.h ScoreDefs.h \
+ ScoreNamedParameters.h ScoreItemEdit_ParameterHistory.h \
+ ScorePageBase_AnalysisInfo.h DatabaseAnalysis.h \
+ ScorePageBase_PrintInfo.h ScorePageBase_StaffInfo.h \
+ DatabaseChord.h DatabaseLyrics.h DatabaseP3.h \
+ SystemMeasure.h AddressSystem.h Options.h \
+ ScoreSegment.h
 
 ScorePageSet_read.o: ScorePageSet_read.cpp \
  ScorePageSet.h ScorePageOverlay.h ScorePage.h \
  ScorePageBase.h ScoreItem.h DatabaseBeam.h \
  RationalDuration.h RationalNumber.h \
  ScoreItemBase.h ScoreDefs.h \
- ScoreItemEdit_ParameterHistory.h \
+ ScoreNamedParameters.h ScoreItemEdit_ParameterHistory.h \
  ScorePageBase_AnalysisInfo.h DatabaseAnalysis.h \
  ScorePageBase_PrintInfo.h ScorePageBase_StaffInfo.h \
- DatabaseChord.h DatabaseP3.h SystemMeasure.h \
- Options.h ScoreSegment.h SystemAddress.h
+ DatabaseChord.h DatabaseLyrics.h DatabaseP3.h \
+ SystemMeasure.h AddressSystem.h Options.h \
+ ScoreSegment.h
 
 ScorePageSet_segment.o: ScorePageSet_segment.cpp \
  ScorePageSet.h ScorePageOverlay.h ScorePage.h \
  ScorePageBase.h ScoreItem.h DatabaseBeam.h \
  RationalDuration.h RationalNumber.h \
  ScoreItemBase.h ScoreDefs.h \
- ScoreItemEdit_ParameterHistory.h \
+ ScoreNamedParameters.h ScoreItemEdit_ParameterHistory.h \
  ScorePageBase_AnalysisInfo.h DatabaseAnalysis.h \
  ScorePageBase_PrintInfo.h ScorePageBase_StaffInfo.h \
- DatabaseChord.h DatabaseP3.h SystemMeasure.h \
- Options.h ScoreSegment.h SystemAddress.h
+ DatabaseChord.h DatabaseLyrics.h DatabaseP3.h \
+ SystemMeasure.h AddressSystem.h Options.h \
+ ScoreSegment.h ScoreUtility.h
 
 ScorePageSet_write.o: ScorePageSet_write.cpp \
  ScorePageSet.h ScorePageOverlay.h ScorePage.h \
  ScorePageBase.h ScoreItem.h DatabaseBeam.h \
  RationalDuration.h RationalNumber.h \
  ScoreItemBase.h ScoreDefs.h \
- ScoreItemEdit_ParameterHistory.h \
+ ScoreNamedParameters.h ScoreItemEdit_ParameterHistory.h \
  ScorePageBase_AnalysisInfo.h DatabaseAnalysis.h \
  ScorePageBase_PrintInfo.h ScorePageBase_StaffInfo.h \
- DatabaseChord.h DatabaseP3.h SystemMeasure.h \
- Options.h ScoreSegment.h SystemAddress.h
+ DatabaseChord.h DatabaseLyrics.h DatabaseP3.h \
+ SystemMeasure.h AddressSystem.h Options.h \
+ ScoreSegment.h
 
 ScorePage_barline.o: ScorePage_barline.cpp \
  ScorePage.h ScorePageBase.h ScoreItem.h \
  DatabaseBeam.h RationalDuration.h \
  RationalNumber.h ScoreItemBase.h ScoreDefs.h \
- ScoreItemEdit_ParameterHistory.h \
+ ScoreNamedParameters.h ScoreItemEdit_ParameterHistory.h \
  ScorePageBase_AnalysisInfo.h DatabaseAnalysis.h \
  ScorePageBase_PrintInfo.h ScorePageBase_StaffInfo.h \
- DatabaseChord.h DatabaseP3.h SystemMeasure.h
+ DatabaseChord.h DatabaseLyrics.h DatabaseP3.h \
+ SystemMeasure.h AddressSystem.h
 
 ScorePage_beam.o: ScorePage_beam.cpp ScorePage.h \
  ScorePageBase.h ScoreItem.h DatabaseBeam.h \
  RationalDuration.h RationalNumber.h \
  ScoreItemBase.h ScoreDefs.h \
- ScoreItemEdit_ParameterHistory.h \
+ ScoreNamedParameters.h ScoreItemEdit_ParameterHistory.h \
  ScorePageBase_AnalysisInfo.h DatabaseAnalysis.h \
  ScorePageBase_PrintInfo.h ScorePageBase_StaffInfo.h \
- DatabaseChord.h DatabaseP3.h SystemMeasure.h
+ DatabaseChord.h DatabaseLyrics.h DatabaseP3.h \
+ SystemMeasure.h AddressSystem.h
 
 ScorePage_chord.o: ScorePage_chord.cpp ScorePage.h \
  ScorePageBase.h ScoreItem.h DatabaseBeam.h \
  RationalDuration.h RationalNumber.h \
  ScoreItemBase.h ScoreDefs.h \
- ScoreItemEdit_ParameterHistory.h \
+ ScoreNamedParameters.h ScoreItemEdit_ParameterHistory.h \
  ScorePageBase_AnalysisInfo.h DatabaseAnalysis.h \
  ScorePageBase_PrintInfo.h ScorePageBase_StaffInfo.h \
- DatabaseChord.h DatabaseP3.h SystemMeasure.h
+ DatabaseChord.h DatabaseLyrics.h DatabaseP3.h \
+ SystemMeasure.h AddressSystem.h
 
 ScorePage_data.o: ScorePage_data.cpp ScorePage.h \
  ScorePageBase.h ScoreItem.h DatabaseBeam.h \
  RationalDuration.h RationalNumber.h \
  ScoreItemBase.h ScoreDefs.h \
- ScoreItemEdit_ParameterHistory.h \
+ ScoreNamedParameters.h ScoreItemEdit_ParameterHistory.h \
  ScorePageBase_AnalysisInfo.h DatabaseAnalysis.h \
  ScorePageBase_PrintInfo.h ScorePageBase_StaffInfo.h \
- DatabaseChord.h DatabaseP3.h SystemMeasure.h \
- ScoreUtility.h
+ DatabaseChord.h DatabaseLyrics.h DatabaseP3.h \
+ SystemMeasure.h AddressSystem.h ScoreUtility.h
 
 ScorePage_duration.o: ScorePage_duration.cpp \
  ScorePage.h ScorePageBase.h ScoreItem.h \
  DatabaseBeam.h RationalDuration.h \
  RationalNumber.h ScoreItemBase.h ScoreDefs.h \
- ScoreItemEdit_ParameterHistory.h \
+ ScoreNamedParameters.h ScoreItemEdit_ParameterHistory.h \
  ScorePageBase_AnalysisInfo.h DatabaseAnalysis.h \
  ScorePageBase_PrintInfo.h ScorePageBase_StaffInfo.h \
- DatabaseChord.h DatabaseP3.h SystemMeasure.h
+ DatabaseChord.h DatabaseLyrics.h DatabaseP3.h \
+ SystemMeasure.h AddressSystem.h
+
+ScorePage_lyrics.o: ScorePage_lyrics.cpp ScorePage.h \
+ ScorePageBase.h ScoreItem.h DatabaseBeam.h \
+ RationalDuration.h RationalNumber.h \
+ ScoreItemBase.h ScoreDefs.h \
+ ScoreNamedParameters.h ScoreItemEdit_ParameterHistory.h \
+ ScorePageBase_AnalysisInfo.h DatabaseAnalysis.h \
+ ScorePageBase_PrintInfo.h ScorePageBase_StaffInfo.h \
+ DatabaseChord.h DatabaseLyrics.h DatabaseP3.h \
+ SystemMeasure.h AddressSystem.h
 
 ScorePage_p3.o: ScorePage_p3.cpp ScorePage.h \
  ScorePageBase.h ScoreItem.h DatabaseBeam.h \
  RationalDuration.h RationalNumber.h \
  ScoreItemBase.h ScoreDefs.h \
- ScoreItemEdit_ParameterHistory.h \
+ ScoreNamedParameters.h ScoreItemEdit_ParameterHistory.h \
  ScorePageBase_AnalysisInfo.h DatabaseAnalysis.h \
  ScorePageBase_PrintInfo.h ScorePageBase_StaffInfo.h \
- DatabaseChord.h DatabaseP3.h SystemMeasure.h
+ DatabaseChord.h DatabaseLyrics.h DatabaseP3.h \
+ SystemMeasure.h AddressSystem.h
+
+ScorePage_parameters.o: ScorePage_parameters.cpp \
+ ScorePage.h ScorePageBase.h ScoreItem.h \
+ DatabaseBeam.h RationalDuration.h \
+ RationalNumber.h ScoreItemBase.h ScoreDefs.h \
+ ScoreNamedParameters.h ScoreItemEdit_ParameterHistory.h \
+ ScorePageBase_AnalysisInfo.h DatabaseAnalysis.h \
+ ScorePageBase_PrintInfo.h ScorePageBase_StaffInfo.h \
+ DatabaseChord.h DatabaseLyrics.h DatabaseP3.h \
+ SystemMeasure.h AddressSystem.h
 
 ScorePage_pitch.o: ScorePage_pitch.cpp ScorePage.h \
  ScorePageBase.h ScoreItem.h DatabaseBeam.h \
  RationalDuration.h RationalNumber.h \
  ScoreItemBase.h ScoreDefs.h \
- ScoreItemEdit_ParameterHistory.h \
+ ScoreNamedParameters.h ScoreItemEdit_ParameterHistory.h \
  ScorePageBase_AnalysisInfo.h DatabaseAnalysis.h \
  ScorePageBase_PrintInfo.h ScorePageBase_StaffInfo.h \
- DatabaseChord.h DatabaseP3.h SystemMeasure.h \
- ScoreUtility.h
+ DatabaseChord.h DatabaseLyrics.h DatabaseP3.h \
+ SystemMeasure.h AddressSystem.h ScoreUtility.h
+
+ScorePage_rhythm.o: ScorePage_rhythm.cpp ScorePage.h \
+ ScorePageBase.h ScoreItem.h DatabaseBeam.h \
+ RationalDuration.h RationalNumber.h \
+ ScoreItemBase.h ScoreDefs.h \
+ ScoreNamedParameters.h ScoreItemEdit_ParameterHistory.h \
+ ScorePageBase_AnalysisInfo.h DatabaseAnalysis.h \
+ ScorePageBase_PrintInfo.h ScorePageBase_StaffInfo.h \
+ DatabaseChord.h DatabaseLyrics.h DatabaseP3.h \
+ SystemMeasure.h AddressSystem.h ScoreUtility.h
+
+ScorePage_segment.o: ScorePage_segment.cpp \
+ ScorePage.h ScorePageBase.h ScoreItem.h \
+ DatabaseBeam.h RationalDuration.h \
+ RationalNumber.h ScoreItemBase.h ScoreDefs.h \
+ ScoreNamedParameters.h ScoreItemEdit_ParameterHistory.h \
+ ScorePageBase_AnalysisInfo.h DatabaseAnalysis.h \
+ ScorePageBase_PrintInfo.h ScorePageBase_StaffInfo.h \
+ DatabaseChord.h DatabaseLyrics.h DatabaseP3.h \
+ SystemMeasure.h AddressSystem.h
 
 ScorePage_staff.o: ScorePage_staff.cpp ScorePage.h \
  ScorePageBase.h ScoreItem.h DatabaseBeam.h \
  RationalDuration.h RationalNumber.h \
  ScoreItemBase.h ScoreDefs.h \
- ScoreItemEdit_ParameterHistory.h \
+ ScoreNamedParameters.h ScoreItemEdit_ParameterHistory.h \
  ScorePageBase_AnalysisInfo.h DatabaseAnalysis.h \
  ScorePageBase_PrintInfo.h ScorePageBase_StaffInfo.h \
- DatabaseChord.h DatabaseP3.h SystemMeasure.h
+ DatabaseChord.h DatabaseLyrics.h DatabaseP3.h \
+ SystemMeasure.h AddressSystem.h
 
 ScorePage_system.o: ScorePage_system.cpp ScorePage.h \
  ScorePageBase.h ScoreItem.h DatabaseBeam.h \
  RationalDuration.h RationalNumber.h \
  ScoreItemBase.h ScoreDefs.h \
- ScoreItemEdit_ParameterHistory.h \
+ ScoreNamedParameters.h ScoreItemEdit_ParameterHistory.h \
  ScorePageBase_AnalysisInfo.h DatabaseAnalysis.h \
  ScorePageBase_PrintInfo.h ScorePageBase_StaffInfo.h \
- DatabaseChord.h DatabaseP3.h SystemMeasure.h \
- ScoreUtility.h
+ DatabaseChord.h DatabaseLyrics.h DatabaseP3.h \
+ SystemMeasure.h AddressSystem.h ScoreUtility.h
 
 ScoreSegment.o: ScoreSegment.cpp ScoreSegment.h \
- SystemAddress.h SegmentPart.h ScorePageSet.h \
- ScorePageOverlay.h ScorePage.h ScorePageBase.h \
- ScoreItem.h DatabaseBeam.h RationalDuration.h \
- RationalNumber.h ScoreItemBase.h ScoreDefs.h \
- ScoreItemEdit_ParameterHistory.h \
+ AddressSystem.h ScoreItem.h DatabaseBeam.h \
+ RationalDuration.h RationalNumber.h \
+ ScoreItemBase.h ScoreDefs.h \
+ ScoreNamedParameters.h ScoreItemEdit_ParameterHistory.h \
+ SegmentPart.h ScorePageSet.h ScorePageOverlay.h \
+ ScorePage.h ScorePageBase.h \
  ScorePageBase_AnalysisInfo.h DatabaseAnalysis.h \
  ScorePageBase_PrintInfo.h ScorePageBase_StaffInfo.h \
- DatabaseChord.h DatabaseP3.h SystemMeasure.h \
- Options.h ScoreSegment.h
+ DatabaseChord.h DatabaseLyrics.h DatabaseP3.h \
+ SystemMeasure.h Options.h ScoreSegment.h
 
-ScoreUtility.o: ScoreUtility.cpp ScoreUtility.h \
- ScoreDefs.h ScoreItemEdit_ParameterHistory.h \
+ScoreUtility_compare.o: ScoreUtility_compare.cpp \
+ ScoreUtility.h ScoreDefs.h \
+ ScoreNamedParameters.h ScoreItemEdit_ParameterHistory.h \
+ ScoreItem.h DatabaseBeam.h RationalDuration.h \
+ RationalNumber.h ScoreItemBase.h
+
+ScoreUtility_math.o: ScoreUtility_math.cpp \
+ ScoreUtility.h ScoreDefs.h \
+ ScoreNamedParameters.h ScoreItemEdit_ParameterHistory.h
+
+ScoreUtility_pitch.o: ScoreUtility_pitch.cpp \
+ ScoreUtility.h ScoreDefs.h \
+ ScoreNamedParameters.h ScoreItemEdit_ParameterHistory.h \
  ScoreItem.h DatabaseBeam.h RationalDuration.h \
  RationalNumber.h ScoreItemBase.h
 
 ScoreUtility_sort.o: ScoreUtility_sort.cpp \
  ScoreUtility.h ScoreDefs.h \
- ScoreItemEdit_ParameterHistory.h ScoreItem.h \
- DatabaseBeam.h RationalDuration.h \
+ ScoreNamedParameters.h ScoreItemEdit_ParameterHistory.h \
+ ScoreItem.h DatabaseBeam.h RationalDuration.h \
  RationalNumber.h ScoreItemBase.h
 
 SegmentPart.o: SegmentPart.cpp SegmentPart.h \
- SystemAddress.h ScorePageSet.h \
+ AddressSystem.h ScorePageSet.h \
  ScorePageOverlay.h ScorePage.h ScorePageBase.h \
  ScoreItem.h DatabaseBeam.h RationalDuration.h \
  RationalNumber.h ScoreItemBase.h ScoreDefs.h \
- ScoreItemEdit_ParameterHistory.h \
+ ScoreNamedParameters.h ScoreItemEdit_ParameterHistory.h \
  ScorePageBase_AnalysisInfo.h DatabaseAnalysis.h \
  ScorePageBase_PrintInfo.h ScorePageBase_StaffInfo.h \
- DatabaseChord.h DatabaseP3.h SystemMeasure.h \
- Options.h ScoreSegment.h
-
-SystemAddress.o: SystemAddress.cpp SystemAddress.h \
- ScorePageSet.h ScorePageOverlay.h ScorePage.h \
- ScorePageBase.h ScoreItem.h DatabaseBeam.h \
- RationalDuration.h RationalNumber.h \
- ScoreItemBase.h ScoreDefs.h \
- ScoreItemEdit_ParameterHistory.h \
- ScorePageBase_AnalysisInfo.h DatabaseAnalysis.h \
- ScorePageBase_PrintInfo.h ScorePageBase_StaffInfo.h \
- DatabaseChord.h DatabaseP3.h SystemMeasure.h \
- Options.h ScoreSegment.h SystemAddress.h
+ DatabaseChord.h DatabaseLyrics.h DatabaseP3.h \
+ SystemMeasure.h Options.h ScoreSegment.h
 
 SystemMeasure.o: SystemMeasure.cpp SystemMeasure.h \
  ScoreItem.h DatabaseBeam.h RationalDuration.h \
  RationalNumber.h ScoreItemBase.h ScoreDefs.h \
- ScoreItemEdit_ParameterHistory.h
+ ScoreNamedParameters.h ScoreItemEdit_ParameterHistory.h
 

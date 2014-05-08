@@ -33,7 +33,7 @@ void ScorePage::analyzeP3(void) {
    p3_database.resize(syscount);
 
    for (int i=0; i<syscount; i++) {
-      for (auto& it : systemItems(i)) {
+      for (auto& it : getSystemItems(i)) {
          p3_database[i].addItem(it);
       }
    }

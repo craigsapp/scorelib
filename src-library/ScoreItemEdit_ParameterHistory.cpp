@@ -13,6 +13,7 @@
 
 #include "ScoreItemEdit_ParameterHistory.h"
 #include "ScoreItemBase.h"
+#include "ScoreUtility.h"
 
 using namespace std;
 
@@ -174,18 +175,18 @@ ostream& ParameterHistory::printAsXml(ostream& out) {
    if (fixed_index < 0) {
       if (named_nspace != "") {
          out << " namespace=\"";
-         ScoreItemBase::printXmlTextEscaped(out, named_nspace);
+         SU::printXmlTextEscapedUTF8(out, named_nspace);
          out << "\"";
       }
       out << " name=\"";
-      ScoreItemBase::printXmlTextEscaped(out, named_key);
+      SU::printXmlTextEscapedUTF8(out, named_key);
       out << "\"";
 
       if (state == SCOREITEM_CREATED) {
          out << " created=\"true\"";
       } else {
          out << " oldvalue=\"";
-         ScoreItemBase::printXmlTextEscaped(out, named_oldvalue);
+         SU::printXmlTextEscapedUTF8(out, named_oldvalue);
          out << "\"";
       }
 
@@ -193,7 +194,7 @@ ostream& ParameterHistory::printAsXml(ostream& out) {
          out << " deleted=\"true\"";
       } else {
          out << " newvalue=\"";
-         ScoreItemBase::printXmlTextEscaped(out, named_newvalue);
+         SU::printXmlTextEscapedUTF8(out, named_newvalue);
          out << "\"";
       }
 
