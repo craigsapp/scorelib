@@ -22,6 +22,19 @@ using namespace std;
 
 ostream& ScoreUtility::printXmlTextEscapedUTF8(ostream& out, 
       const string& text) {
+   out << SU::getTextNoFontXmlEscapedUTF8(text);
+   return out;
+}
+
+
+//////////////////////////////
+//
+// ScoreItemBase::printXmlTextEscapedUTF8 --
+//
+
+string ScoreUtility::getTextNoFontXmlEscapedUTF8(const string& text) {
+   string output;
+   output.reserve(output.size()*2);
 
    int length = text.size();
    char ch;
@@ -30,44 +43,46 @@ ostream& ScoreUtility::printXmlTextEscapedUTF8(ostream& out,
       ch = text[i];
       switch (ch) {
          case '&':
-            out << "&amp;";
+            output += "&amp;";
             break;
          case '"':
-            out << "&quot;";
+            output += "&quot;";
             break;
          case '\'':
-            out << "&apos;";
+            output += "&apos;";
             break;
          case '>':
             if (i < length-2) {
                if (text[i+1] == '>') {
                   // grave accent on next note
-                  out << text[i+2] << (char)0xcc << (char)0x80;
+                  output.push_back(text[i+2]);
+                  output.push_back((unsigned char)0xcc);
+                  output.push_back((unsigned char)0x80);
                   i+= 2;
                   continue;
                }
             }
-            out << "&gt;";
+            output += "&gt;";
             break;
          case '<':
             if (i < length-2) {
                if (text[i+1] == '<') {
                   // acute accent on next note
-                  out << text[i+2];
-                  out << (unsigned char)0xcc;
-                  out << (unsigned char)0x81;
+                  output.push_back(text[i+2]);
+                  output.push_back((unsigned char)0xcc);
+                  output.push_back((unsigned char)0x81);
                   i+= 2;
                   continue;
                }
             }
-            out << "&lt;";
+            output += "&lt;";
             break;
          default:
-            out << ch;
+            output.push_back(ch);
       }
    }
 
-   return out;
+   return output;
 }
 
 

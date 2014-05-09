@@ -53,6 +53,7 @@ class ScorePage : public ScorePageBase {
       int         getMaxStaff            (void);
       bool        stavesAreConsecutive   (void);
       const vectorVSIp& getStaffItemList (void);
+      vectorVSIp& getStaffItemListNotConst(void);
       vectorVVSIp& getP8BySystem         (void);
       vectorSIp&  getP8BySystem          (int p2index);
    protected:

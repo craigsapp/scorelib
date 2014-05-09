@@ -60,10 +60,10 @@ class AddressSystem {
 
 
 #ifndef UseBoundVector
+   using vectorVASp  = vector<vector<AddressSystem*>>;
+#else
    #include "BoundVector.h"
    using vectorVASp  = BoundVector<BoundVector<AddressSystem*>>;
-#else
-   using vectorVASp  = vector<vector<AddressSystem*>>;
 #endif
 
 

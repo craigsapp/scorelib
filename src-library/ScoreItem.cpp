@@ -509,8 +509,12 @@ SCORE_FLOAT ScoreItem::getHorizontalPositionRight(void) {
 }
 
 //
-// Alias:
+// Aliases:
 //
+
+SCORE_FLOAT ScoreItem::getHPosRight(void) {
+   return getHorizontalPositionRight();
+}
 
 SCORE_FLOAT ScoreItem::getHPosR(void) {
    return getHorizontalPositionRight();

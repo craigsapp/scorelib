@@ -127,6 +127,14 @@ const vectorVSIp& ScorePage::getStaffItemList(void) {
   return staff_info.getStaffItems();
 }
 
+vectorVSIp& ScorePage::getStaffItemListNotConst(void) {
+   if (!analysis_info.stavesIsValid()) {
+      analyzeStaves();
+   }
+
+  return staff_info.getStaffItemsNotConst();
+}
+
 
 
 //////////////////////////////

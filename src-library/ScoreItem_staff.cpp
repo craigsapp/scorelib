@@ -50,3 +50,35 @@ int ScoreItem::getInstrumentNumberInt(void) {
 
 
 
+//////////////////////////////
+//
+// ScoreItem::getScale -- Return the scaling factor for staves and text.
+//     Text items also have a horizontal scaling factor which this function
+//     does not return (only vertical size for text).
+//
+
+SCORE_FLOAT ScoreItem::getScale(void) {
+   int p1 = getP1Int();
+   SCORE_FLOAT output = 0.0;
+   SCORE_FLOAT tolerance = 0.001;
+   switch (p1) {
+      case P1_Staff:
+         output = fabs(getP5());
+         if (output < tolerance) {
+            output = 1.0;
+         }
+         break;
+
+      case P1_Text:
+         output = fabs(getP6());
+         if (output < tolerance) {
+            output = 1.0;
+         }
+         break;
+   }
+
+   return output;
+}
+
+
+

@@ -49,6 +49,14 @@ const string np_base40Pitch = "base40Pitch";
 const string np_courtesy = "courtesy";
 
 
+//
+// Automatic text analysis parameters:
+//
+
+// @auto@function -- The automatically identified function of text items.
+const string np_function = "function";
+
+
 ///////////////////////////////////////////////////////////////////////////
 //
 // lyrics namespace -- The "lyrics" namespace is used to store information 

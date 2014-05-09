@@ -10,6 +10,7 @@
 //
 
 #include "ScoreItem.h"
+#include "ScoreUtility.h"
 
 using namespace std;
 
@@ -150,6 +151,62 @@ int ScoreItem::getInitialFontCodeAsInteger(void) {
 
 void ScoreItem::setText(const string& text) {
    setFixedText(text);
+}
+
+
+
+//////////////////////////////
+//
+// ScoreItem::getTextNoFontXmlEscapedUTF8 --
+//
+
+string ScoreItem::getTextNoFontXmlEscapedUTF8(void) {
+   string temp = ScoreItem::getTextWithoutInitialFontCode();
+   return SU::getTextNoFontXmlEscapedUTF8(temp);
+}
+
+
+
+//////////////////////////////
+//
+// ScoreItem::getFontSizeInPoints --
+//
+
+SCORE_FLOAT ScoreItem::getFontSizeInPoints(void) {
+   if (!isTextItem()) {
+      return 0.0;
+   }
+   SCORE_FLOAT staff_size = 1.0;
+   SCORE_FLOAT tolerance = 0.001;
+   ScoreItem* staffitem = getStaffOwner();
+   if (staffitem == NULL) {
+      staff_size = 1.0;
+   } else {
+      staff_size = staffitem->getP5();
+      if (fabs(staff_size) < tolerance) {
+         staff_size = 1.0;
+      }
+   }
+   SCORE_FLOAT p6 = fabs(getP6());
+   if (p6 < tolerance) {
+      p6 = 1.0;
+   }
+   return 13.56 * staff_size * p6;
+}
+
+
+
+SCORE_FLOAT ScoreItem::getFontSizeInPoints(SCORE_FLOAT staff_size) {
+   if (!isTextItem()) {
+      return 0.0;
+   }
+   SCORE_FLOAT tolerance = 0.001;
+   // Treat negative scalings as positive when extracting the font size.
+   SCORE_FLOAT p6 = fabs(getP6());
+   if (p6 < tolerance) {
+      p6 = 1.0;
+   }
+   return 13.56 * staff_size * p6;
 }
 
 

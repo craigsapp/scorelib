@@ -599,7 +599,7 @@ void ScorePageSet::identifyLyricsOnStaff(vectorSIp& systemitems, int staffidx,
 //
 // hyphenBefore  : true if part of a word with a hyphen preceeding it.
 // hyphenAfter   : true if part of a word with a hyphen following it.
-// wordExtension : true if end of word with a multi-note extension line after it.
+// wordExtension : true if end of word with multi-note extension line after it.
 // verse         : verse number starting at 1 for the highest verse on the line
 //
 

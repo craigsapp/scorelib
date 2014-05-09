@@ -53,7 +53,8 @@ namespace ScoreUtility {
    int    lcm                 (set<int>& numbers);
 
    // text-related functions (defined in ScoreUtility_text.cpp):
-   ostream& printXmlTextEscapedUTF8(ostream& out, const string& text);
+   ostream& printXmlTextEscapedUTF8      (ostream& out, const string& text);
+   string   getTextNoFontXmlEscapedUTF8  (const string& text);
 
 }  // end of namespace ScoreUtility
 

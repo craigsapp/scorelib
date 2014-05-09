@@ -268,4 +268,40 @@ int ScoreItem::getPartIndex(void) {
 
 
 
+//////////////////////////////
+//
+// ScoreItem::getStaffOwner --
+//
+
+ScoreItem* ScoreItem::getStaffOwner(void) {
+   if (page_owner == NULL) {
+      return NULL;
+   }
+   int p2 = getStaffNumber();
+   vectorVSIp& staves = ((ScorePage*)page_owner)->getStaffItemListNotConst();
+   if (staves.size() > p2) {
+      if (staves[p2].size() > 0) {
+         return staves[p2][0];
+      }
+   }
+   return NULL;
+}
+
+
+
+//////////////////////////////
+//
+// ScoreItem::getStaffScale --
+//
+
+SCORE_FLOAT ScoreItem::getStaffScale(void) {
+   ScoreItem* staff = getStaffOwner();
+   if (staff == NULL) {
+      return 1.0;
+   } else {
+      return staff->getScale();
+   }
+}
+
+
 
