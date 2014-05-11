@@ -26,6 +26,8 @@
 
 using namespace std;
 
+class ScorePage;
+
 class ScoreItemBase {
 
    friend class ScorePageBase;
@@ -324,7 +326,6 @@ class ScoreItemBase {
                                             const string& indentstring);
    protected:
       // Page-related interface functions
-      void         setPageOwner            (void* page);
       void         notifyPageOfChange      (const string& message);
       void         notifyPageOfChange      (const string& message, int index,
                                             SCORE_FLOAT oldp, SCORE_FLOAT newp);

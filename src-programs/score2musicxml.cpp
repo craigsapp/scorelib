@@ -38,11 +38,13 @@ void     printToFile                (ScorePageSet& infiles, int segment,
 void     convertAllSegmentsToSeparateFiles(ScorePageSet& infiles, 
                                            string& filebase);
 ostream& printIdentification        (ostream& out, ScorePageSet& infiles, 
-                                     int segment, int indent);
+                                     int segment, int indent, 
+                                     map<string, ScoreItem*>& credits);
 ostream& printDefaults              (ostream& out, ScorePageSet& infiles, 
                                      int segment, int indent);
-ostream& printCredits               (ostream& out, ScorePageSet& infiles, 
-                                     int segment, int indent);
+ostream& printCredits               (ostream& out, 
+                                     map<string, ScoreItem*>& credits, 
+                                     int indent);
 ostream& printPartInfo              (ostream& out, ScorePageSet& infiles, 
                                      int segment, int part, int indent);
 ostream& printXml                   (ostream& out, const string& text);
@@ -63,9 +65,11 @@ void     printPartMeasure           (stringstream& out, ScorePageSet& infiles,
                                      int systemindex, SCORE_FLOAT& staffsize,
                                      int segmentindex);
 void     printNote                  (ostream& out, ScoreItem* si,
-                                     int partstaff, int indent, int divisions);
-void     printRest                  (ostream& out, ScoreItem* si, int partstaff, 
-                                     int indent, int divisions);
+                                     int partstaff, int indent, int divisions,
+                                     SCORE_FLOAT measureP3);
+void     printRest                  (ostream& out, ScoreItem* si, 
+                                     int partstaff, int indent, 
+                                     int divisions, SCORE_FLOAT measureP3);
 void     printMeasureAttributes     (ostream& out, vectorSIp& items, int index, 
                                      int sysindex, int partindex, 
                                      int partstaff, int measureindex, 
@@ -97,9 +101,16 @@ void     printSystemLayout          (stringstream& out, ScorePage& page,
                                      const AddressSystem& system, int indent);
 void     printStaffLayout           (stringstream& out, ScorePage& page, 
                                      const AddressSystem& system, int indent);
-void     printComposer              (ostream& out, ScorePageSet& infiles, 
+ScoreItem* printComposer            (ostream& out, ScorePageSet& infiles, 
                                      int segment, int indent);
-void     printTitle                 (ostream& out, ScorePageSet& infiles, 
+ScoreItem* printTitle               (ostream& out, ScorePageSet& infiles, 
+                                     int segment, int indent);
+SCORE_FLOAT getMusicXmlTenthsBetweenStaves(ScoreItem* lostaff, 
+                                     ScoreItem* histaff);
+SCORE_FLOAT getMusicXmlTenthsFromStaffTopToPageBottom(ScoreItem* staff);
+int      printGroup1                (ostream& out, ScorePageSet& infiles, 
+                                     int segment, int indent);
+void     printDufayCredits          (ostream& out, ScorePageSet& infiles, 
                                      int segment, int indent);
 
 #define INDENT_STRING "\t"
@@ -149,7 +160,7 @@ int main(int argc, char** argv) {
       invisibleQ       = 1;
       StartTempo       = 525;
    }
-   
+ 
    ScorePageSet infiles(opts);
 
    processData(infiles, opts);
@@ -244,16 +255,33 @@ ostream& convertSingleSegment(ostream& out, ScorePageSet& infiles,
    int divisions = infiles.getLCMRhythm(segment);
 
    printIndent(out, indent++, "<score-partwise version=\"3.0\">\n");
-   printTitle(out, infiles, segment, indent);          // <movement-title>
-   printIdentification(out, infiles, segment, indent); // <identification>
-   printDefaults(out, infiles, segment, indent);       // <defaults>
+
+   map<string, ScoreItem*> credits;
+
+   // <movement-title>
+   credits["title"] = printTitle(out, infiles, segment, indent);        
+
+   // <identification>
+   printIdentification(out, infiles, segment, indent, credits); 
+
+   // <defaults>
+   printDefaults(out, infiles, segment, indent);     
+
+   // <credit>*
+   printCredits(out, credits, indent);
+   if (dufayQ) {
+      printDufayCredits(out, infiles, segment, indent);
+   }
+
+   // <part-list>
    printPartList(out, infiles, segment, indent);
+
    ScoreSegment& seg = infiles.getSegment(segment);
    int partcount = seg.getPartCount();
    vector<stringstream*> partoutput;
    partoutput.resize(partcount);
    fill(partoutput.begin(), partoutput.end(), (stringstream*)NULL);
-   
+ 
    int systemcount = seg.getSystemCount();
 
    int i;
@@ -275,7 +303,7 @@ ostream& convertSingleSegment(ostream& out, ScorePageSet& infiles,
       current_keysig[i].push_back(NULL);
       current_timesig[i].push_back(NULL);
    }
-      
+    
 
    int measure_counter = 1;
 
@@ -319,10 +347,165 @@ ostream& convertSingleSegment(ostream& out, ScorePageSet& infiles,
 //  </credit>
 //
 
-ostream& printCredits(ostream& out, ScorePageSet& infiles, 
-      int segment, int indent) {
-   // doing nothing for now
+ostream& printCredits(ostream& out, map<string, ScoreItem*>& credits, 
+      int indent) {
+   int p2;
+   SCORE_FLOAT p3;
+   SCORE_FLOAT p4;
+   SCORE_FLOAT scale;
+   SCORE_FLOAT staffoffset;
+   // SCORE_FLOAT topmargin = 11.0;
+   SCORE_FLOAT fontsize = 10.0;
+   ScoreItem* si;
+   SCORE_FLOAT defaulty;
+   SCORE_FLOAT defaultx;
+
+   SCORE_FLOAT staffv;
+
+   int pageindex;
+   for (auto& it : credits) {
+      si = it.second;
+      if (si == NULL) {
+         continue;
+      }
+      string text = si->getTextWithoutInitialFontCode();
+      if (text.length() == 0) {
+         continue;
+      }
+      p2              = si->getStaffNumber();    
+      p3              = si->getHPos();
+      scale           = si->getStaffScale();
+      staffoffset     = si->getStaffVerticalOffset();
+      p4              = si->getVPos();
+      pageindex       = si->getPageIndex();
+      fontsize        = si->getFontSizeInPoints(scale);
+      string function = si->getParameter(ns_auto, np_function);
+
+      staffv = 0.8125 + 0.7875 * (p2 - 1) + staffoffset * scale * 0.0875 / 2.0;
+      defaulty = staffv + (p4 - 2.0) * scale * 0.0875 / 2.0;
+      defaulty = defaulty * 25.4 * 40 / 8.89;
+
+      // defaultx = p3 / 200.0 * 7.5 * 25.4 * 40 / 8.89;
+      defaultx = p3 * 5.0 * 6.0 / 7.0;
+      defaultx += 0.525 * 25.4 * 40 / 8.89;
+
+      printIndent(out, indent++, "<credit");
+      out << " page=\"" << pageindex+1 << "\">\n";
+      if (function == "title") {
+         printIndent(out, indent, "<credit-type>title</credit-type>\n");
+      } else if (function == "composer") {
+         printIndent(out, indent, "<credit-type>composer</credit-type>\n");
+      }
+      printIndent(out, indent, "<credit-words");
+      out << " default-x=\"" << defaultx << "\"";
+      out << " default-y=\"" << defaulty << "\"";
+      out << " font-size=\"" << fontsize << "\"";
+      out << ">";
+   
+      out << SU::getTextNoFontXmlEscapedUTF8(text);
+      out << "</credit-words>\n";
+
+      printIndent(out, --indent, "</credit>\n");
+
+   }
    return out;
+}
+
+
+
+//////////////////////////////
+//
+// printDufayCredits --
+//
+
+void printDufayCredits(ostream& out, ScorePageSet& infiles, int segment, 
+      int indent) {
+   map<string, ScoreItem*> credits;
+
+   ScoreSegment& seg = infiles.getSegment(segment);
+   const vectorVASp& addresses = seg.getSystemAddresses(0);
+   ScorePage* page;
+   int sysindex;
+   int p2, targetp2;
+   SCORE_FLOAT p4;
+   SCORE_FLOAT p3;
+   int i, j;
+
+   int counter = 0;
+   string teststr;
+
+   // process page headers
+   for (i=0; i<addresses.size(); i++) {
+      page = infiles.getPage(*addresses[i][0]);
+      sysindex = addresses[i][0]->getSystemIndex();
+      if (sysindex != 0) {
+         continue;
+      }
+      vectorVVSIp& staves = page->getP8BySystem();
+      targetp2 = staves[0][staves[0].size()-1][0]->getStaffNumber();
+      vectorSIp& items = page->getSystemItems(sysindex);
+      for (j=0; j<items.size(); j++) {
+         if (!items[j]->isTextItem()) {
+            continue;
+         }
+         p2 = items[j]->getStaffNumber();
+         if (p2 != targetp2) {
+            continue;
+         }
+         p4 = items[j]->getVPos();
+         if (p4 < 13) {
+            continue;
+         }
+         if (items[j]->isDefined(ns_auto, np_function)) {
+            continue;
+         }
+         teststr = items[j]->getFixedText().substr(3,17);
+         if (teststr.compare("Guillaume Du Fay,") == 0) {
+            credits["credit" + to_string(counter++)] = items[j];
+            items[j]->setParameterQuiet(ns_auto, np_function, "credit");
+         } 
+      }
+   }
+   
+   // process page footers
+   for (i=0; i<addresses.size(); i++) {
+      page = infiles.getPage(*addresses[i][0]);
+      sysindex = addresses[i][0]->getSystemIndex();
+      vectorVVSIp& staves = page->getP8BySystem();
+      if (sysindex != staves.size() - 1) {
+         continue;
+      }
+      targetp2 = staves[sysindex][0][0]->getStaffNumber();
+      vectorSIp& items = page->getSystemItems(sysindex);
+      for (j=0; j<items.size(); j++) {
+         if (!items[j]->isTextItem()) {
+            continue;
+         }
+         p2 = items[j]->getStaffNumber();
+         if (p2 != targetp2) {
+            continue;
+         }
+         p4 = items[j]->getVPos();
+         if (p4 > -5) {
+            continue;
+         }
+         if (items[j]->isDefined(ns_auto, np_function)) {
+            continue;
+         }
+         p3 = items[j]->getHPos();
+         if (p3 > 50) {
+            // only found on left side of page.
+            break;
+         }
+         teststr = items[j]->getFixedText().substr(3,2);
+         if (teststr.compare("D-") == 0) {
+            credits["credit" + to_string(counter++)] = items[j];
+            items[j]->setParameterQuiet(ns_auto, np_function, "credit");
+         }
+      }
+   }
+   
+   printCredits(out, credits, indent);
 }
 
 
@@ -331,7 +514,7 @@ ostream& printCredits(ostream& out, ScorePageSet& infiles,
 //
 // printDefaults --
 //
-//       
+//     
 //  <defaults>
 //    <scaling>
 //      <millimeters>7.2319</millimeters>
@@ -383,23 +566,42 @@ ostream& printDefaults(ostream& out, ScorePageSet& infiles,
       int segment, int indent) {
    printIndent(out, indent++, "<defaults>\n");
 
+   // Height of default sized staff in millimeters:
+   SCORE_FLOAT mm = 8.89;
+
+   // Height of default sized staff in MusicXML tenths (always 40):
+   SCORE_FLOAT tenths = 40.0;
+
+   SCORE_FLOAT tfactor = 40.0 / 8.89;
+
    // <scaling>
    printIndent(out, indent++, "<scaling>\n");
-   printIndent(out, indent,   "<millimeters>8.89</millimeters>\n");
-   printIndent(out, indent,   "<tenths>40</tenths>\n");
+   printIndent(out, indent,   "<millimeters>");
+   out << mm << "</millimeters>\n";
+   printIndent(out, indent,   "<tenths>");
+   out << tenths << "</tenths>\n";
    printIndent(out, --indent, "</scaling>\n");
 
    // <page-layout>
    printIndent(out, indent++, "<page-layout>\n");
+
+   // Hardwired to 8.5" x 11" paper for now:
+   printIndent(out, indent,   "<page-height>");
+   out << 11.0 * 25.4 * tfactor << "</page-height>\n";
+   printIndent(out, indent,   "<page-width>");
+   out << 8.5 * 25.4 * tfactor << "</page-width>\n";
+
    printIndent(out, indent++, "<page-margins type=\"both\">\n");
-   printIndent(out, indent,   "<left-margin>60</left-margin>\n");
-   printIndent(out, indent,   "<right-margin>54.2857142857</right-margin>\n");
+   printIndent(out, indent,   "<left-margin>");
+   out << 0.525 * 25.4 * tfactor << "</left-margin>\n";
+   printIndent(out, indent,   "<right-margin>");
+   out << 0.475 * 25.4 * tfactor  << "</right-margin>\n";
    // top and bottom defaults margins are more fuzzy, but required
-   // if the left and right margins are given.
-   // <top-margin>    (1.175" to top line of staff 12 at default size)
-   printIndent(out, indent,   "<top-margin>77.1428571429</top-margin>\n");
+   // if the left and right margins are given.  For now, just set the
+   // top and bottom margins to 0.
+   printIndent(out, indent,   "<top-margin>0</top-margin>\n");
    // <bottom-margin> (0.8125" to bottom line of bottom staff)
-   printIndent(out, indent,   "<bottom-margin>92.8571428571</bottom-margin>\n");
+   printIndent(out, indent,   "<bottom-margin>0</bottom-margin>\n");
    printIndent(out, --indent, "</page-margins>\n");
    printIndent(out, --indent, "</page-layout>\n");
 
@@ -410,8 +612,6 @@ ostream& printDefaults(ostream& out, ScorePageSet& infiles,
    printIndent(out, indent,   "<right-margin>0</right-margin>\n");
    printIndent(out, --indent, "</system-margins>\n");
    printIndent(out, --indent, "</system-layout>\n");
-
-
 
    printIndent(out, --indent, "</defaults>\n");
 
@@ -432,15 +632,15 @@ ostream& printDefaults(ostream& out, ScorePageSet& infiles,
 //       <supports attribute="new-page" element="print" type="yes" value="yes"/>
 //    </encoding>
 //  </identification>
-//       
+//     
 //
 
 ostream& printIdentification(ostream& out, ScorePageSet& infiles, 
-      int segment, int indent) {
+      int segment, int indent, map<string, ScoreItem*>& credits) {
    printIndent(out, indent++, "<identification>\n");
 
    // <creator> (composer)
-   printComposer(out, infiles, segment, indent);
+   credits["composer"] = printComposer(out, infiles, segment, indent);
 
    if (dufayQ) {
       printIndent(out, indent, "<rights>Alejandro Planchart</rights>\n");
@@ -472,7 +672,7 @@ ostream& printIdentification(ostream& out, ScorePageSet& infiles,
 // printTitle --
 //
 
-void printTitle(ostream& out, ScorePageSet& infiles, int segment, 
+ScoreItem* printTitle(ostream& out, ScorePageSet& infiles, int segment, 
       int indent) {
    ScoreSegment& seg = infiles.getSegment(segment);
    const AddressSystem& sys = seg.getSystemAddress(0);
@@ -519,7 +719,7 @@ void printTitle(ostream& out, ScorePageSet& infiles, int segment,
    }
 
    if (candidate == NULL) {
-      return;
+      return NULL;
    }
 
    candidate->setParameterQuiet(ns_auto, np_function, "title");
@@ -527,6 +727,8 @@ void printTitle(ostream& out, ScorePageSet& infiles, int segment,
    string name = candidate->getTextWithoutInitialFontCode();
    out << SU::getTextNoFontXmlEscapedUTF8(name);
    out << "</movement-title>\n";
+
+   return candidate;
 }
 
 
@@ -536,7 +738,7 @@ void printTitle(ostream& out, ScorePageSet& infiles, int segment,
 // printComposer --
 //
 
-void printComposer(ostream& out, ScorePageSet& infiles, int segment, 
+ScoreItem* printComposer(ostream& out, ScorePageSet& infiles, int segment, 
       int indent) {
    ScoreSegment& seg = infiles.getSegment(segment);
    const AddressSystem& sys = seg.getSystemAddress(0);
@@ -579,7 +781,7 @@ void printComposer(ostream& out, ScorePageSet& infiles, int segment,
    }
 
    if (candidate == NULL) {
-      return;
+      return NULL;
    }
 
    candidate->setParameterQuiet(ns_auto, np_function, "composer");
@@ -588,6 +790,7 @@ void printComposer(ostream& out, ScorePageSet& infiles, int segment,
    out << SU::getTextNoFontXmlEscapedUTF8(name);
    out << "</creator>\n";
 
+   return candidate;
 }
 
 
@@ -601,13 +804,113 @@ ostream& printPartList(ostream& out, ScorePageSet& infiles,
     int segment, int indent) {
    printIndent(out, indent++, "<part-list>\n");
 
+   int group1 = printGroup1(out, infiles, segment, indent);
+
    int partcount = infiles.getSegment(segment).getPartCount();
    for (int i=0; i<partcount; i++) {
       printPartInfo(out, infiles, segment, i, indent);
    }
 
+   if (group1) {
+      printIndent(out, indent, "<part-group number=\"1\" type=\"stop\"/>\n");
+   }
+
    printIndent(out, --indent, "</part-list>\n");
    return out;
+}
+
+
+
+////////////////////////////////
+//
+// printGroup1 --
+//   Example:
+//     <part-group number="1" type="start">
+//        <group-symbol default-x="-5">bracket</group-symbol>
+//        <group-barline>no</group-barline>
+//     </part-group>
+//
+
+int printGroup1(ostream& out, ScorePageSet& infiles, int segment, int indent) {
+   ScoreSegment& seg = infiles.getSegment(segment);
+   int partcount = seg.getPartCount();
+   const AddressSystem& sys = seg.getSystemAddress(0);
+   ScorePage* page = infiles.getPage(sys);
+   int sysindex = sys.getSystemIndex();
+   int i;
+   vectorSIp& items     = page->getSystemItems(sysindex);
+   if (items.size() == 0) {
+      return 0;
+   }
+
+   SCORE_FLOAT barp3 = -1;
+   SCORE_FLOAT p3;
+   int staffheight = 0;
+   int count;
+
+   for (i=items.size()-1; i>=0; i--) {
+      if (!items[i]->isBarlineItem()) {
+         continue;
+      }
+      p3 = items[i]->getHPos();
+      if (barp3 < 0) {
+         barp3 = p3;
+      } else if (barp3 > p3) {
+         break;
+      }
+      count = items[i]->getP4Int();
+      if (count == 0) {
+         count = 1;
+      }
+      if (staffheight < count) {
+         staffheight = count;
+      }
+   }
+
+   int barlinestyle = 0;
+
+   barp3 = -1;
+   for (i=0; i<items.size(); i++) {
+      if (!items[i]->isBarlineItem()) {
+         continue;
+      }
+      p3 = items[i]->getHPos();
+      if (barp3 < 0) {
+         barp3 = p3;
+      } else if (barp3 + 2 < p3) {
+         break;
+      }
+      count = items[i]->getP4Int();
+      if (count == 0) {
+         count = 1;
+      }
+      if (partcount != count) {
+         continue;
+      }
+
+      barlinestyle = items[i]->getP5Int();
+      if (barlinestyle != 0) {
+         break;
+      }
+   }
+
+   if (barlinestyle == 9) {
+      // square bracket
+      printIndent(out, indent++, "<part-group number=\"1\" type=\"start\">\n");
+      printIndent(out, indent, "<group-symbol");
+      out << " default-x=\"-5\">bracket</group-symbol>\n";
+
+      if (staffheight == 1) {
+         // staves are not barred together
+         printIndent(out, indent, "<group-barline>no</group-barline>\n");
+      } else {
+out << "XXX " << staffheight << "XXX";
+      }
+      printIndent(out, --indent, "</part-group>\n");
+      return 1;
+   }
+
+   return 0;
 }
 
 
@@ -779,12 +1082,14 @@ void printPartMeasure(stringstream& out, ScorePageSet& infiles,
    ScoreItem* nextclef = NULL;
    ScoreItem* nextkey  = NULL;
    ScoreItem* nexttime = NULL;
-   
+ 
    double measuredur = measureitems.getDuration();
    int partstaff = page.getPageStaffIndex(partaddress);
 
-   // double width = measureitems.getP3Width();
-   // width = width * 7.0 / 6.0 * 5.0;
+   SCORE_FLOAT width = measureitems.getP3Width();
+   width = width * 5.0 * 6.0 / 7.0;
+   
+   SCORE_FLOAT measureP3 = measureitems.getP3();
 
    if (locationQ) {
       printIndent(out, indent, "<!--");
@@ -800,7 +1105,7 @@ void printPartMeasure(stringstream& out, ScorePageSet& infiles,
 
    printIndent(out, indent++, "<measure");
    out << " number=\"" << mcounter << "\"";
-   // out << " width=\"" << width << "\"";
+   out << " width=\"" << width << "\"";
    out << ">\n";
 
    vectorSIp& items = measureitems.getItems();
@@ -854,7 +1159,8 @@ void printPartMeasure(stringstream& out, ScorePageSet& infiles,
 
    // <attributes>
    printMeasureAttributes(out, items, 0, sysindex, partindex, partstaff, 
-         measureindex, divisions, indent, currentkey, currenttime, currentclef, staffsize);
+         measureindex, divisions, indent, currentkey, currenttime, 
+         currentclef, staffsize);
 
    // <sound> -- Finale ignores tempo markings.
    if (startOfWork) {
@@ -899,13 +1205,13 @@ void printPartMeasure(stringstream& out, ScorePageSet& infiles,
             continue;
          }
          printDirections(out, items, i, partstaff, indent, divisions);
-         printNote(out, si, partstaff, indent, divisions);
+         printNote(out, si, partstaff, indent, divisions, measureP3);
       }
-  
+
       if (si->isRestItem()) {
          printDirections(out, items, i, partstaff, indent, divisions);
          if (!(invisibleQ && si->isInvisible())) {
-            printRest(out, si, partstaff, indent, divisions);
+            printRest(out, si, partstaff, indent, divisions, measureP3);
          }
       }
 
@@ -935,13 +1241,19 @@ void printPartMeasure(stringstream& out, ScorePageSet& infiles,
 
 void printSystemLayout(stringstream& out, 
       ScorePage& page, const AddressSystem& system, int indent) {
-   int sysindex = system.getSystemIndex();
+   int sysindex        = system.getSystemIndex();
+   int sysstaffindex   = system.getSystemStaffIndex();
    vectorVVSIp& staves = page.getP8BySystem();
+
+   stringstream out2;
 
    int staffcount = staves[sysindex].size();
    if (staffcount <= 0) {
       return;
    }
+
+   bool topStaffOnSystem = (sysstaffindex == staffcount - 1);
+   bool topStaffOnPage   = topStaffOnSystem && (sysindex == 0);
 
    vectorSF leftside(staffcount);
    vectorSF rightside(staffcount);
@@ -961,27 +1273,85 @@ void printSystemLayout(stringstream& out,
    SCORE_FLOAT sysleft  = leftside[0];
    SCORE_FLOAT sysright = rightside.back();
 
-   if ((sysleft == 0.0) && (sysright == 200.0)) {
-      // they are in the default position, so don't print anything
+   indent++;
+
+   if ((sysleft != 0.0) || (sysright != 200.0)) {
+      // The system staves are not in default positions, so 
+      // print where they should go.
+      SCORE_FLOAT leftmargin = sysleft * 7.0 / 6.0 * 5.0;
+      SCORE_FLOAT rightmargin = (200.0 - sysright) * 7.0 / 6.0 * 5.0;
+
+      SCORE_FLOAT threshold = 0.1;
+      if ((fabs(leftmargin) > threshold) || (fabs(rightmargin) > threshold)) {
+
+         // <system-margins>
+         printIndent(out2, indent++, "<system-margins>\n");
+         printIndent(out2, indent,   "<left-margin>");
+         out2 << leftmargin << "</left-margin>\n";
+         printIndent(out2, indent,   "<right-margin>");
+         out2 << rightmargin << "</right-margin>\n";
+         printIndent(out2, --indent, "</system-margins>\n");
+      }
+   }
+
+   // <system-distance>
+   // If the staff is at the top of a system, then print
+   // the distance to the bottom of the next system.  If 
+   // there is no staff above the top staff of the system,
+   // then display distance to top margin with <top-system-distance>
+ 
+   ScoreItem* lostaff;
+   ScoreItem* histaff;
+
+   if (topStaffOnPage) {
+      // Calculate distance to top margin.  Currently, the top margin
+      // is hard-wired to 0.675 inches from the top of the page (11 inches
+      // high).
+      lostaff = staves[sysindex][sysstaffindex][0];
+      SCORE_FLOAT lovpos = getMusicXmlTenthsFromStaffTopToPageBottom(lostaff);
+      // High position is the top margin (currently the top of the page
+      // because the top page margin is 0:
+      SCORE_FLOAT hivpos = (11.00 - 0.0) * 25.4 * 40 / 8.89;
+      printIndent(out2, indent, "<top-system-distance>");
+      out2 << hivpos - lovpos << "</top-system-distance>\n";
+   } else if (topStaffOnSystem && (sysindex > 0)) {
+      // Calculate distance to bottom staff of next higher system
+      lostaff = staves[sysindex][sysstaffindex][0];
+      histaff = staves[sysindex-1][0][0];
+      SCORE_FLOAT distance = getMusicXmlTenthsBetweenStaves(lostaff, histaff);
+      printIndent(out2, indent, "<system-distance>");
+      out2 << distance << "</system-distance>\n";
+   }
+
+   if (!out2.rdbuf()->in_avail()) {
       return;
    }
 
-   // The system staves are not in the default position, so 
-   // print where they should go.
-   SCORE_FLOAT leftmargin = sysleft * 7.0 / 6.0 * 5.0;
-   SCORE_FLOAT rightmargin = (200.0 - sysright) * 7.0 / 6.0 * 5.0;
+   indent--;
 
    printIndent(out, indent++, "<system-layout>\n");
-   printIndent(out, indent++, "<system-margins>\n");
-
-   printIndent(out, indent,   "<left-margin>");
-   out << leftmargin << "</left-margin>\n";
-
-   printIndent(out, indent,   "<right-margin>");
-   out << rightmargin << "</right-margin>\n";
-
-   printIndent(out, --indent, "</system-margins>\n");
+   out << out2.str();
    printIndent(out, --indent, "</system-layout>\n");
+}
+
+
+
+//////////////////////////////
+//
+// getMusicXmlTenthsFromStaffTopToPageBottom --
+//
+
+SCORE_FLOAT getMusicXmlTenthsFromStaffTopToPageBottom(ScoreItem* staff) {
+   int p2 = staff->getStaffNumber();
+   SCORE_FLOAT inches = 0.8125 + (p2 - 1) * 0.7875;
+   SCORE_FLOAT displacement = staff->getP4();
+   SCORE_FLOAT scale = staff->getScale();
+   SCORE_FLOAT offset = displacement * scale * 0.0875 / 2.0;
+   SCORE_FLOAT staffheight = 8.0 * scale * 0.0875 / 2.0;
+   inches += offset + staffheight;
+   SCORE_FLOAT mm = inches * 25.4;
+   SCORE_FLOAT tenths = mm * 40 / 8.89;
+   return tenths;
 }
 
 
@@ -996,7 +1366,7 @@ void printStaffLayout(stringstream& out,
    int sysindex = system.getSystemIndex();
    vectorVVSIp& staves = page.getP8BySystem();
    int sysstaffindex = system.getSystemStaffIndex();
-   
+ 
    int staffcount = staves[sysindex].size();
    if (staffcount <= 0) {
       return;
@@ -1014,6 +1384,23 @@ void printStaffLayout(stringstream& out,
       // no staff lines for some strange reason.
       return;
    }
+
+   SCORE_FLOAT staffdistance = getMusicXmlTenthsBetweenStaves(lostaff, histaff);
+
+   printIndent(out, indent++, "<staff-layout>\n");
+   printIndent(out, indent, "<staff-distance>");
+   out << staffdistance << "</staff-distance>\n";
+   printIndent(out, --indent, "</staff-layout>\n");
+}
+
+
+//////////////////////////////
+//
+// getMusicXmlTenthsBetweenStaves --
+//
+
+SCORE_FLOAT getMusicXmlTenthsBetweenStaves(ScoreItem* lostaff, 
+      ScoreItem* histaff) {
 
    SCORE_FLOAT p2hi = histaff->getStaffNumber();
    SCORE_FLOAT p2lo = lostaff->getStaffNumber();
@@ -1033,17 +1420,18 @@ void printStaffLayout(stringstream& out,
    SCORE_FLOAT hioffset = histaff->getP4() * 5.0 * scalehi;
    SCORE_FLOAT staffdistance = difference - loheight - looffset + hioffset;
 
-   printIndent(out, indent++, "<staff-layout>\n");
-   printIndent(out, indent, "<staff-distance>");
-   out << staffdistance << "</staff-distance>\n";
-   printIndent(out, --indent, "</staff-layout>\n");
+   // The distances are off by a diatonic step for some reason,
+   // so removing some space from the distance to correct it.
+   staffdistance -= 2.5;
+
+   return staffdistance;
 }
 
 
 
 //////////////////////////////
 //
-// printDirections -- print text which is not treated as lyrics.  
+// printDirections -- print text which is not treated as lyrics.
 //      Will have to be adjusted when layers are implemented, since
 //      this function will print the same text item for different
 //      layers.
@@ -1258,10 +1646,17 @@ void printDirection(ostream& out, ScoreItem* si, ScoreItem* anchor,
       return;
    }
 
+   if (dufayQ) {
+      if (word == "= ]") {
+         // incomplete rhythmic scaling (which is undone), so not needed.
+         return;
+      }
+   }
+
    SCORE_FLOAT staffscale = si->getStaffScale();
    SCORE_FLOAT p4         = si->getVPos();
    SCORE_FLOAT defaulty   = (p4 - 11.0) * 5.0 * staffscale;
-  
+
    // relative-x probably more complicated to calculate:
    //SCORE_FLOAT p3 = si->getHPos();
    //SCORE_FLOAT anchorp3 = si->getHPos();
@@ -1552,7 +1947,7 @@ int printTimeSigItem(stringstream& stream, ScoreItem* item, int indent) {
       beats = 2;
       beattype = 2;
    }
-   
+ 
    if (rhythmicScalingQ) {
       beattype = (int)(beattype * pow(2.0, -Scaling));
       if (beattype < 1) {
@@ -1648,11 +2043,15 @@ int printClefItem(stringstream& stream, ScoreItem* item, int indent) {
 //
 
 void printRest(ostream& out, ScoreItem* si, int partstaff, int indent,
-      int divisions) {
+      int divisions, SCORE_FLOAT measureP3) {
 
-   double duration = si->getDuration();
+   SCORE_FLOAT p3 = si->getHPos();
+   SCORE_FLOAT defaultx = (p3 - measureP3) * 5.0 * 6.0 / 7.0;
+   SCORE_FLOAT duration = si->getDuration();
 
-   printIndent(out, indent++, "<note>\n");
+   printIndent(out, indent++, "<note");
+   out << " default-x=\"" << defaultx << "\"";
+   out << ">\n";
    printIndent(out, indent, "<rest/>\n");
 
    // <duration>
@@ -1715,7 +2114,7 @@ void printNoteNotations(ostream& out, ScoreItem* si, int indent,
       if (fermatastream.rdbuf()->in_avail()) {
          out << fermatastream.str();
       }
-         
+       
       printIndent(out, indent, "</notations>\n");
    }
 }
@@ -1728,9 +2127,14 @@ void printNoteNotations(ostream& out, ScoreItem* si, int indent,
 //
 
 void printNote(ostream& out, ScoreItem* si, int partstaff, int indent,
-      int divisions) {
+      int divisions, SCORE_FLOAT measureP3) {
 
-   printIndent(out, indent++, "<note>\n");
+   SCORE_FLOAT p3 = si->getHPos();
+   SCORE_FLOAT defaultx = (p3 - measureP3) * 5.0 * 6.0 / 7.0;
+
+   printIndent(out, indent++, "<note");
+   out << " default-x=\"" << defaultx << "\"";
+   out << ">\n";
 
    double duration = si->getDuration();
 
@@ -1745,7 +2149,6 @@ void printNote(ostream& out, ScoreItem* si, int partstaff, int indent,
    if (si->isSecondaryChordNote()) {
       printIndent(out, indent, "<chord/>\n");
    }
-
 
    int  base40 = si->getParameterInt(ns_auto, np_base40Pitch);
    char step   = SU::base40ToUCDiatonicLetter(base40);
@@ -1851,7 +2254,7 @@ void printNote(ostream& out, ScoreItem* si, int partstaff, int indent,
          return;
       }
       for (int i=1; i<chordnotes.size(); i++) {
-         printNote(out, chordnotes[i], partstaff, indent, divisions);
+         printNote(out, chordnotes[i], partstaff, indent, divisions, measureP3);
       }
    }
 
@@ -2026,7 +2429,7 @@ string getNoteType(ScoreItem* si) {
       case -4:  return "64th";
       case -5:  return "128th";
    }
-   
+ 
    // unknown type
    return "";
 }

@@ -178,26 +178,90 @@ vectorSIp& SystemMeasure::getItems(void) {
 //
 
 SCORE_FLOAT SystemMeasure::getP3Width(void) {
-   SCORE_FLOAT startP3;
-   SCORE_FLOAT endP3;
+   return getP3Right() - getP3();
+}
 
-   if (start_bars.size() > 0) {
-      startP3 = start_bars[0]->getHPos();
-   } else if (measure_items.size() > 0) {
-      startP3 = measure_items[0]->getHPos();
-   } else {
-      startP3 = 0.0;
-   }
+//
+// Aliases:
+//
 
+SCORE_FLOAT SystemMeasure::getHorizontalWidth(void) {
+   return getP3Width();
+}
+
+
+SCORE_FLOAT SystemMeasure::getHWidth(void) {
+   return getP3Width();
+}
+
+
+//////////////////////////////
+//
+// SystemMeasure::getP3Right --
+//
+
+SCORE_FLOAT SystemMeasure::getP3Right(void) { 
    if (end_bars.size() > 0) {
-      endP3 = end_bars.back()->getHPos();
+      return end_bars.back()->getHPos();
    } else if (measure_items.size() > 0) {
-      endP3 = measure_items.back()->getHPos();
+      return measure_items.back()->getHPos();
    } else {
-      endP3 = 200.0;
+      return 200.0;
    }
+}
 
-   return endP3 - startP3;
+//
+// Aliases:
+//
+
+SCORE_FLOAT SystemMeasure::getHorizontalPositionRight(void) { 
+   return getP3Right();
+}
+
+
+SCORE_FLOAT SystemMeasure::getHPosRight(void) { 
+   return getP3Right();
+}
+
+
+
+//////////////////////////////
+//
+// SystemMeasure::getP3 -- Return left horizontal position
+//     of the starting barline of the measure.
+//
+
+SCORE_FLOAT SystemMeasure::getP3(void) {
+   if (start_bars.size() > 0) {
+      return start_bars[0]->getHPos();
+   } else if (measure_items.size() > 0) {
+      return measure_items[0]->getHPos();
+   } else {
+      return 0.0;
+   }
+}
+
+//
+// Aliases:
+//
+
+SCORE_FLOAT SystemMeasure::getP3Left(void) { 
+   return getP3();
+}
+
+
+SCORE_FLOAT SystemMeasure::getHorizontalPosition(void) { 
+   return getP3();
+}
+
+
+SCORE_FLOAT SystemMeasure::getHorizontalPositionLeft(void) { 
+   return getP3();
+}
+
+
+SCORE_FLOAT SystemMeasure::getHPosLeft(void) { 
+   return getP3();
 }
 
 

@@ -20,6 +20,8 @@
 
 using namespace std;
 
+class ScorePageSet;
+
 class ScorePage : public ScorePageBase {
    public:
                   ScorePage             (void);
@@ -29,6 +31,8 @@ class ScorePage : public ScorePageBase {
                   ScorePage             (const ScorePageBase& apage);
                  ~ScorePage             ();
 
+      ScorePageSet* getSetOwner         (void);
+      void          setSetOwner         (ScorePageSet* owner);
 
       // Data access functions (defined in ScorePage_data.cpp):
 
@@ -77,6 +81,8 @@ class ScorePage : public ScorePageBase {
       vectorSIp&  getSystemItems         (int sindex);
       int         getPageStaffIndex      (int sysindex, int partnum);
       int         getPageStaffIndex      (const AddressSystem& partaddress);
+      void        setPageOwner           (void* page);
+      ScorePage*  getPageOwner           (void);
 
 
       // Staff duration analysis functions (defined in ScorePage_duration.cpp):

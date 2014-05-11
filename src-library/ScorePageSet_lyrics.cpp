@@ -231,14 +231,9 @@ void ScorePageSet::identifyExtraVerses(int segmentindex, int partindex,
 
    ScoreSegment& seg = getSegment(segmentindex);
    const vectorVASp& systems = getSystemAddresses(segmentindex, partindex);
-   // int systemcount = systems.size();
    AddressSystem address;
    address = *systems[systemindex][0];
-
-   vectorI newverses(average.size());
-   fill(newverses.begin(), newverses.end(), 0.0);
    vectorI p4hist(2000);
-
    vectorSIp& items = seg.getSystemItems(address);
    vectorVSIp text(2000);
    SCORE_FLOAT p4;
@@ -260,7 +255,7 @@ void ScorePageSet::identifyExtraVerses(int segmentindex, int partindex,
       }
       p4 = items[i]->getVPos();
       if (p1 == P1_Line) {
-         p4 = p4 - 1.1;
+         p4 = p4 - 1.0;
       }
       text[p4+1000].push_back(items[i]);
       p4hist[p4+1000]++;
@@ -275,6 +270,7 @@ void ScorePageSet::identifyExtraVerses(int segmentindex, int partindex,
    int currentv = 0;
    int trg;
    int sum;
+   int newlyrics = 0;
    for (i=0; i<average.size(); i++) {
       if ((currentv < verses.size()) 
             && fabs(average[i] - verses[currentv]) < 2.5) {
@@ -299,13 +295,76 @@ void ScorePageSet::identifyExtraVerses(int segmentindex, int partindex,
          }
          // Found some lyrics, so need to update the lyrics positions
          // and insert the new verse.
+         newlyrics++;
          verses.resize(verses.size()+1);
          verses.back() = 0;
          for (j=verses.size()-1; j>i; j--) {
             verses[j] = verses[j-1];
-            changeVerseLine(text, j-1+1, j+1, 1, average[j]);
+            changeVerseLine(text, j-1+1, j+1, 2, average[j]);
          }
          addVerseLine(text, i+1, 1, average[i], staffindex);
+      }
+   }
+
+   if (newlyrics) {
+      adjustHyphenInfo(items, staffindex);
+   }
+}
+
+
+//////////////////////////////
+//
+// ScorePageSet::adjustHyphenInfo --
+//
+
+void ScorePageSet::adjustHyphenInfo(vectorSIp& items, int staffnum) {
+   int i;
+   vectorSIp lastlyric(1000);
+   ScoreItem* lastitem = NULL;
+   fill(lastlyric.begin(), lastlyric.end(), (ScoreItem*)NULL);
+   int versenum;
+
+   int p1;
+   int p2;
+   int lastp1;
+   for (i=0; i<items.size(); i++) {
+      if (!items[i]->isDefined(ns_auto, np_verseLine)) {
+         continue;
+      }
+      p2 = items[i]->getStaffNumber();
+      if (p2 != staffnum) {
+         continue;
+      }
+      versenum = items[i]->getParameterInt(ns_auto, np_verseLine);
+      if ((versenum < 0) || (versenum > 999)) {
+         continue;
+      }     
+      lastitem = lastlyric[versenum];
+      lastlyric[versenum] = items[i];
+      if (lastitem == NULL) {
+         continue;
+      }
+      p1 = items[i]->getP1Int();
+      lastp1 = lastitem->getP1Int();
+      if (p1 == lastp1) {
+         continue; 
+      }
+      if (p1 == P1_Text) {
+         // previous item is a line.  If it is a hyphen, then
+         // set text to have a hyphenBefore, it is a word extender
+         // then don't do anything.
+         if (lastitem->getParameterBool(ns_auto, np_lyricsHyphen)) {
+            items[i]->setParameter(ns_auto, np_hyphenBefore, "true");
+         }
+      } else if (p1 == P1_Line) {
+         // previous item is text.  If this is a hyphen, then set
+         // text to have a hyphenAfter.  If this is a wordExtension,
+         // then indicate on the previous text item.
+         if (items[i]->getParameterBool(ns_auto, np_wordExtension)) {
+            lastitem->setParameter(ns_auto, np_wordExtension, "true");
+         } else if (items[i]->getParameterBool(ns_auto, np_lyricsHyphen)) {
+            lastitem->setParameter(ns_auto, np_hyphenAfter, "true");
+         }
       }
    }
 }
@@ -320,19 +379,27 @@ void ScorePageSet::identifyExtraVerses(int segmentindex, int partindex,
 void ScorePageSet::addVerseLine(vectorVSIp& vertical, int newnum,
       int tolerance, SCORE_FLOAT p4target, int staffindex) {
    int i, j;
+   ScoreItem* si;
    int p4 = int(p4target + 0.5);
    int p2;
    for (i=p4-tolerance; i<=p4+tolerance; i++) {
       for (j=0; j<vertical[i+1000].size(); j++) {
-         p2 = vertical[i+1000][j]->getP2Int();
+         si = vertical[i+1000][j];
+         p2 = si->getP2Int();
          if (p2 != staffindex) {
             continue;
          }
-         if (vertical[i+1000][j]->isDefined("auto", "verseLine")) {
+
+         if (si->isDefined(ns_auto, np_verseLine)) {
             // don't relabel a verseLine by accident
             continue;
          }
-         vertical[i+1000][j]->setParameter("auto", "verseLine", to_string(newnum));
+         si->setParameter(ns_auto, np_verseLine, to_string(newnum));
+         if (si->isDashedLine()) {
+            si->setParameter(ns_auto, np_lyricsHyphen, "true");
+         } else if (si->isPlainLine()) {
+            si->setParameter(ns_auto, np_wordExtension, "true");
+         }
       }
    } 
 }
@@ -348,17 +415,19 @@ void ScorePageSet::changeVerseLine(vectorVSIp& vertical, int oldnum, int newnum,
       int tolerance, SCORE_FLOAT p4target) {
 
    int i, j;
+   ScoreItem* si;
    int p4 = int(p4target + 0.5);
    for (i=p4-tolerance; i<=p4+tolerance; i++) {
       for (j=0; j<vertical[i+1000].size(); j++) {
-         if (!vertical[i+1000][j]->isDefined("auto", "verseLine")) {
+         si = vertical[i+1000][j];
+         if (!si->isDefined(ns_auto, np_verseLine)) {
             continue;
          }
          if ((oldnum >= 0) && 
-             (vertical[i+1000][j]->getParameterInt("auto", "verseLine") != oldnum)) {
+             (si->getParameterInt(ns_auto, np_verseLine) != oldnum)) {
             continue;
          }
-         vertical[i+1000][j]->setParameter("auto", "verseLine", to_string(newnum));
+         si->setParameter(ns_auto, np_verseLine, to_string(newnum));
       }
    }
 }
@@ -657,7 +726,6 @@ void ScorePageSet::processVerse(int verse, int vpos,
                   snext->setParameter(ns_auto, np_lyricsHyphen, "true");
                }
             } else if (snext->isPlainLine()) {
-
                if (srecord->isDefined(ns_lyrics, np_wordExtension)) {
                   srecord->copyParameterOverwrite(ns_auto, ns_lyrics, 
                         np_wordExtension);
@@ -672,7 +740,8 @@ void ScorePageSet::processVerse(int verse, int vpos,
                   snext->setParameter(ns_auto, np_wordExtension, "true");
                }
 
-            }
+            } 
+
          }
          if (slast != NULL) {
             if (slast->isDashedLine()) {

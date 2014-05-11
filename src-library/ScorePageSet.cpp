@@ -174,3 +174,22 @@ ScorePageOverlay& ScorePageSet::operator[](int oindex) {
 
 
 
+//////////////////////////////
+//
+// ScorePageSet::setPageOwnerships -- set each page's owner
+//    to this object.
+//
+
+void ScorePageSet::setPageOwnerships(void) {
+   ScorePageSet& t = *this;
+   int i, j;
+   int overlaycount = getPageCount();
+   for (i=0; i<overlaycount; i++) {
+      for (j=0; j<t[i].size(); j++) {
+         t[i][j].setSetOwner(this);
+      }
+   }
+}
+
+
+

@@ -26,6 +26,7 @@ using namespace std;
 //
 
 ScorePageBase::ScorePageBase(void) {
+   pageset_owner = NULL;
    trailer.reserve(8);
    setDefaultPrintParameters();
    clearAnalysisStates();
@@ -33,6 +34,7 @@ ScorePageBase::ScorePageBase(void) {
 
 
 ScorePageBase::ScorePageBase(const char* filename) {
+   pageset_owner = NULL;
    trailer.reserve(8);
    setDefaultPrintParameters();
    clearAnalysisStates();
@@ -41,6 +43,7 @@ ScorePageBase::ScorePageBase(const char* filename) {
 
 
 ScorePageBase::ScorePageBase(istream& instream) { 
+   pageset_owner = NULL;
    trailer.reserve(8);
    setDefaultPrintParameters();
    clearAnalysisStates();
@@ -64,6 +67,7 @@ ScorePageBase::ScorePageBase(const ScorePageBase& apage) {
          item_storage.push_back(sip);
       }
    }
+   pageset_owner = NULL;
 }
 
 
@@ -75,6 +79,7 @@ ScorePageBase::ScorePageBase(const ScorePageBase& apage) {
 
 ScorePageBase::~ScorePageBase() {
    clear();
+   pageset_owner = NULL;
 }
 
 

@@ -53,6 +53,7 @@ class ScorePageSet {
       void        appendOverlay                 (ScorePage* page, int pindex);
       void        analyzeSegmentsByIndent       (SCORE_FLOAT threshold1 = 7.0,
                                                  SCORE_FLOAT threshold2 = 40.0);
+      void        setPageOwnerships             (void);
      
       // Page-related functions
       void        analyzePitch                  (void);
@@ -117,7 +118,8 @@ class ScorePageSet {
                                                  int newnum, int tolerance, 
                                                  SCORE_FLOAT p4target,
                                                  int staffindex);
-
+      void          adjustHyphenInfo            (vectorSIp& items, 
+                                                 int staffnum);
 
    protected:
       // page_storage contains all of the data for SCORE pages.

@@ -32,6 +32,8 @@ void ScorePageSet::appendReadFromOptionArguments(Options& opts) {
    for (int i=1; i<=opts.getArgumentCount(); i++) {
       appendRead(opts.getArgument(i));
    }
+
+   setPageOwnerships();
 }
 
 //
@@ -77,6 +79,7 @@ void ScorePageSet::appendRead(const string& filename) {
    } else {
       appendReadPmx(testfile, filename);
    }
+   setPageOwnerships();
 }
    
 
@@ -88,6 +91,7 @@ void ScorePageSet::appendRead(const string& filename) {
 
 void ScorePageSet::appendReadStandardInput(void) {
    appendRead(cin, "<stdin>");
+   setPageOwnerships();
 }
 
 
@@ -100,6 +104,7 @@ void ScorePageSet::appendReadStandardInput(void) {
 
 void ScorePageSet::appendRead(istream& instream, const string& filename) {
    appendReadPmx(instream, filename);   
+   setPageOwnerships();
 }
 
 
@@ -114,6 +119,7 @@ void ScorePageSet::appendReadBinary(istream& instream, const string& filename) {
    pageptr->read(instream);
    pageptr->setFilename(filename);
    appendPage(pageptr);
+   setPageOwnerships();
 }
 
 
@@ -254,6 +260,7 @@ void ScorePageSet::appendReadPmx(istream& instream, const string& filename,
    if (!instream.eof()) {
       appendReadPmx(instream, localfile, localtype);
    }
+   setPageOwnerships();
 
 }
 

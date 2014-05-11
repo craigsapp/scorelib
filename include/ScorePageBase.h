@@ -138,7 +138,6 @@ class ScorePageBase {
       // SegmentPart info.
       vectorI segmentpart_map;
 
-
       // Variable "trailer" is for storing the trailer of a SCORE binary file.
       // The trailer consists of at least 5 floats.  The numbers in
       // reverse order are:
@@ -195,6 +194,8 @@ class ScorePageBase {
       vector<DatabaseP3> p3_database;
 
       static constexpr bool monitor_P3 = 0;
+
+      void* pageset_owner;
 
 
    protected:

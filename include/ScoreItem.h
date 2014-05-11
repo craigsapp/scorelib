@@ -24,6 +24,7 @@
 using namespace std;
 
 class ScoreItem;
+class ScorePage;
 
 // ScoreItem typedefs:
 using listSIp     = list<ScoreItem*>;
@@ -250,7 +251,11 @@ using listSIp     = list<ScoreItem*>;
       bool         isSecondaryChordNote           (void);
       ScoreItem*   getPrimaryChordNote            (void);
       ScoreItem*   getStaffOwner                  (void);
+      int          getPageIndex                   (void);
+      ScorePage*   getPageOwner                   (void);
+      void         setPageOwner                   (void* page);
       SCORE_FLOAT  getStaffScale                  (void);
+      SCORE_FLOAT  getStaffVerticalOffset         (void);
 
       BeamGroup*   getBeamGroup                   (void);
       BeamGroup*   getBeamInfo                    (void);

@@ -19,19 +19,32 @@ using namespace std;
 class SystemMeasure {
 
    public:
-                     SystemMeasure            (void);
-                    ~SystemMeasure            (void);
-      void           clear                    (void);
-      void           addItem                  (ScoreItem* item);
-      vectorSIp&     getItems                 (void);
-      SCORE_FLOAT    getP3Width               (void);
-      SCORE_FLOAT    getSystemOffsetDuration  (void);
-      SCORE_FLOAT    getMeasureDuration       (void);
-      SCORE_FLOAT    getDuration              (void);
-      vectorSIp&     getStartBarlines         (void);
-      vectorSIp&     getEndBarlines           (void);
-      ScoreItem*     operator[]               (int index);
-      int            getSize                  (void);
+                     SystemMeasure             (void);
+                    ~SystemMeasure             (void);
+      void           clear                     (void);
+      void           addItem                   (ScoreItem* item);
+      vectorSIp&     getItems                  (void);
+      SCORE_FLOAT    getP3Width                (void);
+      SCORE_FLOAT    getHorizontalWidth        (void);
+      SCORE_FLOAT    getHWidth                 (void);
+
+      SCORE_FLOAT    getP3                     (void);
+      SCORE_FLOAT    getP3Left                 (void);
+      SCORE_FLOAT    getHorizontalPosition     (void);
+      SCORE_FLOAT    getHorizontalPositionLeft (void);
+      SCORE_FLOAT    getHPosLeft               (void);
+
+      SCORE_FLOAT    getP3Right                (void);
+      SCORE_FLOAT    getHorizontalPositionRight(void);
+      SCORE_FLOAT    getHPosRight              (void);
+
+      SCORE_FLOAT    getSystemOffsetDuration   (void);
+      SCORE_FLOAT    getMeasureDuration        (void);
+      SCORE_FLOAT    getDuration               (void);
+      vectorSIp&     getStartBarlines          (void);
+      vectorSIp&     getEndBarlines            (void);
+      ScoreItem*     operator[]                (int index);
+      int            getSize                   (void);
 
    protected:
       vectorSIp   start_bars;

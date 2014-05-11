@@ -778,18 +778,6 @@ const string& ScoreItemBase::getFixedText(void) const {
 // Page interface functions
 //
 
-//////////////////////////////
-//
-// ScoreItemBase::setPageOwner -- set a pointer to the page which
-//   owns this SCORE item (the page which manages the memory allocation
-//   for the item.)
-//
-
-void ScoreItemBase::setPageOwner(void* page) {
-   page_owner = page;
-}
-
-
 
 //////////////////////////////
 //

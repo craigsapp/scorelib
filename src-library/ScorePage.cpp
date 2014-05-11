@@ -62,6 +62,28 @@ ScorePage::~ScorePage() {
 
 
 
+//////////////////////////////
+//
+// ScorePage::setSetOwner -- 
+//
+
+void ScorePage::setSetOwner(ScorePageSet* pageset) {
+   pageset_owner = (void*)pageset;
+}
+
+
+
+//////////////////////////////
+//
+// ScorePage::getSetOwner --
+//
+
+ScorePageSet* ScorePage::getSetOwner(void) {
+   return (ScorePageSet*)pageset_owner;
+}
+
+
+
 ///////////////////////////////////////////////////////////////////////////
 //
 // Private functions.

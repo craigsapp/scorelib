@@ -11,6 +11,7 @@
 
 #include "ScoreItem.h"
 #include "ScorePage.h"
+#include "ScorePageSet.h"
 
 using namespace std;
 
@@ -301,6 +302,78 @@ SCORE_FLOAT ScoreItem::getStaffScale(void) {
    } else {
       return staff->getScale();
    }
+}
+
+
+
+//////////////////////////////
+//
+// ScoreItem::getStaffVerticalOffset --
+//
+
+SCORE_FLOAT ScoreItem::getStaffVerticalOffset(void) {
+   ScoreItem* staff = getStaffOwner();
+   if (staff == NULL) {
+      return 0.0;
+   } else {
+      return staff->getVPos();
+   }
+}
+
+
+
+//////////////////////////////
+//
+// ScoreItem::getPageIndex -- return the page index within a
+//    ScorePage set for which this staff belongs.  Returns -1
+//    if not within a ScorePageSet object.
+//
+
+int ScoreItem::getPageIndex(void) {
+   ScorePage* page = getPageOwner();
+   if (page == NULL) {
+      return -1;
+   }
+   ScorePageSet* pageset = page->getSetOwner();
+   if (pageset == NULL) {
+      return -1;
+   }
+   ScorePageSet& pset = *pageset;
+   int pagecount = pset.getPageCount();
+   int i, j;
+   for (i=0; i<pagecount; i++) {
+      for (j=0; j<pset[i].size(); j++) {
+         if (page == &(pset[i][j])) {
+            return i;
+         }
+      }
+   }
+   return -1;
+}
+
+
+
+
+//////////////////////////////
+//
+// ScoreItem::setPageOwner -- set a pointer to the page which
+//   owns this SCORE item (the page which manages the memory allocation
+//   for the item.)
+//
+
+void ScoreItem::setPageOwner(void* page) {
+   page_owner = (void*)page;
+}
+
+
+
+//////////////////////////////
+//
+// ScoreItem::getPageOwner -- 
+//
+
+ScorePage* ScoreItem::getPageOwner(void) {
+   return (ScorePage*)page_owner;
 }
 
 
