@@ -126,6 +126,29 @@ char ScoreUtility::base40ToUCDiatonicLetter(int base40) {
 
 //////////////////////////////
 //
+// ScoreUtility::base40ToLCDiatonicLetter --  Convert a base-40 pitch 
+//     into a Base-7 diatonic pitch letter name (upper case).
+//     (losing any chromatic alterations of the diatonic pitch).
+//
+
+char ScoreUtility::base40ToLCDiatonicLetter(int base40) {
+   int dpc = ScoreUtility::base40ToBase7PitchClass(base40);
+   switch (dpc) {
+      case 0: return 'c';
+      case 1: return 'd';
+      case 2: return 'e';
+      case 3: return 'f';
+      case 4: return 'g';
+      case 5: return 'a';
+      case 6: return 'b';
+   }
+   return 'x';
+}
+
+
+
+//////////////////////////////
+//
 // ScoreUtility::base40ToBase7 --  Convert a base-40 pitch to Base-7 
 //     pitch (losing any chromatic alterations of the diatonic pitch.
 //

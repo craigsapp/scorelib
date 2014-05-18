@@ -205,3 +205,22 @@ const vectorVASp& ScorePageSet::getSystemAddresses(int segmentindex,
 
 
 
+///////////////////////////////
+//
+// ScorePageSet::getPartScale --  Return the P5 scale factor of the
+//     first staff item of the given part in the given segment.
+//
+
+SCORE_FLOAT ScorePageSet::getPartScale(int segmentindex, int partindex) {
+   ScoreSegment& seg       = getSegment(segmentindex);
+   const AddressSystem& address   = seg.getSystemAddress(0);
+   ScorePage* page         = getPage(address);
+   vectorVVSIp& staffitems = page->getP8BySystem();
+   int sysstaffindex       = address.getSystemStaffIndex(); 
+   int systemindex         = address.getSystemIndex();
+   // (Check to see if the index location is valid):
+   return staffitems[systemindex][sysstaffindex][0]->getScale();
+}
+
+
+

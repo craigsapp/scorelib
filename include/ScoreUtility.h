@@ -28,6 +28,7 @@ namespace ScoreUtility {
    int     base40ToBase7PitchClass     (int base40);
    int     base40ToChromaticAlteration (int base40);
    char    base40ToUCDiatonicLetter    (int base40);
+   char    base40ToLCDiatonicLetter    (int base40);
 
    // ScoreItem sorting functions (defined in ScoreUtility_sort.cpp):
    bool   sortP3              (ScoreItem* a, ScoreItem* b);
@@ -42,10 +43,16 @@ namespace ScoreUtility {
    // ScoreItem comparison functions (defined in ScoreUtility_compare.cpp):
    bool   equalClefs          (ScoreItem* a, ScoreItem* b);
    bool   equalClef           (ScoreItem* a, ScoreItem* b);
+
    bool   equalTimeSignature  (ScoreItem* a, ScoreItem* b);
    bool   equalTimeSignatures (ScoreItem* a, ScoreItem* b);
    bool   equalTimeSig        (ScoreItem* a, ScoreItem* b);
    bool   equalTimeSigs       (ScoreItem* a, ScoreItem* b);
+
+   bool   equalKeySignature   (ScoreItem* a, ScoreItem* b);
+   bool   equalKeySignatures  (ScoreItem* a, ScoreItem* b);
+   bool   equalKeySig         (ScoreItem* a, ScoreItem* b);
+   bool   equalKeySigs        (ScoreItem* a, ScoreItem* b);
 
    // math-related functions (defined in ScoreUtility_math.cpp):
    int    gcd                 (int x, int y);

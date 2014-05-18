@@ -51,10 +51,11 @@ void DatabaseLyrics::clear(void) {
 
 //////////////////////////////
 //
-// DatabaseLyrics::link -- merge two notes into a chord.  Will create a 
+// DatabaseLyrics::link -- link a note and a lyric.  Will create a 
 //    new entry if there is no existing entry for those notes; otherwise, will
-//    add one or the other note to an existing chord.  Linking of notes between
-//    different chords is currently not allowed.
+//    add one or the other note to an existing chord.  Linking of lyrics between
+//    different notes is currently not allowed.  Lyrics should not be 
+//    linked to secondary chord notes.
 //
 
 vectorSIp* DatabaseLyrics::link(ScoreItem* item1, ScoreItem* item2) {

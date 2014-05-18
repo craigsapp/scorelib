@@ -176,6 +176,7 @@ void ScorePage::fillSystemScoreItemLists(void) {
    vectorVVSIp& p8items = p8BySystem;
    p8items.resize(systemcount);
 
+   systemlist.clear();
    systemlist.resize(systemcount);
    int i, j, k;
    int itemcount;
@@ -204,7 +205,7 @@ void ScorePage::fillSystemScoreItemLists(void) {
          }
       }
 
-      sort(systemlist[i].begin(), systemlist[i].begin()+4, SU::sortP3P2P1P4);
+      sort(systemlist[i].begin(), systemlist[i].end(), SU::sortP3P2P1P4);
    }
 }
 
@@ -361,28 +362,22 @@ vectorSIp& ScorePage::getP8BySystem(int p2index) {
 
 //////////////////////////////
 //
-// ScorePage::getPageStaffIndex -- Given a system number and a part number,
+// ScorePage::getPageStaffIndex -- Given a system number and a part index,
 //     return the staff that it indicates.
 //
 
-int ScorePage::getPageStaffIndex(int sysindex, int partnum) {
+int ScorePage::getPageStaffIndex(int sysindex, int partindex) {
    vectorVVSIp& p8items = getP8BySystem();
-   int zeroindex = 0;
-   int p;
-   for (int i=0; i<p8items[sysindex].size(); i++) {
-      if (p8items[sysindex][i].size() == 0) {
-         continue;
-      }
-      p = (int)p8items[sysindex][i][0]->getPartNumberInt();
-      if (p == 0) {
-         p = --zeroindex;
-      }
-      if (p == partnum) {
-         return p8items[sysindex][i][0]->getStaffNumber();
-      }
-   } 
-
-   return -1;
+   if ((sysindex < 0) || (sysindex >= p8items.size())) {
+      return -1;
+   }
+   if ((partindex < 0) || (partindex >= p8items[sysindex].size())) {
+      return -1;
+   }
+   if (p8items[sysindex][partindex].size() == 0) {
+      return -1;
+   }
+   return p8items[sysindex][partindex][0]->getStaffNumber();
 }
 
 

@@ -70,7 +70,11 @@ int ScoreItem::getChordNoteCount(void) {
    if (page_owner == NULL) {
       return -1;
    }
-   return ((ScorePage*)page_owner)->chordNotes(this)->size();
+   vectorSIp* notes = ((ScorePage*)page_owner)->chordNotes(this);
+   if (notes == NULL) {
+      return 0;
+   }
+   return notes->size();
 }
 
 
@@ -200,6 +204,27 @@ int ScoreItem::inBeamGroup(void) {
    } else {
       return 0;
    }
+}
+
+
+
+//////////////////////////////
+//
+// ScoreItem::isFirstNoteInBeam --
+//
+
+bool ScoreItem::isFirstNoteInBeamGroup(void) {
+   BeamGroup* bg = getBeamGroup();
+   if (bg == NULL) {
+      return false;
+   }
+   if (bg->notes.size() == 0) {
+      return false;
+   }
+   if (this == bg->notes[0]) {
+      return true;
+   }
+   return true;
 }
 
 

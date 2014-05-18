@@ -197,8 +197,8 @@ ScoreItem* ScorePageBase::readPmxScoreLine(istream& infile, int verboseQ) {
          int length = text.size();
          if (parameters.size() < 13) {
             parameters.resize(13, 0.0);
+            parameters[12] = (SCORE_FLOAT)length;
          }
-         parameters[12] = (SCORE_FLOAT)length;
       } else {
          // process non-text parameter
          number = (SCORE_FLOAT)strtod(ptr, NULL);

@@ -36,27 +36,25 @@ int ScorePage::getSystemLCMRhythm(int systemindex) {
       analyzeStaffDurations();
    }
 
+
    set<int> numbers;
    RationalNumber rn;
+   RationalNumber rd;
    vectorSIp& sysitems = this->getSystemItems(systemindex);
    for (auto& it : sysitems) {
       if (!it->hasDuration()) {
          continue;
       }
-      rn = it->getRationalDuration().getDurationPrimary();
-      if (rn == 0) {
+      rn = it->getDurationIncludingDots();
+
+      if (rn <= 0) {
          continue;
       }
       numbers.insert(rn.getDenominator());
    }
 
-   // cout << "Numbers: ";
-   // for (auto& it : numbers) {
-   //    cout << it << ", ";
-   // }
-   // cout << endl;
-
-   return ScoreUtility::lcm(numbers);
+   int output = ScoreUtility::lcm(numbers);
+   return output;
 }
 
 

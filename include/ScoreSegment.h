@@ -62,6 +62,7 @@ class ScoreSegment {
       // accessors for vector<SegmentPart*> data
       string         getPartName         (int partindex);
       AddressSystem& getPartAddress      (int systemindex, int partindex);
+      ScoreItem*     getInitialClef      (int partindex);
    
    protected:
       AddressSystem        start_system;

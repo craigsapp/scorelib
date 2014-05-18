@@ -80,6 +80,8 @@ int      printClefItem              (stringstream& stream, ScoreItem* item,
                                      int indent);
 int      printTimeSigItem           (stringstream& stream, ScoreItem* item, 
                                      int indent);
+int      printKeySigItem            (stringstream& stream, ScoreItem* item, 
+                                     int indent);
 void     printBarlineStyle          (ostream& out, SystemMeasure& measureitems, 
                                      int partstaff, int indent);
 void     printForwardBarlineStyle   (ostream& out, SystemMeasure& measureitems, 
@@ -91,12 +93,15 @@ string   getRestType                (ScoreItem* si);
 void     printLyrics                (ostream& out, ScoreItem* si, int indent);
 void     printDirection             (ostream& out, ScoreItem* si, 
                                      ScoreItem* anchor, int indent);
-void     printDirections            (ostream& out, vectorSIp& items, int index, 
-                                     int partstaff, int indent, int divisions);
-void     printDirectionsBackwards   (ostream& out, vectorSIp& items, int index,
-                                     int partstaff, int indent, int divisions);
-void     printDirectionsForwards    (ostream& out, vectorSIp& items, int index, 
-                                     int partstaff, int indent, int divisions);
+void     printDirections            (ostream& out, SystemMeasure& measureitems,
+                                     int index, int partstaff, int indent, 
+                                     int divisions);
+void     printDirectionsBackwards   (ostream& out, SystemMeasure& measureitems, 
+                                     int index, int partstaff, int indent, 
+                                     int divisions);
+void     printDirectionsForwards    (ostream& out, SystemMeasure& items, 
+                                     int index, int partstaff, int indent, 
+                                     int divisions);
 void     printSystemLayout          (stringstream& out, ScorePage& page, 
                                      const AddressSystem& system, int indent);
 void     printStaffLayout           (stringstream& out, ScorePage& page, 
@@ -112,6 +117,8 @@ int      printGroup1                (ostream& out, ScorePageSet& infiles,
                                      int segment, int indent);
 void     printDufayCredits          (ostream& out, ScorePageSet& infiles, 
                                      int segment, int indent);
+ostream& printTimeModification      (ostream& out, int indent, ScoreItem* si, 
+                                     int divisions);
 
 #define INDENT_STRING "\t"
 
@@ -1204,12 +1211,12 @@ void printPartMeasure(stringstream& out, ScorePageSet& infiles,
             // handled with primary notes.
             continue;
          }
-         printDirections(out, items, i, partstaff, indent, divisions);
+         printDirections(out, measureitems, i, partstaff, indent, divisions);
          printNote(out, si, partstaff, indent, divisions, measureP3);
       }
 
       if (si->isRestItem()) {
-         printDirections(out, items, i, partstaff, indent, divisions);
+         printDirections(out, measureitems, i, partstaff, indent, divisions);
          if (!(invisibleQ && si->isInvisible())) {
             printRest(out, si, partstaff, indent, divisions, measureP3);
          }
@@ -1437,10 +1444,12 @@ SCORE_FLOAT getMusicXmlTenthsBetweenStaves(ScoreItem* lostaff,
 //      layers.
 //
 
-void printDirections(ostream& out, vectorSIp& items, int index, 
+void printDirections(ostream& out, SystemMeasure& measureitems, int index, 
       int partstaff, int indent, int divisions) {
-   printDirectionsBackwards(out, items, index, partstaff, indent, divisions);
-   printDirectionsForwards(out, items, index, partstaff, indent, divisions);
+   printDirectionsBackwards(out, measureitems, index, partstaff, indent, 
+         divisions);
+   printDirectionsForwards(out, measureitems, index, partstaff, indent, 
+         divisions);
 }
 
 
@@ -1453,8 +1462,9 @@ void printDirections(ostream& out, vectorSIp& items, int index,
 //      current line.
 //
 
-void printDirectionsBackwards(ostream& out, vectorSIp& items, int index, 
-      int partstaff, int indent, int divisions) {
+void printDirectionsBackwards(ostream& out, SystemMeasure& measureitems, 
+      int index, int partstaff, int indent, int divisions) {
+   vectorSIp& items = measureitems.getItems();
    ScoreItem* si;
    int i;
    int p1;
@@ -1490,7 +1500,7 @@ void printDirectionsBackwards(ostream& out, vectorSIp& items, int index,
          break;
       }
    }
-   SCORE_FLOAT terminal_p3 = 0.0;
+   SCORE_FLOAT terminal_p3 = measureitems.getP3Left();
    if (endobject != NULL) {
       terminal_p3 = endobject->getHPos();
       if (endobject->isNoteItem() || endobject->isRestItem()) {
@@ -1500,6 +1510,9 @@ void printDirectionsBackwards(ostream& out, vectorSIp& items, int index,
 
    for (i=index; i>=0; i--) {
       si = items[i];
+      if (si->isSecondaryChordNote()) {
+         continue;
+      }
       p2 = si->getStaffNumber();
       if (p2 != startp2) {
          continue;
@@ -1512,11 +1525,6 @@ void printDirectionsBackwards(ostream& out, vectorSIp& items, int index,
       p3 = si->getHPos();
       if (p3 < terminal_p3) {
          // don't look beyond 50% of the way to the next note.
-         break;
-      }
-      if ((fabs(p3 - startp3) < threshold) && 
-            ((p1 == P1_Note) || (p1 == P1_Rest)) &&
-            (i != index)) {
          break;
       }
       if (p1 != P1_Text) {
@@ -1545,46 +1553,49 @@ void printDirectionsBackwards(ostream& out, vectorSIp& items, int index,
 // printDirectionsForwards -- print any free-form text from the current 
 //      position (expected to be a note or rest), forwards to the previous
 //      note/rest on the given staff within the list of system items for the
-//      current line.
+//      current line.  The input vectorSIp items is for a
 //
 
-void printDirectionsForwards(ostream& out, vectorSIp& items, int index, 
-      int partstaff, int indent, int divisions) {
+void printDirectionsForwards(ostream& out, SystemMeasure& measureitems, 
+      int index, int partstaff, int indent, int divisions) {
+   vectorSIp& items = measureitems.getItems();
    ScoreItem* si;
+
+   if (!items[index]->hasDuration()) {
+      return;
+   }
    int i;
    int p1;
    int p2;
    int startp2 = items[index]->getStaffNumber();
-   SCORE_FLOAT threshold = 0.01;
+   SCORE_FLOAT threshold = 0.1;
    SCORE_FLOAT startp3 = items[index]->getHPos();
    SCORE_FLOAT p3;
 
    ScoreItem* endobject = NULL;
-   // find next terminal item backwards
-   for (i=index; i<items.size(); i++) {
+   // find next terminal item forwards
+   for (i=index+1; i<items.size(); i++) {
       si = items[i];
+      p3 = si->getHPos();
       p2 = si->getStaffNumber();
       if (p2 != startp2) {
          continue;
       }
-      p1 = si->getP1Int();
-      if (p1 == P1_Staff) {
-         endobject = si;
-         break;
-      }
-      if (si->isNoteItem() && (si->isSecondaryChordNote())) {
+
+      if (si->isSecondaryChordNote()) {
          continue;
       }
-      p3 = si->getHPos();
       if (fabs(p3-startp3) < threshold) {
          continue;
       }
+      p1 = si->getP1Int();
       if (((p1 == P1_Note) || (p1 == P1_Rest)) && (i != index)) {
          endobject = si;
          break;
       }
    }
-   SCORE_FLOAT terminal_p3 = 0.0;
+
+   SCORE_FLOAT terminal_p3 = measureitems.getP3Right();
    if (endobject != NULL) {
       terminal_p3 = endobject->getHPos();
       if (endobject->isNoteItem() || endobject->isRestItem()) {
@@ -1594,6 +1605,7 @@ void printDirectionsForwards(ostream& out, vectorSIp& items, int index,
 
    for (i=index; i<items.size(); i++) {
       si = items[i];
+
       p2 = si->getStaffNumber();
       if (p2 != startp2) {
          continue;
@@ -1603,18 +1615,14 @@ void printDirectionsForwards(ostream& out, vectorSIp& items, int index,
          // don't try to print text before a staff.
          break;
       }
+      if (p1 != P1_Text) {
+         continue;
+      }
       p3 = si->getHPos();
+
       if (p3 > terminal_p3) {
          // don't look beyond 50% of the way to the next note.
          break;
-      }
-      if ((fabs(p3 - startp3) < threshold) && 
-            ((p1 == P1_Note) || (p1 == P1_Rest)) &&
-            (i != index)) {
-         break;
-      }
-      if (p1 != P1_Text) {
-         continue;
       }
       if (si->isDefined(ns_auto, np_verseLine) ||
           si->isDefined(ns_lyrics, np_verseLine)) {
@@ -1648,6 +1656,10 @@ void printDirection(ostream& out, ScoreItem* si, ScoreItem* anchor,
 
    if (dufayQ) {
       if (word == "= ]") {
+         // incomplete rhythmic scaling (which is undone), so not needed.
+         return;
+      }
+      if (word == "= ].") {
          // incomplete rhythmic scaling (which is undone), so not needed.
          return;
       }
@@ -1849,6 +1861,9 @@ void printMeasureAttributes(ostream& out, vectorSIp& items, int index,
       if (items[i]->hasDuration()) {
          break;
       }
+      if (items[i]->isKeySigItem()&&(!SU::equalKeySigs(items[i], currkey))){
+         printing += printKeySigItem(keystream, items[i], indent);
+      }
       if (items[i]->isTimeSigItem()&&(!SU::equalTimeSigs(items[i], currtime))){
          printing += printTimeSigItem(timestream, items[i], indent);
       }
@@ -1914,6 +1929,37 @@ void printMeasureAttributes(ostream& out, vectorSIp& items, int index,
 
 //////////////////////////////
 //
+// printKeySigItem --
+//
+
+int printKeySigItem(stringstream& stream, ScoreItem* item, int indent) {
+   if (item == NULL) {
+      return 0;
+   }
+   if (!item->isKeySigItem()) {
+      return 0;
+   }
+   int p5 = item->getP5Int();
+  
+   if (abs(p5 < 10)) {
+      printIndent(stream, indent++, "<key>\n");   
+      printIndent(stream, indent, "<fifths>");   
+      stream << p5 << "</fifths>\n";
+      // don't know the mode, and anyway it is irrelevant to know for key sig.
+      printIndent(stream, --indent, "</key>\n");   
+      return 1;
+   }
+
+   // +/-100 in p5 is a cancellation signature.
+   // Figure out how to represent in MusicXML and print here...
+
+   return 0;
+}
+
+
+
+//////////////////////////////
+//
 // printTimeSigItem -- Only handles simple time signatures which have an
 // integer top and a power of two bottom, plus C and Cut-C.
 //
@@ -1947,7 +1993,7 @@ int printTimeSigItem(stringstream& stream, ScoreItem* item, int indent) {
       beats = 2;
       beattype = 2;
    }
- 
+
    if (rhythmicScalingQ) {
       beattype = (int)(beattype * pow(2.0, -Scaling));
       if (beattype < 1) {
@@ -2078,6 +2124,12 @@ void printRest(ostream& out, ScoreItem* si, int partstaff, int indent,
       printIndent(out, indent, "<dot/>\n");
    }
 
+   // <time-modification>
+   printTimeModification(out, indent, si, divisions);
+
+   // <lyric>
+   printLyrics(out, si, indent);
+
    printIndent(out, --indent, "</note>\n");
 }
 
@@ -2175,7 +2227,7 @@ void printNote(ostream& out, ScoreItem* si, int partstaff, int indent,
 
    // <duration> /////////////////////////////////////////////
    int notedivs = (int)(divisions * duration + 0.5);
-   if (notedivs > 0) {  // dont't print if grace notes;
+   if (notedivs > 0) {  // dont't adjust grace notes;
       if (rhythmicScalingQ) {
          notedivs = int(notedivs * pow(2.0, Scaling)+0.5);
       }
@@ -2190,6 +2242,9 @@ void printNote(ostream& out, ScoreItem* si, int partstaff, int indent,
    if (notetype.size() > 0) {
       printIndent(out, indent, "<type>" + notetype + "</type>\n");
    }
+
+   // <time-modification> (tuplets) ////////////////////////
+   printTimeModification(out, indent, si, divisions);
 
    // <dot>
    int dotcount = si->getDotCount();
@@ -2260,6 +2315,34 @@ void printNote(ostream& out, ScoreItem* si, int partstaff, int indent,
 
 }
 
+
+
+//////////////////////////////
+//
+// printTimeModification --
+//
+
+ostream& printTimeModification(ostream& out, int indent, ScoreItem* si, 
+      int divisions) {
+   RationalDuration rd = si->getRationalDuration();
+   if (rd.isPowerOfTwo()) {
+      return out;
+   }
+
+   RationalNumber rn = rd.getDurationPrimary();
+   int exponent = ceil(log(rn.getFloat())/log(2)-0.0001);
+   RationalNumber regular = 1;
+   if (exponent > 0) {
+      regular = 1 << exponent;
+   } else if (exponent < 0) {
+      regular /= (1 << (-exponent));
+   } 
+   
+
+   printIndent(out, indent, "<!-- tuplet -->\n");
+   return out;
+}
+   
 
 
 //////////////////////////////
@@ -2398,16 +2481,18 @@ string getNoteType(ScoreItem* si) {
       return getRestType(si);
    }
    int headtype = si->getP6Int();
-   if (rhythmicScalingQ) {
+   if (rhythmicScalingQ && (headtype > 0)) {
       headtype += Scaling;
    }
    switch (headtype) {
-      case 0:   // quarter note or smaller, determine below
-         break;
       case 1:   return "half";
       case 2:   return "whole";
       case 3:   return "breve";
-      default:  return "";      // unknown type (diamond, X, invisible notehead)
+      case 0:   // quarter note or smaller, determine below
+         break;
+   }
+   if (headtype > 0) {
+      return "";      // unknown type (diamond, X, invisible notehead)
    }
    double duration = si->getDuration();
    if (duration <= 0) {
@@ -2416,12 +2501,18 @@ string getNoteType(ScoreItem* si) {
    }
 
    double exp = log(duration)/log(2.0);
-   int type = ceil(exp-0.0001);
+   // int type = floor(exp-0.0001);
+   int type = floor(exp+0.0001);
    if (rhythmicScalingQ) {
       type += Scaling;
    }
 
    switch (type) {
+      case 5:   return "maxima";
+      case 4:   return "long";
+      case 3:   return "breve";
+      case 2:   return "whole";
+      case 1:   return "half";
       case 0:   return "quarter";
       case -1:  return "eighth";
       case -2:  return "16th";

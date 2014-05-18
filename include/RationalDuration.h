@@ -68,6 +68,8 @@ class RationalDuration {
                                                 int dcount = 0);
       void                  setDurationQuarterNoteUnits(double duration, 
                                                 int dcount = 0);
+      int                   isPowerOfTwo       (void);
+
       // printing functions
       ostream&              print              (ostream& out = cout);
       ostream&              printReduced       (ostream& out = cout);

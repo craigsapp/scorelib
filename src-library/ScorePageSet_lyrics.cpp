@@ -48,7 +48,7 @@ void ScorePageSet::analyzeLyrics(int segmentindex) {
 
 void ScorePageSet::analyzeLyrics(int segmentindex, int partindex) {
    const vectorVASp& systems = getSystemAddresses(segmentindex, partindex);
-   int i;
+   int i, j;
 
    ScoreSegment& seg = getSegment(segmentindex);
    int systemcount = systems.size();
@@ -104,25 +104,60 @@ void ScorePageSet::analyzeLyrics(int segmentindex, int partindex) {
       average[i] /= counter;
    }
 
+   vectorI addedlyrics(systemcount);
+   fill(addedlyrics.begin(), addedlyrics.end(), 0.0);
+   vectorVVSIp text;
+   text.resize(verseP4s.size());
+//   for (i=0; i<text.size(); i++) {
+//      text[i].resize(2000);
+//   }
+
    // Whenever there is not a full set of verse lines, re-analyze
    // the music for verses, being more sensitive to text/lines found
    // in the expected position for that verse number.
    for (i=0; i<verseP4s.size(); i++) {
-      if (verseP4s[i].size() == average.size()) {
-         // Maximum number of verses on this system, so nothing to do.
-         continue;
+      fillStaffText(text[i], segmentindex, partindex, i, verseP4s[i],
+         average, p2vals[i]);
+      if (verseP4s[i].size() != average.size()) {
+         // There are fewer verses identified on the current system than as
+         // a maximum on other lines.  Search for lyrics which were not
+         // initially identified, looking at expected vertical positions
+         // based on the average height for systems which are complete.
+         identifyExtraVerses(text[i], segmentindex, partindex, i, verseP4s[i], 
+               average, p2vals[i]); 
       }
-      // There are fewer verses identified on the current system than as
-      // a maximum on other lines.  Search for lyrics which were not
-      // initially identified, looking at expected vertical positions
-      // based on the average height for systems which are complete.
-      identifyExtraVerses(segmentindex, partindex, i, verseP4s[i], 
-            average, p2vals[i]); 
+
+      // The following code will search for lyrics underneath the lowest 
+      // expected/identified lyric line in case it has been missed.
+      SCORE_FLOAT linedistance = 5.0;
+      SCORE_FLOAT sum = 0.0;
+      if (average.size() > 1) {
+         for (j=0; j<average.size()-1; j++) {
+            sum += average[j] - average[j+1]; 
+         }
+         linedistance = sum / (average.size()-1.0);
+      }
+      if (verseP4s[i].size() >= average.size()) {
+         // looking for an extra line which is greater than maxlyrics count:
+         addedlyrics[i] = addVerseLine(text[i], verseP4s[i].size()+1, 1, 
+               average.back()-linedistance, p2vals[i]);
+         if (addedlyrics[i]) {
+            average.push_back(average.back()-linedistance);
+            verseP4s[i].push_back(average.back());
+         }
+      } else {
+         // looking for an extra line which is less than maxlyrics count:
+         addedlyrics[i] = addVerseLine(text[i], verseP4s[i].size()+1, 1, 
+               average[verseP4s[i].size()], p2vals[i]);
+         if (addedlyrics[i]) {
+            verseP4s[i].push_back(average.back());
+         }
+      }
    }
 
    // Determine if the first syllable on a line is a continuation
    // of a word from the previous staff.
-   stitchLyricsHyphensAcrossSystems(segmentindex, partindex, maxlyriccount);
+   stitchLyricsHyphensAcrossSystems(segmentindex, partindex, maxlyriccount+1);
 
    linkLyricsToNotes(segmentindex, partindex);
 }
@@ -176,7 +211,7 @@ void ScorePageSet::linkLyricsToNotes(int segmentindex, int partindex) {
             continue;
          }
          p3 = it->getP3Int();
-         if (it->isNoteItem()) {
+         if (it->hasDuration()) { // Allow also to link to rests.
             notelist[p3+1000].push_back(it);
             continue;
          }
@@ -222,24 +257,27 @@ void ScorePageSet::linkLyricsToNotes(int segmentindex, int partindex) {
 
 //////////////////////////////
 //
-// ScorePageSet::identfyExtraVerses -- Find extra verses in the data which
-//    may have been skipped over in the initial analysis.
+// fillStaffText --
 //
 
-void ScorePageSet::identifyExtraVerses(int segmentindex, int partindex, 
-   int systemindex, vectorI& verses, vectorSF& average, int staffindex) {
-
+void ScorePageSet::fillStaffText(vectorVSIp& text, int segmentindex, 
+      int partindex, int systemindex, vectorI& verses, vectorSF& average, 
+      int staffindex) {
    ScoreSegment& seg = getSegment(segmentindex);
    const vectorVASp& systems = getSystemAddresses(segmentindex, partindex);
    AddressSystem address;
    address = *systems[systemindex][0];
    vectorI p4hist(2000);
    vectorSIp& items = seg.getSystemItems(address);
-   vectorVSIp text(2000);
+
+   //vectorVSIp text(2000);
+   text.clear();
+   text.resize(2000);
+   
    SCORE_FLOAT p4;
   
    // Store information about possible lyrics
-   int i, j;
+   int i;
    int p1, p2;
    for (i=0; i<items.size(); i++) {
       p2 = items[i]->getP2Int();
@@ -260,6 +298,30 @@ void ScorePageSet::identifyExtraVerses(int segmentindex, int partindex,
       text[p4+1000].push_back(items[i]);
       p4hist[p4+1000]++;
    }
+}
+
+
+
+//////////////////////////////
+//
+// ScorePageSet::identfyExtraVerses -- Find extra verses in the data which
+//    may have been skipped over in the initial analysis.
+//
+
+int ScorePageSet::identifyExtraVerses(vectorVSIp& text, int segmentindex, 
+      int partindex, int systemindex, vectorI& verses, vectorSF& average, 
+      int staffindex) {
+
+   ScoreSegment& seg = getSegment(segmentindex);
+   const vectorVASp& systems = getSystemAddresses(segmentindex, partindex);
+   AddressSystem address;
+   int output = 0;
+   address = *systems[systemindex][0];
+   vectorI p4hist(2000);
+   vectorSIp& items = seg.getSystemItems(address);
+  
+   // Store information about possible lyrics
+   int i, j;
 
    // Now iterate through the average array which contains the 
    // P4 positions of already detected lyrics, sorted from high to
@@ -269,7 +331,7 @@ void ScorePageSet::identifyExtraVerses(int segmentindex, int partindex,
    // P4 vertcial position.
    int currentv = 0;
    int trg;
-   int sum;
+   int isum;
    int newlyrics = 0;
    for (i=0; i<average.size(); i++) {
       if ((currentv < verses.size()) 
@@ -287,8 +349,8 @@ void ScorePageSet::identifyExtraVerses(int segmentindex, int partindex,
          // missing lyric lines are be permitted unless they are 
          // at the bottom of the lyric list).
          trg = int(average[i]+0.5);
-         sum = p4hist[1000+trg] + p4hist[1000+trg+1] + + p4hist[1000+trg-1];
-         if (sum == 0) {
+         isum = p4hist[1000+trg] + p4hist[1000+trg+1] + + p4hist[1000+trg-1];
+         if (isum == 0) {
             // no observed lyrics where expected, so give up on trying
             // to do anything else.
             break;
@@ -302,14 +364,18 @@ void ScorePageSet::identifyExtraVerses(int segmentindex, int partindex,
             verses[j] = verses[j-1];
             changeVerseLine(text, j-1+1, j+1, 2, average[j]);
          }
-         addVerseLine(text, i+1, 1, average[i], staffindex);
+         output += addVerseLine(text, i+1, 1, average[i], staffindex);
       }
    }
 
+   // Adjust hyphenation of (new) lyrics on the given staff.
    if (newlyrics) {
       adjustHyphenInfo(items, staffindex);
    }
+
+   return output;
 }
+
 
 
 //////////////////////////////
@@ -373,12 +439,15 @@ void ScorePageSet::adjustHyphenInfo(vectorSIp& items, int staffnum) {
 
 //////////////////////////////
 //
-// ScorePageSet::addVerseLine --
+// ScorePageSet::addVerseLine -- Mark any text found at the given P4
+//     level (+/- the tolerance) as being on the specified verse line.
+//     Returns 1 if any new text on the line was found.
 //
 
-void ScorePageSet::addVerseLine(vectorVSIp& vertical, int newnum,
+int ScorePageSet::addVerseLine(vectorVSIp& vertical, int newnum,
       int tolerance, SCORE_FLOAT p4target, int staffindex) {
    int i, j;
+   int output = 0;
    ScoreItem* si;
    int p4 = int(p4target + 0.5);
    int p2;
@@ -394,6 +463,7 @@ void ScorePageSet::addVerseLine(vectorVSIp& vertical, int newnum,
             // don't relabel a verseLine by accident
             continue;
          }
+         output = 1;
          si->setParameter(ns_auto, np_verseLine, to_string(newnum));
          if (si->isDashedLine()) {
             si->setParameter(ns_auto, np_lyricsHyphen, "true");
@@ -402,6 +472,7 @@ void ScorePageSet::addVerseLine(vectorVSIp& vertical, int newnum,
          }
       }
    } 
+   return output;
 }
 
 

@@ -211,3 +211,45 @@ SCORE_FLOAT ScoreItem::getFontSizeInPoints(SCORE_FLOAT staff_size) {
 
 
 
+//////////////////////////////
+//
+// ScoreItem::hasWordExtension --  Returns true if a lyric syllable has a
+//    word extension line (underscore) after it.
+//
+
+bool ScoreItem::hasWordExtension(void) {
+   // Check if analyzeLyrics() has been run.
+   return getParameterBool(ns_auto, np_wordExtension);
+}
+
+
+
+//////////////////////////////
+//
+// ScoreItem::hasHyphenAfter -- Returns true if a lyric syllable has
+//     a hyphen character after it, linking it to another syllable in the
+//     current word.
+//
+
+bool ScoreItem::hasHyphenAfter(void) {
+   // Check if analyzeLyrics() has been run.
+   return getParameterBool(ns_auto, np_hyphenAfter);
+}
+
+
+
+//////////////////////////////
+//
+// ScoreItem::hasHyphenBefore -- Returns true if a lyric syllable has
+//     a hyphen character before it, linking it to another syllable in the
+//     current word.
+//
+
+bool ScoreItem::hasHyphenBefore(void) {
+   // Check if analyzeLyrics() has been run.
+   return getParameterBool(ns_auto, np_hyphenBefore);
+}
+
+
+
+

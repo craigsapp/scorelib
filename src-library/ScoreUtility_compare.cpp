@@ -111,4 +111,43 @@ bool ScoreUtility::equalTimeSignature(ScoreItem* a, ScoreItem* b) {
 
 
 
+//////////////////////////////
+//
+// ScoreUtility::equalKeySignature -- True if the key signatures
+//     have the same number of sharps or flats.
+//
+
+
+bool ScoreUtility::equalKeySignature(ScoreItem* a, ScoreItem* b) { 
+   if ((a == NULL) || (b == NULL)) {
+      return false;
+   }
+   if (!a->isKeySignatureItem() || !b->isKeySignatureItem()) {
+      return false;
+   }
+
+   if (a->getP5Int() != b->getP5Int()) {
+      // Sharps/flats or cancellation signatures are not the same.
+      return false;
+   }
+
+   return true;
+}
+
+
+bool ScoreUtility::equalKeySignatures(ScoreItem* a, ScoreItem* b) { 
+   return equalKeySignature(a, b);
+}
+
+
+bool ScoreUtility::equalKeySig(ScoreItem* a, ScoreItem* b) { 
+   return equalKeySignature(a, b);
+}
+
+
+bool ScoreUtility::equalKeySigs(ScoreItem* a, ScoreItem* b) { 
+   return equalKeySignature(a, b);
+}
+
+
 

@@ -425,6 +425,8 @@ void RationalDuration::setDurationWholeNoteUnits(double duration, int dcount) {
 void RationalDuration::setDurationQuarterNoteUnits(double duration, 
       int dcount) { 
 
+   double threshold = 0.00001;
+
    // Ignore negative durations:
    if (duration <= 0.0) {
       zero();
@@ -516,9 +518,17 @@ void RationalDuration::setDurationQuarterNoteUnits(double duration,
    // interpretation.  Another example are the augmentation dots in Chopin's
    // Op. 28, No. 1 prelude.
 
+   if (fabs(duration - 6.0) < threshold) {
+      // dot is missing from note.  Add one for a dotted whole note
+      setDuration(4, 1, 1);
+      return;
+   }
+
 
    // 4. Give up: don't know what the duration is, so set to -1
    zero();
+cerr << "UNKNOWN DURATION: " << duration << endl;
+exit(1);
    primaryvalue = -1;
 }
 
@@ -583,6 +593,26 @@ int RationalDuration::ceilingPowerOfTwo(double value) {
    }
    double exp = log(value)/log(2.0);
    return ceil(exp-0.0001);
+}
+
+
+
+//////////////////////////////
+//
+// RationalDuration::isPowerOfTwo -- True if the duration excluding augmentation
+//     dots is a power of two which means it is not a tuple (in general).
+//
+
+int RationalDuration::isPowerOfTwo(void) {
+   RationalNumber rn = getDurationPrimary();
+   double pow2 = log(rn.getFloat())/log(2.0);
+   if (pow2 < 0) {
+      pow2 = -pow2;
+   }
+   if (fabs(pow2 - int(pow2+0.0001)) < 0.0001) {
+      return 1;
+   }
+   return 0;
 }
 
 

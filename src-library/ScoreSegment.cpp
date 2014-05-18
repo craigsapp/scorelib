@@ -142,7 +142,7 @@ void ScoreSegment::analyzePartStaves(vectorI& partlist, ScorePageSet&
       SegmentPart* spart = new SegmentPart;
       spart->setPartIndex(i);
       spart->setPartNumber(partlist[i]);
-      spart->setPartName(extractPartName(pageset, startsys, partlist[i]));
+      spart->setPartName(extractPartName(pageset, startsys, i));
       spart->setOwner(&pageset);
       part_storage[i] = spart;
    }
@@ -266,27 +266,28 @@ string ScoreSegment::extractPartName(ScorePageSet& pageset,
    ScorePage& page = pageset[pageindex][overlay];
    int sysindex = startsys.getSystemIndex();
    int pagestaff = page.getPageStaffIndex(sysindex, partindex);
-   vectorSIp staffitems;
-   page.getSortedStaffItems(staffitems, pagestaff);
-   double p4;
-   for (int i=0; i<staffitems.size(); i++) {
-      if (staffitems[i]->isStaffItem()) {
+   vectorSIp& items = getSystemItems(startsys);
+   SCORE_FLOAT p4;
+
+   for (auto& it : items) {
+      if (pagestaff != it->getStaffNumber()) {
+         continue;
+      } 
+      if (it->isStaffItem()) {
          break;
-      }
-      if (!staffitems[i]->isTextItem()) {
+      } 
+      if (!it->isTextItem()) {
          continue;
       }
-      p4 = staffitems[i]->getVPos();
-      if (p4 > 9) {
+      p4 = it->getVPos();
+      if ((p4 > 9) || (p4 > 9)) {
          continue;
       }
-      if (p4 < 1) {
-         continue;
-      }
-      return staffitems[i]->getTextNoFont();
+      return it->getTextNoFont();
    }
    return "";
 }
+
 
 
 //////////////////////////////
@@ -538,9 +539,49 @@ string ScoreSegment::getPartName(int partindex) {
 
 //////////////////////////////
 //
+// ScoreSegment::getInitialClef --
+//
+
+ScoreItem* ScoreSegment::getInitialClef(int partindex) {
+
+   const AddressSystem& address = getSystemAddress(0);
+   int pageindex = address.getPageIndex();
+   int overlay = 0;
+   if (pageset_owner == NULL) {
+      return NULL;
+   }
+   ScorePageSet& pageset = *pageset_owner;
+   ScorePage& page = pageset[pageindex][overlay];
+   int sysindex = address.getSystemIndex();
+   int pagestaff = page.getPageStaffIndex(sysindex, partindex);
+   vectorSIp& items = getSystemItems(0);
+
+   for (auto& it : items) {
+      if (pagestaff != it->getStaffNumber()) {
+         continue;
+      } 
+      if (it->isNoteItem()) {
+         break;
+      } 
+      if (it->isClefItem()) {
+         return it;
+      }
+   }
+
+   return NULL;
+}
+
+
+
+
+//////////////////////////////
+//
 // operator<< --
 //
 
 ostream& operator<<(ostream& out, const ScoreSegment& segment) {
    return segment.printInfo(out);
 }
+
+
+

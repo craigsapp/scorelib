@@ -67,4 +67,73 @@ int ScoreItem::getMiddleCVpos(void) {
 
 
 
+///////////////////////////////
+//
+// ScoreItem::getStaffLine -- 1=bottom line of staff, 5=top line 
+//     of 5-lined staff.  Will be confused if clef if placed
+//     on a staff space...
+//
+
+int ScoreItem::getStaffLine(void) {
+   if (!isClefItem()) {
+      return 0;
+   }
+
+   int line = 0;
+   int p5 = getP5Int();
+   switch (p5) {
+      case 0: line = 2; break;  // treble clef
+      case 1: line = 4; break;  // bass clef
+      case 2: line = 3; break;  // alto clef
+      case 3: line = 4; break;  // tenor clef
+      case 4: line = 3; break;  // percussion clef
+   }
+   int p4 = int(getVerticalPosition() + 0.5);
+   return line + int(p4/2);
+}
+
+
+
+///////////////////////////////
+//
+// ScoreItem::getClefLetter -- C for C clef, F for F clef, G for G clef.
+//    X for percussion clef, and ? for other clefs.
+//
+
+char ScoreItem::getClefLetter(void) { 
+   if (!isClefItem()) {
+      return '?';
+   }
+
+   int p5 = getP5Int();
+   switch (p5) {
+      case 0: return 'G';         // treble clef
+      case 1: return 'F';         // bass clef
+      case 2: return 'C';         // alto clef
+      case 3: return 'C';         // tenor clef
+      case 4: return 'X';         // percussion clef
+   }
+   return '?';
+}
+
+
+
+///////////////////////////////
+//
+// ScoreItem::soundsOctaveDown --
+//
+
+bool ScoreItem::soundsOctaveDown(void) { 
+   if (!isClefItem()) {
+      return false;
+   }
+   SCORE_FLOAT tolerance = 0.001;
+   SCORE_FLOAT p5fraction = getParameterFraction(P5);
+   if (fabs(p5fraction - 0.8) < tolerance) {
+      return true;
+   }
+   return false;
+}
+
+
 

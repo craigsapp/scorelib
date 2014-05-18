@@ -139,6 +139,7 @@ using listSIp     = list<ScoreItem*>;
       bool         hasDuration                  (void);
       SCORE_FLOAT  getDuration                  (void);
       RationalDuration getRationalDuration      (void);
+      RationalNumber getDurationIncludingDots   (void);
 
       // Note (P1=1) processing functions  (defined in ScoreItem_notes.cpp):
       // functions related to stems:
@@ -174,8 +175,11 @@ using listSIp     = list<ScoreItem*>;
       // Rest (P1=2) processing functions (defined in ScoreItem_rests.cpp):
       int          isInvisible                  (void);
 
-      // Clef (P1=3) processing functions
+      // Clef (P1=3) processing functions (defined in ScoreItem_clefs.cpp):
       int          getMiddleCVpos               (void);
+      int          getStaffLine                 (void);
+      char         getClefLetter                (void);
+      bool         soundsOctaveDown             (void);
 
       // Line (P1=4) processing function (defined in ScoreItem_lines.cpp):
       bool         isHairpin                    (void);
@@ -232,45 +236,52 @@ using listSIp     = list<ScoreItem*>;
       string        getTextNoFontXmlEscapedUTF8  (void);
       SCORE_FLOAT   getFontSizeInPoints          (void);
       SCORE_FLOAT   getFontSizeInPoints          (SCORE_FLOAT staff_size);
+      bool          hasWordExtension             (void);
+      bool          hasHyphenAfter               (void);
+      bool          hasHyphenBefore              (void);
       // getScale() see P1=8
 
-      // KeySignature (P1=17) processing functions
+      // KeySignature (P1=17) functions (defined in ScoreItem_keysigs.cpp)
       int          getDiatonicAccidentalState(vectorI& states);
 
-      // MeterSignature (P1=18) processing functions
-
+      // TimeSignature (P1=18) functions (defined in ScoreItem_timesigs.cpp):
+      int          getTimeSignatureTop           (void);
+      int          getTimeSignatureBottom        (void);
+      bool         isCommonTime                  (void);
+      bool         isCutTime                     (void);
 
       // Page-related functions (defined in ScoreItem_page.cpp):
-      int          getPageSystemIndex             (void);
-      int          getSystemIndex                 (void);
-      int          getPartIndex                   (void);
+      int          getPageSystemIndex            (void);
+      int          getSystemIndex                (void);
+      int          getPartIndex                  (void);
 
-      vectorSIp*   getChordNotes                  (void);
-      bool         isPrimaryChordNote             (void);
-      int          getChordNoteCount              (void);
-      bool         isSecondaryChordNote           (void);
-      ScoreItem*   getPrimaryChordNote            (void);
-      ScoreItem*   getStaffOwner                  (void);
-      int          getPageIndex                   (void);
-      ScorePage*   getPageOwner                   (void);
-      void         setPageOwner                   (void* page);
-      SCORE_FLOAT  getStaffScale                  (void);
-      SCORE_FLOAT  getStaffVerticalOffset         (void);
+      vectorSIp*   getChordNotes                 (void);
+      bool         isPrimaryChordNote            (void);
+      int          getChordNoteCount             (void);
+      bool         isSecondaryChordNote          (void);
+      ScoreItem*   getPrimaryChordNote           (void);
+      ScoreItem*   getStaffOwner                 (void);
+      int          getPageIndex                  (void);
+      ScorePage*   getPageOwner                  (void);
+      void         setPageOwner                  (void* page);
+      SCORE_FLOAT  getStaffScale                 (void);
+      SCORE_FLOAT  getStaffVerticalOffset        (void);
 
-      BeamGroup*   getBeamGroup                   (void);
-      BeamGroup*   getBeamInfo                    (void);
-      BeamGroup*   beamInfo                       (void);
-      BeamGroup*   beamGroup                      (void);
-      int          inBeamGroup                    (void);
+      BeamGroup*   getBeamGroup                  (void);
+      BeamGroup*   getBeamInfo                   (void);
+      BeamGroup*   beamInfo                      (void);
+      BeamGroup*   beamGroup                     (void);
+      int          inBeamGroup                   (void);
+      bool         isFirstNoteInBeamGroup        (void);
 
-      SCORE_FLOAT  getHPosOff                     (void);
+      SCORE_FLOAT  getHPosOff                    (void);
 
       // Lyrics:
-      vectorSIp*   getLyricsGroup                 (void);
+      vectorSIp*   getLyricsGroup                (void);
 
 
       // internal print functions (defined in ScoreItem_print.cpp):
-      ostream&     printNoAnalysis        (ostream& out);
+      ostream&     printNoAnalysis               (ostream& out);
 
       /////////////////////////////////////////////////////////////////////
       //

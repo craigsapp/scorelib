@@ -33,7 +33,7 @@ void ScorePageSet::appendReadFromOptionArguments(Options& opts) {
       appendRead(opts.getArgument(i));
    }
 
-   setPageOwnerships();
+   // setPageOwnerships done in appendRead();
 }
 
 //

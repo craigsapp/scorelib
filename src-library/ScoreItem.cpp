@@ -589,6 +589,23 @@ RationalDuration ScoreItem::getRationalDuration(void) {
 
 //////////////////////////////
 //
+// ScoreItem::getDurationIncludingDots --
+//
+
+RationalNumber ScoreItem::getDurationIncludingDots(void) {
+   RationalDuration rd;
+   rd.zero();
+   if (!hasDuration()) {
+      return rd.getDurationReduced();
+   }
+   rd.setDuration(this->getDuration(), this->getDotCount());
+   return rd.getDurationReduced();
+}
+
+
+
+//////////////////////////////
+//
 // ScoreItem::setStaffOffsetDuration -- set the durational offset from the
 //    start of the owning staff to the P3 position of this ScoreItem.
 //

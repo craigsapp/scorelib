@@ -84,6 +84,8 @@ class ScorePageSet {
       void          createSegment               (AddressSystem& startaddress, 
                                                  AddressSystem& endaddress);
       int           getLCMRhythm                (int segmentindex);
+      SCORE_FLOAT   getPartScale                (int segmentindex, 
+                                                 int partindex);
 
       // Lyrics identification (defined in ScorePageSet_lyrics.cpp):
       void          analyzeLyrics               (void);
@@ -93,7 +95,8 @@ class ScorePageSet {
    private:
       void          linkLyricsToNotes           (int segmentindex, 
                                                  int partindex);
-      void          identifyExtraVerses         (int segmentindex, 
+      int           identifyExtraVerses         (vectorVSIp& text, 
+                                                 int segmentindex, 
                                                  int partindex, 
                                                  int systemindex,
                                                  vectorI& verses, 
@@ -114,9 +117,16 @@ class ScorePageSet {
                                                  int oldnum, int newnum,
                                                  int tolerance, 
                                                  SCORE_FLOAT p4target);
-      void          addVerseLine                (vectorVSIp& vertical, 
+      int           addVerseLine                (vectorVSIp& vertical, 
                                                  int newnum, int tolerance, 
                                                  SCORE_FLOAT p4target,
+                                                 int staffindex);
+      void          fillStaffText               (vectorVSIp& text, 
+                                                 int segmentindex, 
+                                                 int partindex, 
+                                                 int systemindex, 
+                                                 vectorI& verses, 
+                                                 vectorSF& average, 
                                                  int staffindex);
       void          adjustHyphenInfo            (vectorSIp& items, 
                                                  int staffnum);
