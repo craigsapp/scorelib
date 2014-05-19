@@ -36,7 +36,7 @@ void ScorePageSet::analyzeSegmentsByIndent(SCORE_FLOAT threshold1,
       int scount = pageset[p][0].getSystemCount();
       // cout << "SYSTEM count on page " << p << " is " << scount << endl;
       for (s=0; s<scount; s++) {
-         indent = pageset[p][0].getP8BySystem()[s][0][0]->getHPos();
+         indent = pageset[p][0].getStaffItemsBySystem()[s][0][0]->getHPos();
          // address = {p, 0, s, 0};
          address.resize(4);
          address[0] = p;
@@ -215,7 +215,7 @@ SCORE_FLOAT ScorePageSet::getPartScale(int segmentindex, int partindex) {
    ScoreSegment& seg       = getSegment(segmentindex);
    const AddressSystem& address   = seg.getSystemAddress(0);
    ScorePage* page         = getPage(address);
-   vectorVVSIp& staffitems = page->getP8BySystem();
+   vectorVVSIp& staffitems = page->getStaffItemsBySystem();
    int sysstaffindex       = address.getSystemStaffIndex(); 
    int systemindex         = address.getSystemIndex();
    // (Check to see if the index location is valid):

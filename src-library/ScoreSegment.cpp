@@ -180,7 +180,7 @@ void ScoreSegment::analyzePartStaves(vectorI& partlist, ScorePageSet&
          }
       }
       ScorePage& page = pageset[p][overlay];
-      vectorVVSIp& staffitems = page.getP8BySystem();
+      vectorVVSIp& staffitems = page.getStaffItemsBySystem();
       for (int sys = sysstart; sys <= sysend; sys++) {
          fill(counter.begin(), counter.end(), 0);
          fill(foundpart.begin(), foundpart.end(), 0);
@@ -360,7 +360,7 @@ void ScoreSegment::getPartList(vectorI& partlist, ScorePageSet& pageset,
          }
       }
       ScorePage& page = pageset[p][overlay];
-      vectorVVSIp& staffitems = page.getP8BySystem();
+      vectorVVSIp& staffitems = page.getStaffItemsBySystem();
       for (int sys = startsys; sys <= endsys; sys++) {
          if (sys >= staffitems.size()) {
             break;

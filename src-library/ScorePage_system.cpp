@@ -331,11 +331,11 @@ vectorSIp& ScorePage::getSystemItems(int sindex) {
 
 //////////////////////////////
 //
-// ScorePage::getP8BySystem -- Return the staff items for each
+// ScorePage::getStaffItemsBySystem -- Return the staff items for each
 //    system staff.
 //
 
-vectorVVSIp& ScorePage::getP8BySystem(void) {
+vectorVVSIp& ScorePage::getStaffItemsBySystem(void) {
    if (!analysis_info.systemsIsValid()) {
       analyzeSystems();
    }
@@ -343,9 +343,9 @@ vectorVVSIp& ScorePage::getP8BySystem(void) {
 }
 
 
-vectorSIp& ScorePage::getP8BySystem(int p2index) {
+vectorSIp& ScorePage::getStaffItemsByPageStaff(int p2index) {
    int i, j;
-   vectorVVSIp& data = getP8BySystem();
+   vectorVVSIp& data = getStaffItemsBySystem();
    for (i=0; i<data.size(); i++) {
       for (j=0; j<data[i].size(); j++) {
          if (data[i][j][0]->getStaffNumber() == p2index) {
@@ -359,6 +359,13 @@ vectorSIp& ScorePage::getP8BySystem(int p2index) {
 }
 
 
+vectorSIp& ScorePage::getStaffItemsBySystemStaff(int sysindex, 
+      int sysstaffindex) {
+   vectorVVSIp& data = getStaffItemsBySystem();
+   return data[sysindex][sysstaffindex];
+}
+
+
 
 //////////////////////////////
 //
@@ -367,7 +374,7 @@ vectorSIp& ScorePage::getP8BySystem(int p2index) {
 //
 
 int ScorePage::getPageStaffIndex(int sysindex, int partindex) {
-   vectorVVSIp& p8items = getP8BySystem();
+   vectorVVSIp& p8items = getStaffItemsBySystem();
    if ((sysindex < 0) || (sysindex >= p8items.size())) {
       return -1;
    }
@@ -393,7 +400,7 @@ int ScorePage::getPageStaffIndex(const AddressSystem & partaddress) {
    }
    int sysindex         = partaddress.getSystemIndex();
    int sysstaffindex    = partaddress.getSystemStaffIndex();
-   vectorVVSIp& p8items = getP8BySystem();
+   vectorVVSIp& p8items = getStaffItemsBySystem();
 
    ScoreItem* partstaff = p8items[sysindex][sysstaffindex][0];
    return partstaff->getStaffNumber();

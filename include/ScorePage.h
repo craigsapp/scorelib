@@ -53,13 +53,14 @@ class ScorePage : public ScorePageBase {
 
 
       // Staff Analysis functions (defined in ScorePage_staff.cpp):
-      void        analyzeStaves          (void);
-      int         getMaxStaff            (void);
-      bool        stavesAreConsecutive   (void);
-      const vectorVSIp& getStaffItemList (void);
-      vectorVSIp& getStaffItemListNotConst(void);
-      vectorVVSIp& getP8BySystem         (void);
-      vectorSIp&  getP8BySystem          (int p2index);
+      void         analyzeStaves              (void);
+      int          getMaxStaff                (void);
+      bool         stavesAreConsecutive       (void);
+      const vectorVSIp& getStaffItemList      (void);
+      vectorVSIp&  getStaffItemListNotConst   (void);
+      vectorVVSIp& getStaffItemsBySystem      (void);
+      vectorSIp&   getStaffItemsByPageStaff   (int p2index);
+      vectorSIp&   getStaffItemsBySystemStaff (int sysindex, int sysstaffindex);
    protected:
       void        fillStaffScoreItemLists(void);
    public:

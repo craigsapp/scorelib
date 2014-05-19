@@ -448,7 +448,7 @@ void printDufayCredits(ostream& out, ScorePageSet& infiles, int segment,
       if (sysindex != 0) {
          continue;
       }
-      vectorVVSIp& staves = page->getP8BySystem();
+      vectorVVSIp& staves = page->getStaffItemsBySystem();
       targetp2 = staves[0][staves[0].size()-1][0]->getStaffNumber();
       vectorSIp& items = page->getSystemItems(sysindex);
       for (j=0; j<items.size(); j++) {
@@ -478,7 +478,7 @@ void printDufayCredits(ostream& out, ScorePageSet& infiles, int segment,
    for (i=0; i<addresses.size(); i++) {
       page = infiles.getPage(*addresses[i][0]);
       sysindex = addresses[i][0]->getSystemIndex();
-      vectorVVSIp& staves = page->getP8BySystem();
+      vectorVVSIp& staves = page->getStaffItemsBySystem();
       if (sysindex != staves.size() - 1) {
          continue;
       }
@@ -686,7 +686,7 @@ ScoreItem* printTitle(ostream& out, ScorePageSet& infiles, int segment,
    ScorePage* page = infiles.getPage(sys);
    int sysindex = sys.getSystemIndex();
    vectorSIp& items = page->getSystemItems(sysindex);
-   vectorVVSIp& staves = page->getP8BySystem();
+   vectorVVSIp& staves = page->getStaffItemsBySystem();
    int staffcount = staves[sysindex].size();
    int targetp2 = staves[sysindex][staffcount-1][0]->getStaffNumber();
 
@@ -752,7 +752,7 @@ ScoreItem* printComposer(ostream& out, ScorePageSet& infiles, int segment,
    ScorePage* page = infiles.getPage(sys);
    int sysindex = sys.getSystemIndex();
    vectorSIp& items = page->getSystemItems(sysindex);
-   vectorVVSIp& staves = page->getP8BySystem();
+   vectorVVSIp& staves = page->getStaffItemsBySystem();
    int staffcount = staves[sysindex].size();
    int targetp2 = staves[sysindex][staffcount-1][0]->getStaffNumber();
 
@@ -1250,7 +1250,7 @@ void printSystemLayout(stringstream& out,
       ScorePage& page, const AddressSystem& system, int indent) {
    int sysindex        = system.getSystemIndex();
    int sysstaffindex   = system.getSystemStaffIndex();
-   vectorVVSIp& staves = page.getP8BySystem();
+   vectorVVSIp& staves = page.getStaffItemsBySystem();
 
    stringstream out2;
 
@@ -1371,7 +1371,7 @@ SCORE_FLOAT getMusicXmlTenthsFromStaffTopToPageBottom(ScoreItem* staff) {
 void printStaffLayout(stringstream& out, 
       ScorePage& page, const AddressSystem& system, int indent) {
    int sysindex = system.getSystemIndex();
-   vectorVVSIp& staves = page.getP8BySystem();
+   vectorVVSIp& staves = page.getStaffItemsBySystem();
    int sysstaffindex = system.getSystemStaffIndex();
  
    int staffcount = staves[sysindex].size();

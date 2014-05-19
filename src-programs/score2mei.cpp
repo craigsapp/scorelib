@@ -858,7 +858,7 @@ ScoreItem* getTitle(ScorePageSet& infiles, int segment) {
    ScorePage* page = infiles.getPage(sys);
    int sysindex = sys.getSystemIndex();
    vectorSIp& items = page->getSystemItems(sysindex);
-   vectorVVSIp& staves = page->getP8BySystem();
+   vectorVVSIp& staves = page->getStaffItemsBySystem();
    int staffcount = staves[sysindex].size();
    int targetp2 = staves[sysindex][staffcount-1][0]->getStaffNumber();
 
@@ -919,7 +919,7 @@ ScoreItem* getComposer(ScorePageSet& infiles, int segment) {
    ScorePage* page = infiles.getPage(sys);
    int sysindex = sys.getSystemIndex();
    vectorSIp& items = page->getSystemItems(sysindex);
-   vectorVVSIp& staves = page->getP8BySystem();
+   vectorVVSIp& staves = page->getStaffItemsBySystem();
    int staffcount = staves[sysindex].size();
    int targetp2 = staves[sysindex][staffcount-1][0]->getStaffNumber();
 
