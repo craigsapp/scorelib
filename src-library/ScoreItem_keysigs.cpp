@@ -34,7 +34,7 @@ int ScoreItem::getDiatonicAccidentalState(vectorI& states) {
 
    fill(states.begin(), states.end(), 0);
 
-   int keyval = getPInt(P5);
+   int keyval = getAccidentalCount();
 
    // If 100's digit of P5 is 1, then the key signature
    // is a cancellation signature, with all values natural
@@ -67,5 +67,26 @@ int ScoreItem::getDiatonicAccidentalState(vectorI& states) {
 
    return keyval;
 }
+
+
+
+//////////////////////////////
+//
+// ScoreItem::getAccidentalCount --  Return the number of accidentals
+//    in the key signature.  -1 == one flat, 2 == two sharps, 
+//    0 == no sharps/flats.
+//
+
+int ScoreItem::getAccidentalCount(void) {
+   if (!isKeySignatureItem()) {
+      return 0;
+   }
+   int p5 = getP5Int();
+   if ((p5 > 7) || (p5 < -7)) {
+      return 0;
+   }
+   return p5;
+}
+
 
 

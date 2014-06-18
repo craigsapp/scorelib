@@ -53,6 +53,7 @@ class ScorePageSet {
       void        appendOverlay                 (ScorePage* page, int pindex);
       void        analyzeSegmentsByIndent       (SCORE_FLOAT threshold1 = 7.0,
                                                  SCORE_FLOAT threshold2 = 40.0);
+      void        analyzeSingleSegment          (void);
       void        setPageOwnerships             (void);
      
       // Page-related functions

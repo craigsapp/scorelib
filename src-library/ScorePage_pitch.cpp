@@ -108,6 +108,11 @@ void ScorePage::analyzeSystemPitch(vectorSIp& systemitems) {
       }
 
       vpos          = curr->getPInt(P4);  // deal with +/- rounding?
+      if (vpos < 0) {
+         vpos = -(-vpos%100);
+      } else {
+         vpos = vpos%100;
+      }
       diatonic      = (vpos%100) - middleCVpos[sysstaff] + 7*4;
       base40        = SU::base7ToBase40(diatonic);
       accidental    = curr->getPrintedAccidental();

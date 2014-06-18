@@ -243,6 +243,7 @@ using listSIp     = list<ScoreItem*>;
 
       // KeySignature (P1=17) functions (defined in ScoreItem_keysigs.cpp)
       int          getDiatonicAccidentalState(vectorI& states);
+      int          getAccidentalCount            (void);
 
       // TimeSignature (P1=18) functions (defined in ScoreItem_timesigs.cpp):
       int          getTimeSignatureTop           (void);

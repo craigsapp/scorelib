@@ -400,6 +400,11 @@ int ScorePage::getPageStaffIndex(const AddressSystem & partaddress) {
    }
    int sysindex         = partaddress.getSystemIndex();
    int sysstaffindex    = partaddress.getSystemStaffIndex();
+   if (sysstaffindex < 0) {
+      // The given part does not have any data on the
+      // given system (part is tacet on system).
+      return -1;
+   }
    vectorVVSIp& p8items = getStaffItemsBySystem();
 
    ScoreItem* partstaff = p8items[sysindex][sysstaffindex][0];

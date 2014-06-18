@@ -18,6 +18,24 @@ using namespace std;
 
 //////////////////////////////
 //
+// ScorePageSet::analyzeSingleSegment --
+//
+
+void ScorePageSet::analyzeSingleSegment(void) {
+   ScorePageSet& pageset = *this;
+
+   int pagecount = pageset.getPageCount();
+   int syscount  = pageset[pagecount-1][0].getSystemCount();
+   AddressSystem  starting(0, 0, 0, 0);
+   AddressSystem  ending(pagecount-1, 0, syscount-1, 0);
+   
+   pageset.createSegment(starting, ending);   
+}
+
+
+
+//////////////////////////////
+//
 // ScorePageSet::analyzeSegmentsByIndent --
 //
 

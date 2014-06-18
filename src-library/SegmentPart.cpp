@@ -161,7 +161,8 @@ int SegmentPart::getSystemStaffIndex(int systemindex, int subpartindex) {
 int SegmentPart::getPageStaffIndex(int systemindex, int subpartindex) { 
    AddressSystem systemaddress = getAddress(systemindex, subpartindex);
    ScorePage* page = pageset_owner->getPage(systemaddress);
-   return page->getPageStaffIndex(systemaddress);
+   int output = page->getPageStaffIndex(systemaddress);
+   return output;
 }
 
 

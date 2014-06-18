@@ -30,7 +30,7 @@ int ScoreItem::getMiddleCVpos(void) {
    int cleftype    = getPInt(P5);
    int clef8       = 0;
    double cleffrac = getParameterFraction(P5);
-   int p4          = getPInt(P4);
+   int vpos        = getVPos();
    int fractens    = (int)(cleffrac*10.0 + 0.5);
    if (cleffrac == 0.8) {
       clef8 = 1;
@@ -39,19 +39,19 @@ int ScoreItem::getMiddleCVpos(void) {
    int output = 1;   // default for treble clef
    switch (cleftype) {
       case 0:                 // G clef
-         output += p4;
+         output += vpos;
          if (clef8) {         // vocal tenor clef
             output -= 7;
          }
          break;
       case 1:                 // F clef
-         output = 13 + p4;
+         output = 13 + vpos;
          break;
       case 2:                 // Alto C-clef
-         output = 7 + p4;
+         output = 7 + vpos;
          break;
       case 3:                 // Tenor C-clef
-         output = 9 + p4;
+         output = 9 + vpos;
          break;
    }
 

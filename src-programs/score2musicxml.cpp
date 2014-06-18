@@ -131,6 +131,7 @@ int      lyricsQ          = 1;
 int      systemBreaksQ    = 1;
 int      pageBreaksQ      = 1;
 int      StartTempo       = -1;
+int      movementQ        = 0;
 int      dufayQ           = 0;
 
 ///////////////////////////////////////////////////////////////////////////
@@ -139,17 +140,26 @@ int main(int argc, char** argv) {
    Options opts;
    opts.define("L|no-location=b", 
          "Don't print location of each measure as comment");
-   opts.define("s|segment=i:0", "segment to process");
+   opts.define("s|segment=i:0", 
+         "Segment number to process");
    opts.define("f|filebase=s:filebase", 
          "Base of filename for multiple segments");
-   opts.define("debug=b", "Print debugging information");
+   opts.define("debug=b", 
+         "Print debugging information");
    opts.define("scale|scaling|rhythmic-scaling=i:0", 
          "Global rhythmic scaling of durations");
-   opts.define("I|no-invisible=b", "Don't convert invisible rests/notes");
-   opts.define("no-lyrics=b", "Don't process Lyrics");
-   opts.define("no-system-breaks=b", "Don't print system break information");
-   opts.define("no-page-breaks=b", "Don't print page break information");
-   opts.define("dufay=b", "Use default options for Dufay translations");
+   opts.define("I|no-invisible=b", 
+         "Don't convert invisible rests/notes");
+   opts.define("no-lyrics=b", 
+         "Don't process Lyrics");
+   opts.define("no-system-breaks=b", 
+         "Don't print system break information");
+   opts.define("no-page-breaks=b", 
+         "Don't print page break information");
+   opts.define("M|movement=b", 
+         "Treat entire input as a single movment");
+   opts.define("D|dufay=b", 
+         "Use default options for Dufay translations");
    opts.process(argc, argv);
 
    locationQ        = !opts.getBoolean("no-location");
@@ -160,6 +170,7 @@ int main(int argc, char** argv) {
    lyricsQ          = !opts.getBoolean("no-lyrics");
    systemBreaksQ    = !opts.getBoolean("no-system-breaks");
    pageBreaksQ      = !opts.getBoolean("no-page-breaks");
+   movementQ        =  opts.getBoolean("movement");
    dufayQ           =  opts.getBoolean("dufay");
    if (dufayQ) {
       rhythmicScalingQ = 1;
@@ -169,7 +180,6 @@ int main(int argc, char** argv) {
    }
  
    ScorePageSet infiles(opts);
-
    processData(infiles, opts);
 
    return 0;
@@ -184,7 +194,13 @@ int main(int argc, char** argv) {
 //
 
 void processData(ScorePageSet& infiles, Options& opts) {
-   infiles.analyzeSegmentsByIndent();
+
+   if (movementQ) {
+      infiles.analyzeSingleSegment();
+   } else {
+      infiles.analyzeSegmentsByIndent();
+   }
+
    infiles.analyzePitch();
    if (lyricsQ) {
       infiles.analyzeLyrics();
@@ -1373,6 +1389,10 @@ void printStaffLayout(stringstream& out,
    int sysindex = system.getSystemIndex();
    vectorVVSIp& staves = page.getStaffItemsBySystem();
    int sysstaffindex = system.getSystemStaffIndex();
+   if (sysstaffindex < 0) {
+      // tacet part of some sort
+      return;
+   }
  
    int staffcount = staves[sysindex].size();
    if (staffcount <= 0) {
@@ -1939,7 +1959,7 @@ int printKeySigItem(stringstream& stream, ScoreItem* item, int indent) {
    if (!item->isKeySigItem()) {
       return 0;
    }
-   int p5 = item->getP5Int();
+   int p5 = item->getAccidentalCount();
   
    if (abs(p5 < 10)) {
       printIndent(stream, indent++, "<key>\n");   
@@ -2043,7 +2063,7 @@ int printClefItem(stringstream& stream, ScoreItem* item, int indent) {
          line = 2;
          break;
       case 1:             // F clef
-         sign = 'G';
+         sign = 'F';
          line = 4;
          break;
       case 2:             // C clef (alto placement)
