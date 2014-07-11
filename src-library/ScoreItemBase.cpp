@@ -387,11 +387,36 @@ void ScoreItemBase::setParameterQuiet(const string& nspace, const string& key,
    named_parameters[nspace][key] = value;
 }
 
+
+void ScoreItemBase::setParameterQuiet(const string& nspace, const string& key, 
+      int value) {
+   named_parameters[nspace][key] = to_string(value);
+}
+
+
+void ScoreItemBase::setParameterQuiet(const string& nspace, const string& key, 
+      SCORE_FLOAT value) {
+   named_parameters[nspace][key] = to_string(value);
+}
+
+
+void ScoreItemBase::setParameterQuiet(const string& nspace, const string& key, 
+      void* pointer) {
+   named_parameters[nspace][key] = to_string((uint64_t)pointer);
+}
+
+
+void ScoreItemBase::storeAutoAddress(void) {
+   setParameterQuiet(ns_auto, np_address, this);
+}
+
+
 void ScoreItemBase::setParameter(const string& nspace, const string& key, 
       const string& value) {
    setParameterQuiet(nspace, key, value);
    notifyPageOfChange("named");
 }
+
 
 // Aliases and variants of named parameter setting:
 

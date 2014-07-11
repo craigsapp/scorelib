@@ -125,6 +125,8 @@ int AnalysisInfo::durationIsValid        (void) { return duration; }
 int AnalysisInfo::systemsIsValid         (void) { return systems; }
 int AnalysisInfo::systemPitchesIsValid   (void) { return systempitches; }
 int AnalysisInfo::staffSlursTiesIsValid  (void) { return staffslursties; }
+int AnalysisInfo::staffTiesIsValid       (void) { return staffslursties; }
+int AnalysisInfo::staffSlursIsValid      (void) { return staffslursties; }
 int AnalysisInfo::chordsIsValid          (void) { return chords; }
 int AnalysisInfo::beamsIsValid           (void) { return beams; }
 int AnalysisInfo::barlinesIsValid        (void) { return barlines; }
@@ -190,20 +192,21 @@ void AnalysisInfo::setValid(const string& nodename) {
 void AnalysisInfo::initializeDatabase(void) {
    database.addNode("notmodified", &notmodified);
 
-   database.addChild("notmodified", "sorted",           &sorted);
-   database.addChild("sorted",      "staves",           &staves);
-   database.addChild("staves",      "chords",           &chords);
-   database.addChild("staves",      "duration",         &duration);
-   database.addChild("staves",      "staffslursties",   &staffslursties);
-   database.addChild("staves",      "systems",          &systems);
-   database.addChild("systems",     "barlines",         &barlines);
-   database.addChild("duration",    "barlines",         &barlines);
-   database.addChild("systems",     "systempitches",    &systempitches);
-   database.addChild("barlines",    "layers",           &layers);
-   database.addChild("staves",      "chords",           &chords);
-   database.addChild("duration",    "beams",            &beams);
-   database.addChild("systems",     "p3",               &p3);
-   database.addChild("duration",    "p3",               &p3);
+   database.addChild("notmodified",   "sorted",          &sorted);
+   database.addChild("sorted",        "staves",          &staves);
+   database.addChild("staves",        "chords",          &chords);
+   database.addChild("staves",        "duration",        &duration);
+   database.addChild("staves",        "systems",         &systems);
+   database.addChild("systems",       "barlines",        &barlines);
+   database.addChild("duration",      "barlines",        &barlines);
+   database.addChild("systems",       "systempitches",   &systempitches);
+   database.addChild("duration",      "layers",          &layers);
+   database.addChild("staves",        "chords",          &chords);
+   database.addChild("duration",      "beams",           &beams);
+   database.addChild("layers",        "staffslursties",  &staffslursties);
+   database.addChild("systempitches", "staffslursties",  &staffslursties);
+   database.addChild("systems",       "p3",              &p3);
+   database.addChild("duration",      "p3",              &p3);
 }
 
 

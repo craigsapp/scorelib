@@ -506,3 +506,64 @@ int ScoreItem::getDotCount(void) {
 
 
 
+//////////////////////////////
+//
+// ScoreItem::inTieGroup --
+//
+
+bool ScoreItem::inTieGroup(void) { 
+   if (!isNoteItem()) {
+      return false;
+   }
+   return getParameterBool(ns_auto, np_tiedLastNote) ||
+          getParameterBool(ns_auto, np_tiedNextNote);
+}
+
+
+
+//////////////////////////////
+//
+// ScoreItem::isTieGroupStart --
+//
+
+bool ScoreItem::isTieGroupStart(void) { 
+   if (!isNoteItem()) {
+      return false;
+   }
+   return !getParameterBool(ns_auto, np_tiedLastNote) &&
+          getParameterBool(ns_auto, np_tiedNextNote);
+}
+
+
+
+//////////////////////////////
+//
+// ScoreItem::isTieGroupMiddle --
+//
+
+bool ScoreItem::isTieGroupMiddle(void) { 
+   if (!isNoteItem()) {
+      return false;
+   }
+   return getParameterBool(ns_auto, np_tiedLastNote) &&
+          getParameterBool(ns_auto, np_tiedNextNote);
+}
+
+
+//////////////////////////////
+//
+// ScoreItem::isTieGroupEnd --
+//
+
+bool ScoreItem::isTieGroupEnd(void) { 
+   if (!isNoteItem()) {
+      return false;
+   }
+   return getParameterBool(ns_auto, np_tiedLastNote) &&
+          !getParameterBool(ns_auto, np_tiedNextNote);
+}
+
+
+
+
+

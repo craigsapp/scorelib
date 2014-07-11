@@ -279,6 +279,8 @@ bool ScoreItem::isUserItem   (void)
       { return getItemType() == P1_User               ? true : false; }
 bool ScoreItem::isSpecialItem(void) 
       { return getItemType() == P1_Special            ? true : false; }
+bool ScoreItem::isShapeItem(void) 
+      { return isSpecialItem(); }
 bool ScoreItem::isBadLuckItem(void) 
       { return getItemType() == P1_BadLuck            ? true : false; }
 bool ScoreItem::isBarlineItem(void) 

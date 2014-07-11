@@ -40,6 +40,7 @@ class ScorePageBase {
 
       void           clear                    (void);
       int            getItemCount             (void);
+      ScoreItem*     getItem                  (int index);
       listSIp&       lowLevelDataAccess       (void);
       void           deleteNamespace          (const string& nspace);
       int            changeNamespace          (const string& newspace, 

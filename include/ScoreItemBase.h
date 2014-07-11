@@ -165,6 +165,14 @@ class ScoreItemBase {
                                        const string& parameter);
       void          setParameterQuiet (const string& nspace, 
                                        const string& key, const string& value);
+      void          setParameterQuiet (const string& nspace, 
+                                       const string& key, int value);
+      void          setParameterQuiet (const string& nspace, 
+                                       const string& key, SCORE_FLOAT value);
+      void          setParameterQuiet (const string& nspace, 
+                                       const string& key, void* pointer);
+      void          storeAutoAddress  (void);
+
 
       // global namespace parameters
       void          setParameter      (const string& key, const string& value);

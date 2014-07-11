@@ -58,6 +58,7 @@ class ScorePageSet {
      
       // Page-related functions
       void        analyzePitch                  (void);
+      void        analyzeTies                   (void);
 
       // funcs related to AddressSystem (defined in ScorePageSet_address.cpp):
       ScorePage*  getPage                     (const AddressSystem& anAddress);

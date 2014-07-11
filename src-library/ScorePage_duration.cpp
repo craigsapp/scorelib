@@ -126,7 +126,7 @@ SCORE_FLOAT ScorePage::calculateStaffDuration(vectorSIp& staffitems) {
 //////////////////////////////
 //
 // ScorePage::setStaffDuration -- Set the duration of the staff in terms
-//    of quatert notes (sum of P7 values for notes and rests that are
+//    of quater notes (sum of P7 values for notes and rests that are
 //    found on the given staff).
 //
 

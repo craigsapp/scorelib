@@ -95,6 +95,7 @@ using listSIp     = list<ScoreItem*>;
       bool         isNumberItem                 (void);    // P1==10
       bool         isUserItem                   (void);    // P1==11
       bool         isSpecialItem                (void);    // P1==12
+      bool         isShapeItem                  (void);    // P1==12
       bool         isBadLuckItem                (void);    // P1==13
       bool         isBarlineItem                (void);    // P1==14
       bool         isEpsItem                    (void);    // P1==15
@@ -171,6 +172,11 @@ using listSIp     = list<ScoreItem*>;
       // functions related to rhythm
       void         removeFlags                  (void);
       int          getDotCount                  (void);
+      // functions related to ties
+      bool         inTieGroup                   (void);
+      bool         isTieGroupStart              (void);
+      bool         isTieGroupMiddle             (void);
+      bool         isTieGroupEnd                (void);
 
       // Rest (P1=2) processing functions (defined in ScoreItem_rests.cpp):
       int          isInvisible                  (void);
@@ -190,8 +196,9 @@ using listSIp     = list<ScoreItem*>;
       bool         isPlainLine                  (void);
       bool         isHorizontal                 (void);
 
-      // Slur (P1=5) processing functions
+      // Slur (P1=5) processing functions (defined in ScoreItem_slurs.cpp):
       //    see isHorizontal() in P1=4 list.
+      bool         isTie                        (void);
 
       // Beam (P1=6) processing functions
       //    see isHorizontal() in P1=4 functions.
@@ -213,7 +220,20 @@ using listSIp     = list<ScoreItem*>;
 
       // User (P1=11) processing functions
 
-      // Special (P1=12) processing functions
+      // Special Shapes (P1=12) processing functs (defined in ScoreItem_shapes.cpp):
+      bool         isCircular                    (void);
+      bool         isCircle                      (void);
+      bool         isEllipse                     (void);
+      bool         isRectangular                 (void);
+      bool         isSquare                      (void);
+      bool         isRectangle                   (void);
+      bool         isParallelogram               (void);
+      bool         isFilled                      (void);
+      bool         isUnfilled                    (void);
+      bool         isFilledCircle                (void);
+      bool         isUnfilledCircle              (void);
+      SCORE_FLOAT  getHorizontalRadius           (void);
+      SCORE_FLOAT  getVerticalRadius             (void);
 
       // BadLuck (P1=13) processing functions
 
@@ -230,6 +250,8 @@ using listSIp     = list<ScoreItem*>;
       const string& getText                      (void);
       void          setText                      (const string& text);
       string        getTextWithoutInitialFontCode(void);
+      bool          isItalic                     (void);
+      bool          isBold                       (void);
       string        getTextNoFont                (void);
       string        getInitialFontCode           (void);
       int           getInitialFontCodeAsInteger  (void);

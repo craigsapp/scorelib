@@ -99,6 +99,129 @@ string ScoreItem::getTextNoFont(void) {
 
 //////////////////////////////
 //
+// ScoreItem::isItalic -- Returns true if the text is italicized.
+//
+
+bool ScoreItem::isItalic(void) {
+   if (!isTextItem()) {
+      return false;
+   }
+   string code = getInitialFontCode();
+   if (code.size() < 3) {
+      return false;
+   }
+   int number = (code[1] - '0') * 10 + (code[2] - '0');
+   switch (number) {
+      case  2:    // Times Italic
+      case  3:    // Times Bold Italic
+      case  6:    // Helvetica Oblique
+      case  7:    // Helvetica Bold Oblique
+      case 10:    // Helvetica Narrow Oblique
+      case 11:    // Helvetica Narrow Bold Oblique
+      case 14:    // Palatino Italic
+      case 15:    // Palatino Bold Italic
+      case 17:    // Avant Garde Book Oblique
+      case 19:    // Avant Garde Book Demi Oblique
+      case 21:    // Bookman Light Italic
+      case 23:    // Bookman Light Demi Italic
+      case 26:    // New Century Schoolbook Italic
+      case 27:    // New Century Schoolbook Bold Italic
+      case 28:    // Zapf Chancery Medium Italic
+      case 31:    // Courier Oblique
+      case 32:    // Courier Bold Oblique
+         return true;
+         break;
+
+      // case  0:    // Times Roman
+      // case  1:    // Times Bold
+      // case  4:    // Helvetica
+      // case  5:    // Helvetica Bold
+      // case  8:    // Helvetica Narrow
+      // case  9:    // Helvetica Narrow Bold
+      // case 12:    // Palatino Roman
+      // case 13:    // Palatino Bold
+      // case 16:    // Avant Garde Book
+      // case 18:    // Avant Garde Book Demi
+      // case 20:    // Bookman Light
+      // case 22:    // Bookman Light Demi
+      // case 24:    // New Century Schoolbook Roman
+      // case 25:    // New Century Schoolbook Bold
+      // case 29:    // Courier
+      // case 30:    // Courier Bold
+      // case 33:    // Symbol
+      // case 34:    // Zapf Dingbats
+      //    return false;
+   }
+
+    return false;
+}
+
+
+
+//////////////////////////////
+//
+// ScoreItem::isBold -- Returns true if the text is bold.
+//
+
+bool ScoreItem::isBold(void) {
+   if (!isTextItem()) {
+      return false;
+   }
+   string code = getInitialFontCode();
+   if (code.size() < 3) {
+      return false;
+   }
+   int number = (code[1] - '0') * 10 + (code[2] - '0');
+   switch (number) {
+      case  1:    // Times Bold
+      case  3:    // Times Bold Italic
+      case  5:    // Helvetica Bold
+      case  7:    // Helvetica Bold Oblique
+      case  9:    // Helvetica Narrow Bold
+      case 11:    // Helvetica Narrow Bold Oblique
+      case 13:    // Palatino Bold
+      case 15:    // Palatino Bold Italic
+      case 18:    // Avant Garde Book Demi
+      case 19:    // Avant Garde Book Demi Oblique
+      case 22:    // Bookman Light Demi
+      case 23:    // Bookman Light Demi Italic
+      case 25:    // New Century Schoolbook Bold
+      case 27:    // New Century Schoolbook Bold Italic
+      case 30:    // Courier Bold
+      case 32:    // Courier Bold Oblique
+         return true;
+         break;
+
+      // case  0:    // Times Roman
+      // case  2:    // Times Italic
+      // case  4:    // Helvetica
+      // case  6:    // Helvetica Oblique
+      // case  8:    // Helvetica Narrow
+      // case 10:    // Helvetica Narrow Oblique
+      // case 12:    // Palatino Roman
+      // case 14:    // Palatino Italic
+      // case 16:    // Avant Garde Book
+      // case 17:    // Avant Garde Book Oblique
+      // case 20:    // Bookman Light
+      // case 21:    // Bookman Light Italic
+      // case 24:    // New Century Schoolbook Roman
+      // case 26:    // New Century Schoolbook Italic
+      // case 28:    // Zapf Chancery Medium Italic
+      // case 29:    // Courier
+      // case 31:    // Courier Oblique
+      // case 33:    // Symbol
+      // case 34:    // Zapf Dingbats
+      //    return false;
+
+   }
+
+    return false;
+}
+
+
+
+//////////////////////////////
+//
 // ScoreItem::getInitialFontCode -- Return the initial font code, or an empty
 //     string if none.
 //
@@ -191,6 +314,10 @@ SCORE_FLOAT ScoreItem::getFontSizeInPoints(void) {
    if (p6 < tolerance) {
       p6 = 1.0;
    }
+   if (p6 >= 100.0) {
+      // font too large, something must be encoded in 100's digit
+      p6 = p6 - int(p6/100) * 100.0;
+   }
    return 13.56 * staff_size * p6;
 }
 
@@ -205,6 +332,10 @@ SCORE_FLOAT ScoreItem::getFontSizeInPoints(SCORE_FLOAT staff_size) {
    SCORE_FLOAT p6 = fabs(getP6());
    if (p6 < tolerance) {
       p6 = 1.0;
+   }
+   if (p6 >= 100.0) {
+      // font too large, something must be encoded in 100's digit
+      p6 = p6 - int(p6/100) * 100.0;
    }
    return 13.56 * staff_size * p6;
 }

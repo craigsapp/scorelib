@@ -67,7 +67,6 @@ class ScorePage : public ScorePageBase {
       vectorVSIp& staffItems             (void);
       vectorSIp&  staffItems             (int p2index);
 
-
       //  System analysis functions (defined in ScorePage_system.cpp):
       int         analyzeSystems         (void);
       int         getSystemCount         (void);
@@ -92,6 +91,23 @@ class ScorePage : public ScorePageBase {
       void        setStaffDuration       (int staffnum, SCORE_FLOAT duration);
    private:
       SCORE_FLOAT calculateStaffDuration(vectorSIp& staffitems);
+   public:
+
+      // Layer analysis functions (defined in ScorePage_layer.cpp):
+      int         analyzeLayers          (void);
+   private:
+      void        private_analyzeStaffLayers(vectorSIp& items);
+      void        setChordLayer          (ScoreItem* note, int layer);
+      void        chooseLayer            (vectorSIp& notes, int layer);
+   public:
+
+      // Staff-level tie analysis functions (defined in ScorePage_tie.cpp):
+      int         analyzeTies(void);
+   private:
+      void        private_analyzeStaffTies(vectorSIp& items);
+      void        identifySlurStartStopOffsets (int index, 
+                                         vectorSIp& slurs, vectorVSIp& notes, 
+                                         map<SCORE_FLOAT, int>& offsettoindex);
    public:
 
       // Rhythm analysis functions (defined in ScorePage_rhythm.cpp):

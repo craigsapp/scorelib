@@ -173,6 +173,17 @@ int ScorePageBase::getItemCount(void) {
 
 //////////////////////////////
 //
+// ScorePageBase::getItem -- 
+//
+
+ScoreItem* ScorePageBase::getItem(int index) {
+   return itemlist_P3sorted[index];
+}
+
+
+
+//////////////////////////////
+//
 // ScorePageBase::lowLevelDataAccess -- Direct access to the items on a page.
 //     If you change these items through this access point, analyses will be
 //     invalid, but the page will not know that they are invalid, so be

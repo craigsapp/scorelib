@@ -42,6 +42,8 @@ class AnalysisInfo {
       int           systemsIsValid           (void);
       int           systemPitchesIsValid     (void);
       int           staffSlursTiesIsValid    (void);
+      int           staffTiesIsValid         (void);
+      int           staffSlursIsValid        (void);
       int           chordsIsValid            (void);
       int           beamsIsValid             (void);
       int           barlinesIsValid          (void);
@@ -83,7 +85,7 @@ class AnalysisInfo {
 
       // staffslursties: true if slurs/ties have been differentiated at the
       // staff level (slurs/ties across system breaks are not analyzed, this
-      // is done at the ScorePageSet level.
+      // is done at the ScoreSegment level).
       int staffslursties;
 
       // chords: true if notes have been grouped into chords.
@@ -99,8 +101,7 @@ class AnalysisInfo {
       int barlines;
 
       // layers: true if layers have been identified.
-      // Dependencies for layers: barlines, (systems, staves, sorted, 
-      // notmodified).
+      // Dependencies for layers: staves, (sorted, notmodified).
       int layers;
 
       // p3: true if P3 analysis has been done.  This analysis 

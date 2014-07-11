@@ -55,19 +55,15 @@ bool ScoreItem::isCircle(void) {
    if (p5 != 1) {
       return false;
    }
-cout << "GOT HERE AAA" << endl;
 
    SCORE_FLOAT p12 = getP12();
    if (p12 != 0.0) {
       // a polygon
       return false;
    }
-cout << "GOT HERE BBB" << endl;
    // arcing information
    SCORE_FLOAT p10 = getP10();
    SCORE_FLOAT p11 = getP11();
-cout << "P10 = " << p10 << endl;
-cout << "P11 = " << p11 << endl;
  
    if ((p10 != 0.0) && (p11 != 0.0)) {
       if (fabs(p11 - p10) < 360) {
@@ -75,7 +71,6 @@ cout << "P11 = " << p11 << endl;
          return false;
       }
    }
-cout << "GOT HERE CCC" << endl;
   
    // circle should be round
    SCORE_FLOAT p6 = getP6();
@@ -84,7 +79,6 @@ cout << "GOT HERE CCC" << endl;
    if ((p7 == 0) || (fabs(p7-p6) < threshold)) {
       return true;
    } else {
-cout << "GOT HERE DDD" << endl;
       // ellipse
       return false;
    }
@@ -304,16 +298,6 @@ bool ScoreItem::isFilledCircle(void) {
 //
 
 bool ScoreItem::isUnfilledCircle(void) {
-if (isCircle()) {
-cout << "GOT HERE IS CIRCLE" << endl;
-}
-if (isFilled()) {
-cout << "GOT HERE IS FILLED" << endl;
-}
-if (isUnfilled()) {
-cout << "GOT HERE IS UNFILLED" << endl;
-}
-
    if (isCircle() && isUnfilled()) {
       return true;
    } else {
@@ -321,5 +305,55 @@ cout << "GOT HERE IS UNFILLED" << endl;
    }
 }
 
+
+
+
+//////////////////////////////
+//
+// ScoreItem::getVerticalRadius -- Returns P7 of item if a shape.  If P7==0, then
+//    returns P6.  Units are diatonic steps (1/2 of distance between 
+//    staff lines).  This is the radius of a circle; the 1/2 height of 
+//    an ellipse, square, rectangle, or parallelogram.
+//
+
+SCORE_FLOAT ScoreItem::getVerticalRadius(void) {
+   if (!isShapeItem()) {
+      return 0.0;
+   }
+   SCORE_FLOAT p7 = getP7();
+   SCORE_FLOAT p6;
+   if (p7 == 0.0) {
+      p6 = getP6();
+      if (p6 == 0.0) {
+         return 1.0/2.0;
+      } else {
+         return p6/2.0;
+      }
+   } else {
+      return p7/2.0;
+   }
+}
+   
+
+
+//////////////////////////////
+//
+// ScoreItem::getHorizontalRadius -- Returns P6 of item if a shape.  Units are
+// diatonic steps (1/2 of the distance between staff lines).  This is the radius 
+// of a circle; the 1/2 width of an ellipse, square, rectangle, or parallelogram.
+//
+
+SCORE_FLOAT ScoreItem::getHorizontalRadius(void) {
+   if (!isShapeItem()) {
+      return 0.0;
+   }
+   SCORE_FLOAT p6 = getP6();
+   if (p6 == 0.0) {
+      return 1.0/2.0;
+   } else {
+      return getP6()/2.0;
+   }
+}
+   
 
 

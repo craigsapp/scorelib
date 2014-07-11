@@ -25,6 +25,8 @@ using namespace std;
 
 const string ns_auto = "auto";
 
+
+///////////////////////////////////
 //
 // Automatic rhythm analysis parameters:
 //
@@ -37,6 +39,57 @@ const string np_staffOffsetDuration = "staffOffsetDuration";
 const string np_staffDuration = "staffDuration";
 
 
+///////////////////////////////////
+//
+// Automatic layer analysis parameters:
+//
+
+// @auto@staffDuration -- The duration from the start to end of a staff.
+const string np_layer = "layer";
+
+
+///////////////////////////////////
+//
+// Automatic slur analysis parameters:
+//
+
+// @auto@staffOffsetLeft -- The duration from the start of the staff to the
+//     starting point of the slur/tie.
+const string np_staffOffsetLeft = "staffOffsetLeft";
+
+// @auto@staffOffsetRight -- The duration from the start of the staff to the
+//     ending point of the slur/tie.
+const string np_staffOffsetRight = "staffOffsetRight";
+
+// @auto@duration -- The duration from the start start of a slur/tie to its end.
+const string np_slurDuration = "duration";
+
+// @auto@tie -- The slur/tie is a tie. The value should be true/false.
+const string np_tie = "tie";
+
+// @auto@tiedNextNote -- The next note in a tied group.
+const string np_tiedNextNote = "tiedNextNote";
+
+// @auto@tiedLastNote -- The previous note in a tied group.
+const string np_tiedLastNote = "tiedLastNote";
+
+// @auto@tieLast -- The previous tie though which the last note is connected.
+const string np_tieLast = "tieLast";
+
+// @auto@tieNext -- The previous tie though which the last note is connected.
+const string np_tieNext = "tieNext";
+
+
+///////////////////////////////////
+//
+// Memory address for SCORE items.
+//
+
+// @auto@address -- The memory address of a SCORE object.
+const string np_address = "address";
+
+
+///////////////////////////////////
 //
 // Automatic pitch analysis parameters:
 //
@@ -49,6 +102,7 @@ const string np_base40Pitch = "base40Pitch";
 const string np_courtesy = "courtesy";
 
 
+///////////////////////////////////
 //
 // Automatic text analysis parameters:
 //
@@ -86,8 +140,6 @@ const string np_lyricsHyphen = "lyricsHyphen";
 // @lyrics@wordExtension: indicates that a line items is a word extension
 //     for a lyric syllable.  The value should be true|false.
 const string np_wordExtension = "wordExtension";
-
-
 
 
 #endif /* _SCORENAMEDPARAMETER_H_INCLUDED */
