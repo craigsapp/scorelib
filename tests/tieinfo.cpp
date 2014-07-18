@@ -15,7 +15,6 @@
 
 using namespace std;
 
-void   processPage          (ScorePage& infile, Options& opts);
 void   printMarkedTies      (ScorePage& page);
 
 ///////////////////////////////////////////////////////////////////////////
@@ -26,9 +25,10 @@ int main(int argc, char** argv) {
    opts.process(argc, argv);
    
    ScorePageSet infiles(opts);
+   infiles.analyzeSingleSegment();
+   infiles.analyzeTies();
 
    for (int i=0; i<infiles.getPageCount(); i++) {
-      processPage(infiles[i][0], opts);
       if (opts.getBoolean("mark")) {
          printMarkedTies(infiles[i][0]);
       } else {
@@ -54,10 +54,15 @@ void printMarkedTies(ScorePage& page) {
 
    stringstream ties;
    stringstream tiednotes;
+   stringstream hanging;
 
    for (i=0; i<page.getItemCount(); i++) {
       sip = page.getItem(i);
-      if (sip->isTie()) {
+      if (sip->getParameterBoolean(ns_auto, np_hangLeft)) {
+         hanging << sip;
+      } else if (sip->getParameterBoolean(ns_auto, np_hangRight)) {
+         hanging << sip;
+      } else if (sip->isTie()) {
          ties << sip;
       } else if (sip->inTieGroup()) {
          tiednotes << sip;
@@ -86,17 +91,16 @@ void printMarkedTies(ScorePage& page) {
       cout << "\n\n";
    }
 
-}
+   if (hanging.rdbuf()->in_avail()) {
+      cout << "\n\n";
+      cout << "t 1 1\n";
+      cout << "_99%svg%<g color=\"green\" stroke=\"green\">\n";
+      cout << hanging.str();
+      cout << "t 1 1\n";
+      cout << "_99%svg%<\\g>\n";
+      cout << "\n\n";
+   }
 
-
-
-//////////////////////////////
-//
-// processPage --
-//
-
-void processPage(ScorePage& infile, Options& opts) {
-    infile.analyzeTies();
 }
 
 

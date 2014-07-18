@@ -131,3 +131,23 @@ bool ScoreItem::isCutTime(void) {
 
 
 
+//////////////////////////////
+//
+// ScoreItem::isSingleNumber -- Return true if P5 is 0 and P6 is not.
+//     This represents a single number in the time signature.
+//
+
+bool ScoreItem::isSingleNumber(void) {
+   if (!isTimeSignatureItem()) {
+      return false;
+   }
+   int p5 = getP5Int();
+   int p6 = getP6Int();
+   if ((p5 == 0) && (p6 > 0)) {
+      return true;
+   }
+   return false;
+}
+
+
+

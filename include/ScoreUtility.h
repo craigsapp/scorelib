@@ -14,6 +14,7 @@
 #define _SCOREUTILITY_H_INCLUDED
 
 #include "ScoreDefs.h"
+#include "ScoreItem.h"
 #include "ScoreItemEdit_ParameterHistory.h"
 #include <set>
 
@@ -58,6 +59,22 @@ namespace ScoreUtility {
    int    gcd                 (int x, int y);
    int    lcm                 (int x, int y);
    int    lcm                 (set<int>& numbers);
+
+   // Tie/Slur differentiation functions (defined in ScoreUtility_ties.cpp):
+   void   analyzeStaffTies    (int staffnum, vectorSIp& items, 
+                               vectorSIp& hangingleft, vectorSIp& leftnotes, 
+                               vectorSIp& hangingright, vectorSIp& rightnotes);
+   void identifySlurStartStopOffsets(int index, 
+                               vectorSIp& slurs, 
+                               vectorVSIp& notes, 
+                               map<SCORE_FLOAT, int>& offsettoindex,
+                               vectorSIp& hangingleft, 
+                               vectorSIp& leftnotes,
+                               vectorSIp& hangingright, 
+                               vectorSIp& rightnotes);
+   void   linkNotesByTie      (ScoreItem* startslur,  SCORE_FLOAT slurdur,
+                               vectorSIp& leftnotes, ScoreItem* endslur, 
+                               vectorSIp& rightnotes);
 
    // text-related functions (defined in ScoreUtility_text.cpp):
    ostream& printXmlTextEscapedUTF8      (ostream& out, const string& text);

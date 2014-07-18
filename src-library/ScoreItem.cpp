@@ -447,6 +447,45 @@ SCORE_FLOAT ScoreItem::getVPos(void) {
 }
 
 
+//////////////////////////////
+//
+// ScoreItem::isAboveStaff -- Returns true if P4 >= 11.
+//    (assuming 5-lined staff, this could be an input parameter).
+//
+
+bool ScoreItem::isAboveStaff(void) {
+   return getVPos() >= 11 ? true : false;
+}
+
+
+
+//////////////////////////////
+//
+// ScoreItem::isBelowStaff -- Returns true if P4 < 3.
+//    (assuming 5-lined staff, this could be an input parameter).
+//
+
+bool ScoreItem::isBelowStaff(void) {
+   return getVPos() < 3 ? true : false;
+}
+
+
+
+//////////////////////////////
+//
+// ScoreItem::isOnStaff -- Returns true if P4 >= 3 and P4 < 11.
+//    (assuming 5-lined staff, this could be an input parameter).
+//
+
+bool ScoreItem::isOnStaff(void) {
+   int p4 = getVPos();
+   if ((p4 >= 3)  && (p4 < 11)) {
+      return true;
+   } else {
+      return false;
+   }
+}
+
 
 ///////////////////////////////////////////////////////////////////////////
 //

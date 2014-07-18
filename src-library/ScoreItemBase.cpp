@@ -182,8 +182,18 @@ bool ScoreItemBase::getParameterBool(const string& nspace, const string& key) {
 }
 
 
+bool ScoreItemBase::getParameterBoolean(const string& nspace, const string& key) {
+   return getParameterBool(nspace, key);
+}
+
+
 bool ScoreItemBase::getParameterBool(const string& key) {
    return getParameterBool("", key);
+}
+
+
+bool ScoreItemBase::getParameterBoolean(const string& key) {
+   return getParameterBool(key);
 }
 
 
@@ -357,6 +367,11 @@ int ScoreItemBase::getPInt(int pindex) {
 bool ScoreItemBase::getParameterBool(int pindex) {
    return getParameterInt(pindex) ? true : false;
 }
+
+bool ScoreItemBase::getParameterBoolean(int pindex) {
+   return getParameterBool(pindex);
+}
+
 
 
 //////////////////////////////
