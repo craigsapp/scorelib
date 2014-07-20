@@ -30,6 +30,7 @@ ScorePageBase::ScorePageBase(void) {
    trailer.reserve(8);
    setDefaultPrintParameters();
    clearAnalysisStates();
+   ppmx_page_style = PPMX_PAGE_MARKER_RS;
 }
 
 
@@ -39,6 +40,7 @@ ScorePageBase::ScorePageBase(const char* filename) {
    setDefaultPrintParameters();
    clearAnalysisStates();
    readFile(filename);
+   ppmx_page_style = PPMX_PAGE_MARKER_RS;
 }
 
 
@@ -48,6 +50,7 @@ ScorePageBase::ScorePageBase(istream& instream) {
    setDefaultPrintParameters();
    clearAnalysisStates();
    readStream(instream);
+   ppmx_page_style = PPMX_PAGE_MARKER_RS;
 }
 
 
@@ -68,6 +71,7 @@ ScorePageBase::ScorePageBase(const ScorePageBase& apage) {
       }
    }
    pageset_owner = NULL;
+   ppmx_page_style = apage.ppmx_page_style;
 }
 
 
@@ -337,6 +341,56 @@ int ScorePageBase::changeNamespace(const string& newspace,
       }
    }
    return count;
+}
+
+
+
+//////////////////////////////
+//
+// ScorePageBase::isMultipageAsRs --
+//
+
+int ScorePageBase::isMultipageAsRs(void) {
+   if (ppmx_page_style == PPMX_PAGE_MARKER_RS) {
+      return true;
+   }
+   return false;
+}
+
+
+
+//////////////////////////////
+//
+// ScorePageBase::isMultipageAsComment --
+//
+
+int ScorePageBase::isMultipageAsComment(void) {
+   if (ppmx_page_style == PPMX_PAGE_MARKER_COMMENT) {
+      return true;
+   }
+   return false;
+}
+
+
+
+//////////////////////////////
+//
+// ScorePageBase::setMultipageRs --
+//
+
+void ScorePageBase::setMultipageRs(void) {
+   ppmx_page_style = PPMX_PAGE_MARKER_RS;
+}
+
+
+
+//////////////////////////////
+//
+// ScorePageBase::setMultipageComment --
+//
+
+void ScorePageBase::setMultipageComment(void) {
+   ppmx_page_style = PPMX_PAGE_MARKER_COMMENT;
 }
 
 

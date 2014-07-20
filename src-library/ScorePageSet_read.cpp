@@ -129,9 +129,13 @@ void ScorePageSet::appendReadBinary(istream& instream, const string& filename) {
 // ScorePageSet::appendReadPmx -- Read potentially multiple pages and
 //     overlays of ASCII PMX data from an input stream.
 //
+//     Default values:
+//     	   pagetype = "page";
+//     	   informat = 0;
+//
 
 void ScorePageSet::appendReadPmx(istream& instream, const string& filename,
-      const string& pagetype) {
+      const string& pagetype, int informat) {
 
    int dataQ        = 0;
    int pagestart    = 0;
@@ -145,6 +149,8 @@ void ScorePageSet::appendReadPmx(istream& instream, const string& filename,
       overlaystart = 1;
    }
 
+   int format = informat;   // 1 = RS method 2 = ###ScorePage: method.
+
    stringstream data;  // temporary storage of file contents to be parsed
    string testname; 
    string transfer;
@@ -152,13 +158,17 @@ void ScorePageSet::appendReadPmx(istream& instream, const string& filename,
    string localtype    = pagetype;
    string localfile    = filename;
    regex  pmxdataline  (R"(^\s*[\dtT+-])");
-   regex  startpage    (  "###ScorePage");
-   regex  spname       (R"(###ScorePage:\s*([^\s]+))");
+   regex  startpage1   (  "^[Rr][Ss]");
+   regex  spname1      (R"(^[Rr][Ss]\s+([^\s]+))");
+   regex  spname3      (R"(^[Ss][Aa]\s+([^\s]+))");
+   regex  startpage2   (  "###ScorePage");
+   regex  spname2      (R"(###ScorePage:\s*([^\s]+))");
    regex  overlaypage  (  "###ScoreOverlay");
    regex  opname       (R"(###ScoreOverlay:\s*([^\s]+))");
    smatch match;
 
    while (getline(instream, transfer)) {
+
       if (instream.eof()) {
          break;
       }
@@ -169,8 +179,30 @@ void ScorePageSet::appendReadPmx(istream& instream, const string& filename,
          }
       }
 
-      if (regex_search(transfer, startpage)) {
-         regex_search(transfer, match, spname);
+      if (regex_search(transfer, startpage1)) {
+         // READING RS PAGE
+
+         format = PPMX_PAGE_MARKER_RS;
+         if (dataQ) {
+            // Already have PMX data, so store that with the previously
+            // given filename.
+            nextpage    = 1;
+            nextoverlay = 0;
+            nextfilename = testname;
+            break;
+         } else {
+            // Don't have PMX data so store the newly read filename
+            // for the current page.
+            pagestart = 1;
+            overlaystart = 0;
+            localtype = "page";
+            localfile = testname;
+            continue;
+         }
+
+      } else if (regex_search(transfer, startpage2)) {
+         format = PPMX_PAGE_MARKER_COMMENT;
+         regex_search(transfer, match, spname2);
          if (match.size() >= 2) {
             testname = match[1].str();
          } else {
@@ -193,7 +225,19 @@ void ScorePageSet::appendReadPmx(istream& instream, const string& filename,
             localfile = testname;
             continue;
          }
-
+      }
+    
+      if ((format == PPMX_PAGE_MARKER_RS) && regex_search(transfer, spname3)) {
+         regex_search(transfer, match, spname3);
+         if (match.size() >= 2) {
+            localfile = match[1].str();
+            testname = "";
+         } else {
+            testname = "";
+            localtype = "page";
+            localfile = testname;
+         }
+cout << "Setting file for current page to " << localfile << endl;
       }
 
       if (regex_search(transfer, overlaypage)) {
@@ -229,6 +273,11 @@ void ScorePageSet::appendReadPmx(istream& instream, const string& filename,
       ScorePage* pageptr = new ScorePage;
       pageptr->read(data);
       pageptr->setFilename(localfile);
+      if (format == PPMX_PAGE_MARKER_COMMENT) {
+         pageptr->setMultipageComment();
+      } else {
+         pageptr->setMultipageRs();
+      }
       appendPage(pageptr);
       localfile = testname;
       pagestart = 0;
@@ -236,6 +285,11 @@ void ScorePageSet::appendReadPmx(istream& instream, const string& filename,
       ScorePage* pageptr = new ScorePage;
       pageptr->read(data);
       pageptr->setFilename(localfile);
+      if (format == PPMX_PAGE_MARKER_COMMENT) {
+         pageptr->setMultipageComment();
+      } else {
+         pageptr->setMultipageRs();
+      }
       appendOverlay(pageptr);
       localfile = testname;
       overlaystart = 0;
@@ -244,6 +298,11 @@ void ScorePageSet::appendReadPmx(istream& instream, const string& filename,
       ScorePage* pageptr = new ScorePage;
       pageptr->read(data);
       pageptr->setFilename(localfile);
+      if (format == PPMX_PAGE_MARKER_COMMENT) {
+         pageptr->setMultipageComment();
+      } else {
+         pageptr->setMultipageRs();
+      }
       appendPage(pageptr);
       localfile = testname;
       pagestart = 0;
@@ -258,8 +317,9 @@ void ScorePageSet::appendReadPmx(istream& instream, const string& filename,
    }
 
    if (!instream.eof()) {
-      appendReadPmx(instream, localfile, localtype);
+      appendReadPmx(instream, localfile, localtype, format);
    }
+
    setPageOwnerships();
 
 }

@@ -47,7 +47,8 @@ class ScorePageSet {
                                                  const string& filename);
       void        appendReadPmx                 (istream& instream, 
                                                  const string& filename,
-                                                 const string& pagetype="page");
+                                                 const string& pagetype="page",
+                                                 int informat =0);
       void        appendReadStandardInput       (void);
       void        appendOverlay                 (ScorePage* page);
       void        appendOverlay                 (ScorePage* page, int pindex);

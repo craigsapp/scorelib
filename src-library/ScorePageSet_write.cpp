@@ -23,7 +23,7 @@ using namespace std;
 ostream& operator<<(ostream& out, ScorePageSet& set) {
    int i;
    for (i=0; i<set.getPageCount(); i++) {
-      if (i > 0) {
+      if ((i > 0) && !set[i-1][0].isMultipageAsRs()) {
          out << "\n";
       }
       out << set[i];
