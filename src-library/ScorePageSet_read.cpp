@@ -237,7 +237,6 @@ void ScorePageSet::appendReadPmx(istream& instream, const string& filename,
             localtype = "page";
             localfile = testname;
          }
-cout << "Setting file for current page to " << localfile << endl;
       }
 
       if (regex_search(transfer, overlaypage)) {
