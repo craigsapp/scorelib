@@ -16,6 +16,7 @@
 #define _SCOREITEM_H_INCLUDED
 
 #include "DatabaseBeam.h"
+#include "DatabaseTuplet.h"
 #include "RationalDuration.h"
 #include "ScoreDefs.h"
 #include <list>
@@ -85,6 +86,7 @@ using listSIp     = list<ScoreItem*>;
       void         setItemType                  (SCORE_FLOAT type);
       bool         isNoteItem                   (void);    // P1==1
       bool         isRestItem                   (void);    // P1==2
+      bool         isNoteOrRestItem             (void);    // P1==(1||2)
       bool         isClefItem                   (void);    // P1==3
       bool         isLineItem                   (void);    // P1==4
       bool         isSlurItem                   (void);    // P1==5
@@ -199,11 +201,15 @@ using listSIp     = list<ScoreItem*>;
       // Slur (P1=5) processing functions (defined in ScoreItem_slurs.cpp):
       //    see isHorizontal() in P1=4 list.
       bool         isTie                        (void);
+      bool         isTupletBracket              (void);
+      // See also: getTupletNumber
 
       // Beam (P1=6) processing functions
       //    see isHorizontal() in P1=4 functions.
       //    see hasStem() from P1=1 functions.
       //    see getStemDirection() from P1=1 functions.
+      bool          isTupletBeam                (void);
+      int           getTupletNumber             (void);
 
       // Trill (P1=7) processing functions
 
@@ -220,7 +226,7 @@ using listSIp     = list<ScoreItem*>;
 
       // User (P1=11) processing functions
 
-      // Special Shapes (P1=12) processing functs (defined in ScoreItem_shapes.cpp):
+      // Special Shapes (P1=12) processing fns (def. in ScoreItem_shapes.cpp):
       bool         isCircular                    (void);
       bool         isCircle                      (void);
       bool         isEllipse                     (void);
@@ -296,6 +302,15 @@ using listSIp     = list<ScoreItem*>;
       BeamGroup*   beamGroup                     (void);
       int          inBeamGroup                   (void);
       bool         isFirstNoteInBeamGroup        (void);
+
+      TupletGroup* getTupletGroup                (void);
+      TupletGroup* getTupletInfo                 (void);
+      TupletGroup* tupletInfo                    (void);
+      TupletGroup* tupletGroup                   (void);
+      int          inTupletGroup                 (void);
+      bool         isFirstNoteInTupletGroup      (void);
+      bool         isLastNoteInTupletGroup       (void);
+      bool         tupletGroupHasBracket         (void);
 
       SCORE_FLOAT  getHPosOff                    (void);
 

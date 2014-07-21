@@ -21,6 +21,7 @@
 #include "DatabaseChord.h"
 #include "DatabaseLyrics.h"
 #include "DatabaseBeam.h"
+#include "DatabaseTuplet.h"
 #include "DatabaseP3.h"
 #include "SystemMeasure.h"
 
@@ -64,6 +65,8 @@ class ScorePageBase {
       const string&  setFilenamePath          (const string& filename);
       static string& removeCharacter          (string& out, char character);
 
+      // debugging info
+      void           printTupletDatabase      (void);
 
       // lists of items on the page
       void           getFileOrderList         (vectorSIp& data);
@@ -188,6 +191,9 @@ class ScorePageBase {
 
       // beam_database contains information about beams on the page.
       DatabaseBeam beam_database;
+
+      // tuplet_database contains information about tuplets on the page.
+      DatabaseTuplet tuplet_database;
 
       // p3_database contains information about p3/staff duration offset
       // cross indexing, and organizes ScoreItems by p3 values for each

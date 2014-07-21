@@ -46,6 +46,7 @@ class AnalysisInfo {
       int           staffSlursIsValid        (void);
       int           chordsIsValid            (void);
       int           beamsIsValid             (void);
+      int           tupletsIsValid           (void);
       int           barlinesIsValid          (void);
       int           layersIsValid            (void);
       int           p3IsValid                (void);
@@ -92,9 +93,13 @@ class AnalysisInfo {
       // Dependencies for chords: staves, (sorted, notmodified).
       int chords;
 
-      // beams: true if beamed notes have been groupd into chords.
+      // beams: true if beamed notes have been grouped into chords.
       // Dependencies for beams: staves, (sorted, notmodified).
       int beams;
+
+      // beams: true if tuplet notes have been grouped.
+      // Dependencies for beams: beams, (staves, sorted, notmodified).
+      int tuplets;
 
       // barlines: true if barline analysis has been done.
       // Dependencies for barlines: systems, (staves, sorted, notmodified).

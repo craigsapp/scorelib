@@ -137,13 +137,23 @@ class ScorePage : public ScorePageBase {
       // Beam analysis functions (defined in ScorePage_beam.cpp):
       void        analyzeBeams          (SCORE_FLOAT tolerance = 0.001);
       BeamGroup*  beamInfo              (ScoreItem* item);
+      ostream&    printBeamDatabase     (ostream& out = cout);
+   private:
       void        analyzeBeamsOnStaff   (int p2index, 
                                          SCORE_FLOAT tolerance = 0.001);
-      ostream&    printBeamDatabase     (ostream& out = cout);
+   public:
 
+      // Tuplet analysis functions (defined in ScorePage_tuplet.cpp):
+      void         analyzeTuplets        (SCORE_FLOAT tolerance = 0.001);
+      ostream&     printTupletDatabase   (ostream& out);
+      TupletGroup* tupletInfo            (ScoreItem* item);
+   private:
+      void        analyzeTupletsOnStaff  (int p2index, 
+                                         SCORE_FLOAT tolerance = 0.001);
+   public:
 
       // P3 analysis functions (defined in ScorePage_p3.cpp):
-      void        analyzeP3                 (void);
+      void        analyzeP3               (void);
       SCORE_FLOAT getP3OfStaffDurationOffset(int sys, SCORE_FLOAT offset);
 
       // Global parameter processing functions (ScorePage_parameter.cpp):

@@ -84,6 +84,7 @@ void AnalysisInfo::clear(void) {
    staffslursties = 0;
    chords         = 0;
    beams          = 0;
+   tuplets        = 0;
    barlines       = 0;
    layers         = 0;
    p3             = 0;
@@ -125,6 +126,7 @@ int AnalysisInfo::durationIsValid        (void) { return duration; }
 int AnalysisInfo::systemsIsValid         (void) { return systems; }
 int AnalysisInfo::systemPitchesIsValid   (void) { return systempitches; }
 int AnalysisInfo::staffSlursTiesIsValid  (void) { return staffslursties; }
+int AnalysisInfo::tupletsIsValid         (void) { return tuplets; }
 int AnalysisInfo::staffTiesIsValid       (void) { return staffslursties; }
 int AnalysisInfo::staffSlursIsValid      (void) { return staffslursties; }
 int AnalysisInfo::chordsIsValid          (void) { return chords; }
@@ -207,6 +209,7 @@ void AnalysisInfo::initializeDatabase(void) {
    database.addChild("systempitches", "staffslursties",  &staffslursties);
    database.addChild("systems",       "p3",              &p3);
    database.addChild("duration",      "p3",              &p3);
+   database.addChild("beams",         "tuplets",         &tuplets);
 }
 
 

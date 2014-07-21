@@ -34,3 +34,17 @@ int ScoreItem::isInvisible(void) {
 
 
 
+//////////////////////////////
+//
+// ScoreItem::isNoteOrRestItem --
+//
+
+bool ScoreItem::isNoteOrRestItem(void) {
+   if (isNoteItem() || isRestItem()) {
+      return true;
+   }
+   return false;
+}
+
+
+

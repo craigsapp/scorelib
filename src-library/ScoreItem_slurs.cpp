@@ -17,8 +17,8 @@ using namespace std;
 //////////////////////////////
 //
 // ScoreItem::isTie -- Returns true if the slur/tie item is a slur
-// between two notes.  Slur analysis needs to be done first. 
-// At the moment not checking automatically to see if it has been done.
+//      between two notes.  Slur analysis needs to be done first. 
+//      At the moment not checking automatically to see if it has been done.
 //
 
 bool ScoreItem::isTie(void) {
@@ -31,5 +31,25 @@ bool ScoreItem::isTie(void) {
       return false;
    }
 }
+
+
+
+//////////////////////////////
+//
+// ScoreItem::isTupletBracket -- Returns true if a slur item and
+//   P8==+3.
+//
+
+bool ScoreItem::isTupletBracket(void) {
+   if (!isSlurItem()) {
+      return false;
+   }
+   int p8 = getP8Int();
+   if (p8 == 3) {
+      return true;
+   }
+   return false;
+}
+
 
 

@@ -40,5 +40,6 @@ tests/stemtest
 tests/systeminfo
 tests/systemrhythm
 tests/systemsort
+tests/tupletinfo
 
 data/dufay

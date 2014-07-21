@@ -213,6 +213,7 @@ void processData(ScorePageSet& infiles, Options& opts) {
 
    infiles.analyzePitch();
    infiles.analyzeTies();
+   infiles.analyzeTuplets();
    if (lyricsQ) {
       infiles.analyzeLyrics();
    }
@@ -2429,9 +2430,18 @@ void printNoteNotations(ostream& out, ScoreItem* si, int indent,
       printIndent(notations, indent+1, "<tied type=\"start\"/>\n");
    }
 
-
    // <tuplet> ////////////////////////////////////////////////////////////
-
+   if (si->inTupletGroup()) {
+      if (si->tupletGroupHasBracket()) {
+         if (si->isFirstNoteInTupletGroup()) {
+            printIndent(notations, indent+1, "<tuplet bracket=\"yes\"");
+            notations << " type=\"start\"/>\n";
+         } else if (si->isLastNoteInTupletGroup()) { 
+            printIndent(notations, indent+1, "<tuplet bracket=\"yes\"");
+            notations << " type=\"stop\"/>\n";
+         }
+      }
+   }
 
    if (notations.rdbuf()->in_avail()) {
       printIndent(out, indent, "<notations>\n");
