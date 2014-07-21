@@ -232,6 +232,18 @@ bool ScoreItem::isBold(void) {
 //
 
 string ScoreItem::getInitialFontCode(void) { 
+   int p8 = getP8Int();
+   if (p8 >= 1000) {
+      // font override parameter
+      p8 = p8 % 100;
+      string out = "_";
+      if (p8 < 10) {
+         out += "0";
+      }
+      out += to_string(p8);
+      return out;
+   }
+
    if ((getFixedText().size() >= 3) && (getFixedText()[0] == '_') 
       && isdigit(getFixedText()[1]) 
       && isdigit(getFixedText()[2]) ) {

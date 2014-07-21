@@ -47,6 +47,7 @@ class ScoreItemBase {
       SCORE_FLOAT   getParameter      (int pindex);
       int           getParameterInt   (int pindex);
       bool          getParameterBool  (int pindex);
+      bool          getParameterBoolean(int pindex);
       const string& getParameter      (const string& nspace, 
                                        const string& key);
       const string& getParameter      (const string& key);
@@ -148,6 +149,8 @@ class ScoreItemBase {
       int           getParameterInt   (const string& key);
       bool          getParameterBool  (const string& nspace, const string& key);
       bool          getParameterBool  (const string& key);
+      bool          getParameterBoolean(const string& nspace, const string& key);
+      bool          getParameterBoolean(const string& key);
       double        getParameterDouble(const string& key);
       double        getParameterDouble(const string& nspace, const string& key);
       const string& getFixedText      (void) const;

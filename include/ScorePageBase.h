@@ -25,6 +25,9 @@
 #include "DatabaseP3.h"
 #include "SystemMeasure.h"
 
+#define PPMX_PAGE_MARKER_RS      1
+#define PPMX_PAGE_MARKER_COMMENT 2
+
 using namespace std;
 
 class ScorePageBase {
@@ -103,6 +106,8 @@ class ScorePageBase {
       void           readBinary      (istream& infile, int verboseQ = 0);
       void           addPmxData      (istream& data);
       void           addPmxData      (const string& data);
+      void           setMultipageRs  (void);
+      void           setMultipageComment (void);
 
       // file writing functions:
       void           writeBinary     (const char* filename);
@@ -115,6 +120,9 @@ class ScorePageBase {
       ostream&       printPmxWithNamedParameters(ostream& out, int roundQ,
                                       int verboseQ);
       ostream&       printAsciiTrailer(ostream& out);
+      int            isMultipageAsComment(void);
+      int            isMultipageAsRs  (void);
+
    protected:
       SCORE_FLOAT    readLittleFloat (istream& instream);
       int            readLittleShort (istream& input);
@@ -204,6 +212,11 @@ class ScorePageBase {
 
       void* pageset_owner;
 
+      int ppmx_page_style;  // The method that PPMX page boundaries should be
+                            // printed.  Either RS or ###ScorePage: methods.
+                            // This class does not do anything with this info,
+                            // but gives it to ScorePageSet when writing multi-
+                            // page PPMX content.
 
    protected:
       void    itemChangeNotification  (ScoreItemBase* sitem, 
@@ -217,7 +230,6 @@ class ScorePageBase {
 
 
 ostream& operator<<(ostream& out, ScorePageBase& aPage);
-
 
 
 #endif /* _SCOREPAGEBASE_H_INCLUDED */

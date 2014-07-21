@@ -23,8 +23,18 @@ using namespace std;
 //
 
 void ScorePageSet::analyzeTies(void) {
-   for (unsigned int i=0; i<getPageCount(); i++) {
-      (*this)[i][0].analyzeTies();
+   // Need duration offsets and pitch analyses before
+   // doing tie analysis.  This should be fixed a bit
+   // later (should be automated, but is not for some reason).
+   analyzeStaffDurations();
+   analyzePitch();
+
+   // Iterate through each Segment, which will stitching 
+   // system break ties together.
+   for (unsigned int i=0; i<getSegmentCount(); i++) {
+      getSegment(i).analyzeSystemBreakTies();
    }
 }
+
+
 

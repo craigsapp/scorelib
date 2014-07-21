@@ -46,7 +46,8 @@ ostream& printCredits               (ostream& out,
                                      map<string, ScoreItem*>& credits, 
                                      int indent);
 ostream& printPartInfo              (ostream& out, ScorePageSet& infiles, 
-                                     int segment, int part, int indent);
+                                     int segment, int part, int indent, 
+                                     int partcount);
 ostream& printXml                   (ostream& out, const string& text);
 void     printSystem                (vector<stringstream*>& partouts, 
                                      ScorePageSet& infiles, int segment, 
@@ -105,7 +106,7 @@ void     printDirectionsBackwards   (ostream& out, SystemMeasure& measureitems,
 void     printDirectionsForwards    (ostream& out, SystemMeasure& items, 
                                      int index, int partstaff, int indent, 
                                      int divisions);
-void     printNeumeDirections       (ostream& out, SystemMeasure& measureitems, 
+void     printMinorColoration       (ostream& out, SystemMeasure& measureitems, 
                                      int index, int partstaff, int indent, 
                                      int divisions);
 void     printSystemLayout          (stringstream& out, ScorePage& page, 
@@ -125,10 +126,10 @@ void     printDufayCredits          (ostream& out, ScorePageSet& infiles,
                                      int segment, int indent);
 ostream& printTimeModification      (ostream& out, int indent, ScoreItem* si, 
                                      int divisions);
-ostream& printMensurationDirection  (ostream& out, ScoreItem* item, int indent);
-void     printNeumeDirections       (ostream& out, SystemMeasure& measureitems, 
-                                     int index, int partstaff, int indent, 
-                                     int divisions);
+ostream& printMensurationDirection  (ostream& out, ScoreItem* item, 
+                                     int partstaff, int indent);
+void     extractMensurationDirection(ostream& out, vectorSIp& items, 
+                                     int index, int partstaff, int indent);
 
 #define INDENT_STRING "\t"
 
@@ -211,7 +212,7 @@ void processData(ScorePageSet& infiles, Options& opts) {
       infiles.analyzeSegmentsByIndent();
    }
 
-   infiles.analyzePitch();
+   // infiles.analyzePitch();
    infiles.analyzeTies();
    infiles.analyzeTuplets();
    if (lyricsQ) {
@@ -846,7 +847,7 @@ ostream& printPartList(ostream& out, ScorePageSet& infiles,
 
    int partcount = infiles.getSegment(segment).getPartCount();
    for (int i=0; i<partcount; i++) {
-      printPartInfo(out, infiles, segment, i, indent);
+      printPartInfo(out, infiles, segment, i, indent, partcount);
    }
 
    if (group1) {
@@ -942,7 +943,7 @@ int printGroup1(ostream& out, ScorePageSet& infiles, int segment, int indent) {
          // staves are not barred together
          printIndent(out, indent, "<group-barline>no</group-barline>\n");
       } else {
-out << "XXX " << staffheight << "XXX";
+         // out << "XXX " << staffheight << "XXX";
       }
       printIndent(out, --indent, "</part-group>\n");
       return 1;
@@ -973,11 +974,11 @@ out << "XXX " << staffheight << "XXX";
 //
 
 ostream& printPartInfo(ostream& out, ScorePageSet& infiles, int segment, 
-   int part, int indent) {
+   int part, int indent, int partcount) {
    ScoreSegment& seg = infiles.getSegment(segment);
    printIndent(out, indent++, "<score-part id=\"P");
    out << part+1 << "\">\n";
-   string partname = seg.getPartName(part);
+   string partname = seg.getPartName(partcount-part-1);
    printIndent(out, indent, "<part-name");
    if (partname != "") {
       out << ">";
@@ -1239,12 +1240,16 @@ void printPartMeasure(stringstream& out, ScorePageSet& infiles,
          nextkey = si;
       }
       if (si->isTimeSignatureItem()) {
-         nexttime = si;
+         if (!si->isSingleNumber()) {
+            nexttime = si;
+         }
       }
 
       if (dufayQ) {
          // handle mensuration marks
-         printMensurationDirection(out, si, indent);
+         if (si->isTimeSigItem()) {
+            extractMensurationDirection(out, items, i, partstaff, indent);
+         }
       }
 
       if (si->isNoteItem()) {
@@ -1284,31 +1289,137 @@ void printPartMeasure(stringstream& out, ScorePageSet& infiles,
 
 //////////////////////////////
 //
+// extractMensurationDirection -- Look for mensuration information within
+//     the neighborhood of the time signature.
+//
+//
+
+void  extractMensurationDirection(ostream& out, vectorSIp& items, 
+      int index, int partstaff, int indent) {
+   ScoreItem* si = items[index];
+   if (!si->isTimeSigItem()) {
+      return;
+   }
+   if (si->isSingleNumber()) {
+      int count = si->getTimeSignatureBottom();
+      SCORE_FLOAT scale = si->getStaffScale();
+      printIndent(out, indent++, "<direction placement=\"above\">\n");
+      printIndent(out, indent++, "<direction-type>\n");
+      printIndent(out, indent,   "<words");
+      out << " default-y=\"" << 5 * scale << "\"";
+      out << " relative-x=\"-32\"";
+      out << " font-weight=\"bold\"";
+      out << " color=\"#ff0000\"";
+      out << ">barlines:" << count << ",dash</words>\n";
+      printIndent(out, --indent, "</direction-type>\n");
+      printIndent(out, --indent, "</direction>\n");
+      return;
+   }
+
+   int hpos = si->getHorizontalPosition();
+   int staff = si->getStaffNumber();
+   int tstaff;
+   int tpos;
+
+   int i;
+   for (i=index+1; i<items.size(); i++) {
+      tstaff = items[i]->getStaffNumber();
+      if (tstaff != staff) {
+         continue;
+      }
+      tpos = items[i]->getHorizontalPosition();
+      if (tpos - hpos > 10) {
+         break;
+      }
+      printMensurationDirection(out, items[i], partstaff, indent);
+   }
+
+   for (i=index-1; i>=0; i--) {
+      tstaff = items[i]->getStaffNumber();
+      if (tstaff != staff) {
+         continue;
+      }
+      tpos = items[i]->getHorizontalPosition();
+      if (tpos - hpos > 10) {
+         break;
+      }
+      printMensurationDirection(out, items[i], partstaff, indent);
+   }
+
+
+}
+
+
+//////////////////////////////
+//
 // printMensurationDirection --
 //
 // MenCircle = P1=12 unfilled circle
 //
 
-ostream& printMensurationDirection(ostream& out, ScoreItem* item, int indent) {
+ostream& printMensurationDirection(ostream& out, ScoreItem* item, 
+      int partstaff, int indent) {
+   SCORE_FLOAT vpos = (item->getVPos() - 11.0) * 5.0;
+   if (vpos < 0) {
+      // don't look at anything below the top staff line.
+      return out;
+   }
+
+   // men3 is the text "3" above a time signature
+   if (item->isTextItem()) {
+      string text = item->getTextWithoutInitialFontCode();
+      if (text.compare("3") == 0) {
+         printIndent(out, indent++, "<direction placement=\"above\">\n");
+         printIndent(out, indent++, "<direction-type>\n");
+         printIndent(out, indent,   "<words");
+         out << " default-y=\"" << vpos << "\"";
+         out << " relative-x=\"-32\"";
+         out << " font-weight=\"bold\"";
+         out << ">men3</words>\n";
+         printIndent(out, --indent, "</direction-type>\n");
+         printIndent(out, --indent, "</direction>\n");
+         return out;
+      }
+   }
    if (!item->isShapeItem()) {
       return out;
    }
    if (item->isUnfilledCircle()) { 
-      SCORE_FLOAT vpos = (item->getVPos() - 11.0) * 5.0;
-      vpos -= item->getVerticalRadius() * 5.0;
-      vpos *= item->getStaffScale();
-      printIndent(out, indent++, "<direction placement=\"above\">\n");
-      printIndent(out, indent++, "<direction-type>\n");
-      printIndent(out, indent,   "<words");
-      out << " default-y=\"" << vpos << "\"";
-      out << " relative-x=\"-32\"";
-      out << " font-weight=\"bold\"";
-      out << ">menCircle</words>\n";
-      printIndent(out, --indent, "</direction-type>\n");
-      printIndent(out, --indent, "</direction>\n");
-      return out;
-       
+      int p9 = item->getP9Int();
+      int p10 = item->getP10Int();
+      if ((p9 == 0) && (p10 == 0)) {
+         SCORE_FLOAT vpos = (item->getVPos() - 11.0) * 5.0;
+         vpos -= item->getVerticalRadius() * 5.0;
+         vpos *= item->getStaffScale();
+         printIndent(out, indent++, "<direction placement=\"above\">\n");
+         printIndent(out, indent++, "<direction-type>\n");
+         printIndent(out, indent,   "<words");
+         out << " default-y=\"" << vpos << "\"";
+         out << " relative-x=\"-32\"";
+         out << " font-weight=\"bold\"";
+         out << ">menCircle</words>\n";
+         printIndent(out, --indent, "</direction-type>\n");
+         printIndent(out, --indent, "</direction>\n");
+         return out;
+      } else {
+         SCORE_FLOAT vpos = (item->getVPos() - 11.0) * 5.0;
+         vpos -= item->getVerticalRadius() * 5.0;
+         vpos *= item->getStaffScale();
+         printIndent(out, indent++, "<direction placement=\"above\">\n");
+         printIndent(out, indent++, "<direction-type>\n");
+         printIndent(out, indent,   "<words");
+         out << " default-y=\"" << vpos << "\"";
+         out << " relative-x=\"-32\"";
+         out << " font-weight=\"bold\"";
+         out << ">menC</words>\n";
+         printIndent(out, --indent, "</direction-type>\n");
+         printIndent(out, --indent, "</direction>\n");
+         return out;
+      }
    }
+
+   // deal with menC here
+
    return out;
 }
 
@@ -1528,9 +1639,9 @@ void printDirections(ostream& out, SystemMeasure& measureitems, int index,
    printDirectionsForwards(out, measureitems, index, partstaff, indent, 
          divisions);
    if (dufayQ) {
-      // search for neume markings
-      printNeumeDirections(out, measureitems, index, partstaff, indent, 
-         divisions);
+      // Search for minor color markings:
+      // printMinorColoration(out, measureitems, index, partstaff, indent, 
+      //      divisions);
    }
 }
 
@@ -1538,15 +1649,15 @@ void printDirections(ostream& out, SystemMeasure& measureitems, int index,
 
 //////////////////////////////
 //
-// printNeumeDirections --
+// printMinorColoration --
 //
 
-void printNeumeDirections(ostream& out, SystemMeasure& measureitems, 
+void printMinorColoration(ostream& out, SystemMeasure& measureitems, 
       int index, int partstaff, int indent, int divisions) {
    vectorSIp& items = measureitems.getItems();
    int i;
-   int neumestart = 0;
-   int neumeend   = 0;
+   int colorstart = 0;
+   int colorend   = 0;
    SCORE_FLOAT startp3 = items[index]->getHPos();
    SCORE_FLOAT threshold = 0.1;
    SCORE_FLOAT testp3;
@@ -1594,14 +1705,14 @@ void printNeumeDirections(ostream& out, SystemMeasure& measureitems,
       if (!items[i]->isSymbolItem()) {
          continue;
       }
-      // neume bracket is SCORE library object 206
+      // minor coloration bracket is SCORE library object 206
       if (items[i]->getP5() != 206.0) {
          continue;
       }
       if (items[i]->getP7() < 0) {
-         neumeend = 1;
+         colorend = 1;
       } else {
-         neumestart = 1;
+         colorstart = 1;
       }
       vpos = items[i]->getVPos();
    }
@@ -1617,41 +1728,41 @@ void printNeumeDirections(ostream& out, SystemMeasure& measureitems,
       if (!items[i]->isSymbolItem()) {
          continue;
       }
-      // neume bracket is SCORE library object 206
+      // minor coloration bracket is SCORE library object 206
       if (items[i]->getP5() != 206.0) {
          continue;
       }
       if (items[i]->getP7() < 0) {
          // also P9=270, but not checking
-         neumeend = 1;
+         colorend = 1;
       } else {
-         neumestart = 1;
+         colorstart = 1;
       }
       vpos = items[i]->getVPos();
    }
 
-   if (neumeend && neumestart) {
+   if (colorend && colorstart) {
       printIndent(out, indent++, "<direction placement=\"above\">\n");
       printIndent(out, indent++, "<direction-type>\n");
       printIndent(out, indent,   "<words");
       out << " font-weight=\"bold\" default-y=\"" 
-          << (vpos - 12.0)*5.0 << "\">neumeChord</words>\n";
+          << (vpos - 12.0)*5.0 << "\">minorColor</words>\n";
       printIndent(out, --indent, "</direction-type>\n");
       printIndent(out, --indent, "</direction>\n");
-   } else if (neumestart) {
+   } else if (colorstart) {
       printIndent(out, indent++, "<direction placement=\"above\">\n");
       printIndent(out, indent++, "<direction-type>\n");
       printIndent(out, indent,   "<words");
       out << " font-weight=\"bold\" default-y=\"" 
-          << (vpos - 12.0)*5.0 << "\">neumeStart</words>\n";
+          << (vpos - 12.0)*5.0 << "\">minorColorEnd</words>\n";
       printIndent(out, --indent, "</direction-type>\n");
       printIndent(out, --indent, "</direction>\n");
-   } else if (neumeend) {
+   } else if (colorend) {
       printIndent(out, indent++, "<direction placement=\"above\">\n");
       printIndent(out, indent++, "<direction-type>\n");
       printIndent(out, indent,   "<words");
       out << " font-weight=\"bold\" default-y=\"" 
-          << (vpos - 12.0)*5.0 << "\">neumeEnd</words>\n";
+          << (vpos - 12.0)*5.0 << "\">minorColorEnd</words>\n";
       printIndent(out, --indent, "</direction-type>\n");
       printIndent(out, --indent, "</direction>\n");
    }
@@ -1857,6 +1968,20 @@ void printDirection(ostream& out, ScoreItem* si, ScoreItem* anchor,
    string word = si->getTextNoFontXmlEscapedUTF8();
    if (word.size() == 0) {
       return;
+   }
+   if (dufayQ) {
+      if (word.compare("3") == 0) {
+         // "3" means men3 and is handled elsewhere.
+         return;
+      }
+      if ((word.compare("a") == 0) && si->isAboveStaff() 
+            && (si->getHPos() < 30)) {
+         // "a" is used on some measure numbers
+         return;
+      }
+      if ((word.compare("Duo") == 0) && si->isAboveStaff()) {
+         return;
+      }
    }
 
    if (dufayQ) {
@@ -2092,7 +2217,9 @@ void printMeasureAttributes(ostream& out, vectorSIp& items, int index,
             printing += printKeySigItem(keystream, items[i], indent);
          }
          if (items[i]->isTimeSigItem()&&(!SU::equalTimeSigs(items[i], currtime))){
-            printing += printTimeSigItem(timestream, items[i], indent);
+            if (!items[i]->isSingleNumber()) {
+               printing += printTimeSigItem(timestream, items[i], indent);
+            }
          }
          if (items[i]->isClefItem() && (!SU::equalClefs(items[i], currclef))) {
             printing += printClefItem(clefstream, items[i], indent);

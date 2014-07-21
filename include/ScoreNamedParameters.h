@@ -79,6 +79,22 @@ const string np_tieLast = "tieLast";
 // @auto@tieNext -- The previous tie though which the last note is connected.
 const string np_tieNext = "tieNext";
 
+// @auto@handLeft -- The slur/tie is attached to a note on the right, but 
+// goes off the left end of the system.
+const string np_hangLeft = "hangLeft";
+
+// @auto@handRight -- The slur/tie is attached to a note on the left, but 
+// goes off the right end of the system.
+const string np_hangRight = "hangRight";
+
+// @auto@tiedNextSlur -- indicates the next slur in a tied group 
+// (occurs across system breaks).
+const string np_tiedNextSlur = "tiedNextSlur";
+
+// @auto@tiedLastSlur -- indicates the previous slur in a tied group 
+// (occurs across system breaks).
+const string np_tiedLastSlur = "tiedLastSlur";
+
 
 ///////////////////////////////////
 //

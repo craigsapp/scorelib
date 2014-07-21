@@ -126,6 +126,9 @@ using listSIp     = list<ScoreItem*>;
       // P4 accessors
       SCORE_FLOAT  getVerticalPosition          (void);
       SCORE_FLOAT  getVPos                      (void);
+      bool         isAboveStaff                 (void);
+      bool         isBelowStaff                 (void);
+      bool         isOnStaff                    (void);
 
       // P5 vertical position of right end accessors
       SCORE_FLOAT  getVerticalPositionRight     (void);
@@ -278,6 +281,7 @@ using listSIp     = list<ScoreItem*>;
       int          getTimeSignatureBottom        (void);
       bool         isCommonTime                  (void);
       bool         isCutTime                     (void);
+      bool         isSingleNumber                (void);
 
       // Page-related functions (defined in ScoreItem_page.cpp):
       int          getPageSystemIndex            (void);

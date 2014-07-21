@@ -47,7 +47,8 @@ class ScorePageSet {
                                                  const string& filename);
       void        appendReadPmx                 (istream& instream, 
                                                  const string& filename,
-                                                 const string& pagetype="page");
+                                                 const string& pagetype="page",
+                                                 int informat =0);
       void        appendReadStandardInput       (void);
       void        appendOverlay                 (ScorePage* page);
       void        appendOverlay                 (ScorePage* page, int pindex);
@@ -60,6 +61,7 @@ class ScorePageSet {
       void        analyzePitch                  (void);
       void        analyzeTies                   (void);
       void        analyzeTuplets                (void);
+      void        analyzeStaffDurations         (void);
 
       // funcs related to AddressSystem (defined in ScorePageSet_address.cpp):
       ScorePage*  getPage                     (const AddressSystem& anAddress);

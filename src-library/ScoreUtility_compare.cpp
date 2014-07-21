@@ -32,9 +32,17 @@ bool ScoreUtility::equalClefs(ScoreItem* a, ScoreItem* b) {
    if (!a->isClefItem() || !b->isClefItem()) {
       return false;
    }
+
    int shapeA = a->getP5Int();
    int shapeB = b->getP5Int();
+   SCORE_FLOAT fractionA = a->getP5() - shapeA;
+   SCORE_FLOAT fractionB = b->getP5() - shapeB;
+
    if (shapeA != shapeB) {
+      return false;
+   }
+
+   if (fractionA != fractionB) {
       return false;
    }
 

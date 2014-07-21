@@ -54,6 +54,8 @@ class ScoreSegment {
                                       int subpartindex);
       int        getPageStaffIndex   (int systemindex, int partindex, 
                                       int subpartindex = 0);
+      void       analyzeSystemBreakTies (void);
+      void       analyzeSystemBreakTies (int pindex);
 
       const AddressSystem& getBeginSystem (void) const;
       const AddressSystem& getStartSystem (void) const;
@@ -79,6 +81,7 @@ class ScoreSegment {
                                       AddressSystem& ep);
       string      extractPartName    (ScorePageSet& pageset, 
                                       AddressSystem& startsys, int partnum);
+      static void identifyPreAndPostSlurs(int staffnum, vectorSIp& items);
 
 };
 

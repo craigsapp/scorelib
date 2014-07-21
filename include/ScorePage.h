@@ -103,12 +103,6 @@ class ScorePage : public ScorePageBase {
 
       // Staff-level tie analysis functions (defined in ScorePage_tie.cpp):
       int         analyzeTies(void);
-   private:
-      void        private_analyzeStaffTies(vectorSIp& items);
-      void        identifySlurStartStopOffsets (int index, 
-                                         vectorSIp& slurs, vectorVSIp& notes, 
-                                         map<SCORE_FLOAT, int>& offsettoindex);
-   public:
 
       // Rhythm analysis functions (defined in ScorePage_rhythm.cpp):
       int         getSystemLCMRhythm    (int systemindex);

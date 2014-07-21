@@ -193,3 +193,20 @@ void ScorePageSet::setPageOwnerships(void) {
 
 
 
+//////////////////////////////
+//
+// ScorePageSet::analyzeStaffDurations -- Calculate durations
+//     of each staff and duration offsets for items on the staff
+//     (for each page).
+//
+
+void ScorePageSet::analyzeStaffDurations(void) {
+   ScorePageSet& t = *this;
+   int i;
+   for (i=0; i<getPageCount(); i++) {
+      t[i][0].analyzeStaffDurations();
+   }
+}
+
+
+
