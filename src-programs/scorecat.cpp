@@ -19,8 +19,9 @@ void    printPageBySystem             (ScorePage& page);
 void    printBySystemWithBarlines     (ScorePageSet& infiles);
 void    printPageBySystemWithBarlines (ScorePage& page);
 
-
-int zeroQ = 0;
+// User interface variables:
+int zeroQ     = 0;
+int commentQ  = 0;
 
 ///////////////////////////////////////////////////////////////////////////
 
@@ -29,10 +30,14 @@ int main(int argc, char** argv) {
    opts.define("s|system=b", "sort data by system for each page");
    opts.define("b|m|barline|measure=b", "indicate measures");
    opts.define("z|0|zero-indexing=b", "index from zero instead of one");
+   opts.define("c|comment=b", "encode multipage info as comments");
    opts.process(argc, argv);
 
    if (opts.getBoolean("zero-indexing")) {
       zeroQ = 1;
+   }
+   if (opts.getBoolean("comment")) {
+      commentQ = 1;
    }
    
    ScorePageSet infiles(opts);
@@ -62,17 +67,25 @@ int main(int argc, char** argv) {
 void printBySystemWithBarlines(ScorePageSet& infiles) {
    int i, j;
    for (i=0; i<infiles.getPageCount(); i++) {
-      if (i>0) {
-         cout << "\n";
+      if (commentQ) {
+         if (i>0) {
+            cout << "\n";
+         }
+         cout << "###ScorePage:\t" << infiles[i][0].getFilenameBase() << endl;
+      } else { 
+         cout << "RS" << endl;
+         cout << "SA " << infiles[i][0].getFilenameBase() << endl;
       }
-      cout << "###ScorePage:\t" << infiles[i][0].getFilenameBase() << endl;
-      cout << "\n";
+      cout << endl;
       for (j=0; j<infiles[i].getOverlayCount(); j++) {
          if (j>0) {
             cout << "\n###ScoreOverlay:\t" 
                  << infiles[i][j].getFilenameBase() << endl;
          }
          printPageBySystemWithBarlines(infiles[i][j]);
+      }
+      if (!commentQ) {
+         cout << "\nSM\n";
       }
    }
 }

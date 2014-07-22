@@ -24,7 +24,8 @@ using namespace std;
 ostream& operator<<(ostream& out, ScorePageOverlay& overlay) {
    static int cereal = 1;
    if (overlay[0].isMultipageAsComment()) {
-   out << "###StartPage:\t" << overlay[0].getFilenameBase() << endl;
+cout << "IS MULTIPAGEASCOMMENT IS TRUE" << endl;
+      out << "###StartPage:\t" << overlay[0].getFilenameBase() << endl;
    } else {
       out << "RS" << endl;
       string filename = overlay[0].getFilenameBase();
