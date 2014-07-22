@@ -40,6 +40,10 @@ tests/stemtest
 tests/systeminfo
 tests/systemrhythm
 tests/systemsort
+tests/tieinfo
 tests/tupletinfo
 
 data/dufay
+
+src-programs/chordquiz.cpp
+
