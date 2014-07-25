@@ -1,0 +1,55 @@
+
+
+<!-- including decimal-align.html -->
+
+  <script type="text/javascript">
+   if (document.getElementsByTagName) {
+    window.onload = function() {
+     // var currencies = /(\$|€|&euro;)/;
+     var currencies = /(&euro;)/
+     var leftWidth = 0, rightWidth = 0, currencyWidth;
+     for (var tableCounter = 0, tables = document.getElementsByTagName('table'); tableCounter < tables.length; tableCounter++) {
+      if (tables[tableCounter].className.indexOf('fix-align-char') != -1) {
+       var fCols = [];
+       for (var i = 0, cols = tables[tableCounter].getElementsByTagName('col'); i < cols.length; i++) {
+        if (cols[i].getAttribute('char')) {
+         fCols[i] = cols[i].getAttribute('char');
+        };
+       };
+       var leftPart, rightPart, parts;
+       for (var i = 0, trs = tables[tableCounter].rows; i < trs.length; i++) {
+        for (var j = 0, tds = trs[i].getElementsByTagName('td'); j < tds.length; j++) {
+         if (fCols[j]) {
+          if (tds[j].innerHTML.indexOf(fCols[j]) != -1) {
+           parts = tds[j].innerHTML.split(fCols[j]);
+           leftPart = parts.slice(0, parts.length -1).join(fCols[j]);
+           leftPart = leftPart.replace(currencies, '<span class="currency">$1</span>');
+           rightPart = fCols[j] + parts.pop();
+           tds[j].innerHTML = '<span class="left">' + leftPart + '</span><span class="right">' + rightPart + '</span>';
+          } else {
+           tds[j].innerHTML = tds[j].innerHTML.replace(currencies, '<span class="currency">$1</span>');
+           tds[j].innerHTML = '<span class="left">' + tds[j].innerHTML + '</span>';
+          };
+          tds[j].className = 'char-align';
+          var txt = document.createTextNode(tds[j].firstChild.offsetWidth);
+          if (leftWidth < tds[j].firstChild.offsetWidth) {
+           leftWidth = tds[j].firstChild.offsetWidth;
+          };
+          if (tds[j].childNodes[1]) {
+           var txt = document.createTextNode(tds[j].childNodes[1].offsetWidth);
+           if (rightWidth < tds[j].childNodes[1].offsetWidth) {
+            rightWidth = tds[j].childNodes[1].offsetWidth;
+           };
+          };
+         };
+        };
+       };
+      };
+     };
+     // This is ugly and should be improved (amongst other parts of the code ;)
+     var styleText = '<style type="text/css">.fix-align-char td.char-align { vertical-align: baseline; padding-left: 0px; width: ' + (leftWidth + rightWidth) + 'px; }\n.fix-align-char span.left { float: left; text-align: right; width: ' + (leftWidth) + 'px; }\n.fix-align-char span.currency { text-align: left; float: left; }\n.fix-align-char span.right { text-align: left; width: ' + rightWidth + 'px; }</style>';
+     document.body.innerHTML += styleText;
+    };
+   };
+  </script>
+

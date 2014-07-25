@@ -1,0 +1,30 @@
+
+<!-- group quick navigator: -->
+{% if page.group %}
+<div class="wrap">
+   {% if page.grouptitle %}
+      {% if page.grouptitle.size == 2 %}
+         {% if page.grouptitle[0] == page.url %}
+            <span style="font-weight:600;">{{ page.grouptitle[1] }}</span>:&nbsp;&nbsp;
+         {% else %}
+            <a href="{{ page.grouptitle[0] }}"><span style="font-weight:600;">{{ page.grouptitle[1] }}</span></a>:&nbsp;&nbsp;
+         {% endif %} 
+      {% else %}
+         {{ page.grouptitle }}:&nbsp;&nbsp;
+      {% endif %}
+   {% endif %}
+   {% for item in page.group %}
+      {% if item[0] == page.url %}
+         <span style="font-weight:500;">{{ item[1] }}</span>
+      {% else %}
+         <a href={{ item[0] }}>{{ item[1] }}</a>
+      {% endif %}
+      {% if forloop.last == false %}
+         &nbsp;|&nbsp;
+      {% endif %}
+   {% endfor %}
+<br>
+<br>
+</div>
+{% endif %}
+

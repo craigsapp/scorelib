@@ -1,0 +1,55 @@
+---
+layout: default
+pagetitle:  SCORE data formats parsed by scorelib.
+grouptitle: ['/formats/', 'Data formats']
+group: [ 
+   ['/formats/binary/', binary], 
+   ['/formats/pmx/', PMX], 
+   ['/formats/ppmx/', PPMX] 
+]
+---
+
+Scorelib can currently parse three formats for SCORE data.  Click
+on the links below to view more detailed documentation about each
+data format.
+
+
+<h2><a href=binary>Binary SCORE data files</a></h2>
+
+Binary SCORE files are the primary data storage for the SCORE editor.
+These files typically have the file extension .MUS or .PAG.  They
+are loaded into the SCORE editor with the G command, and can be saved
+with the SA command.  In addition the NX/NB command will go to the
+next/previous page in an alphabetic sequence of binary data files.
+
+<h2><a href=pmx>PMX (Parameter MatriX) data files</a></h2>
+
+PMX files are ASCII versions of binary SCORE data.  Each line in a
+PMX file represents a SCORE item, such as note, rest, barline, clef,
+key signature, etc.  Each line contains a list of parameter numbers
+for the item.  Text items are an exception: their lines start with
+"t" rather than "16", and the text parameter immediate follows the
+numeric parameter line.  Code 15 items also have a second line of
+data which contains the name of the Encapsulated PostScript file
+to include. PMX files can be read into the SCORE editor with the
+RE command.  The RE command also reads in macro files, so PMX data
+can be mixed with SCORE commands.
+
+<h2><a href=ppmx>PPMX (Paged Parameter MatriX) files</a></h2>
+
+PPMX data is a generalization of PMX files.  PPMX files can contain
+multiple pages of PMX data which allows an entire movement, work
+or collection of works to be stored in a single file.  PPMX is not
+a native format of the SCORE editor, but is designed to be compatible
+for reading into SCORE with the RE or RE* commands.  Reading into
+the SCORE editor as a macro will cause SCORE to write the individual
+pages into separte binary page files, using filenames given in the
+PPMX data.
+
+
+
+
+
+
+
+

@@ -1,0 +1,33 @@
+#!/usr/bin/perl
+#
+# Programmer:    Craig Stuart Sapp <craig.stanford.edu>
+# Creation Date: Wed Apr  2 23:14:13 PDT 2014
+# Last Modified: Wed Apr  2 23:14:13 PDT 2014
+# Filename:      scorelib.wiki/img/makethumb
+# Syntax:        perl 5
+#
+# Description:
+#
+
+use strict;
+use Getopt::Long;
+
+my $size = 100;
+Getopt::Long::Configure("bundling");
+GetOptions ( 'p|px|s|size=s' => \$size );
+
+die "Usage: $0 -s 100 image.png" if @ARGV == 0;
+
+my @filelist = @ARGV;
+
+my $file;
+my $base;
+
+foreach $file (@filelist) {
+   $base = $file;
+   $base =~ s/\.[^.]*$//;
+   print "convert $file -resize $size $base-thumb-${size}px.png\n";
+   `convert $file -resize $size $base-thumb-${size}px.png`;
+}
+
+

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+
+  {% include head.html %}
+
+    <body>
+
+    {% include header.html %}
+
+    {% if page.title != "" %}
+      <div class="wrap">
+         <h1 class="pagetitle"> {{ page.pagetitle }} </h1>
+      </div>
+      </div>
+    {% endif %}
+
+
+    <div class="page-content">
+      <div class="wrap">
+      {{ content }}
+      </div>
+    </div>
+
+    {% include footer-dataformats.html %}
+
+    </body>
+</html>

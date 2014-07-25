@@ -1,0 +1,184 @@
+---
+layout: default
+pagetitle:  Binary SCORE data file format
+javascript: ['decimal-align.html']
+grouptitle: ['/formats', 'Data formats']
+group: [ 
+   ['/formats/binary/', binary], 
+   ['/formats/pmx/', PMX], 
+   ['/formats/ppmx/', PPMX] 
+]
+---
+
+Binary SCORE files are the primary data storage format for the SCORE
+editor.  These files typically use the file extension .MUS or .PAG,
+and they are loaded into the SCORE editor with the G command and
+saved to a binary file with the SA/SM commands.  In addition the NX/NB
+command will go to the next/previous page within the editor according
+to the alphabetic sequence of binary data files.
+
+<p> Binary data files consist of three main components: (1) a two-
+or four-byte word count, (2) followed by a list of items and, and
+(3) ending in a file trailer.  Below is an example binary file shown
+as hexadecimal numbers.  The colors highlight the three main components
+of the file:
+
+<p>
+<table style="padding-left:100px;">
+<tr><td><tt><b>
+<span style="color:red">19 00</span> <span style="color:#4411dd">00 00 C0 40 00 00 00 41 00 00 80 3F 00 00<br>
+80 3F 00 00 00 00 00 00 00 00 00 00 70 42 00 00<br>
+40 40 00 00 40 40 00 00 80 3F 00 00 00 40 00 00<br>
+E0 40 00 00 80 3F 00 00 80 3F 00 00 60 41 00 00<br>
+40 40 00 00 30 41 00 00 00 00 00 00 80 3F</span> <span style="color:green">00 00<br>
+00 00 F9 10 3D 00 00 00 40 40 00 00 00 00 00 00<br>
+A0 40 00 3C 1C C6</span>
+<b></tt><td></tr>
+</table>
+<p>
+
+<h1> 1. Word count </h1>
+
+The first value in a binary SCORE file is a count of the four-byte
+words which follow in the file.  In the MS-DOS versions of SCORE,
+this value is always a two-byte little-endian unsigned short int.
+Note however that the Windows version of SCORE can handle large
+page sizes, so if the word count exceeds 2<sup>16</sup>&ndash;1,
+then the byte-width of this word count will be changed to 4.
+The word count (&times; 4) is equivalent to the file size minus two or four 
+bytes, so this value serves little purpose other than to verify 
+the the data file has the expected number bytes.
+
+<p> In the example data, <span style="color:red;"><tt><b>19
+00</b></tt></span> is the hexadecimal number 0019<sub>h</sub> which
+is equivalent to the decimal number 25.  This means that there are
+25 &times; 4 = 100 bytes in the data file following this number.
+Notice that all values are little-endian, so the least significant
+byte in the data field occurs first.
+
+<h1> 2. SCORE item list </h1>
+
+Following the word count field at the start of the file, a sequence
+of SCORE items are given in the main body of the file.  Each score
+item starts with a four-byte value indicating the number of parameters
+to follow for the item.  All values (the initial parameter count
+and item parameters) are encoded as <a
+href=http://en.wikipedia.org/wiki/IEEE_754-2008>IEEE-754</a> 32-bit
+floating point numbers.  Below is a parsing of the SCORE item list
+hex bytes into individual words along with their decimal equivalents
+and meanings.
+
+<p>
+<table class="fix-align-char" style="padding-left:100px;" cellpadding=0 cellspacing=0>
+<colgroup style="padding:0 5em 0 0;">
+<col style="padding:0 5em 0 0;">
+<col align="char" char=".">
+<col style="padding:0 5em 0 0;">
+</colgroup>
+<thead>
+<tr>
+   <th class="pad5">Hex bytes</th>
+   <th class="pad3">Decimal</th>
+   <th class="pad0">Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="binarycount"><td><span style="color:#8811dd"><tt><b>00 00 C0 40</b></tt></span></td><td>6.0</td><td class="indent0">Number of parameters in next item entry</td></tr>
+<tr><td><span style="color:#4411dd"><tt><b>00 00 00 41</b></tt></span></td><td>8.0</td><td class="indent1">P1: item is a staff</td></tr>
+<tr><td><span style="color:#4411dd"><tt><b>00 00 80 3F</b></tt></span></td><td>1.0</td><td class="indent1">P2: staff number</td></tr>
+<tr><td><span style="color:#4411dd"><tt><b>00 00 80 3F</b></tt></span></td><td>1.0</td><td class="indent1">P3: left horizontal position</td></tr>
+<tr><td><span style="color:#4411dd"><tt><b>00 00 00 00</b></tt></span></td><td>0.0</td><td class="indent1">P4: vertical position (default vertical position)</td></tr>
+<tr><td><span style="color:#4411dd"><tt><b>00 00 00 00</b></tt></span></td><td>0.0</td><td class="indent1">P5: size (default size)</td></tr>
+<tr><td><span style="color:#4411dd"><tt><b>00 00 70 42</b></tt></span></td><td>60.0</td><td class="indent1">P6: right horizontal position</td></tr>
+<tr class="binarycount"><td><span style="color:#8811dd"><tt><b>00 00 40 40</b></tt></span></td><td>3.0</td><td class="indent0">Number of parameters in next item entry</td></tr>
+<tr><td><span style="color:#4411dd"><tt><b>00 00 40 40</b></tt></span></td><td>3.0</td><td class="indent1">P1: item is a clef (default treble clef)</td></tr>
+<tr><td><span style="color:#4411dd"><tt><b>00 00 80 3F</b></tt></span></td><td>1.0</td><td class="indent1">P2: staff number</td></tr>
+<tr><td><span style="color:#4411dd"><tt><b>00 00 00 40</b></tt></span></td><td>2.0</td><td class="indent1">P3: horizontal position</td></tr>
+<tr class="binarycount"><td><span style="color:#8811dd"><tt><b>00 00 E0 40</b></tt></span></td><td>7.0</td><td class="indent0">Number of parameters in next item entry</td></tr>
+<tr><td><span style="color:#4411dd"><tt><b>00 00 80 3F</b></tt></span></td><td>1.0</td><td class="indent1">P1: item is a note</td></tr>
+<tr><td><span style="color:#4411dd"><tt><b>00 00 80 3F</b></tt></span></td><td>1.0</td><td class="indent1">P2: staff number</td></tr>
+<tr><td><span style="color:#4411dd"><tt><b>00 00 60 41</b></tt></span></td><td>14.0</td><td class="indent1">P3: horizontal position</td></tr>
+<tr><td><span style="color:#4411dd"><tt><b>00 00 40 40</b></tt></span></td><td>3.0</td><td class="indent1">P4: vertical position</td></tr>
+<tr><td><span style="color:#4411dd"><tt><b>00 00 30 41</b></tt></span></td><td>11.0</td><td class="indent1">P5: stem direction/accidental (10=stem up + 1=flat)</td></tr>
+<tr><td><span style="color:#4411dd"><tt><b>00 00 00 00</b></tt></span></td><td>0.0</td><td class="indent1">P6: notehead type (solid black)</td></tr>
+<tr><td><span style="color:#4411dd"><tt><b>00 00 80 3F</b></tt></span></td><td>1.0</td><td class="indent1">P7: duration</td></tr>
+</tbody>
+</table>
+
+
+<p>
+<table cellpadding=0 cellspacing=0>
+<tr valign=baseline>
+
+<td>
+   <p> The equivalent <a href=../pmx>PMX</a> data for the example data is:
+   <p style="padding-top:16px;">
+   <table style="padding-left:100px;">
+   <tr><td><tt><b>
+8 1 1 0 0 60<br>
+3 1 2<br>
+1 1 14 3 11 0 1
+   <b></tt><td></tr>
+   </table>
+
+</td>
+
+<td width=20></td>
+
+<td>
+   And the resulting graphic representation of the data:
+   <br>
+   <img src=example.svg>
+</td>
+
+</tr></table>
+
+<p> Text items (P1=16) and Imported EPS files (P1=15) contain a variable length text
+parameter.  This is encoded in binary files by padding the end of the string
+with spaces (or anything else really) so that the byte count of the string
+parameter is divisible by 4 (the word size).
+
+
+<h1> 3. Trailer </h1>
+
+The binary file trailer starts when 0.0 is encountered in the
+expected position of an item parameter count.  However, the trailer
+is typically read from the end of the file backwards.  The last
+number in a binary file is the floating-point number &ndash;9999.0.
+Then the penultimate value is the word count within the trailer.
+This count also includes the count field itself, unlike the parameter
+count fields in the mail body of the data (or you could consider
+the &ndash;9999.0 to be counted rather than the trailer word count
+field if you like).  Before the word count field comes a field
+indicating the measurement units, either 0.0 for inches or 1.0 for
+centimeters (this is needed for certain parameter configurations
+of staff items).  Before this is the program version number, preceded
+by the program serial number.
+
+<p>
+<table class="fix-align-char" style="padding-left:100px;" cellpadding=0 cellspacing=0>
+<colgroup style="padding:0 5em 0 0;">
+<col style="padding:0 5em 0 0;">
+<col align="char" char=".">
+<col style="padding:0 5em 0 0;">
+</colgroup>
+<thead>
+<tr>
+   <th class="pad5">Hex&nbsp;bytes</th>
+   <th class="pad3">Decimal</th>
+   <th class="pad0">Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr><td><span style="color:green"><tt><b>00 00 00 00</b></tt></span></td><td>0.0</td><td class="indent0">Trailer byte 5: beginning of trailer</td></tr>
+<tr><td><span style="color:green"><tt><b>01 00 00 00</b></tt></span></td><td>1.</td><td class="indent0">Trailer byte 4: serial number (32-bit integer)</td></tr>
+<tr><td><span style="color:green"><tt><b>00 00 40 40</b></tt></span></td><td>3.0</td><td class="indent0">Trailer byte 3: program version number</td></tr>
+<tr><td><span style="color:green"><tt><b>00 00 00 00</b></tt></span></td><td>0.0</td><td class="indent0">Trailer byte 2: measurement units (0.0=inches/1.0=centimeters)</td></tr>
+<tr><td><span style="color:green"><tt><b>00 00 00 00</b></tt></span></td><td>5.0</td><td class="indent0">Trailer byte 1: Word count in trailer (including this one)</td></tr>
+<tr><td><span style="color:green"><tt><b>00 3c 1c c6</b></tt></span></td><td>-9999.0</td><td class="indent0">End of file/trailer marker</td></tr>
+</tbody>
+</table>
+
+<p>
+
+

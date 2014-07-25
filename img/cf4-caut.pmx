@@ -1,0 +1,41 @@
+# Example output for "Program: courtesy" wikipage.
+
+8 1 0 0 0.75 50
+3 1 1.5
+17 1 7.471 0 1
+1 1 11.596 4 10 0 1
+@analysis@base40:	180	(f#)
+1 1 21.196 4 12 0 1
+@cautionaryAccidental:	true
+@analysis@base40:	180	(f#)
+1 1 30.795 4 12 0 1
+@cautionaryAccidental:	true
+@analysis@base40:	180	(f#)
+1 1 40.395 4 12 0 1
+@cautionaryAccidental:	true
+@analysis@base40:	180	(f#)
+14 1 50 1
+
+# Courtesy note markup data:
+
+t 1 1
+_99%svg%<g color="red" stroke="red">
+@markup:	1
+
+1 1 21.196 4 2 0 1
+@cautionaryAccidental:	true
+@markup:	1
+@analysis@base40:	180	(f#)
+1 1 30.795 4 2 0 1
+@cautionaryAccidental:	true
+@markup:	1
+@analysis@base40:	180	(f#)
+1 1 40.395 4 2 0 1
+@cautionaryAccidental:	true
+@markup:	1
+@analysis@base40:	180	(f#)
+
+t 1 1
+_99%svg%<\g>
+@markup:	1
+
