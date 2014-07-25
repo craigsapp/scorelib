@@ -15,7 +15,7 @@
    {% endif %}
    {% for item in page.group %}
       {% if item[0] == page.url %}
-         <span style="font-weight:500;">{{ item[1] }}</span>
+         <span style="font-weight:600;">{{ item[1] }}</span>
       {% else %}
          <a href={{ item[0] | prepend: site.baseurl }}>{{ item[1] }}</a>
       {% endif %}
