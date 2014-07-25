@@ -5,7 +5,7 @@
 title: Scorelib
 email: craig@ccrma.stanford.edu
 description: "Scorelib: C++ parsing library for SCORE data"
-baseurl: "/scorelib"
+baseurl: ""
 url: "http://craigsapp.github.io"
 #twitter_username: jekyllrb
 github_username:  craigsapp/scorelib
@@ -13,6 +13,7 @@ timezone: America/Los_Angeles
 exclude: [
    old,
    Makefile,
+   about/Makefile,
    formats/Makefile,
    formats/binary/Makefile,
    formats/pmx/Makefile,
