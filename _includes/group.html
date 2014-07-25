@@ -7,7 +7,7 @@
          {% if page.grouptitle[0] == page.url %}
             <span style="font-weight:600;">{{ page.grouptitle[1] }}</span>:&nbsp;&nbsp;
          {% else %}
-            <a href="{{site.baseurl}}{{page.grouptitle[0]}}"><span style="font-weight:600;">{{page.grouptitle[1]}}</span></a>:&nbsp;&nbsp;
+            <a href="{{ page.grouptitle[0] | prepend: site.baseurl }}"><span style="font-weight:600;">{{ page.grouptitle[1] }}</span></a>:&nbsp;&nbsp;
          {% endif %} 
       {% else %}
          {{ page.grouptitle }}:&nbsp;&nbsp;
@@ -17,7 +17,7 @@
       {% if item[0] == page.url %}
          <span style="font-weight:500;">{{ item[1] }}</span>
       {% else %}
-         <a href={{ item[0] }}>{{ item[1] }}</a>
+         <a href={{ item[0] | prepend: site.baseurl }}>{{ item[1] }}</a>
       {% endif %}
       {% if forloop.last == false %}
          &nbsp;|&nbsp;
