@@ -1,0 +1,36 @@
+
+<!-- Used on the about page to highlight PMX and SVG equivalences -->
+
+<script>
+
+function turnon(klass) {
+   var items = document.getElementsByClassName(klass);
+   var items2 = document.getElementsByClassName(klass + "back");
+   for (var i=0; i<items.length; i++) {
+      items.item(i).style.color = "red";
+      items.item(i).style.stroke = "red";
+   }
+   for (var i=0; i<items2.length; i++) {
+      items2.item(i).style.color = "palegoldenrod";
+      items2.item(i).style.stroke = "palegoldenrod";
+      items2.item(i).style.strokeWidth = "20";
+//      items2.item(i).style.strokeLinecap = "round";
+   }
+}
+
+function turnoff(klass) {
+   var items = document.getElementsByClassName(klass);
+   var items2 = document.getElementsByClassName(klass + "back");
+   for (var i=0; i<items.length; i++) {
+      items.item(i).style.color = "black";
+      items.item(i).style.stroke = "black";
+   }
+   for (var i=0; i<items2.length; i++) {
+      items2.item(i).style.color = "white";
+      items2.item(i).style.stroke = "white";
+      items2.item(i).style.strokeWidth = "0";
+//      items2.item(i).style.strokeLinecap = "round";
+   }
+}
+
+</script>

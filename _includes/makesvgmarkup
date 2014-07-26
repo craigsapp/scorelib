@@ -1,0 +1,69 @@
+#!/usr/bin/perl
+#
+# Programmer:    Craig Stuart Sapp <craig.stanford.edu>
+# Creation Date: Fri Jul 25 15:00:14 PDT 2014
+# Last Modified: Fri Jul 25 15:00:14 PDT 2014
+# Filename:      /tmp/scorelib/_includes/makehilite
+# Syntax:        perl 5
+#
+# Description:   Wrap each PMX data line in a class
+#
+
+use strict;
+my $line;
+my $counter = 1;
+my $prefix  = "XI";
+my $postfix = "back";
+my $i;
+
+my @lines = <>;
+
+# print background items:
+for ($i=0; $i<@lines; $i++) {
+   $line = $lines[$i];
+   if ($line =~ /^[0-9]/) {
+      print "t 1 1\n_99%svg%<g class=\"$prefix$counter$postfix\" onmouseover=\"turnon('$prefix$counter')\" onmouseout=\"turnoff('$prefix$counter')\">\n";
+      print $line;
+      print "t 1 1\n_99%svg%<\\g>\n";
+      $counter++;
+      next;
+   }
+   if ($line =~ /^t\s/) {
+      print "t 1 1\n_99%svg%<g class=\"$prefix$counter$postfix\" onmouseover=\"turnon('$prefix$counter')\" onmouseout=\"turnoff('$prefix$counter')\">\n";
+      print $line;
+      $i++;
+      $line = $lines[$i];
+      print $line;
+      print "t 1 1\n_99%svg%<\\g>\n";
+      $counter++;
+      next;
+   }
+   print $line;
+}
+
+$counter = 1;
+
+# print regular items:
+for ($i=0; $i<@lines; $i++) {
+   $line = $lines[$i];
+   if ($line =~ /^[0-9]/) {
+      print "t 1 1\n_99%svg%<g class=\"$prefix$counter\" onmouseover=\"turnon('$prefix$counter')\" onmouseout=\"turnoff('$prefix$counter')\">\n";
+      print $line;
+      print "t 1 1\n_99%svg%<\\g>\n";
+      $counter++;
+      next;
+   }
+   if ($line =~ /^t\s/) {
+      print "t 1 1\n_99%svg%<g class=\"$prefix$counter\" onmouseover=\"turnon('$prefix$counter')\" onmouseout=\"turnoff('$prefix$counter')\">\n";
+      print $line;
+      $i++;
+      $line = $lines[$i];
+      print $line;
+      print "t 1 1\n_99%svg%<\\g>\n";
+      $counter++;
+      next;
+   }
+   print $line;
+}
+
+

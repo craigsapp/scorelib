@@ -1,6 +1,7 @@
 ---
 layout: default
 title: About
+javascript: ['turnonoff.html']
 pagetitle: About Scorelib
 xpermalink: /about/
 ---
@@ -21,14 +22,22 @@ href=../program/scorecat>scorecat</a> program.
 
 <p>
 <center>
-<img src=beethoven-sonata26.svg>
+<!-- Change 89.17 to 88.169 to connect beam to stem: -->
+{% include beethoven-sonata26-svgmarkup.html %}
 </center>
+
+<table width=650 style="padding-left: 100px"><tr><td>
+
+Scroll through the following data and move the mouse over a particular
+line to highlight the corresponding glyph in the graphic notation.
+
+</td></tr></table>
 
 <p>
 <div style="padding-left: 100px; height: 500px; float: left; overflow: auto; overflow-x: hidden;">
-<pre style="background-color:#f3f3f3;">
-{% include beethoven-sonata26.pmx %}
-</pre>
+<div style="background-color:#f3f3f3; font-family:'Courier New',Courier,monospace; font-weight:600;">
+{% include beethoven-sonata26.html %}
+</div>
 </div>
 
 

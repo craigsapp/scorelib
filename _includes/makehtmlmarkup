@@ -1,0 +1,39 @@
+#!/usr/bin/perl
+#
+# Programmer:    Craig Stuart Sapp <craig.stanford.edu>
+# Creation Date: Fri Jul 25 15:00:14 PDT 2014
+# Last Modified: Fri Jul 25 15:00:14 PDT 2014
+# Filename:      /tmp/scorelib/_includes/makehilite
+# Syntax:        perl 5
+#
+# Description:   Wrap each PMX data line in a class
+#
+
+use strict;
+my $line;
+my $counter = 1;
+my $prefix  = "XI";
+
+print "<span style=\"font-family:'Courier New',Courier,monospace; font-weight:600;\">\n";
+
+while ($line = <>) {
+   chomp $line;
+   if ($line =~ /^[0-9]/) {
+      print "<span class=\"$prefix$counter\" onmouseover=\"turnon('$prefix$counter')\" onmouseout=\"turnoff('$prefix$counter')\" >$line</span><br>\n";
+      $counter++;
+      next;
+   }
+   if ($line =~ /^t\s/) {
+      print "<span class=\"$prefix$counter\" onmouseover=\"turnon('$prefix$counter')\" onmouseout=\"turnoff('$prefix$counter')\">$line<br>\n";
+      $line = <>;
+      chomp $line;
+      print $line;
+      print "</span><br>\n";
+      $counter++;
+      next;
+   }
+   print $line, "<br>\n";
+}
+
+print "</span>\n";
+
