@@ -6,15 +6,18 @@
 function turnon(klass) {
    var items = document.getElementsByClassName(klass);
    var items2 = document.getElementsByClassName(klass + "back");
+   var info = "";
    for (var i=0; i<items.length; i++) {
       items.item(i).style.color = "red";
       items.item(i).style.stroke = "red";
+      if (items.item(i).tagName == "SPAN") {
+         info = items.item(i).innerHTML;
+      }
    }
-   for (var i=0; i<items2.length; i++) {
-      items2.item(i).style.color = "palegoldenrod";
-      items2.item(i).style.stroke = "palegoldenrod";
-      items2.item(i).style.strokeWidth = "20";
-//      items2.item(i).style.strokeLinecap = "round";
+   var re = /[0-9]+/;
+   var infobox = document.getElementById(klass.replace(re, "info"));
+   if (infobox != null) {
+      infobox.innerHTML = info;
    }
 }
 
@@ -25,11 +28,10 @@ function turnoff(klass) {
       items.item(i).style.color = "black";
       items.item(i).style.stroke = "black";
    }
-   for (var i=0; i<items2.length; i++) {
-      items2.item(i).style.color = "white";
-      items2.item(i).style.stroke = "white";
-      items2.item(i).style.strokeWidth = "0";
-//      items2.item(i).style.strokeLinecap = "round";
+   var re = /[0-9]+/;
+   var infobox = document.getElementById(klass.replace(re, "info"));
+   if (infobox != null) {
+      infobox.innerHTML = "";
    }
 }
 

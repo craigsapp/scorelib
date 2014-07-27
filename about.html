@@ -2,7 +2,7 @@
 layout: default
 title: About
 persistent: about
-javascript: ['js/turnonoff.html']
+javascript: ['js/turnonoff-sticky.html']
 pagetitle: About Scorelib
 ---
 
@@ -19,29 +19,24 @@ in the SCORE editor.  These value are typically stored in a <a
 href=../formats/binary>binary file format</a>, but can be saved as
 lines of numbers in ASCII text with the PMX command.  Lines in the
 PMX data can occur in any order (except for certain items type like
-text objects which consist of two adjacent lines).  The PMX data
-for the following musical example is given underneath it, with the
-data lines sorted temporally with the <a
-href=../program/scorecat>scorecat</a> program.
+text objects which consist of two adjacent lines). 
 
 <p>
-<center>
-<!-- Change 89.17 to 88.169 to connect beam to stem: -->
-{% include examples/beethoven-sonata26/beethoven-sonata26-svg.html %}
-</center>
-
-<table width=650 style="padding-left: 100px"><tr><td>
-
-Scroll through the following data and move the mouse over a particular
-line to highlight the corresponding item in the graphic notation.
-
-</td></tr></table>
-
-<p>
-<div style="padding-left: 100px; width:675; height: 500px; float: left; overflow: auto; white-space: nowrap; overflow-x: hidden;">
+<div style="padding-left: 100px; width:550px; height: 500px; white-space: nowrap; overflow-y:scroll; overflow-x: hidden;">
 <div style="background-color:#f3f3f3; font-family:'Courier New',Courier,monospace; font-weight:600;">
 {% include examples/beethoven-sonata26/beethoven-sonata26-pmx.html %}
 </div>
 </div>
+
+<p>
+Scroll through the above data and move the mouse over a particular
+line to highlight the corresponding item in the graphic notation below. Or
+mouse over the notation to see the PMX data for each graphical element.
+
+<p>
+<center>
+{% include examples/beethoven-sonata26/beethoven-sonata26-svg.html %}
+</center>
+<span style="position:relative; bottom:25px; left:43px; font-family:'Courier New',Courier,monospace; font-weight:600; color:red;" id="XIinfo">&nbsp;</span><br>
 
 

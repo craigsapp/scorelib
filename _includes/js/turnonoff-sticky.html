@@ -1,0 +1,44 @@
+
+<!-- Used on the about page to highlight PMX and SVG equivalences -->
+
+<script>
+
+var lastglyph;
+var lastspan;
+
+function turnon(klass) {
+   var items = document.getElementsByClassName(klass);
+   var items2 = document.getElementsByClassName(klass + "back");
+   var info = "";
+   for (var i=0; i<items.length; i++) {
+      if (items.item(i).tagName == "SPAN") {
+         if (lastspan != null) {
+            lastspan.style.color = "black";
+            lastspan.style.stroke = "black";
+         }
+         info = items.item(i).innerHTML;
+         items.item(i).style.color = "red";
+         items.item(i).style.stroke = "red";
+         lastspan = items.item(i);
+      }
+      if (items.item(i).tagName == "g") {
+         if (lastglyph != null) {
+            lastglyph.style.color = "black";
+            lastglyph.style.stroke = "black";
+         }
+         items.item(i).style.color = "red";
+         items.item(i).style.stroke = "red";
+         lastglyph = items.item(i);
+      }
+   }
+   var re = /[0-9]+/;
+   var infobox = document.getElementById(klass.replace(re, "info"));
+   if (infobox != null) {
+      infobox.innerHTML = info;
+   }
+}
+
+function turnoff(klass) {
+}
+
+</script>
