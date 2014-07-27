@@ -1,0 +1,165 @@
+#!/usr/bin/perl
+#
+# Programmer:    Craig Stuart Sapp <craig.stanford.edu>
+# Creation Date: Fri Jul 25 15:00:14 PDT 2014
+# Last Modified: Fri Jul 25 15:00:14 PDT 2014
+# Filename:      scorelib/bin/makeclasslink
+# Syntax:        perl 5
+#
+# Description:   Prepare PMX data for data/notation linking on a webpage.
+#                Without options, the SVG-embedded PMX data will be output.
+#
+# Options:
+#     -h         Output HTML marked-up code for the PMX data.
+#     -p prefix  Prefix string for class labels.
+#     -j         Print JavaScript code to embed in webpage.
+#
+
+use strict;
+use Getopt::Long;
+
+my $htmlQ       = 0;       # Boolean for printing HTML- vs. SVG- PMX data.
+my $Prefix      = "XI";    # Class label prefix (to allow multiple examples
+                           #    on a single webpage).
+my $javascriptQ = 0;       # Boolean for printing javscript code that links
+                           # the SVG image and PMX code on the webpage.
+
+Getopt::Long::Configure("bundling");
+GetOptions (
+   'h|html' => \$htmlQ,
+   'p|prefix:s' => \$Prefix,
+   'j|js|javascript' => \$javascriptQ
+);
+
+if ($javascriptQ) {
+   printJavaScript();
+   exit 0;
+}
+
+my @data = <>;
+if ($htmlQ) {
+   printPmxHtml(@data);
+} else {
+   printPmxSvg(@data);
+}
+
+exit 0;
+
+###########################################################################
+
+
+##############################
+##
+## printPmxSvg -- Print SCORE items embedded within SVG <g> elements, 
+##     each with their own unique class attribute.
+##
+
+sub printPmxSvg {
+   my @lines = @_;
+   my $counter = 1;
+
+   for (my $i=0; $i<@lines; $i++) {
+      my $line = $lines[$i];
+      if ($line =~ /^[0-9]/) {
+         print "t 1 1\n_99%svg%<g class=\"$Prefix$counter\"";
+         print " onmouseover=\"turnon('$Prefix$counter')\"";
+         print " onmouseout=\"turnoff('$Prefix$counter')\">\n";
+         print $line;
+         print "t 1 1\n_99%svg%<\\g>\n";
+         $counter++;
+         next;
+      }
+      if ($line =~ /^t\s/) {
+         print "t 1 1\n_99%svg%<g class=\"$Prefix$counter\"";
+         print " onmouseover=\"turnon('$Prefix$counter')\"";
+         print " onmouseout=\"turnoff('$Prefix$counter')\">\n";
+         print $line;
+         $i++;
+         $line = $lines[$i];
+         print $line;
+         print "t 1 1\n_99%svg%<\\g>\n";
+         $counter++;
+         next;
+      }
+      print $line;
+   }
+}
+
+
+
+
+##############################
+##
+## printPmxHtml -- Print SCORE items embedded within HTML <span> elements, 
+##     each with their own unique class attribute.
+##
+
+sub printPmxHtml {
+   my @lines = @_;
+   my $counter = 1;
+
+   # Print an enclosing span to set the font of the PMX lines:
+   print "<span style=\"font-family:'Courier New',Courier,monospace; ";
+   print "font-weight:600;\">\n";
+
+   for (my $i=0; $i<@lines; $i++) {
+      my $line = $lines[$i];
+      chomp $line;
+      if ($line =~ /^[0-9]/) {
+         print "<span class=\"$Prefix$counter\"";
+         print " onmouseover=\"turnon('$Prefix$counter')\"";
+         print " onmouseout=\"turnoff('$Prefix$counter')\" >$line</span><br>\n";
+         $counter++;
+         next;
+      }
+      if ($line =~ /^t\s/) {
+         print "<span class=\"$Prefix$counter\"";
+         print " onmouseover=\"turnon('$Prefix$counter')\"";
+         print " onmouseout=\"turnoff('$Prefix$counter')\">$line<br>\n";
+         $i++;
+         $line = $lines[$i];
+         chomp $line;
+         print $line;
+         print "</span><br>\n";
+         $counter++;
+         next;
+      }
+      print $line, "<br>\n";
+   }
+
+   # Close initial <span> for font selection:
+   print "</span>\n";
+}
+
+
+
+##############################
+##
+## printJavaScript -- Pring JavaScript code which links notation to PMX data.
+##
+
+sub printJavaScript {
+
+print <<"EOT";
+<script>
+
+function turnon(klass) {
+   var items = document.getElementsByClassName(klass);
+   for (var i=0; i<items.length; i++) {
+      items.item(i).style.color = "red";
+      items.item(i).style.stroke = "red";
+   }
+}
+
+function turnoff(klass) {
+   var items = document.getElementsByClassName(klass);
+   for (var i=0; i<items.length; i++) {
+      items.item(i).style.color = "black";
+      items.item(i).style.stroke = "black";
+   }
+}
+
+</script>
+EOT
+}
+

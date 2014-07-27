@@ -25,6 +25,8 @@ td.indent2 { padding: 0 0 0 2em; }
 td.indent1 { padding: 0 0 0 1em; }
 td.indent0 { padding: 0 0 0 0; }
 
+.programpad  { padding: 0 10px 20px 10px; }
+
 .binarycount { background-color:#faeeff; }
 
 body {
@@ -64,6 +66,26 @@ a:visited { color: #205caa; }
   zoom: 1;
 }
 
+.titlewrap:before,
+.titlewrap:after { content:""; display:table; }
+.titlewrap:after { clear: both; }
+.titlewrap {
+  max-width: 800px; 
+  padding: 0 30px;
+  margin: 0 auto;
+  zoom: 1;
+}
+
+.footerwrap:before,
+.footerwrap:after { content:""; display:table; }
+.footerwrap:after { clear: both; }
+.footerwrap {
+  max-width: 800px; 
+  padding: 0 30px;
+  margin: 0 auto;
+  zoom: 1;
+}
+
 
 /* Layout Styles */
 /* ----------------------------------------------------------*/
@@ -80,19 +102,19 @@ a:visited { color: #205caa; }
 .site-title,
 .site-title:hover,
 .site-title:visited {
-  display: block;
+ /* display: block; */
   color: #333;
   font-size: 26px;
   letter-spacing: -1px;
-  float: left;
-  line-height: 56px;
-  position: relative;
+ /* float: left; */
+ line-height: 56px;
+ /* position: relative; */
   z-index: 1;
 }
 
 .site-nav {
   float: right;
-  line-height: 56px;
+/*  line-height: 56px; */
 }
 
 .site-nav .menu-icon { display: none; }
@@ -106,8 +128,15 @@ a:visited { color: #205caa; }
 /* Site footer */
 
 .site-footer {
+  position: fixed;
+  left:   0;
+  bottom: 0;
+  height: 60px;
+  background-color: #fdfdfd;
+  width: 100%;
   border-top: 1px solid #e8e8e8;
-  padding: 30px 0;
+  margin: 0 auto;
+  padding: 4px 0;
 }
 
 .footer-heading {
@@ -166,8 +195,10 @@ a:visited { color: #205caa; }
 /* ----------------------------------------------------------*/
 
 .page-content {
-  padding: 30px 0;
+  padding: 40px 0 550px 0;
   background-color: #fff;
+  min-height: 500px;
+  border-top: 1px solid #e8e8e8;
 }
 
 

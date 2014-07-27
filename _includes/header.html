@@ -2,9 +2,12 @@
 
   <div class="wrap">
 
-    <a class="site-title" href="{{ site.baseurl }}/">{{ site.title }}</a>
+    <table style="margin-top: 16px;" cellpadding=0 cellspacing=0>
+      <tr valign=bottom><td><a class="site-title" href="{{ site.baseurl }}/">{{ site.title }}</a></td>
+           <td>{% include breadcrumbs.html %}</td>
+    </tr></table>
 
-    <nav class="site-nav">
+    <nav style="margin-top: -36px;" class="site-nav">
       <a href="#" class="menu-icon">
         <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
            viewBox="0 0 18 15" enable-background="new 0 0 18 15" xml:space="preserve">
@@ -25,6 +28,5 @@
 
   </div>
 
-  {% include group.html %}
 
 </header>

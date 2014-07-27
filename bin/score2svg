@@ -1,0 +1,44 @@
+#!/usr/bin/perl
+
+use HTTP::Request::Common;
+use LWP::UserAgent;
+use Getopt::Long;
+
+my $scaling = 1.0;
+my $border = 0;
+Getopt::Long::Configure("bundling");
+GetOptions (
+   's|svg_scale:f' => \$scaling,
+   'b|border:i' => \$border,
+);
+
+my $data;
+my $line;
+while ($line = <>) {
+   $data .= "$line";
+}
+
+if ($scaling != 1.0) {
+   $data = "#SVG_SCALE: $scaling\n$data";
+}
+
+if ($border != 0) {
+   $data = "#BORDER: $border\n$data";
+}
+
+$ua = LWP::UserAgent->new;
+my $response = $ua->request(
+      POST 'http://score.sapp.org/cgi-bin/score',
+      [
+         outputformat => 'svg',
+         embedpmx     => 'yes',
+         inputdata    => [$data],
+      ]
+    );
+
+if ($response->is_success) {
+   print $response->decoded_content;
+} else {
+   die $response->status_line;
+}
+

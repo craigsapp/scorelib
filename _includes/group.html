@@ -1,7 +1,6 @@
 
 <!-- group quick navigator: -->
 {% if page.group %}
-<div class="wrap">
    {% if page.grouptitle %}
       {% if page.grouptitle.size == 2 %}
          {% if page.grouptitle[0] == page.url %}
@@ -23,8 +22,8 @@
          &nbsp;|&nbsp;
       {% endif %}
    {% endfor %}
-<br>
-<br>
-</div>
+   <br>
+{% else %}
+<p style="top-margin:36px;">
 {% endif %}
 

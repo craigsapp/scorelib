@@ -1,7 +1,9 @@
 ---
 layout: default
+persistent: formats/binary
+breadcrumbs: [['/formats','formats']]
 pagetitle:  Binary SCORE data file format
-javascript: ['decimal-align.html']
+javascript: ['js/decimal-align.html', 'js/turnonoff.html']
 grouptitle: ['/formats', 'Data formats']
 group: [ 
    ['/formats/binary/', binary], 
@@ -112,13 +114,11 @@ and meanings.
 
 <td>
    <p> The equivalent <a href=../pmx>PMX</a> data for the example data is:
-   <p style="padding-top:16px;">
+   <p style="padding-top:10px;">
    <table style="padding-left:100px;">
-   <tr><td><tt><b>
-8 1 1 0 0 60<br>
-3 1 2<br>
-1 1 14 3 11 0 1
-   <b></tt><td></tr>
+   <tr><td>
+      {% include examples/binary-example/binary-example-pmx.html %}
+   <td></tr>
    </table>
 
 </td>
@@ -127,8 +127,8 @@ and meanings.
 
 <td>
    And the resulting graphic representation of the data:
-   <br>
-   <img src=example.svg>
+   <p>
+   {% include examples/binary-example/binary-example-svg.html %}
 </td>
 
 </tr></table>

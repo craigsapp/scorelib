@@ -1,6 +1,9 @@
 <footer class="site-footer">
 
-  <div class="wrap">
+  <div class="footerwrap">
+  {% include group.html %}
+    <div class="footer-col-1 column">
+    </div>
 
     <div class="footer-col-2 column">
       <ul>
@@ -45,13 +48,6 @@
 
     <div class="footer-col-3 column">
       <span style="font-size: 15px; letter-spacing:-.3px; color: #828282;">{{ site.description }}</span>
-    </div>
-
-    <div class="footer-col-1 column">
-      <ul>
-        <!-- <li>{{ site.title }}</li> -->
-        <li><a href="mailto:{{ site.email }}">{{ site.email }}</a></li>
-      </ul>
     </div>
 
   </div>

@@ -12,12 +12,14 @@ github_username:  craigsapp/scorelib
 timezone: America/Los_Angeles
 exclude: [
    old,
+   bin,
    Makefile,
    about/Makefile,
    formats/Makefile,
    formats/binary/Makefile,
    formats/pmx/Makefile,
-   formats/ppmx/Makefile
+   formats/ppmx/Makefile,
+   _include/Makefile
 ]
 
 

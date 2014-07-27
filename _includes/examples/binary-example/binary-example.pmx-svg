@@ -1,0 +1,15 @@
+t 1 1
+_99%svg%<g class="XI1" onmouseover="turnon('XI1')" onmouseout="turnoff('XI1')">
+8 1 1 0 0 60
+t 1 1
+_99%svg%<\g>
+t 1 1
+_99%svg%<g class="XI2" onmouseover="turnon('XI2')" onmouseout="turnoff('XI2')">
+3 1 2
+t 1 1
+_99%svg%<\g>
+t 1 1
+_99%svg%<g class="XI3" onmouseover="turnon('XI3')" onmouseout="turnoff('XI3')">
+1 1 14 3 11 0 1	
+t 1 1
+_99%svg%<\g>
