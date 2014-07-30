@@ -1,0 +1,486 @@
+#!/usr/bin/perl
+#
+# Programmer:    Craig Stuart Sapp <craig@ccrma.stanford.edu>
+# Creation Date: Tue Jul 29 15:18:30 PDT 2014
+# Last Modified: Tue Jul 29 15:18:33 PDT 2014
+# Filename:      ...scorelib/bin/makeprogramindex
+# Syntax:        perl 5
+#
+# Description:   Convert from craigmarkup to liquid HTML for Jekyll.
+#
+
+use strict;
+
+my @Contents = <>;
+my %ManContent  = getManContent(@Contents);
+my $outputcontents = makeOutput(%ManContent);
+my @IndexedHeaders;
+
+$outputcontents =~ s/<<COMMAND>>/<i>$ManContent{'COMMAND'}<\/i>/g;
+
+print $outputcontents;
+
+exit(0);
+
+
+##########################################################################
+
+
+
+##############################
+##
+## makeOutput -- Do all of the work.
+##
+
+sub makeOutput {
+   my (%mancontents) = @_;
+   my $output = processData(%mancontents);
+   return $output;
+}
+
+
+
+##############################
+##
+## includeFile --  Convert <<file=filename.txt>> into an insertion 
+##    of the file called filename.txt at the given point in the input data.
+##    Similar to {% include filename.txt %} in liquid, but the file will 
+##    be stored in the same directory as the index.dat file.  Only one
+##    included file allowed on an input line.
+##
+
+sub includeFile {
+   my ($line) = @_;
+
+   return $line if $line !~ /<<file=([^>]+)>>/;
+   my $filename = $1;
+
+   return $line if !-r $filename;
+
+   my $contents = `cat $filename`;
+   $contents = applyAbbreviations($contents);
+      
+   $line =~ s/<<file=[^>]+>>/$contents/;
+
+   return $line;
+}
+
+
+
+##############################
+##
+## processData --
+##
+
+sub processData {
+   my %mandata = @_;
+
+   my $output = "";
+
+   my $base;
+   my $file;
+   my $number;
+   my $testtitle;
+   my $xtesttitle;
+   my $command;
+   my $inwidth;
+   my $outwidth;
+   my @incontents;
+   my @outcontents;
+   my $count;
+   my $string;
+
+   $output .= $mandata{'LIQUID'};
+   $output .= "---\n\n";
+ 
+   if ($mandata{'ABSTRACT'} !~ /^\s*$/) {
+      $output .= "\n$mandata{'ABSTRACT'}\n\n";
+   }
+
+   #$output .= "\n<h1>COMMAND</h1>";
+   #$output .= "\n<ul><b>$mandata{'COMMAND'}</b> &mdash; $mandata{'SUMMARY'}</ul>";
+
+   if ($mandata{'SYNOPSIS'} !~ /^\s*$/) {
+      $output .= "\n<h1><i>SYNOPSIS</i></h1>";
+      my $string = $mandata{'SYNOPSIS'};
+
+      if ($string !~ s/$mandata{'COMMAND'}/<b>$mandata{'COMMAND'}<\/b>/g) {
+         $string = "<b>$mandata{'COMMAND'}</b> $string";
+      }
+      $output .= "<ul><tt>$string</tt></ul>";
+   }
+
+   $output .= "\n<a name=options></a>\n";
+
+   # printManData(%mandata);
+   my $name;
+   my $anchor;
+
+   if ($mandata{'OPTIONNAME01'} !~ /^\s*$/) {
+      $output .= "<h1>OPTIONS</h1>";      
+      my $optioncount = countOptions(%mandata);
+      $output .= "\n<table>";
+      my $c;
+      for ($c=0; $c<$optioncount; $c++) {
+         $count = $c + 1;
+         $count = "0$count" if $count < 10;
+         $output .= "\n<tr valign=baseline><td width=40>";
+         if ($mandata{"OPTIONANCHOR$count"} !~ /^\s*$/) {
+            $anchor = $mandata{"OPTIONANCHOR$count"};
+            $name = $mandata{"OPTIONNAME$count"};
+            $anchor =~ s/^\s+//;
+            $anchor =~ s/\s+$//;
+            $output .= "<span style=\"line-height:100%; position:relative; top:0.1em;\"><a title=\"more information for $name option\" href=\"#$anchor\">&#x24d8;</a></span>";
+         }
+         $output .= "</td><td>";
+         if ($name =~ /^\s*--/) {
+            $name = "<nobr><span style=\"font-size:80%; font-weight:600;\">$name</span></nobr>";
+         } 
+         $output .= "<tt>$name</tt></td><td width=10></td>";
+         $name = $mandata{"OPTIONINFO$count"};
+         $output .= "\n<td>$name";
+         $output .= "\n</td></tr>\n";
+      }
+      $output .= "</table>";
+   }
+
+   $output .= "\n<a name=description> </a>\n";
+   if ($mandata{'DESCRIPTION'} !~ /^\s*$/) {
+      $output .= "\n<h1>DESCRIPTION</h1>";
+      $output .= "\n<ul>";
+      $output .= "$mandata{'DESCRIPTION'}";
+      $output .= "\n</ul>";
+   }
+
+   $output .= "\n<a name=examples> </a>\n";
+   if (($mandata{'EXAMPLES'} ne "INVALID") && ($mandata{'EXAMPLES'} !~ /^\s*$/)) {
+      $output .= "\n<h1><i>EXAMPLES</i></h1>";      
+      $output .= "\n<ul>";
+      $output .= "$mandata{'EXAMPLES'}";
+      $output .= "\n</ul>";
+   } elsif ($mandata{'EXAMPLES'} ne "INVALID") {
+      $output .= "\n<h1><i>EXAMPLES</i></h1>";      
+   }
+
+   $output .= "\n<a name=references></a>\n";
+   if ($mandata{'REFERENCES'} !~ /^\s*$/) {
+      $output .= "\n<h1><i>REFERENCES</i></h1>";      
+      $output .= "\n<ul>";
+      $output .= "$mandata{'REFERENCES'}";
+      $output .= "\n</ul>";
+   }
+
+   $output .= "\n<a name=seealso></a>\n";
+   if ($mandata{'SEEALSO'} !~ /^\s*$/) {
+      $output .= "\n<h1><i>SEE ALSO</i></h1>";      
+      $output .= "\n<ul>";
+      $output .= "$mandata{'SEEALSO'}";
+      $output .= "\n</ul>";
+   }
+   
+   $output .= "\n<a name=limitations></a>\n";
+   if ($mandata{'LIMITATIONS'} !~ /^\s*$/) {
+      $output .= "\n<h1><i>LIMITATIONS</i></h1>";      
+      $output .= "\n<ul>";
+      $output .= "$mandata{'LIMITATIONS'}";
+      $output .= "\n</ul>";
+   }
+
+   $output .= "\n<a name=bugs></a>\n";
+   if ($mandata{'BUGS'} !~ /^\s*$/) {
+      $output .= "\n<h1><i>BUGS</i></h1>";      
+      $output .= "\n<ul>";
+      $output .= "$mandata{'BUGS'}";
+      $output .= "\n</ul>";
+   }
+
+   return $output;
+}
+
+
+
+##############################
+##
+## countOptions --
+##
+
+sub countOptions {
+   my %mandata = @_;
+   my $counter = 1;
+
+   $counter = int($counter);
+   $counter = "0$counter" if $counter < 10;
+   while ($mandata{"OPTIONNAME$counter"} !~ /^\s*$/) {
+      $counter++;
+      $counter = int($counter);
+      $counter = "0$counter" if $counter < 10;
+   }
+
+   return $counter-1;
+}
+
+
+
+##############################
+##
+##  applyAbbreviations --
+##
+
+sub applyAbbreviations {
+   my ($line) = @_;
+
+   $line =~ s/\{\{music\|flat\}\}/&#x266d;/g;
+   $line =~ s/\{\{music\|sharp\}\}/&#x266f;/g;
+   $line =~ s/\{\{music\|natural\}\}/&#x266e;/g;
+   $line =~ s/\{\{flat\}\}/&#x266d;/g;
+   $line =~ s/\{\{sharp\}\}/&#x266f;/g;
+   $line =~ s/\{\{natural\}\}/&#x266e;/g;
+
+   my $pre;
+   my $post;
+   my $option;
+
+   while ($line =~ /:option:`([^`]+)`/) {
+      $option = $1;
+      $pre = $`;
+      $post = $';
+      $line = "$pre<tt>$option</tt>$post";
+   }
+
+   while ($line =~ /:param:`([^`]+)`/) {
+      $option = $1;
+      $pre = $`;
+      $post = $';
+      $line = "$pre<tt>$option</tt>$post";
+   }
+
+   while ($line =~ /:anchor:`([^`]+)`/) {
+      $option = $1;
+      $pre = $`;
+      $post = $';
+      $line = "$pre<a name=\"$option\"> </a>$post";
+   }
+
+   while ($line =~ /:index(ed)?head(er)?:`([^`]+)`/) {
+      $option = $3;
+      $pre = $`;
+      $post = $';
+      $IndexedHeaders[@IndexedHeaders] = $option;
+      my $counter = @IndexedHeaders;
+      $line = "$pre<a name=\"header$counter\"> </a><h2>$counter. $option</h2>$post";
+   }
+
+   return $line;
+}
+
+
+
+##############################
+##
+## getManContent --
+##
+
+sub getManContent {
+   my (@contents) = @_;
+   my %output;
+   $output{'EXAMPLES'}  = "INVALID";
+   $output{'INTERNET'}  = "INVALID";
+
+   my $key = "";
+   my $newkey = "";
+   my $value = "";
+   my $newvalue = "";
+   my $line;
+   my $counter = 0;
+   my $ccounter = 0;
+
+   my $i;
+   my $dashcount = 0;
+   my $dashcontent;
+   for ($i=0; $i<@contents; $i++) {
+      $line = $contents[$i];
+      if ($line =~ /^---\s*$/) {
+         $dashcount++;
+      }
+      if ($dashcount == 1) {
+         $output{'LIQUID'} .= $line;
+      } elsif ($dashcount > 1) {
+         last;
+      }
+   }
+
+   for ($i=0; $i<@contents; $i++) {
+      $line = $contents[$i];
+
+      # apply abbreviation mappings (sharp, flat, natural)
+      $line = applyAbbreviations($line);
+      $contents[$i] = $line;
+
+      $line = checkForExample($i, \@contents);
+
+      if ($line =~ /^\@([^:]+):\s*(.*)/) {
+         $newkey = $1;
+         $newvalue = $2;
+         if ($newvalue =~ /<<file=.*>>/) {
+            $newvalue = includeFile($newvalue);
+         }
+         if ($key eq "OPTIONNAME") {
+            $ccounter++;
+            $counter = $ccounter;
+            $counter = "0$counter" if $ccounter < 10;
+            $key = "OPTIONNAME$counter";
+         } elsif ($key eq "OPTIONINFO") {
+            $key = "OPTIONINFO$counter";
+         } elsif ($key eq "OPTIONANCHOR") {
+            $key = "OPTIONANCHOR$counter";
+         }
+
+         if ($key !~ /^\s*$/) {
+            $output{$key} = $value;
+         }
+         $key = $newkey;
+         $value = $newvalue;
+
+      } else {
+         if ($line =~ /textarea/) {
+            $line = addDefaultFontToTextarea($line);
+         }
+         if ($line =~ /<<file=.*>>/) {
+            $line = includeFile($line);
+         }
+         $value .= " $line";
+      }
+   }
+
+   return %output;
+}
+
+
+
+##############################
+##
+## printManData --
+##
+
+sub printManData {
+   my %data = @_;
+
+   my @keys = sort keys %data;
+   my $key;
+   foreach $key (@keys) {
+      print "\@$key:\t";
+      print $data{$key}, "\n\n";
+   } 
+}
+
+
+
+#############################
+##
+## checkForExample --
+##
+
+sub checkForExample {
+   my ($index, $cont) = @_;
+   if ($$cont[$index] !~ /^\.\.\s+example:\s*$/) {
+      return $$cont[$index];      
+   }
+   my $output = "";
+   my %params;
+   my $i;
+   my $outdex = $index;
+   my $key;
+   my $value;
+   my $i;
+   my $line;
+   for ($i=$index+1; $i<@$cont; $i++) {
+      $line = $$cont[$i];
+      if ($line =~ /^\s*$/) {
+         $outdex = $i - 1;
+         last;
+      } elsif ($line =~ /^[^\s]/) {
+         $outdex = $i - 1;
+         last;
+      } else {
+         $outdex = $i;
+      }
+      if ($line =~ /^\s+:([^:]+):\s*(.*)\s*$/) {
+         $key   = $1;
+         $value = $2;
+         $key = lc($key);
+         $params{$key} = $value;
+      } else {
+         $params{$key} .= " $value";
+      }
+   }
+
+   $output .= "<table style=\"position:relative; left:43px; margin: 20px 0 20px 0\">\n";
+   
+   if ($params{'caption'} !~ /^\s*$/) {
+      $output .= "<tr><td style=\"background-color:#f3f3f3;\">\n";
+      $output .= "<span style=\"word-spacing: 0.33em; margin-left:10px; font-size:90%; letter-spacing:-0.5px;\">\n";
+      my $val = $params{'caption'};
+      $output .= "$val\n";
+      $output .= "</span>\n";
+      $output .= "</td></tr>\n\n";
+   }
+
+   if ($params{'image'} !~ /^\s*$/) {
+      $output .= "<tr><td>\n";
+      if ($params{'imagelink'} !~ /^\s*$/) {
+         $output .= "<a href=\"$params{'imagelink'}\">";
+      }
+      $output .= "<img src=\"$params{'image'}\">";
+      if ($params{'imagelink'} !~ /^\s*$/) {
+         $output .= "</a>";
+      }
+      $output .= "\n";
+      $output .= "</td></tr>\n\n";
+   }
+
+   ##	:spanFile: courtesy-marked.html
+   ##	:spanHeight: 500px
+   ##	:spanWidth: 600px
+   ##	:spanBackgroundColor: #f3f3f3
+   ##	:spanFixedFont:	true
+
+   if ($params{'spanfile'} !~ /^\s*$/) {
+      my $filecontents = `cat $params{'spanfile'}`;
+      my $style = "padding: 5px;";
+      if ($params{'spanfixedfont'} =~ /true/i) {
+         $style .= " white-space: nowrap; overflow-y:scroll; ";
+         $style .= " overflow-x: hidden; ";
+         $style .= " font-family:'Courier New',Courier,monospace;";
+         if ($params{'spanbold'} !~ /false/i) {
+            $style .= " font-weight:600;";
+         }
+         $style .= " line-height: 1.1;";
+      }
+      if ($params{'spanheight'} !~ /^\s*$/) {
+         $style .= " height: $params{'spanheight'};";
+      }
+      if ($params{'spanwidth'} !~ /^\s*$/) {
+         $style .= " height: $params{'spanwidth'};";
+      }
+      if ($params{'spanbackgroundcolor'} !~ /^\s*$/) {
+         $style .= " background-color: $params{'spanbackgroundcolor'};";
+      }
+
+      $output .= "<tr><td>\n";
+      $output .= "<div style=\"$style\">$filecontents</div>\n";
+      $output .= "</td></tr>\n";
+   }
+  
+   $output .= "</table>\n\n";
+
+   $$cont[$index] = $output;
+
+   for ($i=$index+1; $i<=$outdex; $i++) {
+      $$cont[$i] = "";
+   }
+
+   return $$cont[$index];
+}
+
+
+

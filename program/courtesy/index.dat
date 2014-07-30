@@ -1,0 +1,284 @@
+---
+layout: default
+breadcrumbs: [['/program','programs']]
+pagetitle:  Program&colon; courtesy
+---
+
+@BEGIN: MANPAGE
+@COMMAND: courtesy
+@SUMMARY: Identify and process courtesy accidentals.
+
+@ABSTRACT:
+
+The <<COMMAND>> program can be used to identify and manipulate
+courtesy/cautionary accidentals in a musical score.
+
+Courtesy accidentals are optional accidentals that help clarify
+the chromatic alteration of a note.
+
+The courtesy accidental does not alter the pitch of the note since
+it matches the expected chromatic inflection of the note.
+
+The following musical example demonstrates a courtesy accidental.
+
+In the second measure, the sharp is not required, since the F is
+already sharpened by the key signature, and the natural sign on the
+F in the previous measure is cancelled by the barline.
+
+In this case the courtesy accidental is used to alert the performer
+that the natural sign in the previous measure is not longer in
+effect.
+
+If there were no sharp on the F in the second measure, a performer
+may also wonder if the natural sign was omitted by mistake.
+
+<p>
+<center>
+<a href=courtesy-example.txt><img src=courtesy-example.svg></a>
+</center>
+
+<p>
+The <<COMMAND>> program can highlight notes with courtesy accidentals,
+remove these accidentals, or place the courtesy accidentals within
+parentheses.
+
+
+
+@BEGIN: OPTIONS
+@DEFAULTINFO: What the program does without options
+
+@OPTIONNAME: -m
+@OPTIONINFO: Mark courtesy accidentals with the :param:`@courtesy` 
+	named parameter.
+@OPTIONANCHOR: m_option
+
+@OPTIONNAME: -p
+@OPTIONINFO: Place courtesy accidentals in parentheses.
+@OPTIONANCHOR: p_option
+
+@OPTIONNAME: -P
+@OPTIONINFO:  Remove parenthese around courtesy accidentals.
+@OPTIONANCHOR: P_option
+
+@OPTIONNAME: -r
+@OPTIONINFO: Remove courtesy accidentals from notes.
+@OPTIONANCHOR: r_option
+
+@OPTIONNAME: -R
+@OPTIONINFO: Redisplay courtesy accidentals (requires previous use of -k option)
+@OPTIONANCHOR: R_option
+
+@OPTIONNAME: -k
+@OPTIONINFO:  Keep courtesy accidental analyses on notes (used in particular
+	with -r option to recover accidentals later).
+@OPTIONANCHOR: k_option
+
+@OPTIONNAME: -e
+@OPTIONINFO: Convert cautionary accidentals to editorial accidentals.
+@OPTIONANCHOR: e_option
+
+@OPTIONNAME: -a
+@OPTIONINFO: Include pitch-analysis parameters in output data.
+@OPTIONANCHOR: a_option
+
+@OPTIONNAME: --lj
+@OPTIONINFO: Add LJ commands to end of output data for systems which have
+	been altered.
+@OPTIONANCHOR: lj_option
+
+@END:   OPTIONS
+
+@DESCRIPTION:
+
+The following music contains several unmarked courtesy accidentals
+which the <i>courtesy</i> program can identify and process.
+
+.. example:
+	:caption: <a href=courtesy-input.txt>input data</a>
+	:image: courtesy-input.svg
+	:imageLink: courtesy-input.txt
+
+
+The default behavior of the <i>courtesy</i> program when no options
+are given is to highlight notes with courtesy accidentals:
+
+
+.. example:
+	:caption: courtesy <a href=courtesy-input.txt>input-data</a> &gt; <a href=courtesy-default-output.txt>output-data</a>
+	:image: courtesy-default-output.svg
+	:imageLink: courtesy-default-output.txt
+
+There are four courtesy accidentals identified for this passage of music:
+
+<ol>
+
+<li> G{{natural}} at the start of the second measure.  This is used to
+warn of the cancellation of G{{sharp}} in the previous measure caused
+by the barline.
+
+<li> C{{natural}} in the middle of the second measure is used to clarify
+that the sharp on the previous C3 in the measure does not apply to
+C4 since they are in different octaves.
+
+<li> C{{sharp}} at the end the second measure is used to clarify that
+the natural on the previous C4 in the measure does not apply to this
+C3 since they are in different octaves (the chromatic alteration
+of this note comes from the first C{{sharp}} in the measure).
+
+<li> The F{{sharp}} in the third measure is given for clarity that
+the natural on F4 in the top staff in third and fourth measures does
+not apply to this note in the bottom staff.
+
+</ol>
+
+
+:anchor:`m_option`
+:indexhead:`Marking courtesy accidentals`
+
+The :option:`-m` option can be used to mark courtesy accidentals in the data. 
+Below is the bach chorale data from the previous examples processed with the 
+:option:`-m` option.
+
+.. example:
+	:caption: courtesy -m <a href=courtesy-input.txt>input-data</a> &gt; <a href=courtesy-marked.txt>output-data</a>
+	:spanFile: courtesy-marked.html
+	:spanHeight: 400px
+	:spanWidth: 500px
+	:spanBackgroundColor: #f8f8f8
+	:spanFixedFont:	true
+	:spanBold:	false
+
+
+
+:anchor:`r_option`
+:anchor:`k_option`
+:indexedheader:`Removing courtesy accidentals`
+
+Using the :option:`-r` option will remove cautionary accidentals.
+The :option:`-k` option can be added to keep the courtesy information
+in the data so that the accidentals can be added back into the notation
+at a later time.
+
+<table><tr><td>
+[[https://raw.github.com/wiki/craigsapp/scorelib/img/courtesy-remove.png]]
+</td></tr><tr><td valign=right>
+courtesy -kr <a href=https://raw.github.com/wiki/craigsapp/scorelib/img/courtesy.txt>input-data</a> &gt; <a href=https://raw.github.com/wiki/craigsapp/scorelib/img/courtesy-remove.txt>output-data</a>
+</td></tr></table>
+
+
+
+:anchor:`R_option`
+:indexheader:`Replacing courtesy accidentals`
+
+The :option:`-R` option can be used to replace accidentals removed
+with the :option:`-r` option.  This can only be done if the
+:option:`-k` option was used at the same time as :option:`-r`.  The
+:option:`-k` option stores the cautionary accidental analysis as a
+global named parameter.  The :option:`-R` option will force the
+display of an accidental on any note which has a @courtesy named
+parameter value set to true or non-zero.
+
+
+
+:anchor:`p_option`
+:indexedheader:`Adding parentheses`
+
+Using the :option:`-p` option will cause cautionary accidentals to
+be placed in parentheses.
+
+
+<table><tr><td>
+[[https://raw.github.com/wiki/craigsapp/scorelib/img/courtesy-paren.png]]
+</td></tr><tr><td valign=right>
+courtesy -p <a href=https://raw.github.com/wiki/craigsapp/scorelib/img/courtesy.txt>input-data</a> &gt; <a href=https://raw.github.com/wiki/craigsapp/scorelib/img/courtesy-paren.txt>output-data</a>
+</td></tr></table>
+
+
+:anchor:`lj_option`
+:indexedheader:`LJ adjustments`
+
+Notice the the parentheses added to courtesy accidentals sometimes touch the previous item in the music.  The :option:`--lj` option can be used along with the :option:`-p` option to append an LJ command macro for each system on the page which had parentheses added to accidentals.  When the data file is loaded into the SCORE editor with the RE command, the LJ commands will be run to add space around the added parentheses.
+
+<table><tr><td>
+[[https://raw.github.com/wiki/craigsapp/scorelib/img/courtesy-parenlj.png]]
+</td></tr><tr><td valign=right>
+courtesy -p --lj <a href=https://raw.github.com/wiki/craigsapp/scorelib/img/courtesy.txt>input-data</a> &gt; <a href=https://raw.github.com/wiki/craigsapp/scorelib/img/courtesy-parenlj.txt>output-data</a>
+</td></tr></table>
+
+
+:anchor:`e_option`
+:indexedheader:`Editorial accidentals`
+
+The :option:`-e` option can be used to convert cautionary accidentals
+into editorial accidentals which are shown as small accidentals
+above the notes rather than in front of the notes.
+
+
+:indexheader:`Programming notes`
+
+Courtesy/cautionary accidentals are automatically identified as a by-product of pitch analysis.  Here is a short program which will identify courtesy accidentals:
+
+<p>
+{% highlight cpp linenos %}
+#include "scorelib.h"
+int main(void) {
+   ScorePage infile;
+   infile.read("filename");
+   infile.analyzePitch();
+   cout << infile;
+   return 0;
+}{% endhighlight %}
+
+<p>
+Pitch analyses are stored in the :param:`@analysis@base40` named
+parameter, as can be seen in the processed output data on the right
+below.  Courtesy accidentals will have the value "true" for the
+named parameter :param:`@analysis@courtesy`.
+
+</p>
+<table><tr valign="top"><td>
+Given this input:
+<table width=350>
+<tr><td>
+[[https://raw.github.com/wiki/craigsapp/scorelib/img/cf4-thumb-300px.png]]
+</td>
+<tr><td>
+8  1  0.000 0  0.75 50<br/>
+3  1  1.500<br/>
+17 1  7.471 0  1.00<br/>
+1  1 11.596 4 10.00  0 1<br/>
+1  1 21.196 4 12.00  0 1<br/>
+1  1 30.795 4 12.00  0 1<br/>
+1  1 40.395 4 12.00  0 1<br/>
+14 1 50.000 1<br/>
+</td></tr>
+</tr></table>
+
+</td><td>
+The above program produces this output:
+<table width=350>
+<tr><td>
+[[https://raw.github.com/wiki/craigsapp/scorelib/img/cf4-caut-thumb-300px.png]]
+</td></tr>
+<tr><td>
+8  1  0.000 0  0.75 50<br/>
+3  1  1.500<br/>
+17 1  7.471 0  1.00<br/>
+1  1 11.596 4 10.00  0 1<br/>
+@analysis@base40:	180	(f#)<br/>
+1  1 21.196 4 12.00  0 1<br/>
+<b>@analysis@courtesy:	true</b><br/>
+@analysis@base40:	180	(f#)<br/>
+1  1 30.795 4 12.00  0 1<br/>
+<b>@analysis@courtesy:	true</b><br/>
+@analysis@base40:	180	(f#)<br/>
+1  1 40.395 4 12.00  0 1<br/>
+<b>@analysis@courtesy:	true</b><br/>
+@analysis@base40:	180	(f#)<br/>
+14 1 50.000 1<br/>
+</td></tr></table>
+
+</td></tr></table>
+
+
+@END: MANPAGE

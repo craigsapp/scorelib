@@ -5,63 +5,166 @@ pagetitle:  Program&colon; courtesy
 ---
 
 
-Content goes here.  Here is the old content (in MarkDown):
+ 
+ The <i>courtesy</i> program can be used to identify and manipulate
+ courtesy/cautionary accidentals in a musical score.
+ 
+ Courtesy accidentals are optional accidentals that help clarify
+ the chromatic alteration of a note.
+ 
+ The courtesy accidental does not alter the pitch of the note since
+ it matches the expected chromatic inflection of the note.
+ 
+ The following musical example demonstrates a courtesy accidental.
+ 
+ In the second measure, the sharp is not required, since the F is
+ already sharpened by the key signature, and the natural sign on the
+ F in the previous measure is cancelled by the barline.
+ 
+ In this case the courtesy accidental is used to alert the performer
+ that the natural sign in the previous measure is not longer in
+ effect.
+ 
+ If there were no sharp on the F in the second measure, a performer
+ may also wonder if the natural sign was omitted by mistake.
+ 
+ <p>
+ <center>
+ <a href=courtesy-example.txt><img src=courtesy-example.svg></a>
+ </center>
+ 
+ <p>
+ The <i>courtesy</i> program can highlight notes with courtesy accidentals,
+ remove these accidentals, or place the courtesy accidentals within
+ parentheses.
+ 
+ 
+ 
 
 
-<p>
 
+<a name=options></a>
+<h1>OPTIONS</h1>
+<table>
+<tr valign=baseline><td width=40><span style="line-height:100%; position:relative; top:0.1em;"><a title="more information for -m option" href="#m_option">&#x24d8;</a></span></td><td><tt>-m</tt></td><td width=10></td>
+<td>Mark courtesy accidentals with the <tt>@courtesy</tt>  	named parameter.
 
-
-The *courtesy* program can be used to identify courtesy/cautionary accidentals. The program can highlight notes with courtesy accidentals, hide these accidentals, or place the accidentals in parentheses.  Strictly speaking, courtesy accidentals do not need to be shown since the chromatic alteration of notes would not change if they are removed; however, such accidentals are used to clarify pitch spellings so that a musician sight-reading the music will less likely make a chromatic mistake.
-
-
-Options
-=======
-
-|  option   |   argument   |   description
-|-----------|--------------|----------------
-|    -m     | *none*       | Mark courtesy accidentals with @courtesy named parameter.
-|    -p     | *none*       | Place courtesy accidentals in parentheses.
-|    -P     | *none*       | Remove parentheses around courtesy accidentals.
-|    -r     | *none*       | Remove courtesy accidentals from notes.
-|    -R     | *none*       | Redisplay courtesy accidentals (requires previous use of -k option).
-|    -k     | *none*       | Keep courtesy accidental analyses on notes (use in particular with -r option to recover accidentals later).
-|   -e      | *none*       | Convert cautionary accidentals to editorial accidentals.
-|   -a      | *none*       | Include pitch-analysis parameters in output data.
-|   --lj    | *none*       | Add LJ commands to end of output data for systems which have been altered.
-
-
-Description
-===========
-
-The following music contains several unmarked courtesy accidentals which the *courtesy* program can identify and process.
-
-<table><tr><td>[[https://raw.github.com/wiki/craigsapp/scorelib/img/courtesy.png]]</td></tr><tr><td valign=right><a href=https://raw.github.com/wiki/craigsapp/scorelib/img/courtesy.pmx>input data</a></td></tr></table>
-
-The default behavior of the *courtesy* program when no options are given is to highlight notes with courtesy accidentals:
-
-<table><tr><td>[[https://raw.github.com/wiki/craigsapp/scorelib/img/courtesy-default.png]]</td></tr><tr><td valign="right">courtesy <a href=https://raw.github.com/wiki/craigsapp/scorelib/img/courtesy.pmx>input-data</a> &gt; <a href=https://raw.github.com/wiki/craigsapp/scorelib/img/courtesy-default.pmx>output-data</a></td></tr></table>
-
-There are four courtesy accidentals identified for this passage of music:
-
-1. G&#9838; at the start of the second measure.  This is used to warn of the cancellation of G&#9839; in the previous measure, caused by the barline.
-
-2. C&#9838; in the middle of the second measure is used to clarify that the sharp on the previous C3 in the measure does not apply to C4 since they are in different octaves.
-
-3. C&#9839; at the end the second measure is used to clarify that the sharp on the previous C4 in the measure does not apply to this C3 since they are in different octaves (the chromatic alteration of this note comes from the first C&#9839;in the measure).
-
-4. The F&#9839; in the third measure is given for clarity that the natural on F4 in the top staff in third and fourth measures no longer applies.
-
-
-### Marking courtesy accidentals ###
-
-The <tt>-m</tt> opion can be used to mark courtesy accidentals in the data. 
-
-<table><tr><td>
-courtesy -m <a href=https://raw.github.com/wiki/craigsapp/scorelib/img/courtesy.pmx>input-data</a> 
 </td></tr>
+
+<tr valign=baseline><td width=40><span style="line-height:100%; position:relative; top:0.1em;"><a title="more information for -p option" href="#p_option">&#x24d8;</a></span></td><td><tt>-p</tt></td><td width=10></td>
+<td>Place courtesy accidentals in parentheses.
+</td></tr>
+
+<tr valign=baseline><td width=40><span style="line-height:100%; position:relative; top:0.1em;"><a title="more information for -P option" href="#P_option">&#x24d8;</a></span></td><td><tt>-P</tt></td><td width=10></td>
+<td>Remove parenthese around courtesy accidentals.
+</td></tr>
+
+<tr valign=baseline><td width=40><span style="line-height:100%; position:relative; top:0.1em;"><a title="more information for -r option" href="#r_option">&#x24d8;</a></span></td><td><tt>-r</tt></td><td width=10></td>
+<td>Remove courtesy accidentals from notes.
+</td></tr>
+
+<tr valign=baseline><td width=40><span style="line-height:100%; position:relative; top:0.1em;"><a title="more information for -R option" href="#R_option">&#x24d8;</a></span></td><td><tt>-R</tt></td><td width=10></td>
+<td>Redisplay courtesy accidentals (requires previous use of -k option)
+</td></tr>
+
+<tr valign=baseline><td width=40><span style="line-height:100%; position:relative; top:0.1em;"><a title="more information for -k option" href="#k_option">&#x24d8;</a></span></td><td><tt>-k</tt></td><td width=10></td>
+<td>Keep courtesy accidental analyses on notes (used in particular 	with -r option to recover accidentals later).
+
+</td></tr>
+
+<tr valign=baseline><td width=40><span style="line-height:100%; position:relative; top:0.1em;"><a title="more information for -e option" href="#e_option">&#x24d8;</a></span></td><td><tt>-e</tt></td><td width=10></td>
+<td>Convert cautionary accidentals to editorial accidentals.
+</td></tr>
+
+<tr valign=baseline><td width=40><span style="line-height:100%; position:relative; top:0.1em;"><a title="more information for -a option" href="#a_option">&#x24d8;</a></span></td><td><tt>-a</tt></td><td width=10></td>
+<td>Include pitch-analysis parameters in output data.
+</td></tr>
+
+<tr valign=baseline><td width=40><span style="line-height:100%; position:relative; top:0.1em;"><a title="more information for --lj option" href="#lj_option">&#x24d8;</a></span></td><td><tt><nobr><span style="font-size:80%; font-weight:600;">--lj</span></nobr></tt></td><td width=10></td>
+<td>Add LJ commands to end of output data for systems which have 	been altered.
+
+</td></tr>
+</table>
+<a name=description> </a>
+
+<h1>DESCRIPTION</h1>
+<ul> 
+ The following music contains several unmarked courtesy accidentals
+ which the <i>courtesy</i> program can identify and process.
+ 
+ <table style="position:relative; left:43px; margin: 20px 0 20px 0">
+<tr><td style="background-color:#f3f3f3;">
+<span style="word-spacing: 0.33em; margin-left:10px; font-size:90%; letter-spacing:-0.5px;">
+<a href=courtesy-input.txt>input data</a>
+</span>
+</td></tr>
+
 <tr><td>
-8 1 0 0 0.75 200<br/>
+<a href="courtesy-input.txt"><img src="courtesy-input.svg"></a>
+</td></tr>
+
+</table>
+
+    
+ 
+ The default behavior of the <i>courtesy</i> program when no options
+ are given is to highlight notes with courtesy accidentals:
+ 
+ 
+ <table style="position:relative; left:43px; margin: 20px 0 20px 0">
+<tr><td style="background-color:#f3f3f3;">
+<span style="word-spacing: 0.33em; margin-left:10px; font-size:90%; letter-spacing:-0.5px;">
+courtesy <a href=courtesy-input.txt>input-data</a> &gt; <a href=courtesy-default-output.txt>output-data</a>
+</span>
+</td></tr>
+
+<tr><td>
+<a href="courtesy-default-output.txt"><img src="courtesy-default-output.svg"></a>
+</td></tr>
+
+</table>
+
+    
+ There are four courtesy accidentals identified for this passage of music:
+ 
+ <ol>
+ 
+ <li> G&#x266e; at the start of the second measure.  This is used to
+ warn of the cancellation of G&#x266f; in the previous measure caused
+ by the barline.
+ 
+ <li> C&#x266e; in the middle of the second measure is used to clarify
+ that the sharp on the previous C3 in the measure does not apply to
+ C4 since they are in different octaves.
+ 
+ <li> C&#x266f; at the end the second measure is used to clarify that
+ the natural on the previous C4 in the measure does not apply to this
+ C3 since they are in different octaves (the chromatic alteration
+ of this note comes from the first C&#x266f; in the measure).
+ 
+ <li> The F&#x266f; in the third measure is given for clarity that
+ the natural on F4 in the top staff in third and fourth measures does
+ not apply to this note in the bottom staff.
+ 
+ </ol>
+ 
+ 
+ <a name="m_option"> </a>
+ <a name="header1"> </a><h2>1. Marking courtesy accidentals</h2>
+ 
+ The <tt>-m</tt> option can be used to mark courtesy accidentals in the data. 
+ Below is the bach chorale data from the previous examples processed with the 
+ <tt>-m</tt> option.
+ 
+ <table style="position:relative; left:43px; margin: 20px 0 20px 0">
+<tr><td style="background-color:#f3f3f3;">
+<span style="word-spacing: 0.33em; margin-left:10px; font-size:90%; letter-spacing:-0.5px;">
+courtesy -m <a href=courtesy-input.txt>input-data</a> &gt; <a href=courtesy-marked.txt>output-data</a>
+</span>
+</td></tr>
+
+<tr><td>
+<div style="padding: 5px; white-space: nowrap; overflow-y:scroll;  overflow-x: hidden;  font-family:'Courier New',Courier,monospace; line-height: 1.1; height: 400px; height: 500px; background-color: #f8f8f8;">8 1 0 0 0.75 200<br/>
 14 1 0 2 8<br/>
 14 1 0 2<br/>
 3 1 1.5 0 1<br/>
@@ -164,117 +267,136 @@ courtesy -m <a href=https://raw.github.com/wiki/craigsapp/scorelib/img/courtesy.
 1 2 176.957 7 10 0 1.5 0 10<br/>
 1 2 188.169 5 20 0 1 -1<br/>
 1 2 193.775 8 10 0 0.5 0 1<br/>
+</div>
 </td></tr>
 </table>
 
+        
+ 
+ 
+ <a name="r_option"> </a>
+ <a name="k_option"> </a>
+ <a name="header2"> </a><h2>2. Removing courtesy accidentals</h2>
+ 
+ Using the <tt>-r</tt> option will remove cautionary accidentals.
+ The <tt>-k</tt> option can be added to keep the courtesy information
+ in the data so that the accidentals can be added back into the notation
+ at a later time.
+ 
+ <table><tr><td>
+ [[https://raw.github.com/wiki/craigsapp/scorelib/img/courtesy-remove.png]]
+ </td></tr><tr><td valign=right>
+ courtesy -kr <a href=https://raw.github.com/wiki/craigsapp/scorelib/img/courtesy.txt>input-data</a> &gt; <a href=https://raw.github.com/wiki/craigsapp/scorelib/img/courtesy-remove.txt>output-data</a>
+ </td></tr></table>
+ 
+ 
+ 
+ <a name="R_option"> </a>
+ <a name="header3"> </a><h2>3. Replacing courtesy accidentals</h2>
+ 
+ The <tt>-R</tt> option can be used to replace accidentals removed
+ with the <tt>-r</tt> option.  This can only be done if the
+ <tt>-k</tt> option was used at the same time as <tt>-r</tt>.  The
+ <tt>-k</tt> option stores the cautionary accidental analysis as a
+ global named parameter.  The <tt>-R</tt> option will force the
+ display of an accidental on any note which has a @courtesy named
+ parameter value set to true or non-zero.
+ 
+ 
+ 
+ <a name="p_option"> </a>
+ <a name="header4"> </a><h2>4. Adding parentheses</h2>
+ 
+ Using the <tt>-p</tt> option will cause cautionary accidentals to
+ be placed in parentheses.
+ 
+ 
+ <table><tr><td>
+ [[https://raw.github.com/wiki/craigsapp/scorelib/img/courtesy-paren.png]]
+ </td></tr><tr><td valign=right>
+ courtesy -p <a href=https://raw.github.com/wiki/craigsapp/scorelib/img/courtesy.txt>input-data</a> &gt; <a href=https://raw.github.com/wiki/craigsapp/scorelib/img/courtesy-paren.txt>output-data</a>
+ </td></tr></table>
+ 
+ 
+ <a name="lj_option"> </a>
+ <a name="header5"> </a><h2>5. LJ adjustments</h2>
+ 
+ Notice the the parentheses added to courtesy accidentals sometimes touch the previous item in the music.  The <tt>--lj</tt> option can be used along with the <tt>-p</tt> option to append an LJ command macro for each system on the page which had parentheses added to accidentals.  When the data file is loaded into the SCORE editor with the RE command, the LJ commands will be run to add space around the added parentheses.
+ 
+ <table><tr><td>
+ [[https://raw.github.com/wiki/craigsapp/scorelib/img/courtesy-parenlj.png]]
+ </td></tr><tr><td valign=right>
+ courtesy -p --lj <a href=https://raw.github.com/wiki/craigsapp/scorelib/img/courtesy.txt>input-data</a> &gt; <a href=https://raw.github.com/wiki/craigsapp/scorelib/img/courtesy-parenlj.txt>output-data</a>
+ </td></tr></table>
+ 
+ 
+ <a name="e_option"> </a>
+ <a name="header6"> </a><h2>6. Editorial accidentals</h2>
+ 
+ The <tt>-e</tt> option can be used to convert cautionary accidentals
+ into editorial accidentals which are shown as small accidentals
+ above the notes rather than in front of the notes.
+ 
+ 
+ <a name="header7"> </a><h2>7. Programming notes</h2>
+ 
+ Courtesy/cautionary accidentals are automatically identified as a by-product of pitch analysis.  Here is a short program which will identify courtesy accidentals:
+ 
+ <p>
+ {% highlight cpp linenos %}
+ #include "scorelib.h"
+ int main(void) {
+    ScorePage infile;
+    infile.read("filename");
+    infile.analyzePitch();
+    cout << infile;
+    return 0;
+ }{% endhighlight %}
+ 
+ <p>
+ Pitch analyses are stored in the <tt>@analysis@base40</tt> named
+ parameter, as can be seen in the processed output data on the right
+ below.  Courtesy accidentals will have the value "true" for the
+ named parameter <tt>@analysis@courtesy</tt>.
+ 
+ </p>
+ <table><tr valign="top"><td>
+ Given this input:
+ <table width=350>
+ <tr><td>
+ [[https://raw.github.com/wiki/craigsapp/scorelib/img/cf4-thumb-300px.png]]
+ </td>
+ <tr><td>
+ 8  1  0.000 0  0.75 50<br/>
+ 3  1  1.500<br/>
+ 17 1  7.471 0  1.00<br/>
+ 1  1 11.596 4 10.00  0 1<br/>
+ 1  1 21.196 4 12.00  0 1<br/>
+ 1  1 30.795 4 12.00  0 1<br/>
+ 1  1 40.395 4 12.00  0 1<br/>
+ 14 1 50.000 1<br/>
+ </td></tr>
+ </tr></table>
+ 
+ </td><td>
+ The above program produces this output:
+ <table width=350>
+ <tr><td>
+ [[https://raw.github.com/wiki/craigsapp/scorelib/img/cf4-caut-thumb-300px.png]]
+ </td></tr>
+ <tr><td>
+ 8  1  0.000 0  0.75 50<br/>
+ 3  1  1.500<br/>
+ 17 1  7.471 0  1.00<br/>
+ 1  1 11.596 4 10.00  0 1<br/>
 
-### Removing courtesy accidentals ###
+</ul>
+<a name=examples> </a>
 
-Using the <tt>-r</tt> option will remove cautionary accidentals.  The <tt>-k</tt> option can be added to keep the courtesy information so that the accidentals can be added back into the notation.
+<a name=references></a>
 
-<table><tr><td>
-[[https://raw.github.com/wiki/craigsapp/scorelib/img/courtesy-remove.png]]
-</td></tr><tr><td valign=right>
-courtesy -kr <a href=https://raw.github.com/wiki/craigsapp/scorelib/img/courtesy.pmx>input-data</a> &gt; <a href=https://raw.github.com/wiki/craigsapp/scorelib/img/courtesy-remove.pmx>output-data</a>
-</td></tr></table>
+<a name=seealso></a>
 
+<a name=limitations></a>
 
-### Replacing courtesy accidentals ###
-
-The <tt>-R</tt> option can be used to replace accidentals removed with the <tt>-r</tt> option.  This can only be done if the <tt>-k</tt> option was used at the same time as <tt>-r</tt>.  The <tt>-k</tt> option stores the cautionary accidental analysis as a global named parameter.  The <tt>-R</tt> option will force the display of an accidental on any note which has a @courtesy named parameter value set to true or non-zero.
-
-
-### Parentheses ###
-
-Using the <tt>-p</tt> option will cause cautionary accidentals to be placed in parentheses.
-
-<table><tr><td>
-[[https://raw.github.com/wiki/craigsapp/scorelib/img/courtesy-paren.png]]
-</td></tr><tr><td valign=right>
-courtesy -p <a href=https://raw.github.com/wiki/craigsapp/scorelib/img/courtesy.pmx>input-data</a> &gt; <a href=https://raw.github.com/wiki/craigsapp/scorelib/img/courtesy-paren.pmx>output-data</a>
-</td></tr></table>
-
-
-### LJ adjustments ###
-
-Notice the the parentheses added to courtesy accidentals sometimes touch the previous item in the music.  The <tt>--lj</tt> option can be used along with the <tt>-p</tt> option to append an LJ command macro for each system on the page which had parentheses added to accidentals.  When the data file is loaded into the SCORE editor with the RE command, the LJ commands will be run to add space around the added parentheses.
-
-<table><tr><td>
-[[https://raw.github.com/wiki/craigsapp/scorelib/img/courtesy-parenlj.png]]
-</td></tr><tr><td valign=right>
-courtesy -p --lj <a href=https://raw.github.com/wiki/craigsapp/scorelib/img/courtesy.pmx>input-data</a> &gt; <a href=https://raw.github.com/wiki/craigsapp/scorelib/img/courtesy-parenlj.pmx>output-data</a>
-</td></tr></table>
-
-
-### Editorial accidentals ###
-
-The <tt>-e</tt> option can be used to convert cautionary accidentals into editorial accidentals which are shown as small accidentals above the notes rather than in front of the notes.
-
-
-Programming
-=================
-
-Courtesy/cautionary accidentals are automatically identified as a by-product of pitch analysis.  Here is a short program which will identify courtesy accidentals:
-
-```C++
-#include "scorelib.h"
-int main(void) {
-   ScorePage infile;
-   infile.read("filename");
-   infile.analyzePitch();
-   cout << infile;
-   return 0;
-}
-```
-
-Pitch analyses are stored in the <tt>@analysis@base40</tt> named parameter, as can be seen in the processed output data on the right below.  Courtesy accidentals will have the value "true" for the named parameter <tt>@analysis@courtesy</tt>.
-
-<table><tr valign="top"><td>
-Given this input:
-<table width=350>
-<tr><td>
-[[https://raw.github.com/wiki/craigsapp/scorelib/img/cf4-thumb-300px.png]]
-</td>
-<tr><td>
-8  1  0.000 0  0.75 50<br/>
-3  1  1.500<br/>
-17 1  7.471 0  1.00<br/>
-1  1 11.596 4 10.00  0 1<br/>
-1  1 21.196 4 12.00  0 1<br/>
-1  1 30.795 4 12.00  0 1<br/>
-1  1 40.395 4 12.00  0 1<br/>
-14 1 50.000 1<br/>
-</td></tr>
-</tr></table>
-
-</td><td>
-The above program produces this output:
-<table width=350>
-<tr><td>
-[[https://raw.github.com/wiki/craigsapp/scorelib/img/cf4-caut-thumb-300px.png]]
-</td></tr>
-<tr><td>
-8  1  0.000 0  0.75 50<br/>
-3  1  1.500<br/>
-17 1  7.471 0  1.00<br/>
-1  1 11.596 4 10.00  0 1<br/>
-@analysis@base40:	180	(f#)<br/>
-1  1 21.196 4 12.00  0 1<br/>
-<b>@analysis@courtesy:	true</b><br/>
-@analysis@base40:	180	(f#)<br/>
-1  1 30.795 4 12.00  0 1<br/>
-<b>@analysis@courtesy:	true</b><br/>
-@analysis@base40:	180	(f#)<br/>
-1  1 40.395 4 12.00  0 1<br/>
-<b>@analysis@courtesy:	true</b><br/>
-@analysis@base40:	180	(f#)<br/>
-14 1 50.000 1<br/>
-</td></tr></table>
-
-</td></tr></table>
-
-Source Code
-===========
-
-[courtesy.cpp](https://github.com/craigsapp/scorelib/blob/master/src-programs/courtesy.cpp)
-
+<a name=bugs></a>
