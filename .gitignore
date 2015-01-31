@@ -5,6 +5,10 @@ obj
 lib
 bin
 
+!.gitignore
+
+.*
+
 # Compiled Object files
 *.slo
 *.lo
