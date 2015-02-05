@@ -1,7 +1,1 @@
-
-
-all: build
-
-build: 
-	(cd ../; make build)
-
+../Makefile.program

@@ -1,0 +1,24 @@
+
+BINDIR  = ../../bin
+COMMAND = $(BINDIR)/makeprogramindex
+GETSVG  = $(BINDIR)/score2svg
+
+all: build
+
+build:
+	(cd ..; $(MAKE))
+
+i: index
+index:
+	$(COMMAND) index.aton > index.html
+
+vi:	
+	vi $(COMMAND)
+
+img:
+#	$(GETSVG) -s 1.25 courtesy-input.txt > courtesy-input.svg
+#	$(GETSVG) -s 1.25 courtesy-default-output.txt > courtesy-default-output.svg
+	$(GETSVG) -s 1.5 courtesy-example.txt > courtesy-example.svg
+
+
+

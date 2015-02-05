@@ -10,13 +10,30 @@ pagetitle:  Program&colon; scorecat
 
 @ABSTRACT:
 
+The <<COMMAND>> program can be used to combine multiple pages into a single
+multi-page stream.  The program can also time-sort the items on each page by 
+system as well as mark barlines and calculate the durations of measures.
+
+
 
 @@BEGIN: OPTIONS
 @DEFAULTINFO: What the program does without options
 
-@OPTIONNAME:
-@OPTIONINFO:
-@OPTIONANCHOR:
+@OPTIONNAME: -b
+@OPTIONINFO: Mark barlines in data.
+@OPTIONANCHOR: b_option
+
+@OPTIONNAME: -c
+@OPTIONINFO: Encode multipage info as comments
+@OPTIONANCHOR: c_option
+
+@OPTIONNAME: -s
+@OPTIONINFO: Sort items by system.
+@OPTIONANCHOR: s_option
+
+@OPTIONNAME: -z
+@OPTIONINFO: Index barlines and system numbers from zero instead of one.
+@OPTIONANCHOR: z_option
 
 @@END:   OPTIONS
 

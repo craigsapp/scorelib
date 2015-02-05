@@ -1,0 +1,70 @@
+---
+layout: default
+breadcrumbs: [['/program','programs']]
+pagetitle:  Program&colon; score2mei
+---
+
+@@BEGIN: MANPAGE
+@COMMAND: score2mei
+@SUMMARY: Convert SCORE data into MEI data.
+
+@ABSTRACT:
+
+The <<COMMAND>> program convert SCORE data into MEI data.
+
+@@BEGIN: OPTIONS
+@DEFAULTINFO: What the program does without options
+
+@OPTIONNAME: -f filebase
+@OPTIONINFO: Basename of file for multiple segments.
+@OPTIONANCHOR: f_option
+
+@OPTIONNAME: -s #
+@OPTIONINFO: Process the given segmentation number.
+@OPTIONANCHOR: s_option
+
+@OPTIONNAME: -D
+@OPTIONINFO: Use default options for Dufay translations.
+@OPTIONANCHOR: D_option
+
+@OPTIONNAME: -I
+@OPTIONINFO: Don't convert invisible rests.
+@OPTIONANCHOR: I_option
+
+@OPTIONNAME: -L
+@OPTIONINFO: Don't print comment with location of each measure in score.
+@OPTIONANCHOR: L_option
+
+@OPTIONNAME: -M
+@OPTIONINFO: Treat entire input as a single movement.
+@OPTIONANCHOR: M_option
+
+@OPTIONNAME: --debug
+@OPTIONINFO: Print debugging information.
+@OPTIONANCHOR: debug_option
+
+@OPTIONNAME: --no-lyrics
+@OPTIONINFO: Don't process lyrics.
+@OPTIONANCHOR: no-lyrics_option
+
+@OPTIONNAME: --no-page-breaks
+@OPTIONINFO: Don't print page break information.
+@OPTIONANCHOR: no-page-breaks_option
+
+@OPTIONNAME: --no-system-breaks
+@OPTIONINFO: Don't print system break information.
+@OPTIONANCHOR: no-system-breaks_option
+
+@OPTIONNAME: --scale #
+@OPTIONINFO: Global rhythmic scaling of durations.
+@OPTIONANCHOR: scale_option
+
+@@END:   OPTIONS
+
+@DESCRIPTION:
+
+@@END: MANPAGE
+
+
+
+

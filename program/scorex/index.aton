@@ -1,0 +1,48 @@
+---
+layout: default
+breadcrumbs: [['/program','programs']]
+pagetitle:  Program&colon; scorex
+---
+
+@@BEGIN: MANPAGE
+@COMMAND: scorex
+@SUMMARY: Extract page data from <a href=/formats/ppmx>PPMX</a> files.
+
+@ABSTRACT:
+
+The <<COMMAND>> program extracts page data fro <a href=/formats/ppmx>PPMX</a> 
+files.
+
+
+
+@@BEGIN: OPTIONS
+@DEFAULTINFO: What the program does without options
+
+@OPTIONNAME: -c
+@OPTIONINFO: Count the number if input pages/segments.
+@OPTIONANCHOR: c_option
+
+@OPTIONNAME: -i
+@OPTIONINFO: Display information about input pages, overlays, and systems.
+@OPTIONANCHOR: c_option
+
+@OPTIONNAME: -p
+@OPTIONINFO: Extract the given indexed page (offset from 1)
+@OPTIONANCHOR: c_option
+
+@OPTIONNAME: --pc
+@OPTIONINFO: Count the number of input pages only.
+@OPTIONANCHOR: pc_option
+
+@OPTIONNAME: --sc
+@OPTIONINFO: Count the number of input segments only.
+@OPTIONANCHOR: sc_option
+
+@@END:   OPTIONS
+
+@DESCRIPTION:
+
+@@END: MANPAGE
+
+
+

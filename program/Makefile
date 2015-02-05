@@ -7,7 +7,7 @@ build:
 
 
 programs:
-	for i in */index.dat; \
+	for i in */index.aton; \
 	do \
 	   echo Processing $$i...; \
 	   (cd `dirname $$i`; $(MAKE) index); \
