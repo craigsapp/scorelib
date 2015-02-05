@@ -1113,14 +1113,14 @@ ostream&  printStaffElement(ostream& out, ScorePageSet& infiles,
    // currently only one layer being processed.
    printIndent(out, indent++, "<layer n=\"1\">\n");
 
-   ScoreItem* currentclef = curclef[partindex][0];
-   ScoreItem* currentkey  = curkey[partindex][0];
-   ScoreItem* currenttime = curtime[partindex][0];
+   // ScoreItem* currentclef = curclef[partindex][0];
+   // ScoreItem* currentkey  = curkey[partindex][0];
+   // ScoreItem* currenttime = curtime[partindex][0];
    ScoreItem* nextclef = NULL;
    ScoreItem* nextkey  = NULL;
    ScoreItem* nexttime = NULL;
  
-   double measuredur = measureitems.getDuration();
+   // double measuredur = measureitems.getDuration();
    int partstaff = page.getPageStaffIndex(partaddress);
 
    SCORE_FLOAT measureP3 = measureitems.getP3();

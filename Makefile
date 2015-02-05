@@ -2,7 +2,7 @@
 ##
 ## Programmer:    Craig Stuart Sapp <craig@ccrma.stanford.edu>
 ## Creation Date: Thu Feb  6 22:53:03 PST 2014
-## Last Modified: Tue Mar  4 00:01:08 PST 2014
+## Last Modified: Wed Feb  4 21:23:52 PST 2015
 ## Filename:      ...scorelib/Makefile
 ##
 ## Description: This Makefile can create the score library or programs 
@@ -78,6 +78,8 @@ programs:
 	@echo compiling file $@
 	$(MAKE) -f Makefile.programs $@
 	
+install:
+	cp  bin/* /usr/local/bin
 
 #                                                                         #
 #                                                                         #
