@@ -86,11 +86,11 @@ function makeEntryVisible(container, item) {
 	var itoppos    = ipos.top;
 	var diff;
 
-	if (itoppos > maxvisible) {
+	if (itoppos > maxvisible - 20) {
 		// If the PMX entry is hidden below the view, raise it.
 		diff = itoppos - maxvisible;
 		container.scrollTop = container.scrollTop + diff + 50;
-	} else if (itoppos < minvisible) {
+	} else if (itoppos < minvisible + 20) {
 		// If the PMX entry is hidden above the view, lowerit it.
 		diff = maxvisible - itoppos;
 		container.scrollTop = container.scrollTop - diff;

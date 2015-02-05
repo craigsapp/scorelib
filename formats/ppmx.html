@@ -11,3 +11,74 @@ group: [
 ]
 ---
 
+
+PPMX stands for "Paged Parameter MatriX". PPMX data is a generalization
+of PMX files that allows multiple pages of data to be stored in a
+single file.  This allows an entire movement, single-movement work,
+multi-movement work, or collection of works to be stored in a single
+file. PPMX is not a native format of the SCORE editor, but is
+designed to be compatible for reading into SCORE with the <b>RE</b>
+or <b>RE*</b> commands. PPMX data will be read into the SCORE editor
+as a macro, causing SCORE to write the individual pages into separate
+binary page files, using filenames given in the PPMX data.
+
+<p>
+<div style="background-color:#f3f3f3; line-height: 1.10; padding: 5px; font-family:'Courier New',Courier,monospace; font-weight:600;">
+
+<pre>
+RS
+SA page1
+
+<a href=/formats/pmx>[PMX data for page1]</a>
+
+SM
+
+RS 
+SA page2
+
+<a href=/formats/pmx>[PMX data for page2]</a>
+
+SM
+
+RS 
+SA page3
+
+<a href=/formats/pmx>[PMX data for page3]</a>
+
+SM
+</pre>
+</div>
+
+
+</p>
+The PPMX format is designed to be compatible with the SCORE editor.  If PPMX data 
+loaded into the SCORE editor with the RE command, then the above PPMX template
+will create three files "page1.mus", "page2.mus", and "page3.mus" in the 
+<a href=/formats/binary>binary SCORE format</a>.
+
+<p> <b>RS</b> <b>SA</b> and <b>SM</b> are case insensitive, but
+should be given in upper case to increase visibility.  These are
+technically macro commands in the SCORE editor (meaning "reset",
+"save to filename", and "save to same filename").  But for PPMX
+data, these are considered file boundary markers, and no other SCORE
+macro commands are allowed in PPMX data, or they will be ignored.
+
+<p> Each page's PMX data in a PPMX file must start with <b>RS</b> on a line 
+by itself, and starting at the beginning of the line.  This is followed by 
+"<b>SA <i>filename</i></b>", where <i>filename</i> is the name of the file
+that the PMX data would be stored into when loading into the SCORE editor. 
+Preferably this filename does not include a file extension.  The end of a
+page should be marked with <b>SM</b> starting on a line by itself, and
+there should be no PMX content between any <b>SM</b> ending one page, and <b>RS</b>
+starting a new page.
+
+
+
+
+
+
+
+
+
+
+
