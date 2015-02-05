@@ -1,0 +1,28 @@
+---
+layout: default
+breadcrumbs: [['/program','programs']]
+pagetitle:  Program&colon; scorecat
+---
+
+@@BEGIN: MANPAGE
+@COMMAND: scorecat
+@SUMMARY: Print and organize PMX data.
+
+@ABSTRACT:
+
+
+@@BEGIN: OPTIONS
+@DEFAULTINFO: What the program does without options
+
+@OPTIONNAME:
+@OPTIONINFO:
+@OPTIONANCHOR:
+
+@@END:   OPTIONS
+
+@DESCRIPTION:
+
+@@END: MANPAGE
+
+
+

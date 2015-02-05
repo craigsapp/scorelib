@@ -18,7 +18,7 @@ vi:
 img:
 #	$(GETSVG) -s 1.25 courtesy-input.txt > courtesy-input.svg
 #	$(GETSVG) -s 1.25 courtesy-default-output.txt > courtesy-default-output.svg
-	$(GETSVG) -s 1.5 courtesy-example.txt > courtesy-example.svg
+#	$(GETSVG) -s 1.5 courtesy-example.txt > courtesy-example.svg
 
 
 

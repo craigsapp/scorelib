@@ -15,9 +15,8 @@ pagetitle:  Program&colon; courtesy
  The courtesy accidental does not alter the pitch of the note since
  it matches the expected chromatic inflection of the note.
  
- The following musical example demonstrates a courtesy accidental.
- 
- In the second measure, the sharp is not required, since the F is
+ The following musical example demonstrates a courtesy accidental
+ in the second measure where the sharp is not required, since the F is
  already sharpened by the key signature, and the natural sign on the
  F in the previous measure is cancelled by the barline.
  
@@ -34,9 +33,9 @@ pagetitle:  Program&colon; courtesy
  </center>
  
  <p>
- The <i>courtesy</i> program can highlight notes with courtesy accidentals,
- remove these accidentals, or place the courtesy accidentals within
- parentheses.
+ The <i>courtesy</i> program can identify and highlight notes with
+ courtesy accidentals, remove these accidentals, or place the courtesy
+ accidentals within parentheses.
  
  
  
@@ -284,9 +283,9 @@ courtesy -m <a href=courtesy-input.txt>input-data</a> &gt; <a href=courtesy-mark
  at a later time.
  
  <table><tr><td>
- [[https://raw.github.com/wiki/craigsapp/scorelib/img/courtesy-remove.png]]
+ <img width=700 src=https://raw.github.com/wiki/craigsapp/scorelib/img/courtesy-remove.png>
  </td></tr><tr><td valign=right>
- courtesy -kr <a href=https://raw.github.com/wiki/craigsapp/scorelib/img/courtesy.txt>input-data</a> &gt; <a href=https://raw.github.com/wiki/craigsapp/scorelib/img/courtesy-remove.txt>output-data</a>
+ courtesy -kr <a href=courtesy-input.txt>input-data</a> &gt; <a href=courtesy-remove.txt>output-data</a>
  </td></tr></table>
  
  
@@ -312,9 +311,9 @@ courtesy -m <a href=courtesy-input.txt>input-data</a> &gt; <a href=courtesy-mark
  
  
  <table><tr><td>
- [[https://raw.github.com/wiki/craigsapp/scorelib/img/courtesy-paren.png]]
+ <img width=700 src=https://raw.github.com/wiki/craigsapp/scorelib/img/courtesy-paren.png>
  </td></tr><tr><td valign=right>
- courtesy -p <a href=https://raw.github.com/wiki/craigsapp/scorelib/img/courtesy.txt>input-data</a> &gt; <a href=https://raw.github.com/wiki/craigsapp/scorelib/img/courtesy-paren.txt>output-data</a>
+ courtesy -p <a href=courtesy-input.txt>input-data</a> &gt; <a href=courtesy-paren.txt>output-data</a>
  </td></tr></table>
  
  
@@ -324,9 +323,9 @@ courtesy -m <a href=courtesy-input.txt>input-data</a> &gt; <a href=courtesy-mark
  Notice the the parentheses added to courtesy accidentals sometimes touch the previous item in the music.  The <tt>--lj</tt> option can be used along with the <tt>-p</tt> option to append an LJ command macro for each system on the page which had parentheses added to accidentals.  When the data file is loaded into the SCORE editor with the RE command, the LJ commands will be run to add space around the added parentheses.
  
  <table><tr><td>
- [[https://raw.github.com/wiki/craigsapp/scorelib/img/courtesy-parenlj.png]]
+ <img width=700 src=https://raw.github.com/wiki/craigsapp/scorelib/img/courtesy-parenlj.png>
  </td></tr><tr><td valign=right>
- courtesy -p --lj <a href=https://raw.github.com/wiki/craigsapp/scorelib/img/courtesy.txt>input-data</a> &gt; <a href=https://raw.github.com/wiki/craigsapp/scorelib/img/courtesy-parenlj.txt>output-data</a>
+ courtesy -p --lj <a href=courtesy-input.txt>input-data</a> &gt; <a href=courtesy-parenlj.txt>output-data</a>
  </td></tr></table>
  
  
@@ -352,19 +351,20 @@ courtesy -m <a href=courtesy-input.txt>input-data</a> &gt; <a href=courtesy-mark
     cout << infile;
     return 0;
  }{% endhighlight %}
+ </p>
  
  <p>
- Pitch analyses are stored in the <tt>@analysis@base40</tt> named
+ Pitch analyses are stored in the <tt>@auto@base40</tt> named
  parameter, as can be seen in the processed output data on the right
  below.  Courtesy accidentals will have the value "true" for the
- named parameter <tt>@analysis@courtesy</tt>.
+ named parameter <tt>@auto@courtesy</tt>.
  
  </p>
  <table><tr valign="top"><td>
  Given this input:
  <table width=350>
  <tr><td>
- [[https://raw.github.com/wiki/craigsapp/scorelib/img/cf4-thumb-300px.png]]
+ <img src=https://raw.github.com/wiki/craigsapp/scorelib/img/cf4-thumb-300px.png>
  </td>
  <tr><td>
  8  1  0.000 0  0.75 50<br/>
@@ -382,13 +382,29 @@ courtesy -m <a href=courtesy-input.txt>input-data</a> &gt; <a href=courtesy-mark
  The above program produces this output:
  <table width=350>
  <tr><td>
- [[https://raw.github.com/wiki/craigsapp/scorelib/img/cf4-caut-thumb-300px.png]]
+ <img src=https://raw.github.com/wiki/craigsapp/scorelib/img/cf4-caut-thumb-300px.png>
  </td></tr>
  <tr><td>
  8  1  0.000 0  0.75 50<br/>
  3  1  1.500<br/>
  17 1  7.471 0  1.00<br/>
  1  1 11.596 4 10.00  0 1<br/>
+ <span>@auto@base40pitch:	180	(f#)</span><br/>
+ 1  1 21.196 4 12.00  0 1<br/>
+ <b>@auto@courtesy:	true</b><br/>
+ <span>@auto@base40pitch:	180	(f#)</span><br/>
+ 1  1 30.795 4 12.00  0 1<br/>
+ <b>@auto@courtesy:	true</b><br/>
+ <span>@auto@base40pitch:	180	(f#)</span><br/>
+ 1  1 40.395 4 12.00  0 1<br/>
+ <b>@auto@courtesy:	true</b><br/>
+ <span>@auto@base40pitch:	180	(f#)</span><br/>
+ 14 1 50.000 1<br/>
+ </td></tr></table>
+ 
+ </td></tr></table>
+ 
+ 
 
 </ul>
 <a name=examples> </a>
