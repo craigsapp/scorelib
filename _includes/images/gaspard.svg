@@ -2,7 +2,7 @@
 <svg version="1.2" baseProfile="tiny" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
 	 y="0px" width="419.07px" height="155.424px" viewBox="0 0 419.07 155.424" overflow="inherit" xml:space="preserve">
 <g id="Layer_1">
-	<path fill="none" stroke="#000000" stroke-width="0.4807" stroke-linejoin="round" stroke-miterlimit="10" d="M8.322,137.661
+	<path style="shape-rendering:crispEdges;" fill="none" stroke="#aaaaaa" stroke-width="1.0" stroke-linejoin="round" stroke-miterlimit="10" d="M8.322,137.661
 		h410.382 M8.322,131.361h410.382 M8.322,125.062h410.382 M8.322,118.761h410.382 M8.322,112.461h410.382 M8.322,137.661V46.311
 		 M8.431,137.661V46.311"/>
 	<polyline fill-rule="evenodd" stroke="#000000" stroke-width="0.4807" stroke-linejoin="round" stroke-miterlimit="10" points="
@@ -132,7 +132,7 @@
 		118.968,116.403 115.368,117.987 115.368,116.637 118.968,115.053 118.968,116.403 	"/>
 	
 		<line fill="none" stroke="#000000" stroke-width="0.4807" stroke-linejoin="round" stroke-miterlimit="10" x1="118.968" y1="115.053" x2="118.968" y2="126.735"/>
-	<path fill="none" stroke="#000000" stroke-width="0.4807" stroke-linejoin="round" stroke-miterlimit="10" d="M153.205,137.661
+	<path style="shape-rendering:crispEdges;" fill="none" stroke="#000000" stroke-width="1.0" stroke-linejoin="round" stroke-miterlimit="10" d="M153.205,137.661
 		V46.311 M153.331,137.661V46.311"/>
 	
 		<line fill="none" stroke="#000000" stroke-width="0.7211" stroke-linejoin="round" stroke-miterlimit="10" x1="163.104" y1="143.961" x2="175.254" y2="143.961"/>
@@ -230,7 +230,7 @@
 		293.705,116.421 293.295,116.691 293.165,116.356 292.96,116.086 292.755,116.021 292.69,116.021 292.42,116.086 292.355,116.151 
 		292.15,116.292 291.88,116.562 291.405,117.231 291.005,118.041 290.8,118.581 290.595,119.531 290.53,120.276 290.53,120.741 
 		290.595,121.757 290.735,122.901 290.465,122.901 	"/>
-	<path fill="none" stroke="#000000" stroke-width="0.4807" stroke-linejoin="round" stroke-miterlimit="10" d="M297.475,137.661
+	<path style="shape-rendering:crispEdges;" fill="none" stroke="#000000" stroke-width="1.0" stroke-linejoin="round" stroke-miterlimit="10" d="M297.475,137.661
 		V46.311 M297.582,137.661V46.311"/>
 	
 		<line fill="none" stroke="#000000" stroke-width="0.7211" stroke-linejoin="round" stroke-miterlimit="10" x1="305.484" y1="143.961" x2="317.635" y2="143.961"/>
@@ -250,7 +250,7 @@
 			325.103,115.827 325.103,115.27 325.553,114.819 326.11,114.819 326.561,115.27 326.561,115.827 326.11,116.277 325.553,116.277 
 			325.103,115.827 325.103,115.27 		"/>
 	</g>
-	<path fill="none" stroke="#000000" stroke-width="0.7211" stroke-linejoin="round" stroke-miterlimit="10" d="M326.435,150.261
+	<path style="shape-rendering:crispEdges;" fill="none" stroke="#000000" stroke-width="1.0" stroke-linejoin="round" stroke-miterlimit="10" d="M326.435,150.261
 		h12.15 M326.435,143.961h12.15"/>
 	
 		<line fill="none" stroke="#000000" stroke-width="0.4807" stroke-linejoin="round" stroke-miterlimit="10" x1="336.335" y1="149.308" x2="336.335" y2="97.485"/>
@@ -258,24 +258,19 @@
 		401.154,92.77 401.154,89.619 336.335,97.485 336.335,100.635 401.154,92.77 401.154,89.619 	"/>
 	<polyline fill-rule="evenodd" stroke="#000000" stroke-width="0" stroke-linejoin="round" stroke-miterlimit="10" points="
 		401.154,97.485 401.154,94.335 336.335,102.219 336.335,105.369 401.154,97.485 401.154,94.335 	"/>
-	
-		<line fill="none" stroke="#000000" stroke-width="0.4807" stroke-linejoin="round" stroke-miterlimit="10" x1="349.024" y1="62.997" x2="349.024" y2="98.142"/>
-	
-		<line fill="none" stroke="#000000" stroke-width="0.4807" stroke-linejoin="round" stroke-miterlimit="10" x1="401.154" y1="62.996" x2="401.154" y2="97.538"/>
-	
-		<line fill="none" stroke="#000000" stroke-width="0.4807" stroke-linejoin="round" stroke-miterlimit="10" x1="418.704" y1="137.661" x2="418.704" y2="46.311"/>
-	
-		<line fill="none" stroke="#000000" stroke-width="0.4807" stroke-linejoin="round" stroke-miterlimit="10" x1="418.83" y1="137.661" x2="418.83" y2="46.311"/>
-	
-		<line fill="none" stroke="#000000" stroke-width="0.4807" stroke-linejoin="round" stroke-miterlimit="10" x1="8.322" y1="71.511" x2="418.704" y2="71.511"/>
-	
-		<line fill="none" stroke="#000000" stroke-width="0.4807" stroke-linejoin="round" stroke-miterlimit="10" x1="8.322" y1="65.21" x2="418.704" y2="65.21"/>
-	
-		<line fill="none" stroke="#000000" stroke-width="0.4807" stroke-linejoin="round" stroke-miterlimit="10" x1="8.322" y1="58.911" x2="418.704" y2="58.911"/>
-	
-		<line fill="none" stroke="#000000" stroke-width="0.4807" stroke-linejoin="round" stroke-miterlimit="10" x1="8.322" y1="52.611" x2="418.704" y2="52.611"/>
-	
-		<line fill="none" stroke="#000000" stroke-width="0.4807" stroke-linejoin="round" stroke-miterlimit="10" x1="8.322" y1="46.311" x2="418.704" y2="46.311"/>
+
+	<g style="shape-rendering:crispEdges;">
+		<line fill="none" stroke="#000000" stroke-width="1." stroke-linejoin="round" stroke-miterlimit="10" x1="349.024" y1="62.997" x2="349.024" y2="98.142"/>
+		<line fill="none" stroke="#000000" stroke-width="1." stroke-linejoin="round" stroke-miterlimit="10" x1="401.154" y1="62.996" x2="401.154" y2="97.538"/>
+		<line fill="none" stroke="#000000" stroke-width="1." stroke-linejoin="round" stroke-miterlimit="10" x1="418.704" y1="137.661" x2="418.704" y2="46.311"/>
+		<line fill="none" stroke="#000000" stroke-width="1." stroke-linejoin="round" stroke-miterlimit="10" x1="418.83" y1="137.661" x2="418.83" y2="46.311"/>
+		<line fill="none" stroke="#aaaaaa" stroke-width="1." stroke-linejoin="round" stroke-miterlimit="10" x1="8.322" y1="71.511" x2="418.704" y2="71.511"/>
+		<line fill="none" stroke="#aaaaaa" stroke-width="1." stroke-linejoin="round" stroke-miterlimit="10" x1="8.322" y1="65.21" x2="418.704" y2="65.21"/>
+		<line fill="none" stroke="#aaaaaa" stroke-width="1." stroke-linejoin="round" stroke-miterlimit="10" x1="8.322" y1="58.911" x2="418.704" y2="58.911"/>
+		<line fill="none" stroke="#aaaaaa" stroke-width="1." stroke-linejoin="round" stroke-miterlimit="10" x1="8.322" y1="52.611" x2="418.704" y2="52.611"/>
+		<line fill="none" stroke="#aaaaaa" stroke-width="1." stroke-linejoin="round" stroke-miterlimit="10" x1="8.322" y1="46.311" x2="418.704" y2="46.311"/>
+	</g>
+
 	<polyline fill-rule="evenodd" stroke="#000000" stroke-width="0.4807" stroke-linejoin="round" stroke-miterlimit="10" points="
 		21.03,52.161 24.973,74.661 25.188,76.785 25.081,77.918 24.847,78.584 24.63,79.035 24.181,79.719 23.497,80.385 22.938,80.728 
 		22.146,80.961 21.48,81.069 20.922,81.069 19.789,80.961 19.23,80.835 18.78,80.619 18.889,79.935 19.338,80.061 19.572,80.061 
@@ -349,7 +344,7 @@
 	<polyline fill-rule="evenodd" stroke="#000000" stroke-width="0.4807" stroke-linejoin="round" stroke-miterlimit="10" points="
 		76.992,57.219 76.309,56.769 75.966,56.21 75.966,55.437 76.309,54.861 76.992,54.411 77.893,54.411 78.559,54.861 78.9,55.437 
 		78.9,56.21 78.559,56.769 77.893,57.219 76.992,57.219 	"/>
-	<path fill="none" stroke="#000000" stroke-width="0.7211" stroke-linejoin="round" stroke-miterlimit="10" d="M91.284,27.411h12.15
+	<path style="shape-rendering:crispEdges;" fill="none" stroke="#000000" stroke-width="1.0" stroke-linejoin="round" stroke-miterlimit="10" d="M91.284,27.411h12.15
 		 M91.284,33.71h12.15 M91.284,40.011h12.15"/>
 	
 		<line fill="none" stroke="#000000" stroke-width="0.4807" stroke-linejoin="round" stroke-miterlimit="10" x1="93.534" y1="28.347" x2="93.534" y2="76.227"/>

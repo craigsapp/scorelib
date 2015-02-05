@@ -1,38 +1,56 @@
 
-<!-- Used on the about page to highlight PMX and SVG equivalences -->
-
 <script>
+//
+// Programmer:    Craig Stuart Sapp <craig.stanford.edu>
+// Creation Date: Wed Feb  4 11:46:29 PST 2015
+// Last Modified: Wed Feb  4 11:46:32 PST 2015
+// Filename:      _includes/js/turnoff-sticky.html
+// Syntax:        JavaScript 1.5 (EMCAScript 5)
+// vim:           ts=3 ft=javascript hlsearch
+//
+// Description:   This code is used on the /formats/binary page to highlight
+//                the PMX and SVG item that a mouse is pointing to.
+//
 
 function turnon(klass) {
-   var items = document.getElementsByClassName(klass);
-   var items2 = document.getElementsByClassName(klass + "back");
-   var info = "";
-   for (var i=0; i<items.length; i++) {
-      items.item(i).style.color = "red";
-      items.item(i).style.stroke = "red";
-      if (items.item(i).tagName == "SPAN") {
-         info = items.item(i).innerHTML;
-      }
-   }
-   var re = /[0-9]+/;
-   var infobox = document.getElementById(klass.replace(re, "info"));
-   if (infobox != null) {
-      infobox.innerHTML = info;
-   }
+	var items = document.getElementsByClassName(klass);
+	var info = "";
+	for (var i=0; i<items.length; i++) {
+		items.item(i).style.color = "red";
+		items.item(i).style.stroke = "red";
+		if (items.item(i).tagName == "SPAN") {
+			info = items.item(i).innerHTML;
+		}
+	}
+	var re = /[0-9]+/;
+	var infobox = document.getElementById(klass.replace(re, "info"));
+	if (infobox != null) {
+		infobox.innerHTML = info;
+	}
 }
 
 function turnoff(klass) {
-   var items = document.getElementsByClassName(klass);
-   var items2 = document.getElementsByClassName(klass + "back");
-   for (var i=0; i<items.length; i++) {
-      items.item(i).style.color = "black";
-      items.item(i).style.stroke = "black";
-   }
-   var re = /[0-9]+/;
-   var infobox = document.getElementById(klass.replace(re, "info"));
-   if (infobox != null) {
-      infobox.innerHTML = "";
-   }
+	var items = document.getElementsByClassName(klass);
+	for (var i=0; i<items.length; i++) {
+		if (items[i].tagName == 'g') {
+			if (items[i].getAttribute('class').match(/staff/)) {
+				items.item(i).style.color = "#999999";
+				items.item(i).style.stroke = "#999999";
+			} else {
+				items.item(i).style.color = "black";
+				items.item(i).style.stroke = "black";
+			}
+		} else {
+			items.item(i).style.color = "black";
+			items.item(i).style.stroke = "black";
+		}
+	}
+	var re = /[0-9]+/;
+	var infobox = document.getElementById(klass.replace(re, "info"));
+	if (infobox != null) {
+		infobox.innerHTML = "";
+	}
 }
 
 </script>
+

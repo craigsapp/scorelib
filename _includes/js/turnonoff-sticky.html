@@ -44,8 +44,13 @@ function turnon(klass) {
 		}
 		if (items.item(i).tagName == 'g') {
 			if (lastglyph != null) {
-				lastglyph.style.color = 'black';
-				lastglyph.style.stroke = 'black';
+				if (lastglyph.getAttribute('class').match(/staff/)) {
+						lastglyph.style.color = '#999999';
+						lastglyph.style.stroke = '#999999';
+				} else {
+						lastglyph.style.color = 'black';
+						lastglyph.style.stroke = 'black';
+				}
 			}
 			items.item(i).style.color = 'red';
 			items.item(i).style.stroke = 'red';
