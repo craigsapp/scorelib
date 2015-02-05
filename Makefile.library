@@ -116,27 +116,27 @@ library: $(OBJS)
 
    ifeq ($(OSTYPE),LINUX)
 	@echo "Creating score library file for linux..."
-	-rm -f $(LIBDIR)/$(LIBFILE)
-	$(AR) r $(LIBDIR)/$(LIBFILE) $(OBJDIR)/*.o 
-	$(RANLIB) $(LIBDIR)/$(LIBFILE)
+	@-rm -f $(LIBDIR)/$(LIBFILE)
+	@$(AR) r $(LIBDIR)/$(LIBFILE) $(OBJDIR)/*.o 
+	@$(RANLIB) $(LIBDIR)/$(LIBFILE)
    endif
 
    ifeq ($(OSTYPE),OSXOLD)
 	@echo "Creating score library file for OSX (PowerPC)..."
-	-rm -f $(LIBDIR)/$(LIBFILE)
-	$(AR) r $(LIBDIR)/$(LIBFILE) $(OBJDIR)/*.o 
-	$(RANLIB) $(LIBDIR)/$(LIBFILE)
+	@-rm -f $(LIBDIR)/$(LIBFILE)
+	@$(AR) r $(LIBDIR)/$(LIBFILE) $(OBJDIR)/*.o 
+	@$(RANLIB) $(LIBDIR)/$(LIBFILE)
    endif
 
    ifeq ($(OSTYPE),OSXPC)
 	@echo "Creating score library file for OSX (Intel)..."
-	-rm -f $(LIBDIR)/$(LIBFILE)
-	$(AR) r $(LIBDIR)/$(LIBFILE) $(OBJDIR)/*.o 
-	$(RANLIB) $(LIBDIR)/$(LIBFILE)
+	@-rm -f $(LIBDIR)/$(LIBFILE)
+	@$(AR) r $(LIBDIR)/$(LIBFILE) $(OBJDIR)/*.o 
+	@$(RANLIB) $(LIBDIR)/$(LIBFILE)
    endif
 
    ifeq ($(OSTYPE),VISUAL)
-	echo "This makefile doesn\'t work with Visual C++."
+	@echo "This makefile doesn\'t work with Visual C++."
    endif
 
 editlibrary: libraryedit
@@ -144,46 +144,46 @@ libraryedit: $(OBJS)
 
    ifeq ($(OSTYPE),LINUX)
 	@echo "Creating score-edit library file for linux..."
-	-rm -f $(LIBDIR)/$(LIBFILE_EDIT)
-	$(AR) r $(LIBDIR)/$(LIBFILE_EDIT) $(OBJDIR_EDIT)/*.o 
-	$(RANLIB) $(LIBDIR)/$(LIBFILE_EDIT)
+	@-rm -f $(LIBDIR)/$(LIBFILE_EDIT)
+	@$(AR) r $(LIBDIR)/$(LIBFILE_EDIT) $(OBJDIR_EDIT)/*.o 
+	@$(RANLIB) $(LIBDIR)/$(LIBFILE_EDIT)
    endif
 
    ifeq ($(OSTYPE),OSXOLD)
 	@echo "Creating score-edit library file for OSX (PowerPC)..."
-	-rm -f $(LIBDIR)/$(LIBFILE_EDIT)
-	$(AR) r $(LIBDIR)/$(LIBFILE_EDIT) $(OBJDIR_EDIT)/*.o 
-	$(RANLIB) $(LIBDIR)/$(LIBFILE_EDIT)
+	@-rm -f $(LIBDIR)/$(LIBFILE_EDIT)
+	@$(AR) r $(LIBDIR)/$(LIBFILE_EDIT) $(OBJDIR_EDIT)/*.o 
+	@$(RANLIB) $(LIBDIR)/$(LIBFILE_EDIT)
    endif
 
    ifeq ($(OSTYPE),OSXPC)
 	@echo "Creating score-edit library file for OSX (Intel)..."
-	-rm -f $(LIBDIR)/$(LIBFILE_EDIT)
-	$(AR) r $(LIBDIR)/$(LIBFILE_EDIT) $(OBJDIR_EDIT)/*.o 
-	$(RANLIB) $(LIBDIR)/$(LIBFILE_EDIT)
+	@-rm -f $(LIBDIR)/$(LIBFILE_EDIT)
+	@$(AR) r $(LIBDIR)/$(LIBFILE_EDIT) $(OBJDIR_EDIT)/*.o 
+	@$(RANLIB) $(LIBDIR)/$(LIBFILE_EDIT)
    endif
 
    ifeq ($(OSTYPE),VISUAL)
-	echo "This makefile doesn\'t work with Visual C++."
+	@echo "This makefile doesn\'t work with Visual C++."
    endif
 
 
 
 clean:
-	@echo Erasing object files:
-	-rm -f $(OBJDIR)/*.o
-	@echo Erasing obj directory:
-	-rmdir $(OBJDIR)
-	@echo Erasing edito object files:
-	-rm -f $(OBJDIR_EDIT)/*.o
-	@echo Erasing obj edit directory:
-	-rmdir $(OBJDIR_EDIT)
+	@echo Erasing object files...
+	@-rm -f $(OBJDIR)/*.o
+	@echo Erasing obj directory...
+	@-rmdir $(OBJDIR)
+	@echo Erasing edito object files...
+	@-rm -f $(OBJDIR_EDIT)/*.o
+	@echo Erasing obj edit directory...
+	@-rmdir $(OBJDIR_EDIT)
 
 
 makedirs: 
-	-mkdir $(OBJDIR)
-	-mkdir $(OBJDIR_EDIT)
-	-mkdir $(LIBDIR)
+	@-mkdir -p $(OBJDIR)
+	@-mkdir -p $(OBJDIR_EDIT)
+	@-mkdir -p $(LIBDIR)
 
 
 ###########################################################################
@@ -193,9 +193,10 @@ makedirs:
 
 
 %.o : %.cpp
-	$(COMPILER) $(PREFLAGS) -o $(OBJDIR)/$(notdir $@) $(POSTFLAGS) $<
-	$(COMPILER) -DSCOREITEMEDIT $(PREFLAGS) -o $(OBJDIR_EDIT)/$(notdir $@) \
-		$(POSTFLAGS) $<
+	@echo [CC] $@
+	@$(COMPILER) $(PREFLAGS) -o $(OBJDIR)/$(notdir $@) $(POSTFLAGS) $<
+	@$(COMPILER) -DSCOREITEMEDIT $(PREFLAGS) \
+		-o $(OBJDIR_EDIT)/$(notdir $@) $(POSTFLAGS) $<
 
 #                                                                         #
 ###########################################################################

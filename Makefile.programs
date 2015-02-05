@@ -127,7 +127,7 @@ info:
 
 bin:
 ifeq ($(wildcard $(TARGDIR)),)
-	-mkdir -p $(TARGDIR)
+	@-mkdir -p $(TARGDIR)
 endif
 
 
@@ -138,19 +138,19 @@ endif
 
 $(TARGDIR)/% : $(notdir %.cpp)
 ifeq ($(wildcard $(TARGDIR)),)
-	-mkdir -p $(TARGDIR)
+	@-mkdir -p $(TARGDIR)
 endif
-	$(COMPILER) $(PREFLAGS) -o $@ $< $(POSTFLAGS) \
-
-#	&& strip $@$(EXTEN)
+	@echo "Compiling $@..."
+	@$(COMPILER) $(PREFLAGS) -o $@ $< $(POSTFLAGS) \
+		&& strip $@$(EXTEN)
 
 % : $(notdir %.cpp)
 ifeq ($(wildcard $(TARGDIR)),)
-	-mkdir -p $(TARGDIR)
+	@-mkdir -p $(TARGDIR)
 endif
-	$(COMPILER) $(PREFLAGS) -o $(TARGDIR)/$@ $< $(POSTFLAGS) \
-
-#	&& strip $(TARGDIR)/$@$(EXTEN)
+	@echo "Compiling $@..."
+	@$(COMPILER) $(PREFLAGS) -o $(TARGDIR)/$@ $< $(POSTFLAGS) \
+		&& strip $(TARGDIR)/$@$(EXTEN)
 
 #                                                                         #
 #                                                                         #
