@@ -2,9 +2,18 @@
 <svg version="1.2" baseProfile="tiny" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
 	 y="0px" width="419.07px" height="155.424px" viewBox="0 0 419.07 155.424" overflow="inherit" xml:space="preserve">
 <g id="Layer_1">
+
 	<path style="shape-rendering:crispEdges;" fill="none" stroke="#aaaaaa" stroke-width="1.0" stroke-linejoin="round" stroke-miterlimit="10" d="M8.322,137.661
 		h410.382 M8.322,131.361h410.382 M8.322,125.062h410.382 M8.322,118.761h410.382 M8.322,112.461h410.382 M8.322,137.661V46.311
 		 M8.431,137.661V46.311"/>
+	<g style="shape-rendering:crispEdges;">
+		<line fill="none" stroke="#aaaaaa" stroke-width="1." stroke-linejoin="round" stroke-miterlimit="10" x1="8.322" y1="71.511" x2="418.704" y2="71.511"/>
+		<line fill="none" stroke="#aaaaaa" stroke-width="1." stroke-linejoin="round" stroke-miterlimit="10" x1="8.322" y1="65.21" x2="418.704" y2="65.21"/>
+		<line fill="none" stroke="#aaaaaa" stroke-width="1." stroke-linejoin="round" stroke-miterlimit="10" x1="8.322" y1="58.911" x2="418.704" y2="58.911"/>
+		<line fill="none" stroke="#aaaaaa" stroke-width="1." stroke-linejoin="round" stroke-miterlimit="10" x1="8.322" y1="52.611" x2="418.704" y2="52.611"/>
+		<line fill="none" stroke="#aaaaaa" stroke-width="1." stroke-linejoin="round" stroke-miterlimit="10" x1="8.322" y1="46.311" x2="418.704" y2="46.311"/>
+	</g>
+
 	<polyline fill-rule="evenodd" stroke="#000000" stroke-width="0.4807" stroke-linejoin="round" stroke-miterlimit="10" points="
 		4.992,137.661 3.444,135.52 2.977,134.763 2.148,133.27 1.429,131.505 0.96,129.993 0.601,128.247 0.366,126.483 0.24,124.233 
 		0.24,122.974 0.475,120.453 0.834,118.203 2.616,109.293 3.103,106.161 3.444,102.885 3.444,101.265 3.21,98.511 2.851,96.747 
@@ -264,11 +273,6 @@
 		<line fill="none" stroke="#000000" stroke-width="1." stroke-linejoin="round" stroke-miterlimit="10" x1="401.154" y1="62.996" x2="401.154" y2="97.538"/>
 		<line fill="none" stroke="#000000" stroke-width="1." stroke-linejoin="round" stroke-miterlimit="10" x1="418.704" y1="137.661" x2="418.704" y2="46.311"/>
 		<line fill="none" stroke="#000000" stroke-width="1." stroke-linejoin="round" stroke-miterlimit="10" x1="418.83" y1="137.661" x2="418.83" y2="46.311"/>
-		<line fill="none" stroke="#aaaaaa" stroke-width="1." stroke-linejoin="round" stroke-miterlimit="10" x1="8.322" y1="71.511" x2="418.704" y2="71.511"/>
-		<line fill="none" stroke="#aaaaaa" stroke-width="1." stroke-linejoin="round" stroke-miterlimit="10" x1="8.322" y1="65.21" x2="418.704" y2="65.21"/>
-		<line fill="none" stroke="#aaaaaa" stroke-width="1." stroke-linejoin="round" stroke-miterlimit="10" x1="8.322" y1="58.911" x2="418.704" y2="58.911"/>
-		<line fill="none" stroke="#aaaaaa" stroke-width="1." stroke-linejoin="round" stroke-miterlimit="10" x1="8.322" y1="52.611" x2="418.704" y2="52.611"/>
-		<line fill="none" stroke="#aaaaaa" stroke-width="1." stroke-linejoin="round" stroke-miterlimit="10" x1="8.322" y1="46.311" x2="418.704" y2="46.311"/>
 	</g>
 
 	<polyline fill-rule="evenodd" stroke="#000000" stroke-width="0.4807" stroke-linejoin="round" stroke-miterlimit="10" points="
