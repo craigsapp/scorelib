@@ -5,6 +5,7 @@ pagetitle:  ScoreSegment class
 grouptitle: ['https://github.com/craigsapp/scorelib/blob/master/src-library', 'Source Code']
 group: [ 
    ['https://github.com/craigsapp/scorelib/blob/master/src-library/ScoreSegment.cpp', ScoreSegment.cpp], 
+   ['https://github.com/craigsapp/scorelib/blob/master/src-library/ScoreSegment_ties.cpp', ties],
 ]
 ---
 

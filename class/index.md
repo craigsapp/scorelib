@@ -141,6 +141,7 @@ Class index
 <li> <a href="ScorePageOverlay">ScorePageOverlay</a> </li>
 <li> <a href="ScorePageSet">ScorePageSet</a> </li>
 <li> <a href="ScoreSegment">ScoreSegment</a> </li>
+<li> <a href="ScoreUtility">ScoreUtility</a> </li>
 <li> <a href="SegmentPart">SegmentPart</a> </li>
 </ul>
 

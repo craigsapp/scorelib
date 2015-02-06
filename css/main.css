@@ -136,7 +136,7 @@ a:visited { color: #205caa; }
   width: 100%;
   border-top: 1px solid #e8e8e8;
   margin: 0 auto;
-  padding: 4px 0;
+  padding: 4px 10px 10px 10px;
 }
 
 .footer-heading {
@@ -148,7 +148,7 @@ a:visited { color: #205caa; }
 
 .site-footer .column { float: left; margin-bottom: 15px; }
 
-.footer-col-2 {
+.github {
   width: 270px; /*fallback*/
   width: -webkit-calc(35% - 10px);
   width: -moz-calc(35% - 10px);
@@ -156,7 +156,7 @@ a:visited { color: #205caa; }
   width: calc(35% - 10px);
   margin-right: 10px
 }
-.footer-col-2 {
+.github {
   width: 175px; /*fallback*/
   width: -webkit-calc(23.125% - 10px);
   width: -moz-calc(23.125% - 10px);
@@ -164,32 +164,16 @@ a:visited { color: #205caa; }
   width: calc(23.125% - 10px);
   margin-right: 10px
 }
-.footer-col-3 {
-  width: 335px; /*fallback*/
-  width: -webkit-calc(41.875%);
-  width: -moz-calc(41.875%);
-  width: -o-calc(41.875%);
-  width: calc(41.875%);
-}
 
 .site-footer ul { list-style: none; }
 
 .site-footer li,
 .site-footer p {
+  display: inline-block;
   font-size: 15px;
   letter-spacing: -.3px;
   color: #828282;
 }
-
-.github-icon-svg,
-.twitter-icon-svg {
-  display: inline-block;
-  width: 16px;
-  height: 16px;
-  position: relative;
-  top: 3px;
-}
-
 
 /* Page Content styles */
 /* ----------------------------------------------------------*/
@@ -394,7 +378,7 @@ a:visited { color: #205caa; }
 
   .footer-col-1 { width: 50%; }
 
-  .footer-col-2 {
+  .github {
     width: 45%; /*fallback*/
     width: -webkit-calc(50% - 10px);
     width: -moz-calc(50% - 10px);
@@ -472,21 +456,13 @@ a:visited { color: #205caa; }
 
 /* Footer links to GitHub */
 
-div.footer-col-1 {
-   position: absolute;
-   left: 20px;
-   top: 25px;
-}
-
-div.footer-col-2 ul {
+ul.github {
   padding: 0;
-  list-style: none;
-  position: absolute;
-  margin-left: auto;
-  margin-right: auto;
-  right: 20px;
-  top: 15px;
+  list-style: inline;
+  margin-top: 10px;
+  margin-right: 20px;
   height: 38px;
+  width: auto;
   padding: 1px 0;
 
   background: #bbbbbb;
@@ -501,11 +477,10 @@ div.footer-col-2 ul {
   -webkit-box-shadow: inset rgba(255, 255, 255, 0.45) 0 1px 0, inset rgba(0, 0, 0, 0.2) 0 -1px 0;
   -moz-box-shadow: inset rgba(255, 255, 255, 0.45) 0 1px 0, inset rgba(0, 0, 0, 0.2) 0 -1px 0;
   box-shadow: inset rgba(255, 255, 255, 0.45) 0 1px 0, inset rgba(0, 0, 0, 0.2) 0 -1px 0;
-  width: auto;
 }
-div.footer-col-2 ul:before {
+
+ul.github:before {
   content: '';
-  position: absolute;
   z-index: -1;
   left: -5px;
   top: -4px;
@@ -521,25 +496,28 @@ div.footer-col-2 ul:before {
   -moz-box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 0, inset rgba(255, 255, 255, 0.7) 0 -1px 0;
   box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 0, inset rgba(255, 255, 255, 0.7) 0 -1px 0;
 }
-div.footer-col-2 ul li {
+
+ul.github li {
   width: 79px;
-  float: left;
   border-right: 1px solid #bbbbbb;
   height: 38px;
 }
-div.footer-col-2 ul li.single {
+
+ul.github li.single {
   border: none;
 }
-div.footer-col-2 ul li + li
- {
+
+ul.github li + li {
   width: 78px;
   border-left: 1px solid #eeeeee;
 }
-div.footer-col-2 ul li + li + li {
+
+ul.github li + li + li {
   border-right: none;
   width: 79px;
 }
-div.footer-col-2 ul a {
+
+ul.github a {
   line-height: 1;
   font-size: 11px;
   color: #fff;
@@ -551,7 +529,8 @@ div.footer-col-2 ul a {
   height: 40px;
   text-shadow: rgba(0, 0, 0, 0.4) 0 -1px 0;
 }
-div.footer-col-2 ul a strong {
+
+ul.github a strong {
   font-size: 14px;
   display: block;
   color: #fff;
