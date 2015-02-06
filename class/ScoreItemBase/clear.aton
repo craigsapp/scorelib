@@ -1,0 +1,31 @@
+
+@@BEGIN:	FunctionDocumentation
+@OBJECT:	ScoreItemBase
+@METHOD:	clear
+@RETURN:	void
+@PARAMETERS:	void
+@FILE:		ScoreItemBase.cpp
+@SEEALSO:	
+@SHORTDESC:	Erase all contents of the item.
+@LONGDESC:	Erase all of the contents of the item.
+		Currently this function is invisible to edit history 
+		management of the ScoreItemEdit class.
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+@@BEGIN: EXAMPLE
+
+@DESCRIPTION:	
+
+@CODE:
+
+@OUTPUT:
+
+@@END:	EXAMPLE
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+@@END:	FunctionDocumentation
+
+
+

@@ -1,0 +1,40 @@
+
+@@BEGIN:	FunctionDocumentation
+@OBJECT:	ScoreItemBase
+@METHOD:	getParameterInt
+@RETURN:	int
+@PARAMETERS:	const string& nspace, const string& key
+@PARAMETERS:	const string& key
+@PARAMETERS:	int pindex
+@FILE:		ScoreItemBase.cpp
+@SEEALSO:	getParameter
+@SEEALSO:	getParameterBool
+@SEEALSO:	getParameterDouble
+@SHORTDESC:	Return a fixed or named parameter value as an integer.
+@LONGDESC:	Return a fixed or named parameter value, depending
+		on the data type of the input argument.  If the value is
+		a fixed parameter, the return value will convert the 
+		floating-point number to an integer, such as 4.2 &rarr; 4,
+		5.9 &rarr; 5, and &ndash;10.9 &rarr; 10.  If the parameter
+		is a named parameter, this function will convert it to an
+		integer according to the first number in the string, or 0
+		if not a number.
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+@@BEGIN: EXAMPLE
+
+@DESCRIPTION:	
+
+@CODE:
+
+@OUTPUT:
+
+@@END:	EXAMPLE
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+@@END:	FunctionDocumentation
+
+
+

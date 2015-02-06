@@ -1,0 +1,29 @@
+
+@@BEGIN:	FunctionDocumentation
+@OBJECT:	ScoreItemBase
+@RETURN:	ScoreItemBase&
+@METHOD:	operator=
+@PARAMETERS:	const ScoreItemBase& anItem
+@FILE:		ScoreItemBase.cpp
+@SEEALSO:	
+@SHORTDESC:	Copy from another item object.
+@LONGDESC:	Copy from another item object.
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+@@BEGIN: EXAMPLE
+
+@DESCRIPTION:	
+
+@CODE:
+
+@OUTPUT:
+
+@@END:	EXAMPLE
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+@@END:	FunctionDocumentation
+
+
+

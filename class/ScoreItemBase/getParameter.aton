@@ -1,0 +1,36 @@
+
+@@BEGIN:	FunctionDocumentation
+@OBJECT:	ScoreItemBase
+@METHOD:	getParameter
+@RETURN:	const string&
+@PARAMETERS:	const string& nspace, const string& key
+@PARAMETERS:	const string& key
+@PARAMETERS	int pindex
+@FILE:		ScoreItemBase.cpp
+@SEEALSO:	getParameterInt
+@SEEALSO:	getParameterBool
+@SEEALSO:	getParameterDouble
+@SHORTDESC:	Return a fixed or named parameter value.
+@LONGDESC:	Return a fixed or named parameter value, depending
+		on the data type of the input argument.  Integer values
+		will access the fixed parameter list, string values will 
+		access the named parameter list.
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+@@BEGIN: EXAMPLE
+
+@DESCRIPTION:	
+
+@CODE:
+
+@OUTPUT:
+
+@@END:	EXAMPLE
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+@@END:	FunctionDocumentation
+
+
+
