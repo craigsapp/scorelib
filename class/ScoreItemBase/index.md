@@ -2,6 +2,10 @@
 layout: default
 breadcrumbs: [['/doc','documentation'], ['/class', 'classes']]
 pagetitle:  ScoreItemBase class
+grouptitle: ['https://github.com/craigsapp/scorelib/blob/master/src-library', 'Source Code']
+group: [ 
+   ['https://github.com/craigsapp/scorelib/blob/master/src-library/ScoreItemBase.cpp', ScoreItemBase.cpp], 
+]
 ---
 
 {% include docslot/docslot.html %}
