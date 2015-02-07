@@ -1,0 +1,36 @@
+
+@@BEGIN:	FunctionDocumentation
+@OBJECT:	ScoreUtility
+@METHOD:	sortP3P1
+@ALIAS:		
+@RETURN:	bool
+@PARAMETERS:	ScoreItem* a, ScoreItem* b
+@FILE:		ScoreUtility_sort.cpp
+@SEEALSO:	
+@SHORTDESC:	Sort two items by P3, and then P1.
+@LONGDESC:      Sort two items by their horizontal positions (P3 values).
+		If there is a tie in the P3 value, then sort by
+		item type (P1 values).  This function is used in
+		sorting functions and returns true if the second
+		item is more to the right. If there is a tie in the
+		P3 value, then return true if the second item has
+		a higher item type number; otherwise, returns false.
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+@@BEGIN: EXAMPLE
+
+@DESCRIPTION:	
+
+@CODE:
+
+@OUTPUT:
+
+@@END:	EXAMPLE
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+@@END:	FunctionDocumentation
+
+
+

@@ -1,0 +1,33 @@
+
+@@BEGIN:	FunctionDocumentation
+@OBJECT:	ScoreUtility
+@METHOD:	printXmlTextEscapedUTF8
+@ALIAS:		
+@RETURN:	ostream&
+@PARAMETERS:	ostream& out, const string& text
+@FILE:		ScoreUtility_text.cpp
+@SEEALSO:	getTextNoFontXmlEscapedUTF8
+@SHORTDESC:	Converts SCORE text to UTF-8, using XML entities.
+@LONGDESC:	Converts SCORE text to UTF-8, using XML entities for
+		the ampersand, single-quotes, double-quotes, less-than
+		and greater-than signs.  Font codes (in the form "_##")
+		will automatically be stripped from the output text.
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+@@BEGIN: EXAMPLE
+
+@DESCRIPTION:	
+
+@CODE:
+
+@OUTPUT:
+
+@@END:	EXAMPLE
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+@@END:	FunctionDocumentation
+
+
+

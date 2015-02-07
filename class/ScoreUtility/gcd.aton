@@ -1,0 +1,29 @@
+
+@@BEGIN:	FunctionDocumentation
+@OBJECT:	ScoreUtility
+@METHOD:	gcd
+@RETURN:	int
+@PARAMETERS:	int x, int y
+@FILE:		ScoreUtility_math.cpp
+@SEEALSO:	lcm
+@SHORTDESC:	Find the greatest common divisor between two integers.
+@LONGDESC:	Fine the greatest common divisor between two integers.
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+@@BEGIN: EXAMPLE
+
+@DESCRIPTION:	
+
+@CODE:
+
+@OUTPUT:
+
+@@END:	EXAMPLE
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+@@END:	FunctionDocumentation
+
+
+

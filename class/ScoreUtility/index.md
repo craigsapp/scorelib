@@ -4,7 +4,7 @@ breadcrumbs: [['/doc','documentation'], ['/class', 'classes']]
 pagetitle:  ScoreUtility class
 grouptitle: ['https://github.com/craigsapp/scorelib/blob/master/src-library', 'Source Code']
 group: [ 
-   ['https://github.com/craigsapp/scorelib/blob/master/src-library/ScoreUtility.cpp', ScoreUtility.cpp], 
+   ['', 'ScoreUtility namespace'], 
    ['https://github.com/craigsapp/scorelib/blob/master/src-library/ScoreUtility_compare.cpp', compare],
    ['https://github.com/craigsapp/scorelib/blob/master/src-library/ScoreUtility_math.cpp', math],
    ['https://github.com/craigsapp/scorelib/blob/master/src-library/ScoreUtility_pitch.cpp', pitch],
@@ -14,6 +14,47 @@ group: [
 ]
 ---
 
-This page will contain documentation about the ScorePage class.
+{% include docslot/docslot.html %}
+
+The ScoreUtility namespace collects static functions for processing 
+musical data in Scorelib.  "SU" is a shorthand typedef for "ScoreUtility".
+
+Comparison functions
+======================
+
+{% include docslot/ScoreUtility_compare.html %}
+
+
+Mathematical functions
+======================
+
+{% include docslot/ScoreUtility_math.html %}
+
+
+Pitch functions
+===============
+
+{% include docslot/ScoreUtility_pitch.html %}
+
+
+Sorting functions
+=================
+
+{% include docslot/ScoreUtility_sort.html %}
+
+
+Text-processing functions
+=========================
+
+{% include docslot/ScoreUtility_text.html %}
+
+
+Tie-processing functions
+=========================
+
+{% include docslot/ScoreUtility_ties.html %}
+
+
+
 
 

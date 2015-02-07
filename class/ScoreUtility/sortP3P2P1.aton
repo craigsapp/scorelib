@@ -1,0 +1,31 @@
+
+@@BEGIN:	FunctionDocumentation
+@OBJECT:	ScoreUtility
+@METHOD:	sortP3P2P1
+@ALIAS:		
+@RETURN:	bool
+@PARAMETERS:	ScoreItem* a, ScoreItem* b
+@FILE:		ScoreUtility_sort.cpp
+@SEEALSO:	
+@SHORTDESC:	Sort two items by P3 then P2 then P1.
+@LONGDESC:	Sort two items first by their horizontal positions (P3 values),
+		then by their staff number (P2), then by their item number.
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+@@BEGIN: EXAMPLE
+
+@DESCRIPTION:	
+
+@CODE:
+
+@OUTPUT:
+
+@@END:	EXAMPLE
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+@@END:	FunctionDocumentation
+
+
+

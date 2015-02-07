@@ -125,7 +125,7 @@ below shows the relationship between thses classes:
 Class index
 ===========
 
-<ul style="margin-left:50px;">
+<ul style="-webkit-column-count:4; -moz-column-count:4; column-count:4; margin-left:50px;">
 <li> <a href="AddressSystem">AddressSystem</a> </li>
 <li> <a href="DatabaseBeam">DatabaseBeam</a> </li>
 <li> <a href="DatabaseChord">DatabaseChord</a> </li>

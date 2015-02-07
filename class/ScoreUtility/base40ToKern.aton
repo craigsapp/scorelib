@@ -1,0 +1,32 @@
+
+@@BEGIN:	FunctionDocumentation
+@OBJECT:	ScoreUtility
+@METHOD:	base40ToKern
+@RETURN:	string
+@PARAMETERS:	int base40
+@FILE:		ScoreUtility_pitch.cpp
+@SEEALSO:	base40ToKern
+@SHORTDESC:	Converts a base-40 note a Humdrum **kern pitch name.
+@LONGDESC:	Converts a base-40 note a Humdrum **kern pitch name.
+		Example for middle C (C4): base-40: 2 + 4 * 40 = 162 &rarr; 
+		kern: "c".
+
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+@@BEGIN: EXAMPLE
+
+@DESCRIPTION:	
+
+@CODE:
+
+@OUTPUT:
+
+@@END:	EXAMPLE
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+@@END:	FunctionDocumentation
+
+
+

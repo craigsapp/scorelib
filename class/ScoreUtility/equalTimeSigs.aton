@@ -1,0 +1,35 @@
+
+@@BEGIN:	FunctionDocumentation
+@OBJECT:	ScoreUtility
+@METHOD:	equalTimeSigs
+@ALIAS:		equalsTimeSigs
+@ALIAS:		equalTimeSignatures
+@ALIAS:		equalTimeSignature
+@RETURN:	bool
+@PARAMETERS:	ScoreItem* a, ScoreItem* b
+@FILE:		ScoreUtility_compare.cpp
+@SEEALSO:	
+@SHORTDESC:	Returns true if two items represent the same time signature.
+@LONGDESC:	Returns true if two the items represent the same time signature.
+		If either one of the items is NULL, then the return value
+		will be false.  The top and bottom numbers are compared.
+		Cut time and a 2/2 meter are considered unequal.
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+@@BEGIN: EXAMPLE
+
+@DESCRIPTION:	
+
+@CODE:
+
+@OUTPUT:
+
+@@END:	EXAMPLE
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+@@END:	FunctionDocumentation
+
+
+

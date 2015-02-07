@@ -1,0 +1,38 @@
+
+@@BEGIN:	FunctionDocumentation
+@OBJECT:	ScoreUtility
+@METHOD:	base7ToBase40
+@RETURN:	int
+@PARAMETERS:	int base7
+@FILE:		ScoreUtility_pitch.cpp
+@SEEALSO:	
+@SHORTDESC:	Converts diatonic base-7 note into a base-40 note.
+@LONGDESC:	Converts a diatonic base-7 note into a base-40 note.
+		Example for middle C (C4):
+		<ul>
+		<li> base-7: 0 + 4 * 7 = 28
+		<li> base-40: 2 + 4 * 40 = 162
+		</ul>
+		The +2 for the C chroma in base-40 is used to allow
+		for C-double-flat to be located at chroma 0, preserving
+		octave information when dividing the base-40 note number
+		by 40.
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+@@BEGIN: EXAMPLE
+
+@DESCRIPTION:	
+
+@CODE:
+
+@OUTPUT:
+
+@@END:	EXAMPLE
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+@@END:	FunctionDocumentation
+
+
+

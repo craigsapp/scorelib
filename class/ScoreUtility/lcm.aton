@@ -1,0 +1,30 @@
+
+@@BEGIN:	FunctionDocumentation
+@OBJECT:	ScoreUtility
+@METHOD:	lcm
+@RETURN:	int
+@PARAMETERS:	int x, int y
+@PARAMETERS:	set<int>& numbers
+@FILE:		ScoreUtility_math.cpp
+@SEEALSO:	gcd
+@SHORTDESC:	Find the least common multiple of two or more integers.
+@LONGDESC:	Fine the least common multiple of two or more integers.
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+@@BEGIN: EXAMPLE
+
+@DESCRIPTION:	
+
+@CODE:
+
+@OUTPUT:
+
+@@END:	EXAMPLE
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+@@END:	FunctionDocumentation
+
+
+

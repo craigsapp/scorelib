@@ -1,0 +1,38 @@
+
+@@BEGIN:	FunctionDocumentation
+@OBJECT:	ScoreUtility
+@METHOD:	analyzeStaffTies
+@ALIAS:		
+@RETURN:	void
+@PARAMETERS:	int staffnum, vectorSIp& items, vectorSIp& hangingleft, vectorSIp& leftnotes, vectorSIp& hangingright, vectorSIp& rightnotes
+@FILE:		ScoreUtility_ties.cpp
+@SEEALSO:	
+@SHORTDESC:	Calculate variables which are used to link slurs/ties across 
+		system breaks.
+@LONGDESC:	items == list of items on the system (or single staff).
+		Output variables which are used to link slur/ties across
+		system breaks:
+		<ul>
+		<li> hangingleft == slurs/ties/which extend to the left of the system.
+		<li> hangingright == slurs/ties which extend to the right of the system.
+		</ul>
+		
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+@@BEGIN: EXAMPLE
+
+@DESCRIPTION:	
+
+@CODE:
+
+@OUTPUT:
+
+@@END:	EXAMPLE
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+@@END:	FunctionDocumentation
+
+
+

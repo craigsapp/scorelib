@@ -1,0 +1,34 @@
+
+@@BEGIN:	FunctionDocumentation
+@OBJECT:	ScoreUtility
+@METHOD:	equalKeySigs
+@ALIAS:		equalKeySignature
+@ALIAS:		equalKeySignatures
+@ALIAS:		equalKeySig
+@RETURN:	bool
+@PARAMETERS:	ScoreItem* a, ScoreItem* b
+@FILE:		ScoreUtility_compare.cpp
+@SEEALSO:	
+@SHORTDESC:	Returns true if two items represent the same key signature.
+@LONGDESC:	Returns true if two the items represent the same key signature.
+		If either one of the items is NULL, then the return value
+		will be false. 
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+@@BEGIN: EXAMPLE
+
+@DESCRIPTION:	
+
+@CODE:
+
+@OUTPUT:
+
+@@END:	EXAMPLE
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+@@END:	FunctionDocumentation
+
+
+

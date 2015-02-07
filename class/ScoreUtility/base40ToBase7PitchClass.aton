@@ -1,0 +1,33 @@
+
+@@BEGIN:	FunctionDocumentation
+@OBJECT:	ScoreUtility
+@METHOD:	base40ToBase7PitchClass
+@RETURN:	int
+@PARAMETERS:	int base40
+@FILE:		ScoreUtility_pitch.cpp
+@SEEALSO:	base40ToBase7
+@SHORTDESC:	Converts a base-40 note into a base-7 pitch class.
+@LONGDESC:	Converts a base-40 note into a base-7 pitch class.
+		This will drop the chromatic alteration information.
+		(C&rarr;0, D&rarr;1, E&rarr;2, F&rarr;3, G&rarr;4, 	
+		A&rarr;5, B&rarr;6).
+
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+@@BEGIN: EXAMPLE
+
+@DESCRIPTION:	
+
+@CODE:
+
+@OUTPUT:
+
+@@END:	EXAMPLE
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+@@END:	FunctionDocumentation
+
+
+

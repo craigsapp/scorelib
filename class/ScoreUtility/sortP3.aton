@@ -1,0 +1,35 @@
+
+@@BEGIN:	FunctionDocumentation
+@OBJECT:	ScoreUtility
+@METHOD:	sortP3
+@ALIAS:		
+@RETURN:	bool
+@PARAMETERS:	ScoreItem* a, ScoreItem* b
+@FILE:		ScoreUtility_sort.cpp
+@SEEALSO:	
+@SHORTDESC:	Sort two items by their horizontal position
+@LONGDESC:	Sort two items by their horizontal positions (P3 values).  
+		This function is used in sorting functions and returns
+		true if the second item is more to the right; 
+		If the P3 values are tied, then returns true if the
+		second item is on a higher staff; otherwise,
+		returns false.
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+@@BEGIN: EXAMPLE
+
+@DESCRIPTION:	
+
+@CODE:
+
+@OUTPUT:
+
+@@END:	EXAMPLE
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+@@END:	FunctionDocumentation
+
+
+

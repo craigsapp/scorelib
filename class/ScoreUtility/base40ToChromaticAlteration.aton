@@ -1,0 +1,33 @@
+
+@@BEGIN:	FunctionDocumentation
+@OBJECT:	ScoreUtility
+@METHOD:	base40ToChromaticAlteration
+@RETURN:	int
+@PARAMETERS:	int base40
+@FILE:		ScoreUtility_pitch.cpp
+@SEEALSO:	
+@SHORTDESC:	Extract chromatic alteration of diatonic pitch given a
+		base-40 number.
+@LONGDESC:	Extract the chromatic alteration of a diatonic pitch given
+		a base-40 number.  Maximum alteration is up to double 
+		sharp/flat.
+
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+@@BEGIN: EXAMPLE
+
+@DESCRIPTION:	
+
+@CODE:
+
+@OUTPUT:
+
+@@END:	EXAMPLE
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+@@END:	FunctionDocumentation
+
+
+
