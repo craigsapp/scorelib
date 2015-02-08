@@ -7,5 +7,9 @@ Gemfile.lock
 lib/
 obj/
 obj-edit/
-bin/
 
+bin/courtesy
+bin/score2mei
+bin/score2musicxml
+bin/scorex
+bin/scorecat

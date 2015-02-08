@@ -2,6 +2,7 @@
 layout: default
 persistent: formats/ppmx
 breadcrumbs: [['/formats','formats']]
+javascript: ['js/turnonoff-sticky.html']
 pagetitle:  PPMX data format
 grouptitle: ['/formats', 'Data formats']
 group: [ 
@@ -72,12 +73,137 @@ page should be marked with <b>SM</b> starting on a line by itself, and
 there should be no PMX content between any <b>SM</b> ending one page, and <b>RS</b>
 starting a new page.
 
+<p> An alternate format&mdash;which is also acceptable but less preferred since the file
+name becomes more obscured by being at the end of the PMX data&mdash;is shown below.
+The <b>SA</b> marker is placed at the end of the PMX data for a page, and the
+<b>SM</b> marker is omitted.
+
+<p>
+<div style="background-color:#f3f3f3; line-height: 1.10; padding: 5px; font-family:'Courier New',Courier,monospace; font-weight:600;">
+
+<pre>
+RS
+
+<a href=/formats/pmx>[PMX data for page1]</a>
+
+SA page1
+RS 
+
+<a href=/formats/pmx>[PMX data for page2]</a>
+
+SA page2
+RS 
+
+<a href=/formats/pmx>[PMX data for page3]</a>
+
+SA page3
+</pre>
+</div>
 
 
+<a name="example"> </a>
+<h2> Example PPMX data and notation </h2>
+
+Scroll through the PPMX data or music notation underneath to view
+the relationship between the two.  The PPMX data is sorted by system,
+with all parts interleaved and sorted by horizontal position.  The
+musical notation spans two pages, which can be seen in the PPMX
+data and highlighting around each page in the notation.
+
+<p>
+
+<style>
+
+div.system {
+	margin-bottom: 10px;
+}
+</style>
 
 
+<div id="pmxlist" style="width:780px; height: 400px; white-space: nowrap; overflow-y:scroll; overflow-x: hidden;">
+<div style="background-color:#f3f3f3; line-height: 1.10; padding: 5px; font-family:'Courier New',Courier,monospace; font-weight:600;">
+RS<br/>
+SA page1<br/><br/>
+{% include examples/tristan/tristan1-markup.html %}
+<br/>
+SM<br/>
+RS<br/>
+SA page 2<br/><br/>
+{% include examples/tristan/tristan2-markup.html %}
+<br/>
+SM<br/>
+</div>
+</div>
 
+<p>
 
+<div id="svglist" style="width:780px; height: 450px; white-space: nowrap; overflow-y:scroll; overflow-x: hidden;">
+
+<h3>Page 1</h3>
+
+<div style="padding-top:10px; background:#f8f8f8;">
+
+<table cellpadding="0" cellspacing="0">
+
+<tr><td align="right">
+<div class="system">
+{% include /examples/tristan/tristan1a-markup-svg.html %}
+</div>
+</td></tr>
+
+<tr><td align="right">
+<div class="system">
+{% include /examples/tristan/tristan1b-markup-svg.html %}
+</div>
+</td></tr>
+
+<tr><td align="right">
+<div class="system">
+{% include /examples/tristan/tristan1c-markup-svg.html %}
+</div>
+</td></tr>
+
+</table>
+
+</div>
+
+<br/>
+
+<h2>Page 2</h3>
+
+<div style="padding-top:10px; background:#f8f8f8;">
+
+<table cellpadding="0" cellspacing="0">
+
+<tr><td align="right">
+<div class="system">
+{% include /examples/tristan/tristan2a-markup-svg.html %}
+</div>
+</td></tr>
+
+<tr><td align="right">
+<div class="system">
+{% include /examples/tristan/tristan2b-markup-svg.html %}
+</div>
+</td></tr>
+
+<tr><td align="right">
+<div class="system">
+{% include /examples/tristan/tristan2c-markup-svg.html %}
+</div>
+</td></tr>
+
+<tr><td align="right">
+<div class="system">
+{% include /examples/tristan/tristan2d-markup-svg.html %}
+</div>
+</td></tr>
+
+</table>
+
+</div>
+
+</div>
 
 
 

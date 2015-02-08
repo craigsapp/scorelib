@@ -1,0 +1,56 @@
+#!/usr/bin/perl
+#
+# Programmer:    Craig Stuart Sapp <craig.stanford.edu>
+# Creation Date: Sat Feb  7 18:52:30 PST 2015
+# Last Modified: Sat Feb  7 18:52:32 PST 2015
+# Filename:      scorelib/bin/fixclasslink
+# Syntax:        perl 5
+#
+# Description:   Different SVG files on a page will share an xlink
+#                address.  This program adds a namespace tag to each
+#                xlink in an SVG file to prevent sharing between images
+#                on a file.
+#
+
+use strict;
+use Getopt::Long;
+
+my $ns = "X";
+
+Getopt::Long::Configure("bundling");
+GetOptions (
+   'n|namespace|ns:s' => \$ns
+);
+
+my @data = <>;
+printData($ns, @data);
+
+###########################################################################
+
+
+##############################
+##
+## printData -- convert lines in this form:
+##   <g id="P05">
+##   <use transform="stroke-width="41.087" xlink:href="#P05"/>
+## Into:
+##   <g id="P05NS">
+##   <use transform="stroke-width="41.087" xlink:href="#P05NS"/>
+## By adding the namespace tag NS.
+##
+
+sub printData {
+   my ($ns, @lines) = @_;
+   my $start = 0;
+   my $id;
+
+   for (my $i=0; $i<@lines; $i++) {
+      my $line = $lines[$i];
+      $line =~ s/id="(P\d+)"/id="$1$ns"/g;
+      $line =~ s/xlink:href="#(P\d+)"/xlink:href="#$1$ns"/g;
+      print $line;
+   }
+}
+
+
+

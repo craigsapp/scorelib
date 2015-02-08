@@ -8,9 +8,12 @@
 // Syntax:        JavaScript 1.5 (EMCAScript 5)
 // vim:           ts=3 ft=javascript hlsearch
 //
-// Description:   This code is used on the About page to highlight
-//                the PMX and SVG item that a mouse is pointing to.
-//                The PMX data is in a scrollable div with id="pmxlist"
+// Description:   This code is used on the About page and other
+//                pages to highlight matching PMX and SVG items that 
+//                a mouse is hovering over.
+//
+//                The PMX data should be in a scrollable div 
+//                with id="pmxlist".
 //
 
 var lastglyph;
@@ -24,25 +27,28 @@ var lastspan;
 
 function turnon(klass) {
 	var pmxlist = document.getElementById('pmxlist');
+	var svglist = document.getElementById('svglist');
 
 	var items = document.getElementsByClassName(klass);
 	var items2 = document.getElementsByClassName(klass + 'back');
 	var info = '';
 	for (var i=0; i<items.length; i++) {
-		if (items.item(i).tagName == 'SPAN') {
+		if (items[i].tagName == 'SPAN') {
 			if (lastspan != null) {
 				lastspan.style.color = 'black';
 				lastspan.style.stroke = 'black';
 			}
-			info = items.item(i).innerHTML;
-			items.item(i).style.color = 'red';
-			items.item(i).style.stroke = 'red';
+			info = items[i].innerHTML;
+			items[i].style.color = 'red';
+			items[i].style.stroke = 'red';
 
-			makeEntryVisible(pmxlist, items.item(i));
+			if (pmxlist) {
+				makeEntryVisible(pmxlist, items[i]);
+			}
 
-			lastspan = items.item(i);
+			lastspan = items[i];
 		}
-		if (items.item(i).tagName == 'g') {
+		if (items[i].tagName == 'g') {
 			if (lastglyph != null) {
 				if (lastglyph.getAttribute('class').match(/staff/)) {
 						lastglyph.style.color = '#999999';
@@ -52,9 +58,13 @@ function turnon(klass) {
 						lastglyph.style.stroke = 'black';
 				}
 			}
-			items.item(i).style.color = 'red';
-			items.item(i).style.stroke = 'red';
-			lastglyph = items.item(i);
+			items[i].style.color = 'red';
+			items[i].style.stroke = 'red';
+			lastglyph = items[i];
+
+			if (svglist) {
+				makeEntryVisible(svglist, items[i]);
+			}
 		}
 	}
 	var re = /[0-9]+/;
@@ -91,14 +101,18 @@ function makeEntryVisible(container, item) {
 	var itoppos    = ipos.top;
 	var diff;
 
-	if (itoppos > maxvisible - 20) {
-		// If the PMX entry is hidden below the view, raise it.
-		diff = itoppos - maxvisible;
-		container.scrollTop = container.scrollTop + diff + 50;
-	} else if (itoppos < minvisible + 20) {
-		// If the PMX entry is hidden above the view, lowerit it.
-		diff = maxvisible - itoppos;
-		container.scrollTop = container.scrollTop - diff;
+	if (container.id === 'svglist') {
+		item.scrollIntoViewIfNeeded();
+	} else {
+		if (itoppos > maxvisible - 20) {
+			// If the PMX entry is hidden below the view, raise it.
+			diff = itoppos - maxvisible;
+			container.scrollTop = container.scrollTop + diff + 50;
+		} else if (itoppos < minvisible + 20) {
+			// If the PMX entry is hidden above the view, lowerit it.
+			diff = maxvisible - itoppos;
+			container.scrollTop = container.scrollTop - diff;
+		}
 	}
 
 }

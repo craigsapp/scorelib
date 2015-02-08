@@ -1,0 +1,59 @@
+#!/usr/bin/perl
+#
+# Programmer:    Craig Stuart Sapp <craig.stanford.edu>
+# Creation Date: Sat Feb  7 18:31:55 PST 2015
+# Last Modified: Sat Feb  7 18:31:58 PST 2015
+# Filename:      scorelib/bin/fixclasslink
+# Syntax:        perl 5
+#
+# Description:   Expand short SVG id marker to long version.
+#
+# Options:
+#
+
+use strict;
+
+my @data = <>;
+printData(@data);
+
+###########################################################################
+
+
+##############################
+##
+## printData -- convert lines in this form:
+##   <!--Z TR2202 -->
+## Into:
+## </g>
+## <g class="TR2202" onmouseover="turnon('TR2202')" onmouseout="turnoff('TR2202')">
+##
+
+sub printData {
+   my @lines = @_;
+   my $start = 0;
+   my $id;
+
+   for (my $i=0; $i<@lines; $i++) {
+      my $line = $lines[$i];
+      if ($line =~ /<!--Z\s+(.*)\s*-->/) {
+         $id = $1;
+         if ($start == 0) {
+            $start++;
+         } else {
+            print "</g>\n";
+         }
+         print "<g class=\"$id\" onmouseover=\"turnon('$id')\" ";
+         print "onmouseout=\"turnoff('$id')\">\n";
+      } elsif ($line =~ /<\/svg>/) {
+         if ($start) {
+            print "</g>\n";
+         }
+         print $line;
+      } else {
+         print $line;
+      }
+   }
+}
+
+
+

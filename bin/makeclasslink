@@ -23,10 +23,12 @@ my $Prefix      = "XI";    # Class label prefix (to allow multiple examples
                            #    on a single webpage).
 my $javascriptQ = 0;       # Boolean for printing javscript code that links
                            # the SVG image and PMX code on the webpage.
+my $shortQ      = 0;       # Short-style markers
 
 Getopt::Long::Configure("bundling");
 GetOptions (
    'h|html' => \$htmlQ,
+   's|short' => \$shortQ,
    'p|prefix:s' => \$Prefix,
    'j|js|javascript' => \$javascriptQ
 );
@@ -61,23 +63,36 @@ sub printPmxSvg {
    for (my $i=0; $i<@lines; $i++) {
       my $line = $lines[$i];
       if ($line =~ /^[0-9]/) {
-         print "t 1 1\n_99%svg%<g class=\"$Prefix$counter\"";
-         print " onmouseover=\"turnon('$Prefix$counter')\"";
-         print " onmouseout=\"turnoff('$Prefix$counter')\">\n";
-         print $line;
-         print "t 1 1\n_99%svg%<\\g>\n";
+         if ($shortQ) {
+            print "t 1 1\n_99%svg%<!--Z $Prefix$counter -->\n";
+            print $line;
+         } else {
+            print "t 1 1\n_99%svg%<g class=\"$Prefix$counter\"";
+            print " onmouseover=\"turnon('$Prefix$counter')\"";
+            print " onmouseout=\"turnoff('$Prefix$counter')\">\n";
+            print $line;
+            print "t 1 1\n_99%svg%<\\g>\n";
+         }
          $counter++;
          next;
       }
       if ($line =~ /^t\s/) {
-         print "t 1 1\n_99%svg%<g class=\"$Prefix$counter\"";
-         print " onmouseover=\"turnon('$Prefix$counter')\"";
-         print " onmouseout=\"turnoff('$Prefix$counter')\">\n";
-         print $line;
-         $i++;
-         $line = $lines[$i];
-         print $line;
-         print "t 1 1\n_99%svg%<\\g>\n";
+         if ($shortQ) {
+            print "t 1 1\n_99%svg%<!--Z $Prefix$counter -->\n";
+            print $line;
+            $i++;
+            $line = $lines[$i];
+            print $line;
+         } else {
+            print "t 1 1\n_99%svg%<g class=\"$Prefix$counter\"";
+            print " onmouseover=\"turnon('$Prefix$counter')\"";
+            print " onmouseout=\"turnoff('$Prefix$counter')\">\n";
+            print $line;
+            $i++;
+            $line = $lines[$i];
+            print $line;
+            print "t 1 1\n_99%svg%<\\g>\n";
+         }
          $counter++;
          next;
       }

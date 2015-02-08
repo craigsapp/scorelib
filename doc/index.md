@@ -5,6 +5,17 @@ persistent: doc
 pagetitle:  Scorelib Documentation
 ---
 
+Data files read by Scorelib
+=============================
+
+<ol>
+<li> <a href="/formats/binary">Binary SCORE files</a> &mdash; typically ending in the extension ".mus" or ".pag". </li>
+<li> <a href="/formats/pmx"> ASCII SCORE parameter files</a> &mdash; typically ending in the extension ".pmx" or ".txt". </li>
+<li> <a href="/formats/ppmx"> Multi-page SCORE parameter files</a> &mdash; typically ending in the extension ".ppmx". </li>
+</ol>
+
+
+
 
 Scorelib classes
 ================
