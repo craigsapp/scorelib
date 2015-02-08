@@ -61,22 +61,25 @@ will create three files "page1.mus", "page2.mus", and "page3.mus" in the
 should be given in upper case to increase visibility.  These are
 technically macro commands in the SCORE editor (meaning "reset",
 "save to filename", and "save to same filename").  But for PPMX
-data, these are considered file boundary markers, and no other SCORE
-macro commands are allowed in PPMX data, or they will be ignored.
+data, these are considered page boundary markers, and no other SCORE
+macro commands are allowed in PPMX data; otherwise, they will be ignored.
 
-<p> Each page's PMX data in a PPMX file must start with <b>RS</b> on a line 
-by itself, and starting at the beginning of the line.  This is followed by 
-"<b>SA <i>filename</i></b>", where <i>filename</i> is the name of the file
-that the PMX data would be stored into when loading into the SCORE editor. 
-Preferably this filename does not include a file extension.  The end of a
-page should be marked with <b>SM</b> starting on a line by itself, and
-there should be no PMX content between any <b>SM</b> ending one page, and <b>RS</b>
-starting a new page.
+<p> Each page's PMX data in a PPMX file must start with <b>RS</b>
+on a line by itself, and starting at the beginning of the line.
+This is followed by "<b>SA <i>filename</i></b>", where <i>filename</i>
+is the name of the file that the PMX data would be stored into when
+loading into the SCORE editor.  Preferably this filename does not
+include a file extension.  The end of a page should be marked with
+<b>SM</b> starting on a line by itself, and there should be no PMX
+content between any <b>SM</b> ending one page, and <b>RS</b> starting
+a new page.  Any number of blank lines may surround the RS, SM, and SA
+commands.
 
-<p> An alternate format&mdash;which is also acceptable but less preferred since the file
-name becomes more obscured by being at the end of the PMX data&mdash;is shown below.
-The <b>SA</b> marker is placed at the end of the PMX data for a page, and the
-<b>SM</b> marker is omitted.
+<p> An alternate format&mdash;which is also acceptable but less
+preferred since the filenames become more obscured by being at the
+end of the PMX data&mdash;is shown below.  The <b>SA</b> marker is
+placed at the end of the PMX data for a page, and the <b>SM</b>
+marker is omitted.
 
 <p>
 <div style="background-color:#f3f3f3; line-height: 1.10; padding: 5px; font-family:'Courier New',Courier,monospace; font-weight:600;">
@@ -104,11 +107,12 @@ SA page3
 <a name="example"> </a>
 <h2> Example PPMX data and notation </h2>
 
-Scroll through the PPMX data or music notation underneath to view
-the relationship between the two.  The PPMX data is sorted by system,
-with all parts interleaved and sorted by horizontal position.  The
-musical notation spans two pages, which can be seen in the PPMX
-data and highlighting around each page in the notation.
+Scroll through the following PPMX data or music notation underneath
+it to view the relationships between the two.  The PPMX data is
+sorted first by system, then by horizontal position with all parts
+interleaved.  The musical notation spans two pages, which can be
+seen in the PPMX data by the PPMX markup, as weall highlighting
+around each page in the notation.
 
 <p>
 
