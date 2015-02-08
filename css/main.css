@@ -404,3 +404,18 @@ ul.github a strong {
 
 
 
+/* Docslot Styles ------------------------------------------ */
+
+
+.docslot-short-title {
+	color:#aa0000;
+	font-weight:400;
+}
+
+.docslot-long-title {
+	color:#aa0000;
+	font-weight:400;
+}
+
+
+
