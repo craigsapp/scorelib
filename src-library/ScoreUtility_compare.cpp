@@ -121,12 +121,12 @@ bool ScoreUtility::equalTimeSignature(ScoreItem* a, ScoreItem* b) {
 
 //////////////////////////////
 //
-// ScoreUtility::equalKeySignature -- True if the key signatures
+// ScoreUtility::equalKeySigs -- True if the key signatures
 //     have the same number of sharps or flats.
 //
 
 
-bool ScoreUtility::equalKeySignature(ScoreItem* a, ScoreItem* b) { 
+bool ScoreUtility::equalKeySigs(ScoreItem* a, ScoreItem* b) { 
    if ((a == NULL) || (b == NULL)) {
       return false;
    }
@@ -153,7 +153,7 @@ bool ScoreUtility::equalKeySig(ScoreItem* a, ScoreItem* b) {
 }
 
 
-bool ScoreUtility::equalKeySigs(ScoreItem* a, ScoreItem* b) { 
+bool ScoreUtility::equalKeySignature(ScoreItem* a, ScoreItem* b) { 
    return equalKeySignature(a, b);
 }
 
