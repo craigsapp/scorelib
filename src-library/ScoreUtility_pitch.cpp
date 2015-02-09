@@ -53,8 +53,8 @@ int ScoreUtility::base7ToBase40(int base7) {
 
 //////////////////////////////
 //
-// ScoreUtility::base40ToBase7 --  Convert a base-40 pitch to Base-7 
-//     (losing any chromatic alterations of the diatonic pitch).
+// ScoreUtility::base40ToBase7PitchClass --  Convert a base-40 pitch 
+//     to Base-7 (losing any chromatic alterations of the diatonic pitch).
 //
 
 int ScoreUtility::base40ToBase7PitchClass(int base40) {
