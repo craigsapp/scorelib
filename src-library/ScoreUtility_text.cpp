@@ -29,7 +29,7 @@ ostream& ScoreUtility::printXmlTextEscapedUTF8(ostream& out,
 
 //////////////////////////////
 //
-// ScoreItemBase::printXmlTextEscapedUTF8 --
+// ScoreItemBase::getTextNoFontXmlEscapedUTF8 --
 //
 
 string ScoreUtility::getTextNoFontXmlEscapedUTF8(const string& text) {
