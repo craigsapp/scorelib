@@ -612,30 +612,30 @@ L75 -81
 Z" fill="currentColor"/>
 </g>
 </defs>
+<!--Z TR1391 -->
+<text transform="translate(150,-20855) scale(1,-1)" fill="currentColor" stroke="none" font-size="569" style="font-family:Nimbus Roman No9 L">vlns. 1,2</text>
+<!--Z TR1392 -->
+<text transform="translate(300,-14490) scale(1,-1)" fill="currentColor" stroke="none" font-size="569" style="font-family:Nimbus Roman No9 L">wood-</text>
 <!--Z TR1393 -->
-<text transform="translate(150,-20855) scale(1,-1)" fill="currentColor" stroke="none" font-size="568" style="font-family:Nimbus Roman No9 L">vlns. 1,2</text>
+<text transform="translate(450,-16915) scale(1,-1)" fill="currentColor" stroke="none" font-size="569" style="font-family:Nimbus Roman No9 L">hrns.</text>
 <!--Z TR1394 -->
-<text transform="translate(300,-14490) scale(1,-1)" fill="currentColor" stroke="none" font-size="568" style="font-family:Nimbus Roman No9 L">wood-</text>
+<text transform="translate(450,-15059) scale(1,-1)" fill="currentColor" stroke="none" font-size="569" style="font-family:Nimbus Roman No9 L">winds</text>
 <!--Z TR1395 -->
-<text transform="translate(450,-16915) scale(1,-1)" fill="currentColor" stroke="none" font-size="568" style="font-family:Nimbus Roman No9 L">hrns.</text>
+<text transform="translate(600,-19113) scale(1,-1)" fill="currentColor" stroke="none" font-size="569" style="font-family:Nimbus Roman No9 L">trpt.</text>
 <!--Z TR1396 -->
-<text transform="translate(450,-15059) scale(1,-1)" fill="currentColor" stroke="none" font-size="568" style="font-family:Nimbus Roman No9 L">winds</text>
+<text transform="translate(750,-23914) scale(1,-1)" fill="currentColor" stroke="none" font-size="569" style="font-family:Nimbus Roman No9 L">c.b.</text>
 <!--Z TR1397 -->
-<text transform="translate(600,-19113) scale(1,-1)" fill="currentColor" stroke="none" font-size="568" style="font-family:Nimbus Roman No9 L">trpt.</text>
+<text transform="translate(750,-21424) scale(1,-1)" fill="currentColor" stroke="none" font-size="569" style="font-family:Nimbus Roman No9 L">vla.</text>
 <!--Z TR1398 -->
-<text transform="translate(750,-23914) scale(1,-1)" fill="currentColor" stroke="none" font-size="568" style="font-family:Nimbus Roman No9 L">c.b.</text>
+<text transform="translate(750,-23345) scale(1,-1)" fill="currentColor" stroke="none" font-size="569" style="font-family:Nimbus Roman No9 L">vc.</text>
 <!--Z TR1399 -->
-<text transform="translate(750,-21424) scale(1,-1)" fill="currentColor" stroke="none" font-size="568" style="font-family:Nimbus Roman No9 L">vla.</text>
-<!--Z TR1400 -->
-<text transform="translate(750,-23345) scale(1,-1)" fill="currentColor" stroke="none" font-size="568" style="font-family:Nimbus Roman No9 L">vc.</text>
-<!--Z TR1401 -->
 <path  d="
 M2250 -24000
 L2250 -12206
 M2256 -24000
 L2256 -12206
 "/>
-<!--Z TR1402 -->
+<!--Z TR1400 -->
 <path  d="
 M2250 -21509
 L30000 -21509
@@ -648,7 +648,7 @@ L30000 -20827
 M2250 -20599
 L30000 -20599
 "/>
-<!--Z TR1403 -->
+<!--Z TR1401 -->
 <path  d="
 M2250 -19425
 L30000 -19425
@@ -661,7 +661,7 @@ L30000 -18743
 M2250 -18515
 L30000 -18515
 "/>
-<!--Z TR1404 -->
+<!--Z TR1402 -->
 <path  d="
 M2250 -24000
 L30000 -24000
@@ -674,7 +674,7 @@ L30000 -23317
 M2250 -23090
 L30000 -23090
 "/>
-<!--Z TR1405 -->
+<!--Z TR1403 -->
 <path  d="
 M2250 -17228
 L30000 -17228
@@ -687,7 +687,7 @@ L30000 -16545
 M2250 -16318
 L30000 -16318
 "/>
-<!--Z TR1406 -->
+<!--Z TR1404 -->
 <path  d="
 M2055 -14087
 L2201 -14087
@@ -729,7 +729,7 @@ L2094 -24227
 L2094 -14006
 L2021 -14006
 Z" fill="currentColor"/>
-<!--Z TR1407 -->
+<!--Z TR1405 -->
 <path  d="
 M2250 -15144
 L30000 -15144
@@ -742,7 +742,7 @@ L30000 -14461
 M2250 -14234
 L30000 -14234
 "/>
-<!--Z TR1408 -->
+<!--Z TR1406 -->
 <path  d="
 M2250 -13116
 L30000 -13116
@@ -755,15 +755,15 @@ L30000 -12433
 M2250 -12206
 L30000 -12206
 "/>
-<!--Z TR1409 -->
+<!--Z TR1407 -->
 <use transform="translate(2506,-21509) scale(.650)" stroke-width="41.087" xlink:href="#P00"/>
-<!--Z TR1410 -->
+<!--Z TR1408 -->
 <use transform="translate(2506,-19425) scale(.650)" stroke-width="41.087" xlink:href="#P00"/>
-<!--Z TR1411 -->
+<!--Z TR1409 -->
 <use transform="translate(2506,-17228) scale(.650)" stroke-width="41.087" xlink:href="#P00"/>
-<!--Z TR1412 -->
+<!--Z TR1410 -->
 <use transform="translate(2506,-15144) scale(.650)" stroke-width="41.087" xlink:href="#P00"/>
-<!--Z TR1413 -->
+<!--Z TR1411 -->
 <path  d="
 M2506 -23329
 L2514 -23350
@@ -792,7 +792,7 @@ L2538 -23264
 L2526 -23252
 L2530 -23224
 L2538 -23199
-L2547 -23183
+L2546 -23183
 L2567 -23150
 L2542 -23175
 L2530 -23191
@@ -810,7 +810,7 @@ L2644 -23110
 L2668 -23106
 "/>
 <path  d="
-M2612 -23764
+M2611 -23764
 L2660 -23735
 L2717 -23699
 L2778 -23650
@@ -860,11 +860,11 @@ L2551 -23788
 L2473 -23829
 L2473 -23833
 L2526 -23809
-L2612 -23764
+L2611 -23764
 Z" fill="currentColor"/>
 <path  d="
 M2997 -23211
-L3002 -23220
+L3001 -23220
 L3010 -23232
 L3022 -23236
 L3034 -23236
@@ -877,13 +877,13 @@ L3046 -23175
 L3034 -23171
 L3022 -23171
 L3010 -23175
-L3002 -23187
+L3001 -23187
 L2997 -23195
 L2997 -23211
 Z" fill="currentColor"/>
 <path  d="
 M2997 -23435
-L3002 -23443
+L3001 -23443
 L3010 -23455
 L3022 -23459
 L3034 -23459
@@ -896,15 +896,15 @@ L3046 -23398
 L3034 -23394
 L3022 -23394
 L3010 -23398
-L3002 -23410
+L3001 -23410
 L2997 -23419
 L2997 -23435
 Z" fill="currentColor"/>
-<!--Z TR1414 -->
+<!--Z TR1412 -->
 <use transform="translate(2506,-13116) scale(.650)" stroke-width="41.087" xlink:href="#P00"/>
-<!--Z TR1415 -->
+<!--Z TR1413 -->
 <text transform="translate(3101,-23857) scale(1,-3)" fill="currentColor" stroke="none" font-size="501" style="font-family:Nimbus Roman No9 L">(</text>
-<!--Z TR1416 -->
+<!--Z TR1414 -->
 <path  d="
 M3299 -20622
 L3265 -20628
@@ -915,7 +915,7 @@ L3191 -20673
 L3185 -20685
 L3180 -20702
 L3180 -20719
-L3185 -20741
+L3185 -20742
 L3202 -20759
 L3219 -20764
 L3237 -20764
@@ -928,7 +928,7 @@ L3254 -20685
 L3242 -20679
 L3219 -20673
 L3219 -20662
-L3237 -20650
+L3237 -20651
 L3265 -20639
 L3293 -20633
 L3305 -20633
@@ -946,7 +946,7 @@ L3316 -20798
 L3242 -20804
 L3242 -20821
 L3310 -20827
-L3328 -20832
+L3328 -20833
 L3339 -20838
 L3350 -20850
 L3356 -20855
@@ -978,7 +978,7 @@ L3242 -20895
 L3219 -20895
 L3202 -20901
 L3197 -20906
-L3185 -20923
+L3185 -20924
 L3180 -20946
 L3180 -20958
 L3185 -20986
@@ -1012,7 +1012,7 @@ L3464 -20736
 L3464 -20713
 L3458 -20690
 L3447 -20673
-L3424 -20650
+L3424 -20651
 L3401 -20639
 L3367 -20628
 L3328 -20622
@@ -1026,7 +1026,7 @@ L3219 -21117
 L3202 -21134
 L3191 -21151
 L3185 -21174
-L3185 -21196
+L3185 -21197
 L3191 -21219
 L3197 -21231
 L3214 -21242
@@ -1042,7 +1042,7 @@ L3276 -21151
 L3259 -21145
 L3248 -21134
 L3248 -21117
-L3254 -21105
+L3254 -21106
 L3259 -21100
 L3282 -21094
 L3316 -21088
@@ -1059,17 +1059,17 @@ L3356 -21259
 L3339 -21276
 L3276 -21327
 L3237 -21356
-L3214 -21378
+L3214 -21379
 L3202 -21396
 L3185 -21430
 L3180 -21452
-L3180 -21469
+L3180 -21470
 L3185 -21492
 L3191 -21498
 L3197 -21498
 L3208 -21492
 L3214 -21481
-L3214 -21469
+L3214 -21470
 L3208 -21441
 L3208 -21430
 L3214 -21418
@@ -1079,7 +1079,7 @@ L3242 -21407
 L3271 -21413
 L3288 -21424
 L3305 -21452
-L3316 -21469
+L3316 -21470
 L3328 -21481
 L3345 -21492
 L3373 -21498
@@ -1088,7 +1088,7 @@ L3401 -21492
 L3419 -21481
 L3436 -21458
 L3453 -21424
-L3470 -21378
+L3470 -21379
 L3481 -21333
 L3481 -21327
 L3475 -21327
@@ -1122,7 +1122,7 @@ L3390 -21088
 L3356 -21083
 L3322 -21083
 Z" fill="currentColor"/>
-<!--Z TR1417 -->
+<!--Z TR1415 -->
 <path  d="
 M3449 -23112
 L3415 -23118
@@ -1340,11 +1340,11 @@ L3540 -23579
 L3506 -23573
 L3472 -23573
 Z" fill="currentColor"/>
-<!--Z TR1418 -->
-<text transform="translate(3547,-13950) scale(1,-1)" fill="currentColor" stroke="none" font-size="512" style="font-family:Nimbus Roman No9 L">Sehr allm&#228;hlich nachlassend im Zeitma&#223;</text>
-<!--Z TR1419 -->
+<!--Z TR1416 -->
+<text transform="translate(3547,-13950) scale(1,-1)" fill="currentColor" stroke="none" font-size="511" style="font-family:Nimbus Roman No9 L">Sehr allm&#228;hlich nachlassend im Zeitma&#223;</text>
+<!--Z TR1417 -->
 <text transform="translate(3706,-23857) scale(1,-3)" fill="currentColor" stroke="none" font-size="501" style="font-family:Nimbus Roman No9 L">)</text>
-<!--Z TR1420 -->
+<!--Z TR1418 -->
 <path stroke-width=".0000" d="
 M5971 -22805
 L5971 -22691
@@ -1353,15 +1353,15 @@ L4322 -22805
 L5971 -22805
 L5971 -22691
 Z" fill="currentColor"/>
-<!--Z TR1421 -->
+<!--Z TR1419 -->
 <use transform="translate(4046,-23317) scale(.650)" stroke-width="41.087" xlink:href="#P02"/>
 <path  d="
 M4322 -23283
 L4322 -22691
 "/>
-<!--Z TR1422 -->
+<!--Z TR1420 -->
 <path stroke-width="20.0300" d="
-M4475 -17593
+M4475 -17592
 L4450 -17597
 L4431 -17607
 L4416 -17617
@@ -1374,7 +1374,7 @@ L4265 -17763
 L4338 -17763
 L4304 -17919
 L4289 -17987
-L4265 -18061
+L4265 -18060
 L4250 -18090
 L4241 -18104
 L4231 -18114
@@ -1392,7 +1392,7 @@ L4192 -18026
 L4187 -18026
 L4172 -18031
 L4158 -18046
-L4153 -18061
+L4153 -18060
 L4153 -18075
 L4158 -18095
 L4172 -18114
@@ -1424,17 +1424,17 @@ L4504 -17680
 L4514 -17685
 L4528 -17685
 L4543 -17680
-L4553 -17671
+L4553 -17670
 L4557 -17656
 L4557 -17646
 L4553 -17627
 L4543 -17612
 L4523 -17597
-L4504 -17593
-L4475 -17593
+L4504 -17592
+L4475 -17592
 Z" fill="currentColor"/>
 <path stroke-width="20.0300" d="
-M4245 -17593
+M4245 -17592
 L4221 -17597
 L4202 -17607
 L4187 -17617
@@ -1447,7 +1447,7 @@ L4031 -17763
 L4109 -17763
 L4075 -17919
 L4060 -17987
-L4036 -18061
+L4036 -18060
 L4021 -18090
 L4011 -18104
 L4002 -18114
@@ -1465,7 +1465,7 @@ L3963 -18026
 L3958 -18026
 L3943 -18031
 L3929 -18046
-L3924 -18061
+L3924 -18060
 L3924 -18075
 L3929 -18095
 L3943 -18114
@@ -1497,22 +1497,22 @@ L4275 -17680
 L4284 -17685
 L4299 -17685
 L4314 -17680
-L4323 -17671
+L4323 -17670
 L4328 -17656
 L4328 -17646
 L4323 -17627
 L4314 -17612
 L4294 -17597
-L4275 -17593
-L4245 -17593
+L4275 -17592
+L4245 -17592
 Z" fill="currentColor"/>
-<!--Z TR1423 -->
+<!--Z TR1421 -->
 <path stroke-width="20.0300" d="
 M4533 -19553
 L4630 -19578
 L4726 -19600
 L4822 -19621
-L4919 -19640
+L4918 -19640
 L5015 -19658
 L5111 -19673
 L5207 -19688
@@ -1552,7 +1552,7 @@ L8384 -19779
 L8481 -19778
 L8577 -19776
 L8673 -19774
-L8770 -19772
+L8769 -19772
 L8866 -19770
 L8962 -19766
 L9058 -19763
@@ -1563,7 +1563,7 @@ L9443 -19739
 L9540 -19731
 L9636 -19722
 L9732 -19712
-L9829 -19700
+L9828 -19700
 L9925 -19688
 L10021 -19673
 L10117 -19658
@@ -1579,7 +1579,7 @@ L10214 -19646
 L10117 -19666
 L10021 -19683
 L9925 -19700
-L9829 -19713
+L9828 -19713
 L9732 -19727
 L9636 -19739
 L9540 -19749
@@ -1590,7 +1590,7 @@ L9155 -19783
 L9058 -19790
 L8962 -19795
 L8866 -19801
-L8770 -19804
+L8769 -19804
 L8673 -19808
 L8577 -19812
 L8481 -19815
@@ -1630,16 +1630,16 @@ L5304 -19713
 L5207 -19700
 L5111 -19683
 L5015 -19666
-L4919 -19646
+L4918 -19646
 L4822 -19626
 L4726 -19603
 L4630 -19579
 L4533 -19553
 Z" fill="currentColor"/>
-<!--Z TR1424 -->
+<!--Z TR1422 -->
 <use transform="translate(4095,-19425) scale(.650)" stroke-width="41.087" xlink:href="#P03"/>
 <use transform="translate(4095,-19425) scale(.650)" stroke-width="41.087" xlink:href="#P01"/>
-<!--Z TR1425 -->
+<!--Z TR1423 -->
 <path stroke-width=".0000" d="
 M5971 -20884
 L5971 -20770
@@ -1648,14 +1648,14 @@ L4371 -20884
 L5971 -20884
 L5971 -20770
 Z" fill="currentColor"/>
-<!--Z TR1426 -->
+<!--Z TR1424 -->
 <use transform="translate(4095,-21509) scale(.650)" stroke-width="41.087" xlink:href="#P02"/>
 <use transform="translate(4095,-21509) scale(.650)" stroke-width="41.087" xlink:href="#P01"/>
 <path  d="
 M4371 -21475
 L4371 -20770
 "/>
-<!--Z TR1427 -->
+<!--Z TR1425 -->
 <path  d="
 M6624 -12433
 L6624 -12531
@@ -1663,10 +1663,10 @@ L6901 -12531
 L6901 -12433
 L6624 -12433
 Z" fill="currentColor"/>
-<!--Z TR1428 -->
+<!--Z TR1426 -->
 <use transform="translate(4095,-14803) scale(.650)" stroke-width="41.087" xlink:href="#P03"/>
 <use transform="translate(4095,-14803) scale(.650)" stroke-width="41.087" xlink:href="#P01"/>
-<!--Z TR1429 -->
+<!--Z TR1427 -->
 <path stroke-width="20.0300" d="
 M4533 -14831
 L4633 -14850
@@ -1696,28 +1696,28 @@ L6920 -15001
 L7019 -15001
 L7119 -15001
 L7218 -15001
-L7318 -15001
+L7317 -15001
 L7417 -15001
 L7516 -15002
 L7616 -15002
 L7715 -15001
 L7815 -15001
 L7914 -15001
-L8014 -15001
+L8013 -15001
 L8113 -15001
 L8212 -15001
 L8312 -15000
 L8411 -15000
 L8511 -14999
 L8610 -14998
-L8710 -14996
+L8709 -14996
 L8809 -14995
 L8908 -14992
 L9008 -14990
 L9107 -14986
 L9207 -14983
 L9306 -14978
-L9406 -14973
+L9405 -14973
 L9505 -14967
 L9604 -14960
 L9704 -14953
@@ -1741,28 +1741,28 @@ L9803 -14958
 L9704 -14969
 L9604 -14977
 L9505 -14986
-L9406 -14994
+L9405 -14994
 L9306 -15001
 L9207 -15007
 L9107 -15012
 L9008 -15018
 L8908 -15022
 L8809 -15027
-L8710 -15029
+L8709 -15029
 L8610 -15033
 L8511 -15036
 L8411 -15039
 L8312 -15041
 L8212 -15043
 L8113 -15045
-L8014 -15047
+L8013 -15047
 L7914 -15047
 L7815 -15047
 L7715 -15047
 L7616 -15048
 L7516 -15048
 L7417 -15047
-L7318 -15047
+L7317 -15047
 L7218 -15047
 L7119 -15047
 L7019 -15045
@@ -1792,13 +1792,13 @@ L4732 -14870
 L4633 -14851
 L4533 -14831
 Z" fill="currentColor"/>
-<!--Z TR1430 -->
+<!--Z TR1428 -->
 <path stroke-width="20.0300" d="
 M4533 -17341
 L4630 -17366
 L4726 -17388
 L4822 -17409
-L4919 -17428
+L4918 -17428
 L5015 -17446
 L5111 -17461
 L5207 -17476
@@ -1838,7 +1838,7 @@ L8384 -17567
 L8481 -17566
 L8577 -17564
 L8673 -17562
-L8770 -17560
+L8769 -17560
 L8866 -17558
 L8962 -17554
 L9058 -17551
@@ -1849,7 +1849,7 @@ L9443 -17527
 L9540 -17519
 L9636 -17510
 L9732 -17500
-L9829 -17488
+L9828 -17488
 L9925 -17476
 L10021 -17461
 L10117 -17446
@@ -1865,7 +1865,7 @@ L10214 -17434
 L10117 -17454
 L10021 -17471
 L9925 -17488
-L9829 -17501
+L9828 -17501
 L9732 -17515
 L9636 -17527
 L9540 -17537
@@ -1876,7 +1876,7 @@ L9155 -17571
 L9058 -17578
 L8962 -17583
 L8866 -17589
-L8770 -17592
+L8769 -17592
 L8673 -17596
 L8577 -17600
 L8481 -17603
@@ -1916,16 +1916,16 @@ L5304 -17501
 L5207 -17488
 L5111 -17471
 L5015 -17454
-L4919 -17434
+L4918 -17434
 L4822 -17414
 L4726 -17391
 L4630 -17367
 L4533 -17341
 Z" fill="currentColor"/>
-<!--Z TR1431 -->
+<!--Z TR1429 -->
 <use transform="translate(4095,-16886) scale(.650)" stroke-width="41.087" xlink:href="#P03"/>
 <use transform="translate(4095,-16886) scale(.650)" stroke-width="41.087" xlink:href="#P01"/>
-<!--Z TR1432 -->
+<!--Z TR1430 -->
 <path stroke-width="20.0300" d="
 M4533 -16886
 L4633 -16862
@@ -1955,28 +1955,28 @@ L6920 -16676
 L7019 -16676
 L7119 -16676
 L7218 -16676
-L7318 -16676
+L7317 -16676
 L7417 -16676
 L7516 -16676
 L7616 -16676
 L7715 -16676
 L7815 -16676
 L7914 -16676
-L8014 -16676
+L8013 -16676
 L8113 -16676
 L8212 -16676
 L8312 -16677
 L8411 -16678
 L8511 -16679
 L8610 -16680
-L8710 -16682
+L8709 -16682
 L8809 -16684
 L8908 -16687
 L9008 -16690
 L9107 -16694
 L9207 -16699
 L9306 -16704
-L9406 -16711
+L9405 -16711
 L9505 -16718
 L9604 -16726
 L9704 -16736
@@ -2000,28 +2000,28 @@ L9803 -16733
 L9704 -16720
 L9604 -16709
 L9505 -16699
-L9406 -16690
+L9405 -16690
 L9306 -16681
 L9207 -16675
 L9107 -16668
 L9008 -16662
 L8908 -16657
 L8809 -16652
-L8710 -16649
+L8709 -16649
 L8610 -16645
 L8511 -16642
 L8411 -16639
 L8312 -16636
 L8212 -16634
 L8113 -16632
-L8014 -16630
+L8013 -16630
 L7914 -16630
 L7815 -16630
 L7715 -16630
 L7616 -16630
 L7516 -16630
 L7417 -16630
-L7318 -16630
+L7317 -16630
 L7218 -16630
 L7119 -16630
 L7019 -16632
@@ -2051,18 +2051,18 @@ L4732 -16838
 L4633 -16861
 L4533 -16886
 Z" fill="currentColor"/>
-<!--Z TR1433 -->
+<!--Z TR1431 -->
 <use transform="translate(4095,-17228) scale(.650)" stroke-width="41.087" xlink:href="#P03"/>
 <use transform="translate(3919,-17228) scale(.650)" stroke-width="41.087" xlink:href="#P01"/>
-<!--Z TR1434 -->
+<!--Z TR1432 -->
 <use transform="translate(4371,-23317) scale(.650)" stroke-width="41.087" xlink:href="#P04"/>
 <path  d="
 M4371 -23351
 L4371 -24739
 "/>
-<!--Z TR1435 -->
+<!--Z TR1433 -->
 <use transform="translate(4371,-24113) scale(.650)" stroke-width="41.087" xlink:href="#P04"/>
-<!--Z TR1436 -->
+<!--Z TR1434 -->
 <path stroke-width=".0000" d="
 M4517 -24412
 L4517 -24497
@@ -2071,44 +2071,44 @@ L4225 -24554
 L4517 -24412
 L4517 -24497
 Z" fill="currentColor"/>
-<!--Z TR1437 -->
+<!--Z TR1435 -->
 <use transform="translate(4702,-21509) scale(.650)" stroke-width="41.087" xlink:href="#P02"/>
 <path  d="
 M4979 -21475
 L4979 -20770
 "/>
-<!--Z TR1438 -->
+<!--Z TR1436 -->
 <use transform="translate(4702,-23317) scale(.650)" stroke-width="41.087" xlink:href="#P02"/>
 <path  d="
 M4979 -23283
 L4979 -22691
 "/>
-<!--Z TR1439 -->
+<!--Z TR1437 -->
 <use transform="translate(5231,-21509) scale(.650)" stroke-width="41.087" xlink:href="#P02"/>
 <path  d="
 M5507 -21475
 L5507 -20770
 "/>
-<!--Z TR1440 -->
+<!--Z TR1438 -->
 <use transform="translate(5231,-23431) scale(.650)" stroke-width="41.087" xlink:href="#P02"/>
 <use transform="translate(5299,-23431) scale(.650)" stroke-width="41.087" xlink:href="#P01"/>
 <path  d="
 M5507 -23397
 L5507 -22691
 "/>
-<!--Z TR1441 -->
+<!--Z TR1439 -->
 <use transform="translate(5695,-21509) scale(.650)" stroke-width="41.087" xlink:href="#P02"/>
 <path  d="
 M5971 -21475
 L5971 -20770
 "/>
-<!--Z TR1442 -->
+<!--Z TR1440 -->
 <use transform="translate(5695,-23431) scale(.650)" stroke-width="41.087" xlink:href="#P02"/>
 <path  d="
 M5971 -23397
 L5971 -22691
 "/>
-<!--Z TR1443 -->
+<!--Z TR1441 -->
 <path stroke-width=".0000" d="
 M8077 -22862
 L8077 -22748
@@ -2117,14 +2117,14 @@ L6500 -22862
 L8077 -22862
 L8077 -22748
 Z" fill="currentColor"/>
-<!--Z TR1444 -->
+<!--Z TR1442 -->
 <use transform="translate(6223,-21623) scale(.650)" stroke-width="41.087" xlink:href="#P02"/>
 <use transform="translate(6292,-21623) scale(.650)" stroke-width="41.087" xlink:href="#P01"/>
 <path  d="
 M6500 -21589
 L6500 -20770
 "/>
-<!--Z TR1445 -->
+<!--Z TR1443 -->
 <path stroke-width=".0000" d="
 M8077 -20884
 L8077 -20770
@@ -2133,46 +2133,46 @@ L6500 -20884
 L8077 -20884
 L8077 -20770
 Z" fill="currentColor"/>
-<!--Z TR1446 -->
+<!--Z TR1444 -->
 <use transform="translate(6223,-23545) scale(.650)" stroke-width="41.087" xlink:href="#P02"/>
 <use transform="translate(6292,-23545) scale(.650)" stroke-width="41.087" xlink:href="#P01"/>
 <path  d="
 M6500 -23510
 L6500 -22748
 "/>
-<!--Z TR1447 -->
+<!--Z TR1445 -->
 <use transform="translate(6687,-23545) scale(.650)" stroke-width="41.087" xlink:href="#P02"/>
 <path  d="
-M6963 -23510
-L6963 -22748
+M6964 -23510
+L6964 -22748
 "/>
-<!--Z TR1448 -->
+<!--Z TR1446 -->
 <use transform="translate(6687,-21623) scale(.650)" stroke-width="41.087" xlink:href="#P02"/>
 <path  d="
-M6963 -21589
-L6963 -20770
+M6964 -21589
+L6964 -20770
 "/>
-<!--Z TR1449 -->
+<!--Z TR1447 -->
 <use transform="translate(7122,-23431) scale(.650)" stroke-width="41.087" xlink:href="#P02"/>
 <path  d="
 M7398 -23397
 L7398 -22748
 "/>
-<!--Z TR1450 -->
+<!--Z TR1448 -->
 <use transform="translate(7171,-21509) scale(.650)" stroke-width="41.087" xlink:href="#P02"/>
 <path  d="
 M7447 -21475
 L7447 -20770
 "/>
-<!--Z TR1451 -->
+<!--Z TR1449 -->
 <use transform="translate(7473,-23317) scale(.650)" stroke-width="41.087" xlink:href="#P04"/>
 <path  d="
 M7473 -23351
 L7473 -24739
 "/>
-<!--Z TR1452 -->
+<!--Z TR1450 -->
 <use transform="translate(7473,-24113) scale(.650)" stroke-width="41.087" xlink:href="#P04"/>
-<!--Z TR1453 -->
+<!--Z TR1451 -->
 <path stroke-width=".0000" d="
 M7593 -24412
 L7593 -24497
@@ -2181,19 +2181,19 @@ L7301 -24554
 L7593 -24412
 L7593 -24497
 Z" fill="currentColor"/>
-<!--Z TR1454 -->
+<!--Z TR1452 -->
 <use transform="translate(7800,-21509) scale(.650)" stroke-width="41.087" xlink:href="#P02"/>
 <path  d="
 M8077 -21475
 L8077 -20770
 "/>
-<!--Z TR1455 -->
+<!--Z TR1453 -->
 <use transform="translate(7800,-23431) scale(.650)" stroke-width="41.087" xlink:href="#P02"/>
 <path  d="
 M8077 -23397
 L8077 -22748
 "/>
-<!--Z TR1456 -->
+<!--Z TR1454 -->
 <use transform="translate(8283,-21737) scale(.650)" stroke-width="41.087" xlink:href="#P02"/>
 <path stroke-width="40.0600" d="
 M8202 -21737
@@ -2203,7 +2203,7 @@ L8641 -21737
 M8559 -21703
 L8559 -20770
 "/>
-<!--Z TR1457 -->
+<!--Z TR1455 -->
 <path stroke-width=".0000" d="
 M10002 -20884
 L10002 -20770
@@ -2212,7 +2212,7 @@ L8559 -20884
 L10002 -20884
 L10002 -20770
 Z" fill="currentColor"/>
-<!--Z TR1458 -->
+<!--Z TR1456 -->
 <path stroke-width=".0000" d="
 M10002 -22862
 L10002 -22748
@@ -2221,13 +2221,13 @@ L8559 -22862
 L10002 -22862
 L10002 -22748
 Z" fill="currentColor"/>
-<!--Z TR1459 -->
+<!--Z TR1457 -->
 <use transform="translate(8283,-23658) scale(.650)" stroke-width="41.087" xlink:href="#P02"/>
 <path  d="
 M8559 -23624
 L8559 -22748
 "/>
-<!--Z TR1460 -->
+<!--Z TR1458 -->
 <use transform="translate(8799,-21737) scale(.650)" stroke-width="41.087" xlink:href="#P02"/>
 <path stroke-width="40.0600" d="
 M8717 -21737
@@ -2237,51 +2237,51 @@ L9156 -21737
 M9075 -21703
 L9075 -20770
 "/>
-<!--Z TR1461 -->
+<!--Z TR1459 -->
 <use transform="translate(8799,-23658) scale(.650)" stroke-width="41.087" xlink:href="#P02"/>
 <path  d="
 M9075 -23624
 L9075 -22748
 "/>
-<!--Z TR1462 -->
+<!--Z TR1460 -->
 <use transform="translate(9262,-23431) scale(.650)" stroke-width="41.087" xlink:href="#P02"/>
 <path  d="
 M9539 -23397
 L9539 -22748
 "/>
-<!--Z TR1463 -->
+<!--Z TR1461 -->
 <use transform="translate(9262,-21509) scale(.650)" stroke-width="41.087" xlink:href="#P02"/>
 <path  d="
 M9539 -21475
 L9539 -20770
 "/>
-<!--Z TR1464 -->
+<!--Z TR1462 -->
 <use transform="translate(9726,-21509) scale(.650)" stroke-width="41.087" xlink:href="#P02"/>
 <path  d="
 M10002 -21475
 L10002 -20770
 "/>
-<!--Z TR1465 -->
+<!--Z TR1463 -->
 <use transform="translate(9726,-23431) scale(.650)" stroke-width="41.087" xlink:href="#P02"/>
 <path  d="
 M10002 -23397
 L10002 -22748
 "/>
-<!--Z TR1466 -->
+<!--Z TR1464 -->
 <path  d="
 M10300 -13116
 L10300 -12206
 M10307 -13116
 L10307 -12206
 "/>
-<!--Z TR1467 -->
+<!--Z TR1465 -->
 <path  d="
 M10300 -24000
 L10300 -14234
 M10307 -24000
 L10307 -14234
 "/>
-<!--Z TR1468 -->
+<!--Z TR1466 -->
 <path stroke-width=".0000" d="
 M12495 -20884
 L12495 -20770
@@ -2290,7 +2290,7 @@ L10972 -20884
 L12495 -20884
 L12495 -20770
 Z" fill="currentColor"/>
-<!--Z TR1469 -->
+<!--Z TR1467 -->
 <use transform="translate(10696,-21737) scale(.650)" stroke-width="41.087" xlink:href="#P02"/>
 <use transform="translate(10667,-21737) scale(.650)" stroke-width="41.087" xlink:href="#P01"/>
 <path stroke-width="40.0600" d="
@@ -2301,15 +2301,15 @@ L11054 -21737
 M10972 -21703
 L10972 -20770
 "/>
-<!--Z TR1470 -->
+<!--Z TR1468 -->
 <use transform="translate(10696,-19425) scale(.650)" stroke-width="41.087" xlink:href="#P03"/>
-<!--Z TR1471 -->
+<!--Z TR1469 -->
 <use transform="translate(10696,-17228) scale(.650)" stroke-width="41.087" xlink:href="#P02"/>
 <path  d="
 M10696 -17262
 L10696 -18024
 "/>
-<!--Z TR1472 -->
+<!--Z TR1470 -->
 <use transform="translate(10696,-16886) scale(.650)" stroke-width="41.087" xlink:href="#P04"/>
 <path  d="
 M10972 -16852
@@ -2320,14 +2320,14 @@ M11119 -16895
 L11119 -16874
 L11135 -16858
 L11155 -16858
-L11172 -16874
-L11172 -16895
+L11171 -16874
+L11171 -16895
 L11155 -16911
 L11135 -16911
 L11119 -16895
 L11119 -16874
 Z" fill="currentColor"/>
-<!--Z TR1473 -->
+<!--Z TR1471 -->
 <use transform="translate(10696,-14803) scale(.650)" stroke-width="41.087" xlink:href="#P04"/>
 <path  d="
 M10972 -14769
@@ -2338,14 +2338,14 @@ M11119 -14811
 L11119 -14790
 L11135 -14774
 L11155 -14774
-L11172 -14790
-L11172 -14811
+L11171 -14790
+L11171 -14811
 L11155 -14827
 L11135 -14827
 L11119 -14811
 L11119 -14790
 Z" fill="currentColor"/>
-<!--Z TR1474 -->
+<!--Z TR1472 -->
 <path  d="
 M13454 -12433
 L13454 -12531
@@ -2353,13 +2353,13 @@ L13731 -12531
 L13731 -12433
 L13454 -12433
 Z" fill="currentColor"/>
-<!--Z TR1475 -->
+<!--Z TR1473 -->
 <use transform="translate(10696,-23317) scale(.650)" stroke-width="41.087" xlink:href="#P04"/>
 <path  d="
 M10696 -23351
 L10696 -24910
 "/>
-<!--Z TR1476 -->
+<!--Z TR1474 -->
 <path stroke-width=".0000" d="
 M10842 -24469
 L10842 -24554
@@ -2368,9 +2368,9 @@ L10550 -24611
 L10842 -24469
 L10842 -24554
 Z" fill="currentColor"/>
-<!--Z TR1477 -->
+<!--Z TR1475 -->
 <use transform="translate(10696,-24113) scale(.650)" stroke-width="41.087" xlink:href="#P04"/>
-<!--Z TR1478 -->
+<!--Z TR1476 -->
 <path stroke-width=".0000" d="
 M12495 -22748
 L12495 -22635
@@ -2379,14 +2379,14 @@ L11021 -22748
 L12495 -22748
 L12495 -22635
 Z" fill="currentColor"/>
-<!--Z TR1479 -->
+<!--Z TR1477 -->
 <use transform="translate(10745,-23658) scale(.650)" stroke-width="41.087" xlink:href="#P02"/>
 <use transform="translate(10716,-23658) scale(.650)" stroke-width="41.087" xlink:href="#P01"/>
 <path  d="
 M11021 -23624
 L11021 -22635
 "/>
-<!--Z TR1480 -->
+<!--Z TR1478 -->
 <use transform="translate(11212,-21737) scale(.650)" stroke-width="41.087" xlink:href="#P02"/>
 <path stroke-width="40.0600" d="
 M11130 -21737
@@ -2396,43 +2396,43 @@ L11569 -21737
 M11488 -21703
 L11488 -20770
 "/>
-<!--Z TR1481 -->
+<!--Z TR1479 -->
 <use transform="translate(11212,-23658) scale(.650)" stroke-width="41.087" xlink:href="#P02"/>
 <path  d="
 M11488 -23624
 L11488 -22635
 "/>
-<!--Z TR1482 -->
+<!--Z TR1480 -->
 <text transform="translate(11444,-19937) scale(1,-1)" fill="currentColor" stroke="none" font-size="526" style="font-family:Nimbus Roman No9 L;font-style:italic"><tspan letter-spacing="15.37">dim.</tspan></text>
-<!--Z TR1483 -->
+<!--Z TR1481 -->
 <use transform="translate(11755,-21509) scale(.650)" stroke-width="41.087" xlink:href="#P02"/>
 <use transform="translate(11814,-21509) scale(.650)" stroke-width="41.087" xlink:href="#P01"/>
 <path  d="
 M12032 -21475
 L12032 -20770
 "/>
-<!--Z TR1484 -->
+<!--Z TR1482 -->
 <use transform="translate(11755,-23431) scale(.650)" stroke-width="41.087" xlink:href="#P02"/>
 <use transform="translate(11804,-23431) scale(.650)" stroke-width="41.087" xlink:href="#P01"/>
 <path  d="
 M12032 -23397
 L12032 -22635
 "/>
-<!--Z TR1485 -->
+<!--Z TR1483 -->
 <use transform="translate(12219,-21509) scale(.650)" stroke-width="41.087" xlink:href="#P02"/>
 <path  d="
 M12495 -21475
 L12495 -20770
 "/>
-<!--Z TR1486 -->
+<!--Z TR1484 -->
 <use transform="translate(12219,-17341) scale(.650)" stroke-width="41.087" xlink:href="#P07"/>
-<!--Z TR1487 -->
+<!--Z TR1485 -->
 <use transform="translate(12219,-23431) scale(.650)" stroke-width="41.087" xlink:href="#P02"/>
 <path  d="
 M12495 -23397
 L12495 -22635
 "/>
-<!--Z TR1488 -->
+<!--Z TR1486 -->
 <use transform="translate(12756,-21851) scale(.650)" stroke-width="41.087" xlink:href="#P02"/>
 <use transform="translate(12804,-21851) scale(.650)" stroke-width="41.087" xlink:href="#P01"/>
 <path stroke-width="40.0600" d="
@@ -2443,14 +2443,14 @@ L13113 -21737
 M13032 -21816
 L13032 -20770
 "/>
-<!--Z TR1489 -->
+<!--Z TR1487 -->
 <use transform="translate(12756,-23772) scale(.650)" stroke-width="41.087" xlink:href="#P02"/>
 <use transform="translate(12814,-23772) scale(.650)" stroke-width="41.087" xlink:href="#P01"/>
 <path  d="
 M13032 -23738
 L13032 -22635
 "/>
-<!--Z TR1490 -->
+<!--Z TR1488 -->
 <path stroke-width=".0000" d="
 M14554 -22748
 L14554 -22635
@@ -2459,7 +2459,7 @@ L13032 -22748
 L14554 -22748
 L14554 -22635
 Z" fill="currentColor"/>
-<!--Z TR1491 -->
+<!--Z TR1489 -->
 <path stroke-width=".0000" d="
 M14554 -20884
 L14554 -20770
@@ -2468,7 +2468,7 @@ L13032 -20884
 L14554 -20884
 L14554 -20770
 Z" fill="currentColor"/>
-<!--Z TR1492 -->
+<!--Z TR1490 -->
 <use transform="translate(13271,-21851) scale(.650)" stroke-width="41.087" xlink:href="#P02"/>
 <path stroke-width="40.0600" d="
 M13190 -21737
@@ -2478,21 +2478,21 @@ L13629 -21737
 M13547 -21816
 L13547 -20770
 "/>
-<!--Z TR1493 -->
+<!--Z TR1491 -->
 <use transform="translate(13271,-23772) scale(.650)" stroke-width="41.087" xlink:href="#P02"/>
 <path  d="
 M13547 -23738
 L13547 -22635
 "/>
-<!--Z TR1494 -->
+<!--Z TR1492 -->
 <path  d="
 M13688 -19636
 L16547 -19767
 L13688 -19897
 "/>
-<!--Z TR1495 -->
+<!--Z TR1493 -->
 <use transform="translate(13619,-24113) scale(.650)" stroke-width="41.087" xlink:href="#P04"/>
-<!--Z TR1496 -->
+<!--Z TR1494 -->
 <path stroke-width=".0000" d="
 M13765 -24469
 L13765 -24554
@@ -2501,19 +2501,19 @@ L13472 -24611
 L13765 -24469
 L13765 -24554
 Z" fill="currentColor"/>
-<!--Z TR1497 -->
+<!--Z TR1495 -->
 <use transform="translate(13619,-23317) scale(.650)" stroke-width="41.087" xlink:href="#P04"/>
 <path  d="
 M13619 -23351
 L13619 -24910
 "/>
-<!--Z TR1498 -->
+<!--Z TR1496 -->
 <use transform="translate(13814,-21509) scale(.650)" stroke-width="41.087" xlink:href="#P02"/>
 <path  d="
 M14090 -21475
 L14090 -20770
 "/>
-<!--Z TR1499 -->
+<!--Z TR1497 -->
 <path  d="
 M13814 -17455
 L13814 -17358
@@ -2525,32 +2525,32 @@ Z" fill="currentColor"/>
 M13684 -17455
 L14220 -17455
 "/>
-<!--Z TR1500 -->
+<!--Z TR1498 -->
 <use transform="translate(13814,-23431) scale(.650)" stroke-width="41.087" xlink:href="#P02"/>
 <path  d="
 M14090 -23397
 L14090 -22635
 "/>
-<!--Z TR1501 -->
+<!--Z TR1499 -->
 <use transform="translate(14277,-21509) scale(.650)" stroke-width="41.087" xlink:href="#P02"/>
 <path  d="
 M14554 -21475
 L14554 -20770
 "/>
-<!--Z TR1502 -->
+<!--Z TR1500 -->
 <use transform="translate(14277,-23431) scale(.650)" stroke-width="41.087" xlink:href="#P02"/>
 <path  d="
 M14554 -23397
 L14554 -22635
 "/>
-<!--Z TR1503 -->
+<!--Z TR1501 -->
 <use transform="translate(14822,-23886) scale(.650)" stroke-width="41.087" xlink:href="#P02"/>
 <use transform="translate(14822,-23886) scale(.650)" stroke-width="41.087" xlink:href="#P05"/>
 <path  d="
 M15099 -23852
 L15099 -22635
 "/>
-<!--Z TR1504 -->
+<!--Z TR1502 -->
 <path stroke-width=".0000" d="
 M16542 -22748
 L16542 -22635
@@ -2559,7 +2559,7 @@ L15099 -22748
 L16542 -22748
 L16542 -22635
 Z" fill="currentColor"/>
-<!--Z TR1505 -->
+<!--Z TR1503 -->
 <path stroke-width=".0000" d="
 M16542 -20884
 L16542 -20770
@@ -2568,7 +2568,7 @@ L15099 -20884
 L16542 -20884
 L16542 -20770
 Z" fill="currentColor"/>
-<!--Z TR1506 -->
+<!--Z TR1504 -->
 <use transform="translate(14822,-21964) scale(.650)" stroke-width="41.087" xlink:href="#P02"/>
 <use transform="translate(14822,-21964) scale(.650)" stroke-width="41.087" xlink:href="#P05"/>
 <path stroke-width="40.0600" d="
@@ -2581,20 +2581,20 @@ L15180 -21737
 M15099 -21930
 L15099 -20770
 "/>
-<!--Z TR1507 -->
+<!--Z TR1505 -->
 <use transform="translate(15338,-14803) scale(.650)" stroke-width="41.087" xlink:href="#P02"/>
 <use transform="translate(15338,-14803) scale(.650)" stroke-width="41.087" xlink:href="#P05"/>
 <path  d="
 M15614 -14769
 L15614 -14006
 "/>
-<!--Z TR1508 -->
+<!--Z TR1506 -->
 <use transform="translate(15338,-23886) scale(.650)" stroke-width="41.087" xlink:href="#P02"/>
 <path  d="
 M15614 -23852
 L15614 -22635
 "/>
-<!--Z TR1509 -->
+<!--Z TR1507 -->
 <use transform="translate(15338,-21964) scale(.650)" stroke-width="41.087" xlink:href="#P02"/>
 <path stroke-width="40.0600" d="
 M15257 -21964
@@ -2606,80 +2606,80 @@ L15695 -21737
 M15614 -21930
 L15614 -20770
 "/>
-<!--Z TR1510 -->
+<!--Z TR1508 -->
 <use transform="translate(15338,-16886) scale(.650)" stroke-width="41.087" xlink:href="#P02"/>
 <use transform="translate(15338,-16886) scale(.650)" stroke-width="41.087" xlink:href="#P05"/>
 <path  d="
 M15614 -16852
 L15614 -16090
 "/>
-<!--Z TR1511 -->
+<!--Z TR1509 -->
 <use transform="translate(15802,-23431) scale(.650)" stroke-width="41.087" xlink:href="#P02"/>
 <path  d="
 M16078 -23397
 L16078 -22635
 "/>
-<!--Z TR1512 -->
+<!--Z TR1510 -->
 <use transform="translate(15802,-21509) scale(.650)" stroke-width="41.087" xlink:href="#P02"/>
 <path  d="
 M16078 -21475
 L16078 -20770
 "/>
-<!--Z TR1513 -->
+<!--Z TR1511 -->
 <use transform="translate(16265,-23431) scale(.650)" stroke-width="41.087" xlink:href="#P02"/>
 <path  d="
 M16542 -23397
 L16542 -22635
 "/>
-<!--Z TR1514 -->
+<!--Z TR1512 -->
 <use transform="translate(16265,-21509) scale(.650)" stroke-width="41.087" xlink:href="#P02"/>
 <path  d="
 M16542 -21475
 L16542 -20770
 "/>
-<!--Z TR1515 -->
+<!--Z TR1513 -->
 <path  d="
 M16839 -15144
 L16839 -14234
 M16846 -15144
 L16846 -14234
 "/>
-<!--Z TR1516 -->
+<!--Z TR1514 -->
 <path  d="
 M16839 -21509
 L16839 -20599
 M16846 -21509
 L16846 -20599
 "/>
-<!--Z TR1517 -->
+<!--Z TR1515 -->
 <path  d="
 M16839 -17228
 L16839 -16318
 M16846 -17228
 L16846 -16318
 "/>
-<!--Z TR1518 -->
+<!--Z TR1516 -->
 <path  d="
 M16839 -19425
 L16839 -18515
 M16846 -19425
 L16846 -18515
 "/>
-<!--Z TR1519 -->
+<!--Z TR1517 -->
 <path  d="
 M16839 -13116
 L16839 -12206
 M16846 -13116
 L16846 -12206
 "/>
-<!--Z TR1520 -->
+<!--Z TR1518 -->
 <path  d="
 M16839 -24000
 L16839 -14234
 M16846 -24000
 L16846 -14234
 "/>
-<!--Z TR1521 -->
+<!--Z TR1519 -->
 <path stroke-width=".0000" d="
 M17391 -24582
 L17391 -24668
@@ -2688,32 +2688,32 @@ L17098 -24725
 L17391 -24582
 L17391 -24668
 Z" fill="currentColor"/>
-<!--Z TR1522 -->
+<!--Z TR1520 -->
 <use transform="translate(17244,-23431) scale(.650)" stroke-width="41.087" xlink:href="#P04"/>
 <path  d="
 M17244 -23465
 L17244 -25023
 "/>
-<!--Z TR1523 -->
+<!--Z TR1521 -->
 <use transform="translate(17244,-24227) scale(.650)" stroke-width="41.087" xlink:href="#P04"/>
 <path stroke-width="40.0600" d="
 M17163 -24227
 L17602 -24227
 "/>
-<!--Z TR1524 -->
+<!--Z TR1522 -->
 <use transform="translate(17293,-16886) scale(.650)" stroke-width="41.087" xlink:href="#P02"/>
 <use transform="translate(17293,-16886) scale(.650)" stroke-width="41.087" xlink:href="#P06"/>
 <path  d="
 M17569 -16852
 L17569 -16090
 "/>
-<!--Z TR1525 -->
+<!--Z TR1523 -->
 <use transform="translate(17293,-19539) scale(.650)" stroke-width="41.087" xlink:href="#P04"/>
 <path  d="
 M17569 -19505
 L17569 -18743
 "/>
-<!--Z TR1526 -->
+<!--Z TR1524 -->
 <path stroke-width="20.0300" d="
 M17732 -19596
 L17827 -19639
@@ -2771,7 +2771,7 @@ L17922 -19685
 L17827 -19642
 L17732 -19596
 Z" fill="currentColor"/>
-<!--Z TR1527 -->
+<!--Z TR1525 -->
 <use transform="translate(17293,-22078) scale(.650)" stroke-width="41.087" xlink:href="#P02"/>
 <use transform="translate(17293,-22078) scale(.650)" stroke-width="41.087" xlink:href="#P06"/>
 <path stroke-width="40.0600" d="
@@ -2784,7 +2784,7 @@ L17651 -21737
 M17569 -22044
 L17569 -20827
 "/>
-<!--Z TR1528 -->
+<!--Z TR1526 -->
 <path stroke-width=".0000" d="
 M19022 -20941
 L19022 -20827
@@ -2793,7 +2793,7 @@ L17569 -20941
 L19022 -20941
 L19022 -20827
 Z" fill="currentColor"/>
-<!--Z TR1529 -->
+<!--Z TR1527 -->
 <path stroke-width=".0000" d="
 M18998 -22919
 L18998 -22805
@@ -2802,14 +2802,14 @@ L17569 -22919
 L18998 -22919
 L18998 -22805
 Z" fill="currentColor"/>
-<!--Z TR1530 -->
+<!--Z TR1528 -->
 <use transform="translate(17293,-14803) scale(.650)" stroke-width="41.087" xlink:href="#P02"/>
 <use transform="translate(17293,-14803) scale(.650)" stroke-width="41.087" xlink:href="#P06"/>
 <path  d="
 M17569 -14769
 L17569 -14006
 "/>
-<!--Z TR1531 -->
+<!--Z TR1529 -->
 <path  d="
 M17293 -12661
 L17293 -12563
@@ -2817,14 +2817,14 @@ L17569 -12563
 L17569 -12661
 L17293 -12661
 Z" fill="currentColor"/>
-<!--Z TR1532 -->
+<!--Z TR1530 -->
 <use transform="translate(17293,-24000) scale(.650)" stroke-width="41.087" xlink:href="#P02"/>
 <use transform="translate(17244,-24000) scale(.650)" stroke-width="41.087" xlink:href="#P06"/>
 <path  d="
 M17569 -23965
 L17569 -22805
 "/>
-<!--Z TR1533 -->
+<!--Z TR1531 -->
 <path  d="
 M17293 -17455
 L17293 -17358
@@ -2836,7 +2836,7 @@ Z" fill="currentColor"/>
 M17163 -17455
 L17699 -17455
 "/>
-<!--Z TR1534 -->
+<!--Z TR1532 -->
 <use transform="translate(17809,-22078) scale(.650)" stroke-width="41.087" xlink:href="#P02"/>
 <path stroke-width="40.0600" d="
 M17727 -21964
@@ -2848,25 +2848,25 @@ L18166 -21737
 M18085 -22044
 L18085 -20827
 "/>
-<!--Z TR1535 -->
+<!--Z TR1533 -->
 <use transform="translate(17809,-24000) scale(.650)" stroke-width="41.087" xlink:href="#P02"/>
 <path  d="
 M18085 -23965
 L18085 -22805
 "/>
-<!--Z TR1536 -->
+<!--Z TR1534 -->
 <use transform="translate(18273,-21623) scale(.650)" stroke-width="41.087" xlink:href="#P02"/>
 <path  d="
 M18549 -21589
 L18549 -20827
 "/>
-<!--Z TR1537 -->
+<!--Z TR1535 -->
 <use transform="translate(18273,-23545) scale(.650)" stroke-width="41.087" xlink:href="#P02"/>
 <path  d="
 M18549 -23510
 L18549 -22805
 "/>
-<!--Z TR1538 -->
+<!--Z TR1536 -->
 <path stroke-width="20.0300" d="
 M19308 -16621
 L19409 -16602
@@ -2960,13 +2960,13 @@ L19510 -16581
 L19409 -16600
 L19308 -16621
 Z" fill="currentColor"/>
-<!--Z TR1539 -->
+<!--Z TR1537 -->
 <use transform="translate(18722,-23545) scale(.650)" stroke-width="41.087" xlink:href="#P02"/>
 <path  d="
 M18998 -23510
 L18998 -22805
 "/>
-<!--Z TR1540 -->
+<!--Z TR1538 -->
 <path stroke-width="20.0300" d="
 M19346 -14567
 L19447 -14545
@@ -3060,15 +3060,15 @@ L19549 -14520
 L19447 -14543
 L19346 -14567
 Z" fill="currentColor"/>
-<!--Z TR1541 -->
+<!--Z TR1539 -->
 <use transform="translate(18746,-21623) scale(.650)" stroke-width="41.087" xlink:href="#P02"/>
 <path  d="
 M19022 -21589
 L19022 -20827
 "/>
-<!--Z TR1542 -->
+<!--Z TR1540 -->
 <text transform="translate(18896,-17796) scale(1,-1)" fill="currentColor" stroke="none" font-size="526" style="font-family:Nimbus Roman No9 L;font-style:italic"><tspan letter-spacing="15.37">dim.</tspan></text>
-<!--Z TR1543 -->
+<!--Z TR1541 -->
 <use transform="translate(18746,-16773) scale(.650)" stroke-width="41.087" xlink:href="#P04"/>
 <path  d="
 M19022 -16739
@@ -3077,8 +3077,8 @@ L19022 -16033
 <path  d="
 M19169 -16667
 L19169 -16647
-L19185 -16631
-L19205 -16631
+L19185 -16630
+L19205 -16630
 L19221 -16647
 L19221 -16667
 L19205 -16683
@@ -3086,9 +3086,9 @@ L19185 -16683
 L19169 -16667
 L19169 -16647
 Z" fill="currentColor"/>
-<!--Z TR1544 -->
+<!--Z TR1542 -->
 <text transform="translate(18896,-15656) scale(1,-1)" fill="currentColor" stroke="none" font-size="526" style="font-family:Nimbus Roman No9 L;font-style:italic"><tspan letter-spacing="15.37">dim.</tspan></text>
-<!--Z TR1545 -->
+<!--Z TR1543 -->
 <use transform="translate(18746,-14689) scale(.650)" stroke-width="41.087" xlink:href="#P04"/>
 <path  d="
 M18746 -14723
@@ -3106,11 +3106,11 @@ L19185 -14600
 L19169 -14583
 L19169 -14563
 Z" fill="currentColor"/>
-<!--Z TR1546 -->
+<!--Z TR1544 -->
 <text transform="translate(18993,-24568) scale(1,-1)" fill="currentColor" stroke="none" font-size="526" style="font-family:Nimbus Roman No9 L;font-style:italic"><tspan letter-spacing="15.37">dim.</tspan></text>
-<!--Z TR1547 -->
+<!--Z TR1545 -->
 <text transform="translate(18999,-22419) scale(1,-1)" fill="currentColor" stroke="none" font-size="526" style="font-family:Nimbus Roman No9 L;font-style:italic"><tspan letter-spacing="15.37">dim.</tspan></text>
-<!--Z TR1548 -->
+<!--Z TR1546 -->
 <use transform="translate(19339,-21737) scale(.650)" stroke-width="41.087" xlink:href="#P02"/>
 <use transform="translate(19358,-21737) scale(.650)" stroke-width="41.087" xlink:href="#P06"/>
 <path stroke-width="40.0600" d="
@@ -3121,7 +3121,7 @@ L19696 -21737
 M19615 -21703
 L19615 -20827
 "/>
-<!--Z TR1549 -->
+<!--Z TR1547 -->
 <path stroke-width=".0000" d="
 M21107 -20941
 L21107 -20827
@@ -3130,14 +3130,14 @@ L19615 -20941
 L21107 -20941
 L21107 -20827
 Z" fill="currentColor"/>
-<!--Z TR1550 -->
+<!--Z TR1548 -->
 <use transform="translate(19339,-23658) scale(.650)" stroke-width="41.087" xlink:href="#P02"/>
 <use transform="translate(19387,-23658) scale(.650)" stroke-width="41.087" xlink:href="#P06"/>
 <path  d="
 M19615 -23624
 L19615 -22805
 "/>
-<!--Z TR1551 -->
+<!--Z TR1549 -->
 <path stroke-width=".0000" d="
 M21156 -22919
 L21156 -22805
@@ -3146,13 +3146,13 @@ L19615 -22919
 L21156 -22919
 L21156 -22805
 Z" fill="currentColor"/>
-<!--Z TR1552 -->
+<!--Z TR1550 -->
 <use transform="translate(19854,-23658) scale(.650)" stroke-width="41.087" xlink:href="#P02"/>
 <path  d="
 M20130 -23624
 L20130 -22805
 "/>
-<!--Z TR1553 -->
+<!--Z TR1551 -->
 <use transform="translate(19854,-21737) scale(.650)" stroke-width="41.087" xlink:href="#P02"/>
 <path stroke-width="40.0600" d="
 M19773 -21737
@@ -3162,15 +3162,15 @@ L20212 -21737
 M20130 -21703
 L20130 -20827
 "/>
-<!--Z TR1554 -->
+<!--Z TR1552 -->
 <text transform="translate(19355,-11751) scale(1,-1)" fill="currentColor" stroke="none" font-size="501" >Isolde</text>
-<!--Z TR1555 -->
+<!--Z TR1553 -->
 <use transform="translate(20202,-23431) scale(.650)" stroke-width="41.087" xlink:href="#P04"/>
 <path  d="
 M20202 -23465
 L20202 -25023
 "/>
-<!--Z TR1556 -->
+<!--Z TR1554 -->
 <path stroke-width=".0000" d="
 M20348 -24582
 L20348 -24668
@@ -3179,13 +3179,13 @@ L20055 -24725
 L20348 -24582
 L20348 -24668
 Z" fill="currentColor"/>
-<!--Z TR1557 -->
+<!--Z TR1555 -->
 <use transform="translate(20202,-24227) scale(.650)" stroke-width="41.087" xlink:href="#P04"/>
 <path stroke-width="40.0600" d="
 M20120 -24227
 L20559 -24227
 "/>
-<!--Z TR1558 -->
+<!--Z TR1556 -->
 <path stroke-width="20.0300" d="
 M20835 -12069
 L20928 -12027
@@ -3255,29 +3255,29 @@ L21020 -11985
 L20928 -12024
 L20835 -12069
 Z" fill="currentColor"/>
-<!--Z TR1559 -->
+<!--Z TR1557 -->
 <text transform="translate(20397,-13798) scale(1,-1)" fill="currentColor" stroke="none" font-size="501" style="font-family:Nimbus Roman No9 L">Tri</text>
-<!--Z TR1560 -->
+<!--Z TR1558 -->
 <use transform="translate(20397,-12206) scale(.650)" stroke-width="41.087" xlink:href="#P04"/>
 <path  d="
 M20397 -12240
 L20397 -13002
 "/>
-<!--Z TR1561 -->
+<!--Z TR1559 -->
 <use transform="translate(20397,-17341) scale(.650)" stroke-width="41.087" xlink:href="#P07"/>
-<!--Z TR1562 -->
+<!--Z TR1560 -->
 <use transform="translate(20397,-23545) scale(.650)" stroke-width="41.087" xlink:href="#P02"/>
 <path  d="
 M20673 -23510
 L20673 -22805
 "/>
-<!--Z TR1563 -->
+<!--Z TR1561 -->
 <use transform="translate(20397,-21623) scale(.650)" stroke-width="41.087" xlink:href="#P02"/>
 <path  d="
 M20673 -21589
 L20673 -20827
 "/>
-<!--Z TR1564 -->
+<!--Z TR1562 -->
 <use transform="translate(20397,-19539) scale(.650)" stroke-width="41.087" xlink:href="#P02"/>
 <path  d="
 M20673 -19505
@@ -3312,7 +3312,7 @@ L20803 -18950
 L20819 -18966
 L20847 -18999
 L20864 -19019
-L20880 -19043
+L20880 -19044
 L20896 -19072
 L20908 -19100
 L20917 -19125
@@ -3322,13 +3322,13 @@ L20933 -19230
 L20933 -19275
 L20929 -19320
 L20925 -19348
-L20921 -19368
+L20921 -19369
 L20917 -19385
 L20912 -19360
 Z" fill="currentColor"/>
 <path stroke-width="20.0300" d="
 M20925 -19348
-L20921 -19368
+L20921 -19369
 L20917 -19385
 L20908 -19413
 L20892 -19458
@@ -3339,21 +3339,21 @@ L20912 -19360
 L20917 -19336
 L20925 -19348
 Z" fill="currentColor"/>
-<!--Z TR1565 -->
+<!--Z TR1563 -->
 <use transform="translate(20831,-21623) scale(.650)" stroke-width="41.087" xlink:href="#P02"/>
 <path  d="
 M21107 -21589
 L21107 -20827
 "/>
-<!--Z TR1566 -->
+<!--Z TR1564 -->
 <use transform="translate(20880,-23545) scale(.650)" stroke-width="41.087" xlink:href="#P02"/>
 <path  d="
 M21156 -23510
 L21156 -22805
 "/>
-<!--Z TR1567 -->
+<!--Z TR1565 -->
 <use transform="translate(21133,-18857) scale(.650)" stroke-width="41.087" xlink:href="#P08"/>
-<!--Z TR1568 -->
+<!--Z TR1566 -->
 <path stroke-width=".0000" d="
 M23126 -22919
 L23126 -22805
@@ -3362,14 +3362,14 @@ L21711 -22919
 L23126 -22919
 L23126 -22805
 Z" fill="currentColor"/>
-<!--Z TR1569 -->
+<!--Z TR1567 -->
 <use transform="translate(21434,-23658) scale(.650)" stroke-width="41.087" xlink:href="#P02"/>
 <use transform="translate(21483,-23658) scale(.650)" stroke-width="41.087" xlink:href="#P05"/>
 <path  d="
 M21711 -23624
 L21711 -22805
 "/>
-<!--Z TR1570 -->
+<!--Z TR1568 -->
 <use transform="translate(21434,-21737) scale(.650)" stroke-width="41.087" xlink:href="#P02"/>
 <use transform="translate(21434,-21737) scale(.650)" stroke-width="41.087" xlink:href="#P05"/>
 <path stroke-width="40.0600" d="
@@ -3380,7 +3380,7 @@ L21792 -21737
 M21711 -21703
 L21711 -20827
 "/>
-<!--Z TR1571 -->
+<!--Z TR1569 -->
 <path stroke-width=".0000" d="
 M23126 -20941
 L23126 -20827
@@ -3389,17 +3389,17 @@ L21711 -20941
 L23126 -20941
 L23126 -20827
 Z" fill="currentColor"/>
-<!--Z TR1572 -->
+<!--Z TR1570 -->
 <use transform="translate(21921,-17341) scale(.650)" stroke-width="41.087" xlink:href="#P08"/>
-<!--Z TR1573 -->
+<!--Z TR1571 -->
 <use transform="translate(21921,-23658) scale(.650)" stroke-width="41.087" xlink:href="#P02"/>
 <path  d="
 M22197 -23624
 L22197 -22805
 "/>
-<!--Z TR1574 -->
+<!--Z TR1572 -->
 <use transform="translate(21921,-18857) scale(.650)" stroke-width="41.087" xlink:href="#P07"/>
-<!--Z TR1575 -->
+<!--Z TR1573 -->
 <use transform="translate(21921,-21737) scale(.650)" stroke-width="41.087" xlink:href="#P02"/>
 <path stroke-width="40.0600" d="
 M21840 -21737
@@ -3409,26 +3409,26 @@ L22278 -21737
 M22197 -21703
 L22197 -20827
 "/>
-<!--Z TR1576 -->
+<!--Z TR1574 -->
 <path  d="
 M22245 -13707
 L22392 -13707
 M24052 -13707
 L24199 -13707
 "/>
-<!--Z TR1577 -->
+<!--Z TR1575 -->
 <use transform="translate(22385,-23545) scale(.650)" stroke-width="41.087" xlink:href="#P02"/>
 <path  d="
 M22661 -23510
 L22661 -22805
 "/>
-<!--Z TR1578 -->
+<!--Z TR1576 -->
 <use transform="translate(22385,-21623) scale(.650)" stroke-width="41.087" xlink:href="#P02"/>
 <path  d="
 M22661 -21589
 L22661 -20827
 "/>
-<!--Z TR1579 -->
+<!--Z TR1577 -->
 <use transform="translate(22617,-17569) scale(.650)" stroke-width="41.087" xlink:href="#P02"/>
 <path stroke-width="40.0600" d="
 M22535 -17455
@@ -3446,7 +3446,7 @@ L22864 -17792
 L22860 -17837
 L22856 -17861
 L22844 -17902
-L22832 -17931
+L22832 -17930
 L22820 -17955
 L22803 -17979
 L22783 -18004
@@ -3460,7 +3460,7 @@ L22629 -18276
 L22633 -18264
 L22641 -18243
 L22657 -18211
-L22669 -18191
+L22669 -18190
 L22682 -18174
 L22702 -18150
 L22747 -18101
@@ -3494,41 +3494,41 @@ L22856 -17691
 L22860 -17715
 L22868 -17703
 Z" fill="currentColor"/>
-<!--Z TR1580 -->
+<!--Z TR1578 -->
 <use transform="translate(22850,-23545) scale(.650)" stroke-width="41.087" xlink:href="#P02"/>
 <path  d="
 M23126 -23510
 L23126 -22805
 "/>
-<!--Z TR1581 -->
+<!--Z TR1579 -->
 <use transform="translate(22850,-21623) scale(.650)" stroke-width="41.087" xlink:href="#P02"/>
 <path  d="
 M23126 -21589
 L23126 -20827
 "/>
-<!--Z TR1582 -->
+<!--Z TR1580 -->
 <path  d="
 M23499 -13116
 L23499 -12206
 M23505 -13116
 L23505 -12206
 "/>
-<!--Z TR1583 -->
+<!--Z TR1581 -->
 <path  d="
 M23499 -24000
 L23499 -14234
 M23505 -24000
 L23505 -14234
 "/>
-<!--Z TR1584 -->
-<text transform="translate(23553,-17910) scale(1,-1)" fill="currentColor" stroke="none" font-size="512" style="font-family:Nimbus Roman No9 L;font-style:italic">ausdrucksvoll</text>
-<!--Z TR1585 -->
+<!--Z TR1582 -->
+<text transform="translate(23553,-17910) scale(1,-1)" fill="currentColor" stroke="none" font-size="511" style="font-family:Nimbus Roman No9 L;font-style:italic">ausdrucksvoll</text>
+<!--Z TR1583 -->
 <use transform="translate(23936,-16773) scale(.650)" stroke-width="41.087" xlink:href="#P02"/>
 <path  d="
 M24212 -16739
 L24212 -16033
 "/>
-<!--Z TR1586 -->
+<!--Z TR1584 -->
 <use transform="translate(23985,-21851) scale(.650)" stroke-width="41.087" xlink:href="#P02"/>
 <path stroke-width="40.0600" d="
 M23903 -21737
@@ -3538,7 +3538,7 @@ L24342 -21737
 M24261 -21816
 L24261 -20827
 "/>
-<!--Z TR1587 -->
+<!--Z TR1585 -->
 <path  d="
 M26596 -18743
 L26596 -18840
@@ -3546,13 +3546,13 @@ L26872 -18840
 L26872 -18743
 L26596 -18743
 Z" fill="currentColor"/>
-<!--Z TR1588 -->
+<!--Z TR1586 -->
 <use transform="translate(23985,-12206) scale(.650)" stroke-width="41.087" xlink:href="#P04"/>
 <path  d="
 M23985 -12240
 L23985 -13002
 "/>
-<!--Z TR1589 -->
+<!--Z TR1587 -->
 <path stroke-width=".0000" d="
 M25704 -20941
 L25704 -20827
@@ -3561,19 +3561,19 @@ L24261 -20941
 L25704 -20941
 L25704 -20827
 Z" fill="currentColor"/>
-<!--Z TR1590 -->
+<!--Z TR1588 -->
 <use transform="translate(23985,-14689) scale(.650)" stroke-width="41.087" xlink:href="#P02"/>
 <path  d="
 M23985 -14723
 L23985 -15485
 "/>
-<!--Z TR1591 -->
+<!--Z TR1589 -->
 <use transform="translate(23985,-24227) scale(.650)" stroke-width="41.087" xlink:href="#P04"/>
 <path stroke-width="40.0600" d="
 M23903 -24227
 L24342 -24227
 "/>
-<!--Z TR1592 -->
+<!--Z TR1590 -->
 <path stroke-width=".0000" d="
 M24131 -24582
 L24131 -24668
@@ -3582,19 +3582,19 @@ L23838 -24725
 L24131 -24582
 L24131 -24668
 Z" fill="currentColor"/>
-<!--Z TR1593 -->
+<!--Z TR1591 -->
 <use transform="translate(23985,-23431) scale(.650)" stroke-width="41.087" xlink:href="#P04"/>
 <path  d="
 M23985 -23465
 L23985 -25023
 "/>
-<!--Z TR1594 -->
+<!--Z TR1592 -->
 <use transform="translate(24033,-23772) scale(.650)" stroke-width="41.087" xlink:href="#P02"/>
 <path  d="
 M24310 -23738
 L24310 -22805
 "/>
-<!--Z TR1595 -->
+<!--Z TR1593 -->
 <path stroke-width=".0000" d="
 M25704 -22919
 L25704 -22805
@@ -3603,7 +3603,7 @@ L24310 -22919
 L25704 -22919
 L25704 -22805
 Z" fill="currentColor"/>
-<!--Z TR1596 -->
+<!--Z TR1594 -->
 <use transform="translate(24180,-16886) scale(.650)" stroke-width="41.087" xlink:href="#P04"/>
 <use transform="translate(23955,-16886) scale(.650)" stroke-width="41.087" xlink:href="#P01"/>
 <path  d="
@@ -3634,7 +3634,7 @@ L24830 -16911
 L24813 -16895
 L24813 -16874
 Z" fill="currentColor"/>
-<!--Z TR1597 -->
+<!--Z TR1595 -->
 <use transform="translate(24500,-21851) scale(.650)" stroke-width="41.087" xlink:href="#P02"/>
 <path stroke-width="40.0600" d="
 M24419 -21737
@@ -3644,41 +3644,41 @@ L24858 -21737
 M24776 -21816
 L24776 -20827
 "/>
-<!--Z TR1598 -->
+<!--Z TR1596 -->
 <use transform="translate(24500,-23772) scale(.650)" stroke-width="41.087" xlink:href="#P02"/>
 <path  d="
 M24776 -23738
 L24776 -22805
 "/>
-<!--Z TR1599 -->
+<!--Z TR1597 -->
 <use transform="translate(24964,-21623) scale(.650)" stroke-width="41.087" xlink:href="#P02"/>
 <path  d="
 M25240 -21589
 L25240 -20827
 "/>
-<!--Z TR1600 -->
+<!--Z TR1598 -->
 <use transform="translate(24964,-23545) scale(.650)" stroke-width="41.087" xlink:href="#P02"/>
 <path  d="
 M25240 -23510
 L25240 -22805
 "/>
-<!--Z TR1601 -->
+<!--Z TR1599 -->
 <use transform="translate(25428,-21623) scale(.650)" stroke-width="41.087" xlink:href="#P02"/>
 <path  d="
 M25704 -21589
 L25704 -20827
 "/>
-<!--Z TR1602 -->
+<!--Z TR1600 -->
 <use transform="translate(25428,-14575) scale(.650)" stroke-width="41.087" xlink:href="#P07"/>
-<!--Z TR1603 -->
+<!--Z TR1601 -->
 <use transform="translate(25428,-16431) scale(.650)" stroke-width="41.087" xlink:href="#P07"/>
-<!--Z TR1604 -->
+<!--Z TR1602 -->
 <use transform="translate(25428,-23545) scale(.650)" stroke-width="41.087" xlink:href="#P02"/>
 <path  d="
 M25704 -23510
 L25704 -22805
 "/>
-<!--Z TR1605 -->
+<!--Z TR1603 -->
 <path stroke-width=".0000" d="
 M27774 -20941
 L27774 -20827
@@ -3687,7 +3687,7 @@ L26281 -20941
 L27774 -20941
 L27774 -20827
 Z" fill="currentColor"/>
-<!--Z TR1606 -->
+<!--Z TR1604 -->
 <use transform="translate(26005,-21851) scale(.650)" stroke-width="41.087" xlink:href="#P02"/>
 <use transform="translate(26054,-21851) scale(.650)" stroke-width="41.087" xlink:href="#P01"/>
 <path stroke-width="40.0600" d="
@@ -3698,14 +3698,14 @@ L26363 -21737
 M26281 -21816
 L26281 -20827
 "/>
-<!--Z TR1607 -->
+<!--Z TR1605 -->
 <use transform="translate(26005,-23772) scale(.650)" stroke-width="41.087" xlink:href="#P02"/>
 <use transform="translate(26054,-23772) scale(.650)" stroke-width="41.087" xlink:href="#P01"/>
 <path  d="
 M26281 -23738
 L26281 -22805
 "/>
-<!--Z TR1608 -->
+<!--Z TR1606 -->
 <path stroke-width=".0000" d="
 M27774 -22919
 L27774 -22805
@@ -3714,7 +3714,7 @@ L26281 -22919
 L27774 -22919
 L27774 -22805
 Z" fill="currentColor"/>
-<!--Z TR1609 -->
+<!--Z TR1607 -->
 <use transform="translate(26491,-21851) scale(.650)" stroke-width="41.087" xlink:href="#P02"/>
 <path stroke-width="40.0600" d="
 M26410 -21737
@@ -3724,21 +3724,21 @@ L26849 -21737
 M26768 -21816
 L26768 -20827
 "/>
-<!--Z TR1610 -->
+<!--Z TR1608 -->
 <use transform="translate(26491,-23772) scale(.650)" stroke-width="41.087" xlink:href="#P02"/>
 <path  d="
 M26768 -23738
 L26768 -22805
 "/>
-<!--Z TR1611 -->
+<!--Z TR1609 -->
 <text transform="translate(26697,-13798) scale(1,-1)" fill="currentColor" stroke="none" font-size="501" style="font-family:Nimbus Roman No9 L">stan!</text>
-<!--Z TR1612 -->
+<!--Z TR1610 -->
 <use transform="translate(26839,-23431) scale(.650)" stroke-width="41.087" xlink:href="#P04"/>
 <path  d="
 M26839 -23465
 L26839 -25023
 "/>
-<!--Z TR1613 -->
+<!--Z TR1611 -->
 <path stroke-width=".0000" d="
 M26985 -24582
 L26985 -24668
@@ -3747,13 +3747,13 @@ L26693 -24725
 L26985 -24582
 L26985 -24668
 Z" fill="currentColor"/>
-<!--Z TR1614 -->
+<!--Z TR1612 -->
 <use transform="translate(26839,-24227) scale(.650)" stroke-width="41.087" xlink:href="#P04"/>
 <path stroke-width="40.0600" d="
 M26758 -24227
 L27196 -24227
 "/>
-<!--Z TR1615 -->
+<!--Z TR1613 -->
 <path  d="
 M27034 -16545
 L27034 -16448
@@ -3761,14 +3761,14 @@ L27310 -16448
 L27310 -16545
 L27034 -16545
 Z" fill="currentColor"/>
-<!--Z TR1616 -->
+<!--Z TR1614 -->
 <use transform="translate(27034,-12888) scale(.650)" stroke-width="41.087" xlink:href="#P02"/>
 <use transform="translate(27034,-12888) scale(.650)" stroke-width="41.087" xlink:href="#P06"/>
 <path  d="
 M27310 -12854
 L27310 -12092
 "/>
-<!--Z TR1617 -->
+<!--Z TR1615 -->
 <path  d="
 M27034 -14689
 L27034 -14591
@@ -3776,31 +3776,31 @@ L27310 -14591
 L27310 -14689
 L27034 -14689
 Z" fill="currentColor"/>
-<!--Z TR1618 -->
+<!--Z TR1616 -->
 <use transform="translate(27034,-21623) scale(.650)" stroke-width="41.087" xlink:href="#P02"/>
 <path  d="
 M27310 -21589
 L27310 -20827
 "/>
-<!--Z TR1619 -->
+<!--Z TR1617 -->
 <use transform="translate(27058,-23545) scale(.650)" stroke-width="41.087" xlink:href="#P02"/>
 <path  d="
 M27334 -23510
 L27334 -22805
 "/>
-<!--Z TR1620 -->
+<!--Z TR1618 -->
 <use transform="translate(27498,-23545) scale(.650)" stroke-width="41.087" xlink:href="#P02"/>
 <path  d="
 M27774 -23510
 L27774 -22805
 "/>
-<!--Z TR1621 -->
+<!--Z TR1619 -->
 <use transform="translate(27498,-21623) scale(.650)" stroke-width="41.087" xlink:href="#P02"/>
 <path  d="
 M27774 -21589
 L27774 -20827
 "/>
-<!--Z TR1622 -->
+<!--Z TR1620 -->
 <use transform="translate(27980,-21964) scale(.650)" stroke-width="41.087" xlink:href="#P02"/>
 <path stroke-width="40.0600" d="
 M27899 -21964
@@ -3812,13 +3812,13 @@ L28338 -21737
 M28257 -21930
 L28257 -20827
 "/>
-<!--Z TR1623 -->
+<!--Z TR1621 -->
 <use transform="translate(27980,-23886) scale(.650)" stroke-width="41.087" xlink:href="#P02"/>
 <path  d="
 M28257 -23852
 L28257 -22805
 "/>
-<!--Z TR1624 -->
+<!--Z TR1622 -->
 <path stroke-width=".0000" d="
 M29702 -22919
 L29702 -22805
@@ -3827,7 +3827,7 @@ L28257 -22919
 L29702 -22919
 L29702 -22805
 Z" fill="currentColor"/>
-<!--Z TR1625 -->
+<!--Z TR1623 -->
 <path stroke-width=".0000" d="
 M29702 -20941
 L29702 -20827
@@ -3836,13 +3836,13 @@ L28257 -20941
 L29702 -20941
 L29702 -20827
 Z" fill="currentColor"/>
-<!--Z TR1626 -->
+<!--Z TR1624 -->
 <use transform="translate(28496,-23886) scale(.650)" stroke-width="41.087" xlink:href="#P02"/>
 <path  d="
 M28772 -23852
 L28772 -22805
 "/>
-<!--Z TR1627 -->
+<!--Z TR1625 -->
 <use transform="translate(28496,-21964) scale(.650)" stroke-width="41.087" xlink:href="#P02"/>
 <path stroke-width="40.0600" d="
 M28415 -21964
@@ -3854,21 +3854,21 @@ L28853 -21737
 M28772 -21930
 L28772 -20827
 "/>
-<!--Z TR1628 -->
+<!--Z TR1626 -->
 <use transform="translate(28496,-12547) scale(.650)" stroke-width="41.087" xlink:href="#P07"/>
-<!--Z TR1629 -->
+<!--Z TR1627 -->
 <use transform="translate(28960,-23545) scale(.650)" stroke-width="41.087" xlink:href="#P02"/>
 <path  d="
 M29236 -23510
 L29236 -22805
 "/>
-<!--Z TR1630 -->
+<!--Z TR1628 -->
 <use transform="translate(28960,-21623) scale(.650)" stroke-width="41.087" xlink:href="#P02"/>
 <path  d="
 M29236 -21589
 L29236 -20827
 "/>
-<!--Z TR1631 -->
+<!--Z TR1629 -->
 <use transform="translate(29191,-17000) scale(.650)" stroke-width="41.087" xlink:href="#P02"/>
 <path  d="
 M29191 -17034
@@ -3878,7 +3878,7 @@ L29191 -17796
 M29431 -17179
 L29435 -17203
 L29439 -17260
-L29439 -17281
+L29439 -17280
 L29435 -17325
 L29431 -17350
 L29419 -17390
@@ -3901,7 +3901,7 @@ L29256 -17662
 L29277 -17638
 L29321 -17589
 L29338 -17573
-L29366 -17541
+L29366 -17540
 L29382 -17520
 L29399 -17496
 L29415 -17467
@@ -3925,59 +3925,59 @@ L29427 -17126
 L29411 -17081
 L29419 -17110
 L29423 -17130
-L29427 -17151
+L29427 -17150
 L29431 -17179
 L29435 -17203
 L29443 -17191
 Z" fill="currentColor"/>
-<!--Z TR1632 -->
+<!--Z TR1630 -->
 <use transform="translate(29425,-21623) scale(.650)" stroke-width="41.087" xlink:href="#P02"/>
 <path  d="
 M29702 -21589
 L29702 -20827
 "/>
-<!--Z TR1633 -->
+<!--Z TR1631 -->
 <use transform="translate(29425,-23545) scale(.650)" stroke-width="41.087" xlink:href="#P02"/>
 <path  d="
 M29702 -23510
 L29702 -22805
 "/>
-<!--Z TR1634 -->
+<!--Z TR1632 -->
 <path  d="
 M30000 -17228
 L30000 -16318
 M30006 -17228
 L30006 -16318
 "/>
-<!--Z TR1635 -->
+<!--Z TR1633 -->
 <path  d="
 M30000 -24000
 L30000 -14234
 M30006 -24000
 L30006 -14234
 "/>
-<!--Z TR1636 -->
+<!--Z TR1634 -->
 <path  d="
 M30000 -15144
 L30000 -14234
 M30006 -15144
 L30006 -14234
 "/>
-<!--Z TR1637 -->
+<!--Z TR1635 -->
 <path  d="
 M30000 -19425
 L30000 -18515
 M30006 -19425
 L30006 -18515
 "/>
-<!--Z TR1638 -->
+<!--Z TR1636 -->
 <path  d="
 M30000 -21509
 L30000 -20599
 M30006 -21509
 L30006 -20599
 "/>
-<!--Z TR1639 -->
+<!--Z TR1637 -->
 <path  d="
 M30000 -13116
 L30000 -12206
@@ -3988,770 +3988,770 @@ L30006 -12206
 </svg>
 <?SCORE version="4"
 #SVG_SCALE: 1.4
+##System:	3
 
 ##SystemBar:	3:1	(dur = 4)
 t 1 1
-_99%svg%&lt;!--Z TR1393 --&gt;
-t 2 0 8.75 1 1.13462 0 0 0 0 0 12 12.9687
+_99%svg%&lt;!--Z TR1391 --&gt;
+t 2 0 8.75 1 1.135 0 0 0 0 0 12 12.969
 _00vlns. 1,2
 t 1 1
-_99%svg%&lt;!--Z TR1394 --&gt;
-t 5 2 8.75 1 1.13462 0 0 0 0 0 8 9.69712
+_99%svg%&lt;!--Z TR1392 --&gt;
+t 5 2 8.75 1 1.135 0 0 0 0 0 8 9.697
 _00wood-
 t 1 1
-_99%svg%&lt;!--Z TR1395 --&gt;
-t 4 3 5.75 1 1.13462 0 0 0 0 0 8 7.48443
+_99%svg%&lt;!--Z TR1393 --&gt;
+t 4 3 5.75 1 1.135 0 0 0 0 0 8 7.484
 _00hrns.
 t 1 1
-_99%svg%&lt;!--Z TR1396 --&gt;
-t 5 3 3.75 1 1.13462 0 0 0 0 0 8 9.06709
+_99%svg%&lt;!--Z TR1394 --&gt;
+t 5 3 3.75 1 1.135 0 0 0 0 0 8 9.067
 _00winds
 t 1 1
-_99%svg%&lt;!--Z TR1397 --&gt;
-t 3 4 5.75 1 1.13462 0 0 0 0 0 8 6.22058
+_99%svg%&lt;!--Z TR1395 --&gt;
+t 3 4 5.75 1 1.135 0 0 0 0 0 8 6.221
 _00trpt.
 t 1 1
-_99%svg%&lt;!--Z TR1398 --&gt;
-t 1 5 3.75 1 1.13462 0 0 0 0 0 7 5.48049
+_99%svg%&lt;!--Z TR1396 --&gt;
+t 1 5 3.75 1 1.135 0 0 0 0 0 7 5.48
 _00c.b.
 t 1 1
-_99%svg%&lt;!--Z TR1399 --&gt;
-t 2 5 3.75 1 1.13462 0 0 0 0 0 7 5.58676
+_99%svg%&lt;!--Z TR1397 --&gt;
+t 2 5 3.75 1 1.135 0 0 0 0 0 7 5.587
 _00vla.
 t 1 1
-_99%svg%&lt;!--Z TR1400 --&gt;
-t 1 5 8.75 1 1.13462 0 0 0 0 0 6 4.53165
+_99%svg%&lt;!--Z TR1398 --&gt;
+t 1 5 8.75 1 1.135 0 0 0 0 0 6 4.532
 _00vc.
 t 1 1
-_99%svg%&lt;!--Z TR1401 --&gt;
+_99%svg%&lt;!--Z TR1399 --&gt;
 14 1 15.001 6
 t 1 1
+_99%svg%&lt;!--Z TR1400 --&gt;
+8 2 15.001 -5.801 0.65 200
+t 1 1
+_99%svg%&lt;!--Z TR1401 --&gt;
+8 3 15.001 -15.173 0.65 200
+t 1 1
 _99%svg%&lt;!--Z TR1402 --&gt;
-8 2 15.001 -5.80054 0.65 200
-t 1 1
-_99%svg%&lt;!--Z TR1403 --&gt;
-8 3 15.001 -15.1725 0.65 200
-t 1 1
-_99%svg%&lt;!--Z TR1404 --&gt;
 8 1 15.001 0 0.65 200
 t 1 1
-_99%svg%&lt;!--Z TR1405 --&gt;
-8 4 15.001 -23.5445 0.65 200
+_99%svg%&lt;!--Z TR1403 --&gt;
+8 4 15.001 -23.544 0.65 200
 t 1 1
-_99%svg%&lt;!--Z TR1406 --&gt;
+_99%svg%&lt;!--Z TR1404 --&gt;
 14 1 15.001 5 9
 t 1 1
+_99%svg%&lt;!--Z TR1405 --&gt;
+8 5 15.001 -32.918 0.65 200
+t 1 1
+_99%svg%&lt;!--Z TR1406 --&gt;
+8 6 15.001 -42.781 0.65 200
+t 1 1
 _99%svg%&lt;!--Z TR1407 --&gt;
-8 5 15.001 -32.9176 0.65 200
+3 2 16.709
 t 1 1
 _99%svg%&lt;!--Z TR1408 --&gt;
-8 6 15.001 -42.7807 0.65 200
+3 3 16.709
 t 1 1
 _99%svg%&lt;!--Z TR1409 --&gt;
-3 2 16.7093
+3 4 16.709
 t 1 1
 _99%svg%&lt;!--Z TR1410 --&gt;
-3 3 16.7093
+3 5 16.709
 t 1 1
 _99%svg%&lt;!--Z TR1411 --&gt;
-3 4 16.7093
+3 1 16.709 0 1
 t 1 1
 _99%svg%&lt;!--Z TR1412 --&gt;
-3 5 16.7093
+3 6 16.709
 t 1 1
 _99%svg%&lt;!--Z TR1413 --&gt;
-3 1 16.7093 0 1
-t 1 1
-_99%svg%&lt;!--Z TR1414 --&gt;
-3 6 16.7093
-t 1 1
-_99%svg%&lt;!--Z TR1415 --&gt;
-t 1 20.6745 4.25 1 1 2.5 0 0 0 0 4 1.1139
+t 1 20.674 4.25 1 1 2.5 0 0 0 0 4 1.114
 _00(
 t 1 1
-_99%svg%&lt;!--Z TR1416 --&gt;
+_99%svg%&lt;!--Z TR1414 --&gt;
 18 2 21.201 0 3 2
 t 1 1
-_99%svg%&lt;!--Z TR1417 --&gt;
+_99%svg%&lt;!--Z TR1415 --&gt;
 18 1 22.201 0 3 2
 t 1 1
-_99%svg%&lt;!--Z TR1418 --&gt;
-t 5 24.5971 13.5 1 1.02115 0 0 0 0 -0.945 44 55.5958
+_99%svg%&lt;!--Z TR1416 --&gt;
+t 5 24.597 13.5 1 1.021 0 0 0 0 -0.945 44 55.596
 _00Sehr allm%%ahlich nachlassend im Zeitma?s
 t 1 1
-_99%svg%&lt;!--Z TR1419 --&gt;
-t 1 24.7123 4.25 1 1 2.5 0 0 0 0 4 1.1139
+_99%svg%&lt;!--Z TR1417 --&gt;
+t 1 24.712 4.25 1 1 2.5 0 0 0 0 4 1.114
 _00)
 t 1 1
+_99%svg%&lt;!--Z TR1418 --&gt;
+6 1 27.301 7.5 7.5 37.969 11 0 0 0 0 0 0 -0.5
+t 1 1
+_99%svg%&lt;!--Z TR1419 --&gt;
+1 1 27.301 9 10 0 0.333 -1.5 0 -0.5
+t 1 1
 _99%svg%&lt;!--Z TR1420 --&gt;
-6 1 27.3014 7.5 7.5 37.9689 11 0 0 0 0 0 0 -0.5
+9 4 27.301 -3.25 57 1 0 0 0 0 0 0 0 0 -0.75
 t 1 1
 _99%svg%&lt;!--Z TR1421 --&gt;
-1 1 27.3014 9 10 0 0.333333 -1.5 0 -0.5
+5 3 27.301 1.875 1.875 71.311 -2 -2 1
 t 1 1
 _99%svg%&lt;!--Z TR1422 --&gt;
-9 4 27.3014 -3.25 57 1 0 0 0 0 0 0 0 0 -0.75
+1 3 27.301 3 11 2 4
 t 1 1
 _99%svg%&lt;!--Z TR1423 --&gt;
-5 3 27.3014 1.875 1.875 71.3114 -2 -2 1
+6 2 27.301 2.5 2.5 37.969 11
 t 1 1
 _99%svg%&lt;!--Z TR1424 --&gt;
-1 3 27.3014 3 11 2 4
+1 2 27.301 3 11 0 0.333 -0.5
 t 1 1
 _99%svg%&lt;!--Z TR1425 --&gt;
-6 2 27.3014 2.5 2.5 37.9689 11
+2 6 27.301 0 -2 0 4 0 44.166
 t 1 1
 _99%svg%&lt;!--Z TR1426 --&gt;
-1 2 27.3014 3 11 0 0.333333 -0.5
+1 5 27.301 6 11 2 4
 t 1 1
 _99%svg%&lt;!--Z TR1427 --&gt;
-2 6 27.3014 0 -2 0 4 0 44.1662
+5 5 27.301 5.75 5.75 71.311 -1.5 -2 1
 t 1 1
 _99%svg%&lt;!--Z TR1428 --&gt;
-1 5 27.3014 6 11 2 4
+5 4 27.301 2 2 71.311 -2 -2 1
 t 1 1
 _99%svg%&lt;!--Z TR1429 --&gt;
-5 5 27.3014 5.75 5.75 71.3114 -1.5 -2 1
+1 4 27.301 6 11 2 4
 t 1 1
 _99%svg%&lt;!--Z TR1430 --&gt;
-5 4 27.3014 2 2 71.3114 -2 -2 1
+5 4 27.301 6 6 71.311 1.85 -2 1
 t 1 1
 _99%svg%&lt;!--Z TR1431 --&gt;
-1 4 27.3014 6 11 2 4
+1 4 27.301 3 11.18 2 4 3
 t 1 1
 _99%svg%&lt;!--Z TR1432 --&gt;
-5 4 27.3014 6 6 71.3114 1.85 -2 1
+1 1 27.301 9 20 1 2 5.5 0 10
 t 1 1
 _99%svg%&lt;!--Z TR1433 --&gt;
-1 4 27.3014 3 11.18 2 4 3
+1 1 27.301 2 0 1 2 0 0 10
 t 1 1
 _99%svg%&lt;!--Z TR1434 --&gt;
-1 1 27.3014 9 20 1 2 5.5 0 10
+6 1 27.301 5 -4.25 0 -20 0 0 0 0 3 0 10 0 0 0.75
 t 1 1
 _99%svg%&lt;!--Z TR1435 --&gt;
-1 1 27.3014 2 0 1 2 0 0 10
+1 2 31.353 3 10 0 0.333 -0.5
 t 1 1
 _99%svg%&lt;!--Z TR1436 --&gt;
-6 1 27.3014 5 -4.25 0 -20 0 0 0 0 3 0 10 0 0 0.75
+1 1 31.353 9 10 0 0.333 -1.5
 t 1 1
 _99%svg%&lt;!--Z TR1437 --&gt;
-1 2 31.353 3 10 0 0.333333 -0.5
+1 2 34.877 3 10 0 0.333 -0.5
 t 1 1
 _99%svg%&lt;!--Z TR1438 --&gt;
-1 1 31.353 9 10 0 0.333333 -1.5
+1 1 34.877 8 11.97 0 0.333 -0.5
 t 1 1
 _99%svg%&lt;!--Z TR1439 --&gt;
-1 2 34.8772 3 10 0 0.333333 -0.5
+1 2 37.969 3 10 0 0.333 -0.5
 t 1 1
 _99%svg%&lt;!--Z TR1440 --&gt;
-1 1 34.8772 8 11.97 0 0.333333 -0.5
+1 1 37.969 8 10 0 0.333 -0.5
 t 1 1
 _99%svg%&lt;!--Z TR1441 --&gt;
-1 2 37.9689 3 10 0 0.333333 -0.5
+6 1 41.493 7 7 52.006 11
 t 1 1
 _99%svg%&lt;!--Z TR1442 --&gt;
-1 1 37.9689 8 10 0 0.333333 -0.5
+1 2 41.493 2 11.97 0 0.333 0.5
 t 1 1
 _99%svg%&lt;!--Z TR1443 --&gt;
-6 1 41.493 7 7 52.0058 11
+6 2 41.493 2.5 2.5 52.006 11
 t 1 1
 _99%svg%&lt;!--Z TR1444 --&gt;
-1 2 41.493 2 11.97 0 0.333333 0.5
+1 1 41.493 7 11.97 0 0.333
 t 1 1
 _99%svg%&lt;!--Z TR1445 --&gt;
-6 2 41.493 2.5 2.5 52.0058 11
+1 1 44.585 7 10 0 0.333
 t 1 1
 _99%svg%&lt;!--Z TR1446 --&gt;
-1 1 41.493 7 11.97 0 0.333333
+1 2 44.585 2 10 0 0.333 0.5
 t 1 1
 _99%svg%&lt;!--Z TR1447 --&gt;
-1 1 44.5847 7 10 0 0.333333
+1 1 47.807 8 10 0 0.333 -1 0 -0.5
 t 1 1
 _99%svg%&lt;!--Z TR1448 --&gt;
-1 2 44.5847 2 10 0 0.333333 0.5
+1 2 47.807 3 10 0 0.333 -0.5
 t 1 1
 _99%svg%&lt;!--Z TR1449 --&gt;
-1 1 47.8075 8 10 0 0.333333 -1 0 -0.5
+1 1 47.807 9 20 1 2 5.5 0 3.1
 t 1 1
 _99%svg%&lt;!--Z TR1450 --&gt;
-1 2 47.8075 3 10 0 0.333333 -0.5
+1 1 47.807 2 0 1 2 0 0 3.1
 t 1 1
 _99%svg%&lt;!--Z TR1451 --&gt;
-1 1 47.8075 9 20 1 2 5.5 0 3.1
+6 1 47.807 5 -4.25 0 -20 0 0 0 0 3 0 10 0 0 0.75
 t 1 1
 _99%svg%&lt;!--Z TR1452 --&gt;
-1 1 47.8075 2 0 1 2 0 0 3.1
+1 2 52.006 3 10 0 0.333 -0.5
 t 1 1
 _99%svg%&lt;!--Z TR1453 --&gt;
-6 1 47.8075 5 -4.25 0 -20 0 0 0 0 3 0 10 0 0 0.75
+1 1 52.006 8 10 0 0.333 -1
 t 1 1
 _99%svg%&lt;!--Z TR1454 --&gt;
-1 2 52.0058 3 10 0 0.333333 -0.5
+1 2 55.224 1 10 0 0.333 1.5
 t 1 1
 _99%svg%&lt;!--Z TR1455 --&gt;
-1 1 52.0058 8 10 0 0.333333 -1
+6 2 55.224 2.5 2.5 64.844 11
 t 1 1
 _99%svg%&lt;!--Z TR1456 --&gt;
-1 2 55.2242 1 10 0 0.333333 1.5
+6 1 55.224 7 7 64.844 11
 t 1 1
 _99%svg%&lt;!--Z TR1457 --&gt;
-6 2 55.2242 2.5 2.5 64.8443 11
+1 1 55.224 6 10 0 0.333 1
 t 1 1
 _99%svg%&lt;!--Z TR1458 --&gt;
-6 1 55.2242 7 7 64.8443 11
+1 2 58.661 1 10 0 0.333 1.5
 t 1 1
 _99%svg%&lt;!--Z TR1459 --&gt;
-1 1 55.2242 6 10 0 0.333333 1
+1 1 58.661 6 10 0 0.333 1
 t 1 1
 _99%svg%&lt;!--Z TR1460 --&gt;
-1 2 58.6609 1 10 0 0.333333 1.5
+1 1 61.753 8 10 0 0.333 -1
 t 1 1
 _99%svg%&lt;!--Z TR1461 --&gt;
-1 1 58.6609 6 10 0 0.333333 1
+1 2 61.753 3 10 0 0.333 -0.5
 t 1 1
 _99%svg%&lt;!--Z TR1462 --&gt;
-1 1 61.7526 8 10 0 0.333333 -1
+1 2 64.844 3 10 0 0.333 -0.5
 t 1 1
 _99%svg%&lt;!--Z TR1463 --&gt;
-1 2 61.7526 3 10 0 0.333333 -0.5
-t 1 1
-_99%svg%&lt;!--Z TR1464 --&gt;
-1 2 64.8443 3 10 0 0.333333 -0.5
-t 1 1
-_99%svg%&lt;!--Z TR1465 --&gt;
-1 1 64.8443 8 10 0 0.333333 -1
+1 1 64.844 8 10 0 0.333 -1
 
 ##SystemBar:	3:2	(dur = 4)
 t 1 1
+_99%svg%&lt;!--Z TR1464 --&gt;
+14 6 68.671 1
+t 1 1
+_99%svg%&lt;!--Z TR1465 --&gt;
+14 1 68.671 5
+t 1 1
 _99%svg%&lt;!--Z TR1466 --&gt;
-14 6 68.6714 1
+6 2 71.311 2.5 2.5 81.465 11
 t 1 1
 _99%svg%&lt;!--Z TR1467 --&gt;
-14 1 68.6714 5
+1 2 71.311 1 11.03 0 0.333 1.5
 t 1 1
 _99%svg%&lt;!--Z TR1468 --&gt;
-6 2 71.3114 2.5 2.5 81.4645 11
+1 3 71.311 3 10 2 4
 t 1 1
 _99%svg%&lt;!--Z TR1469 --&gt;
-1 2 71.3114 1 11.03 0 0.333333 1.5
+1 4 71.311 3 20.18 0 1
 t 1 1
 _99%svg%&lt;!--Z TR1470 --&gt;
-1 3 71.3114 3 10 2 4
+1 4 71.311 6 10 1 3 0 10
 t 1 1
 _99%svg%&lt;!--Z TR1471 --&gt;
-1 4 71.3114 3 20.18 0 1
+1 5 71.311 6 10 1 3 0 10
 t 1 1
 _99%svg%&lt;!--Z TR1472 --&gt;
-1 4 71.3114 6 10 1 3 0 10
+2 6 71.311 0 -2 0 4 0 89.699
 t 1 1
 _99%svg%&lt;!--Z TR1473 --&gt;
-1 5 71.3114 6 10 1 3 0 10
+1 1 71.311 9 20 1 2 7
 t 1 1
 _99%svg%&lt;!--Z TR1474 --&gt;
-2 6 71.3114 0 -2 0 4 0 89.6988
+6 1 71.311 4.5 -3.75 0 -20 0 0 11 0 3 0 0 0 0 0.75
 t 1 1
 _99%svg%&lt;!--Z TR1475 --&gt;
-1 1 71.3114 9 20 1 2 7
+1 1 71.311 2 0 1 2
 t 1 1
 _99%svg%&lt;!--Z TR1476 --&gt;
-6 1 71.3114 4.5 -3.75 0 -20 0 0 11 0 3 0 0 0 0 0.75
+6 1 71.311 8 8 81.465 11 0 0 0 0 0 0 0.5
 t 1 1
 _99%svg%&lt;!--Z TR1477 --&gt;
-1 1 71.3114 2 0 1 2
+1 1 71.311 6 11.03 0 0.333 2 0 0.5
 t 1 1
 _99%svg%&lt;!--Z TR1478 --&gt;
-6 1 71.3114 8 8 81.4645 11 0 0 0 0 0 0 0.5
+1 2 74.748 1 10 0 0.333 1.5
 t 1 1
 _99%svg%&lt;!--Z TR1479 --&gt;
-1 1 71.3114 6 11.03 0 0.333333 2 0 0.5
+1 1 74.748 6 10 0 0.333 2
 t 1 1
 _99%svg%&lt;!--Z TR1480 --&gt;
-1 2 74.7482 1 10 0 0.333333 1.5
+9 3 76.295 -1.5 64 1
 t 1 1
 _99%svg%&lt;!--Z TR1481 --&gt;
-1 1 74.7482 6 10 0 0.333333 2
+1 2 78.373 3 11.96 0 0.333 -0.5
 t 1 1
 _99%svg%&lt;!--Z TR1482 --&gt;
-9 3 76.2951 -1.5 64 1
+1 1 78.373 8 11.95 0 0.333
 t 1 1
 _99%svg%&lt;!--Z TR1483 --&gt;
-1 2 78.3728 3 11.96 0 0.333333 -0.5
+1 2 81.465 3 10 0 0.333 -0.5
 t 1 1
 _99%svg%&lt;!--Z TR1484 --&gt;
-1 1 78.3728 8 11.95 0 0.333333
+2 4 81.465 -6 0 0 1
 t 1 1
 _99%svg%&lt;!--Z TR1485 --&gt;
-1 2 81.4645 3 10 0 0.333333 -0.5
+1 1 81.465 8 10 0 0.333
 t 1 1
 _99%svg%&lt;!--Z TR1486 --&gt;
-2 4 81.4645 -6 0 0 1
+1 2 85.041 0 11.95 0 0.333 2.5
 t 1 1
 _99%svg%&lt;!--Z TR1487 --&gt;
-1 1 81.4645 8 10 0 0.333333
+1 1 85.041 5 11.96 0 0.333 3
 t 1 1
 _99%svg%&lt;!--Z TR1488 --&gt;
-1 2 85.0411 0 11.95 0 0.333333 2.5
+6 1 85.041 8 8 95.185 11
 t 1 1
 _99%svg%&lt;!--Z TR1489 --&gt;
-1 1 85.0411 5 11.96 0 0.333333 3
+6 2 85.041 2.5 2.5 95.185 11
 t 1 1
 _99%svg%&lt;!--Z TR1490 --&gt;
-6 1 85.0411 8 8 95.1855 11
+1 2 88.478 0 10 0 0.333 2.5
 t 1 1
 _99%svg%&lt;!--Z TR1491 --&gt;
-6 2 85.0411 2.5 2.5 95.1855 11
+1 1 88.478 5 10 0 0.333 3
 t 1 1
 _99%svg%&lt;!--Z TR1492 --&gt;
-1 2 88.4779 0 10 0 0.333333 2.5
+4 3 91.255 0 999 110.316 -1
 t 1 1
 _99%svg%&lt;!--Z TR1493 --&gt;
-1 1 88.4779 5 10 0 0.333333 3
+1 1 92.094 2 0 1 2 0 0 -2
 t 1 1
 _99%svg%&lt;!--Z TR1494 --&gt;
-4 3 91.2545 0 999 110.316 -1
+6 1 92.094 4.5 -3.75 0 -20 0 0 11 0 3 0 -2 0 0 0.75
 t 1 1
 _99%svg%&lt;!--Z TR1495 --&gt;
-1 1 92.0938 2 0 1 2 0 0 -2
+1 1 92.094 9 20 1 2 7 0 -2
 t 1 1
 _99%svg%&lt;!--Z TR1496 --&gt;
-6 1 92.0938 4.5 -3.75 0 -20 0 0 11 0 3 0 -2 0 0 0.75
+1 2 92.094 3 10 0 0.333 -0.5
 t 1 1
 _99%svg%&lt;!--Z TR1497 --&gt;
-1 1 92.0938 9 20 1 2 7 0 -2
+2 4 92.094 -6 -1 0 2
 t 1 1
 _99%svg%&lt;!--Z TR1498 --&gt;
-1 2 92.0938 3 10 0 0.333333 -0.5
+1 1 92.094 8 10 0 0.333
 t 1 1
 _99%svg%&lt;!--Z TR1499 --&gt;
-2 4 92.0938 -6 -1 0 2
+1 2 95.185 3 10 0 0.333 -0.5
 t 1 1
 _99%svg%&lt;!--Z TR1500 --&gt;
-1 1 92.0938 8 10 0 0.333333
+1 1 95.185 8 10 0 0.333
 t 1 1
 _99%svg%&lt;!--Z TR1501 --&gt;
-1 2 95.1855 3 10 0 0.333333 -0.5
+1 1 98.819 4 13 0 0.333 4
 t 1 1
 _99%svg%&lt;!--Z TR1502 --&gt;
-1 1 95.1855 8 10 0 0.333333
+6 1 98.819 8 8 108.439 11
 t 1 1
 _99%svg%&lt;!--Z TR1503 --&gt;
-1 1 98.8189 4 13 0 0.333333 4
+6 2 98.819 2.5 2.5 108.439 11
 t 1 1
 _99%svg%&lt;!--Z TR1504 --&gt;
-6 1 98.8189 8 8 108.439 11
+1 2 98.819 -1 13 0 0.333 3.5
 t 1 1
 _99%svg%&lt;!--Z TR1505 --&gt;
-6 2 98.8189 2.5 2.5 108.439 11
-t 1 1
-_99%svg%&lt;!--Z TR1506 --&gt;
-1 2 98.8189 -1 13 0 0.333333 3.5
-t 1 1
-_99%svg%&lt;!--Z TR1507 --&gt;
 1 5 102.256 6 13 0 1
 t 1 1
+_99%svg%&lt;!--Z TR1506 --&gt;
+1 1 102.256 4 10 0 0.333 4
+t 1 1
+_99%svg%&lt;!--Z TR1507 --&gt;
+1 2 102.256 -1 10 0 0.333 3.5
+t 1 1
 _99%svg%&lt;!--Z TR1508 --&gt;
-1 1 102.256 4 10 0 0.333333 4
-t 1 1
-_99%svg%&lt;!--Z TR1509 --&gt;
-1 2 102.256 -1 10 0 0.333333 3.5
-t 1 1
-_99%svg%&lt;!--Z TR1510 --&gt;
 1 4 102.256 6 13 0 1
 t 1 1
+_99%svg%&lt;!--Z TR1509 --&gt;
+1 1 105.347 8 10 0 0.333
+t 1 1
+_99%svg%&lt;!--Z TR1510 --&gt;
+1 2 105.347 3 10 0 0.333 -0.5
+t 1 1
 _99%svg%&lt;!--Z TR1511 --&gt;
-1 1 105.347 8 10 0 0.333333
+1 1 108.439 8 10 0 0.333
 t 1 1
 _99%svg%&lt;!--Z TR1512 --&gt;
-1 2 105.347 3 10 0 0.333333 -0.5
+1 2 108.439 3 10 0 0.333 -0.5
+
+##SystemBar:	3:3	(dur = 4)
 t 1 1
 _99%svg%&lt;!--Z TR1513 --&gt;
-1 1 108.439 8 10 0 0.333333
-t 1 1
-_99%svg%&lt;!--Z TR1514 --&gt;
-1 2 108.439 3 10 0 0.333333 -0.5
-
-##SystemBar:	3:3	(dur = 4.00003)
-t 1 1
-_99%svg%&lt;!--Z TR1515 --&gt;
 14 5 112.266 1
 t 1 1
-_99%svg%&lt;!--Z TR1516 --&gt;
+_99%svg%&lt;!--Z TR1514 --&gt;
 14 2 112.266 1
 t 1 1
-_99%svg%&lt;!--Z TR1517 --&gt;
+_99%svg%&lt;!--Z TR1515 --&gt;
 14 4 112.266 1
 t 1 1
-_99%svg%&lt;!--Z TR1518 --&gt;
+_99%svg%&lt;!--Z TR1516 --&gt;
 14 3 112.266 1
 t 1 1
-_99%svg%&lt;!--Z TR1519 --&gt;
+_99%svg%&lt;!--Z TR1517 --&gt;
 14 6 112.266 1
 t 1 1
-_99%svg%&lt;!--Z TR1520 --&gt;
+_99%svg%&lt;!--Z TR1518 --&gt;
 14 1 112.266 5
 t 1 1
-_99%svg%&lt;!--Z TR1521 --&gt;
+_99%svg%&lt;!--Z TR1519 --&gt;
 6 1 115.291 3.5 -4.75 0 -20 0 0 0 0 3 0 -0.5 0 0 0.75
 t 1 1
-_99%svg%&lt;!--Z TR1522 --&gt;
+_99%svg%&lt;!--Z TR1520 --&gt;
 1 1 115.291 8 20 1 2 7 0 -0.5
 t 1 1
-_99%svg%&lt;!--Z TR1523 --&gt;
+_99%svg%&lt;!--Z TR1521 --&gt;
 1 1 115.291 1 0 1 2 0 0 -0.5
 t 1 1
-_99%svg%&lt;!--Z TR1524 --&gt;
+_99%svg%&lt;!--Z TR1522 --&gt;
 1 4 115.291 6 12 0 1
 t 1 1
-_99%svg%&lt;!--Z TR1525 --&gt;
+_99%svg%&lt;!--Z TR1523 --&gt;
 1 3 115.291 2 10 1 2
 t 1 1
+_99%svg%&lt;!--Z TR1524 --&gt;
+5 3 115.291 1.5 1.5 135.98 -2.107 -2
+t 1 1
+_99%svg%&lt;!--Z TR1525 --&gt;
+1 2 115.291 -2 12 0 0.333 4
+t 1 1
 _99%svg%&lt;!--Z TR1526 --&gt;
-5 3 115.291 1.5 1.5 135.98 -2.10667 -2
-t 1 1
-_99%svg%&lt;!--Z TR1527 --&gt;
-1 2 115.291 -2 12 0 0.333333 4
-t 1 1
-_99%svg%&lt;!--Z TR1528 --&gt;
 6 2 115.291 2 2 124.977 11
 t 1 1
-_99%svg%&lt;!--Z TR1529 --&gt;
+_99%svg%&lt;!--Z TR1527 --&gt;
 6 1 115.291 6.5 6.5 124.977 11 0 0 0 0 0 0 0 -0.25
 t 1 1
-_99%svg%&lt;!--Z TR1530 --&gt;
+_99%svg%&lt;!--Z TR1528 --&gt;
 1 5 115.291 6 12 0 1
 t 1 1
-_99%svg%&lt;!--Z TR1531 --&gt;
+_99%svg%&lt;!--Z TR1529 --&gt;
 2 6 115.291 0 -1 0 2
 t 1 1
-_99%svg%&lt;!--Z TR1532 --&gt;
-1 1 115.291 3 12.05 0 0.333333 3.5
+_99%svg%&lt;!--Z TR1530 --&gt;
+1 1 115.291 3 12.05 0 0.333 3.5
 t 1 1
-_99%svg%&lt;!--Z TR1533 --&gt;
+_99%svg%&lt;!--Z TR1531 --&gt;
 2 4 115.291 -6 -1 0 2
 t 1 1
+_99%svg%&lt;!--Z TR1532 --&gt;
+1 2 118.728 -2 10 0 0.333 4
+t 1 1
+_99%svg%&lt;!--Z TR1533 --&gt;
+1 1 118.728 3 10 0 0.333 3.5
+t 1 1
 _99%svg%&lt;!--Z TR1534 --&gt;
-1 2 118.728 -2 10 0 0.333333 4
+1 2 121.82 2 10 0 0.333
 t 1 1
 _99%svg%&lt;!--Z TR1535 --&gt;
-1 1 118.728 3 10 0 0.333333 3.5
+1 1 121.82 7 10 0 0.333 -0.5
 t 1 1
 _99%svg%&lt;!--Z TR1536 --&gt;
-1 2 121.82 2 10 0 0.333333
-t 1 1
-_99%svg%&lt;!--Z TR1537 --&gt;
-1 1 121.82 7 10 0 0.333333 -0.5
-t 1 1
-_99%svg%&lt;!--Z TR1538 --&gt;
 5 4 124.721 8.325 8.325 163.003 1.5 -3 0 0 0 0 0 0 0 1 4 -4
 t 1 1
-_99%svg%&lt;!--Z TR1539 --&gt;
-1 1 124.977 7 10 0 0.333333 -0.5 0 -0.25
+_99%svg%&lt;!--Z TR1537 --&gt;
+1 1 124.977 7 10 0 0.333 -0.5 0 -0.25
 t 1 1
-_99%svg%&lt;!--Z TR1540 --&gt;
+_99%svg%&lt;!--Z TR1538 --&gt;
 5 5 124.977 8.075 8.075 163.401 1.75 -3 0 0 0 0 0 0 0 1 4 -4
 t 1 1
-_99%svg%&lt;!--Z TR1541 --&gt;
-1 2 124.977 2 10 0 0.333333
+_99%svg%&lt;!--Z TR1539 --&gt;
+1 2 124.977 2 10 0 0.333
 t 1 1
-_99%svg%&lt;!--Z TR1542 --&gt;
+_99%svg%&lt;!--Z TR1540 --&gt;
 9 4 124.977 -2 64 1 0 0 0 0 0 0 0 0 1
 t 1 1
-_99%svg%&lt;!--Z TR1543 --&gt;
+_99%svg%&lt;!--Z TR1541 --&gt;
 1 4 124.977 7 10 1 3 -0.5 10
 t 1 1
-_99%svg%&lt;!--Z TR1544 --&gt;
+_99%svg%&lt;!--Z TR1542 --&gt;
 9 5 124.977 -1.5 64 1 0 0 0 0 0 0 0 0 1
 t 1 1
-_99%svg%&lt;!--Z TR1545 --&gt;
+_99%svg%&lt;!--Z TR1543 --&gt;
 1 5 124.977 7 20 1 3 -0.5 10
 t 1 1
-_99%svg%&lt;!--Z TR1546 --&gt;
+_99%svg%&lt;!--Z TR1544 --&gt;
 9 1 126.625 -2 64 1
 t 1 1
-_99%svg%&lt;!--Z TR1547 --&gt;
+_99%svg%&lt;!--Z TR1545 --&gt;
 9 2 126.662 -5 64 1
 t 1 1
-_99%svg%&lt;!--Z TR1548 --&gt;
-1 2 128.928 1 12.92 0 0.333333 1
+_99%svg%&lt;!--Z TR1546 --&gt;
+1 2 128.928 1 12.92 0 0.333 1
 t 1 1
-_99%svg%&lt;!--Z TR1549 --&gt;
+_99%svg%&lt;!--Z TR1547 --&gt;
 6 2 128.928 2 2 139.203 11 0 0 0 0 0 0 0 -0.5
 t 1 1
-_99%svg%&lt;!--Z TR1550 --&gt;
-1 1 128.928 6 12.95 0 0.333333 0.5
+_99%svg%&lt;!--Z TR1548 --&gt;
+1 1 128.928 6 12.95 0 0.333 0.5
 t 1 1
-_99%svg%&lt;!--Z TR1551 --&gt;
+_99%svg%&lt;!--Z TR1549 --&gt;
 6 1 128.928 6.5 6.5 139.203 11
 t 1 1
+_99%svg%&lt;!--Z TR1550 --&gt;
+1 1 132.364 6 10 0 0.333 0.5
+t 1 1
+_99%svg%&lt;!--Z TR1551 --&gt;
+1 2 132.364 1 10 0 0.333 1
+t 1 1
 _99%svg%&lt;!--Z TR1552 --&gt;
-1 1 132.364 6 10 0 0.333333 0.5
-t 1 1
-_99%svg%&lt;!--Z TR1553 --&gt;
-1 2 132.364 1 10 0 0.333333 1
-t 1 1
-_99%svg%&lt;!--Z TR1554 --&gt;
-t 6 135.98 15 1 1 0 0 0 0 -6.945 9 9.66721
+t 6 135.98 15 1 1 0 0 0 0 -6.945 9 9.667
 _05Isolde
 t 1 1
-_99%svg%&lt;!--Z TR1555 --&gt;
+_99%svg%&lt;!--Z TR1553 --&gt;
 1 1 135.98 8 20 1 2 7 0 -2
 t 1 1
-_99%svg%&lt;!--Z TR1556 --&gt;
+_99%svg%&lt;!--Z TR1554 --&gt;
 6 1 135.98 3.5 -4.75 0 -20 0 0 0 0 3 0 -2 0 0 0.75
 t 1 1
-_99%svg%&lt;!--Z TR1557 --&gt;
+_99%svg%&lt;!--Z TR1555 --&gt;
 1 1 135.98 1 0 1 2 0 0 -2
 t 1 1
-_99%svg%&lt;!--Z TR1558 --&gt;
-5 6 135.98 12.2 12.2 159.901 2.22462 -2 0.25
+_99%svg%&lt;!--Z TR1556 --&gt;
+5 6 135.98 12.2 12.2 159.901 2.225 -2 0.25
 t 1 1
-_99%svg%&lt;!--Z TR1559 --&gt;
-t 6 135.98 -3 1 1 0 0 0 0 0 6 4.08766
+_99%svg%&lt;!--Z TR1557 --&gt;
+t 6 135.98 -3 1 1 0 0 0 0 0 6 4.088
 _00Tri
 t 1 1
-_99%svg%&lt;!--Z TR1560 --&gt;
+_99%svg%&lt;!--Z TR1558 --&gt;
 1 6 135.98 11 20 1 2
 t 1 1
-_99%svg%&lt;!--Z TR1561 --&gt;
+_99%svg%&lt;!--Z TR1559 --&gt;
 2 4 135.98 -6 0 0 1
 t 1 1
+_99%svg%&lt;!--Z TR1560 --&gt;
+1 1 135.98 7 10 0 0.333 -0.5
+t 1 1
+_99%svg%&lt;!--Z TR1561 --&gt;
+1 2 135.98 2 10 0 0.333
+t 1 1
 _99%svg%&lt;!--Z TR1562 --&gt;
-1 1 135.98 7 10 0 0.333333 -0.5
-t 1 1
-_99%svg%&lt;!--Z TR1563 --&gt;
-1 2 135.98 2 10 0 0.333333
-t 1 1
-_99%svg%&lt;!--Z TR1564 --&gt;
 1 3 135.98 2 10 0 0.5 0 1
 t 1 1
+_99%svg%&lt;!--Z TR1563 --&gt;
+1 2 139.203 2 10 0 0.333 0 0 -0.5
+t 1 1
+_99%svg%&lt;!--Z TR1564 --&gt;
+1 1 139.203 7 10 0 0.333 -0.5
+t 1 1
 _99%svg%&lt;!--Z TR1565 --&gt;
-1 2 139.203 2 10 0 0.333333 0 0 -0.5
-t 1 1
-_99%svg%&lt;!--Z TR1566 --&gt;
-1 1 139.203 7 10 0 0.333333 -0.5
-t 1 1
-_99%svg%&lt;!--Z TR1567 --&gt;
 2 3 140.889 0 1 0 0.5
 t 1 1
-_99%svg%&lt;!--Z TR1568 --&gt;
+_99%svg%&lt;!--Z TR1566 --&gt;
 6 1 142.574 6.5 6.5 152.334 11 0 0 0 0 0 0 0.5
 t 1 1
+_99%svg%&lt;!--Z TR1567 --&gt;
+1 1 142.574 6 13.95 0 0.333 0.5 0 0.5
+t 1 1
+_99%svg%&lt;!--Z TR1568 --&gt;
+1 2 142.574 1 13 0 0.333 1 0 0.5
+t 1 1
 _99%svg%&lt;!--Z TR1569 --&gt;
-1 1 142.574 6 13.95 0 0.333333 0.5 0 0.5
-t 1 1
-_99%svg%&lt;!--Z TR1570 --&gt;
-1 2 142.574 1 13 0 0.333333 1 0 0.5
-t 1 1
-_99%svg%&lt;!--Z TR1571 --&gt;
 6 2 142.574 2 2 152.334 11 0 0 0 0 0 0 0.5
 t 1 1
-_99%svg%&lt;!--Z TR1572 --&gt;
+_99%svg%&lt;!--Z TR1570 --&gt;
 2 4 146.142 -6 1 0 0.5
 t 1 1
-_99%svg%&lt;!--Z TR1573 --&gt;
-1 1 146.142 6 10 0 0.333333 0.5
+_99%svg%&lt;!--Z TR1571 --&gt;
+1 1 146.142 6 10 0 0.333 0.5
 t 1 1
-_99%svg%&lt;!--Z TR1574 --&gt;
+_99%svg%&lt;!--Z TR1572 --&gt;
 2 3 146.142 0 0 0 1
 t 1 1
+_99%svg%&lt;!--Z TR1573 --&gt;
+1 2 146.142 1 10 0 0.333 1
+t 1 1
+_99%svg%&lt;!--Z TR1574 --&gt;
+4 6 148.305 -2.2 -2.2 172.302 1 1.29 14.593
+t 1 1
 _99%svg%&lt;!--Z TR1575 --&gt;
-1 2 146.142 1 10 0 0.333333 1
+1 1 149.234 7 10 0 0.333 -0.5
 t 1 1
 _99%svg%&lt;!--Z TR1576 --&gt;
-4 6 148.305 -2.2 -2.2 172.302 1 1.29 14.5932
+1 2 149.234 2 10 0 0.333
 t 1 1
 _99%svg%&lt;!--Z TR1577 --&gt;
-1 1 149.234 7 10 0 0.333333 -0.5
-t 1 1
-_99%svg%&lt;!--Z TR1578 --&gt;
-1 2 149.234 2 10 0 0.333333
-t 1 1
-_99%svg%&lt;!--Z TR1579 --&gt;
 1 4 150.78 0 20 0 0.5 -0.5 1
 t 1 1
-_99%svg%&lt;!--Z TR1580 --&gt;
-1 1 152.334 7 10 0 0.333333 -0.5
+_99%svg%&lt;!--Z TR1578 --&gt;
+1 1 152.334 7 10 0 0.333 -0.5
 t 1 1
-_99%svg%&lt;!--Z TR1581 --&gt;
-1 2 152.334 2 10 0 0.333333
+_99%svg%&lt;!--Z TR1579 --&gt;
+1 2 152.334 2 10 0 0.333
 
-##SystemBar:	3:4	(dur = 4.00003)
+##SystemBar:	3:4	(dur = 4)
 t 1 1
-_99%svg%&lt;!--Z TR1582 --&gt;
+_99%svg%&lt;!--Z TR1580 --&gt;
 14 6 156.661 1
 t 1 1
-_99%svg%&lt;!--Z TR1583 --&gt;
+_99%svg%&lt;!--Z TR1581 --&gt;
 14 1 156.661 5
 t 1 1
-_99%svg%&lt;!--Z TR1584 --&gt;
-t 4 159.901 -3 1 1.02115 0 0 0 0 -2.8775 16 18.9749
+_99%svg%&lt;!--Z TR1582 --&gt;
+t 4 159.901 -3 1 1.021 0 0 0 0 -2.878 16 18.975
 _02ausdrucksvoll
 t 1 1
-_99%svg%&lt;!--Z TR1585 --&gt;
+_99%svg%&lt;!--Z TR1583 --&gt;
 1 4 159.901 7 10 0 1 -0.5 0 -0.5
 t 1 1
-_99%svg%&lt;!--Z TR1586 --&gt;
-1 2 159.901 0 10 0 0.333333 2
+_99%svg%&lt;!--Z TR1584 --&gt;
+1 2 159.901 0 10 0 0.333 2
 t 1 1
-_99%svg%&lt;!--Z TR1587 --&gt;
+_99%svg%&lt;!--Z TR1585 --&gt;
 2 3 159.901 0 -2 0 4 0 177.31
 t 1 1
-_99%svg%&lt;!--Z TR1588 --&gt;
+_99%svg%&lt;!--Z TR1586 --&gt;
 1 6 159.901 11 20 1 2
 t 1 1
-_99%svg%&lt;!--Z TR1589 --&gt;
+_99%svg%&lt;!--Z TR1587 --&gt;
 6 2 159.901 2 2 169.521 11
 t 1 1
-_99%svg%&lt;!--Z TR1590 --&gt;
+_99%svg%&lt;!--Z TR1588 --&gt;
 1 5 159.901 7 20 0 1
 t 1 1
-_99%svg%&lt;!--Z TR1591 --&gt;
+_99%svg%&lt;!--Z TR1589 --&gt;
 1 1 159.901 1 0 1 2
 t 1 1
-_99%svg%&lt;!--Z TR1592 --&gt;
+_99%svg%&lt;!--Z TR1590 --&gt;
 6 1 159.901 3.5 -4.75 0 -20 0 0 0 0 3 0 0 0 0 0.75
 t 1 1
-_99%svg%&lt;!--Z TR1593 --&gt;
+_99%svg%&lt;!--Z TR1591 --&gt;
 1 1 159.901 8 20 1 2 7
 t 1 1
-_99%svg%&lt;!--Z TR1594 --&gt;
-1 1 159.901 5 10 0 0.333333 1.5 0 0.5
+_99%svg%&lt;!--Z TR1592 --&gt;
+1 1 159.901 5 10 0 0.333 1.5 0 0.5
 t 1 1
-_99%svg%&lt;!--Z TR1595 --&gt;
+_99%svg%&lt;!--Z TR1593 --&gt;
 6 1 159.901 6.5 6.5 169.521 11 0 0 0 0 0 0 0.5
 t 1 1
-_99%svg%&lt;!--Z TR1596 --&gt;
+_99%svg%&lt;!--Z TR1594 --&gt;
 1 4 159.901 6 21.23 1 3.5 -1 120 2
 t 1 1
+_99%svg%&lt;!--Z TR1595 --&gt;
+1 2 163.337 0 10 0 0.333 2
+t 1 1
+_99%svg%&lt;!--Z TR1596 --&gt;
+1 1 163.337 5 10 0 0.333 1.5
+t 1 1
 _99%svg%&lt;!--Z TR1597 --&gt;
-1 2 163.337 0 10 0 0.333333 2
+1 2 166.429 2 10 0 0.333
 t 1 1
 _99%svg%&lt;!--Z TR1598 --&gt;
-1 1 163.337 5 10 0 0.333333 1.5
+1 1 166.429 7 10 0 0.333 -0.5
 t 1 1
 _99%svg%&lt;!--Z TR1599 --&gt;
-1 2 166.429 2 10 0 0.333333
+1 2 169.521 2 10 0 0.333
 t 1 1
 _99%svg%&lt;!--Z TR1600 --&gt;
-1 1 166.429 7 10 0 0.333333 -0.5
-t 1 1
-_99%svg%&lt;!--Z TR1601 --&gt;
-1 2 169.521 2 10 0 0.333333
-t 1 1
-_99%svg%&lt;!--Z TR1602 --&gt;
 2 5 169.521 0 0 0 1
 t 1 1
-_99%svg%&lt;!--Z TR1603 --&gt;
+_99%svg%&lt;!--Z TR1601 --&gt;
 2 4 169.521 2 0 0 1
 t 1 1
-_99%svg%&lt;!--Z TR1604 --&gt;
-1 1 169.521 7 10 0 0.333333 -0.5
+_99%svg%&lt;!--Z TR1602 --&gt;
+1 1 169.521 7 10 0 0.333 -0.5
 t 1 1
-_99%svg%&lt;!--Z TR1605 --&gt;
+_99%svg%&lt;!--Z TR1603 --&gt;
 6 2 173.045 2 2 183.32 11 0 0 0 0 0 0 0.5
 t 1 1
+_99%svg%&lt;!--Z TR1604 --&gt;
+1 2 173.045 0 11.95 0 0.333 2 0 0.5
+t 1 1
+_99%svg%&lt;!--Z TR1605 --&gt;
+1 1 173.045 5 11.95 0 0.333 1.5 0 0.5
+t 1 1
 _99%svg%&lt;!--Z TR1606 --&gt;
-1 2 173.045 0 11.95 0 0.333333 2 0 0.5
-t 1 1
-_99%svg%&lt;!--Z TR1607 --&gt;
-1 1 173.045 5 11.95 0 0.333333 1.5 0 0.5
-t 1 1
-_99%svg%&lt;!--Z TR1608 --&gt;
 6 1 173.045 6.5 6.5 183.32 11 0 0 0 0 0 0 0.5
 t 1 1
+_99%svg%&lt;!--Z TR1607 --&gt;
+1 2 176.613 0 10 0 0.333 2
+t 1 1
+_99%svg%&lt;!--Z TR1608 --&gt;
+1 1 176.613 5 10 0 0.333 1.5
+t 1 1
 _99%svg%&lt;!--Z TR1609 --&gt;
-1 2 176.613 0 10 0 0.333333 2
-t 1 1
-_99%svg%&lt;!--Z TR1610 --&gt;
-1 1 176.613 5 10 0 0.333333 1.5
-t 1 1
-_99%svg%&lt;!--Z TR1611 --&gt;
-t 6 180.229 -3 1 1 0 0 0 0 -2.2471 8 6.50279
+t 6 180.229 -3 1 1 0 0 0 0 -2.247 8 6.503
 _00stan!
 t 1 1
-_99%svg%&lt;!--Z TR1612 --&gt;
+_99%svg%&lt;!--Z TR1610 --&gt;
 1 1 180.229 8 20 1 2 7 0 -2
 t 1 1
-_99%svg%&lt;!--Z TR1613 --&gt;
+_99%svg%&lt;!--Z TR1611 --&gt;
 6 1 180.229 3.5 -4.75 0 -20 0 0 0 0 3 0 -2 0 0 0.75
 t 1 1
-_99%svg%&lt;!--Z TR1614 --&gt;
+_99%svg%&lt;!--Z TR1612 --&gt;
 1 1 180.229 1 0 1 2 0 0 -2
 t 1 1
-_99%svg%&lt;!--Z TR1615 --&gt;
+_99%svg%&lt;!--Z TR1613 --&gt;
 2 4 180.229 2 -1 0 2
 t 1 1
-_99%svg%&lt;!--Z TR1616 --&gt;
+_99%svg%&lt;!--Z TR1614 --&gt;
 1 6 180.229 5 12 0 1
 t 1 1
-_99%svg%&lt;!--Z TR1617 --&gt;
+_99%svg%&lt;!--Z TR1615 --&gt;
 2 5 180.229 0 -1 0 2
 t 1 1
+_99%svg%&lt;!--Z TR1616 --&gt;
+1 2 180.229 2 10 0 0.333
+t 1 1
+_99%svg%&lt;!--Z TR1617 --&gt;
+1 1 180.229 7 10 0 0.333 -0.5 0 0.25
+t 1 1
 _99%svg%&lt;!--Z TR1618 --&gt;
-1 2 180.229 2 10 0 0.333333
+1 1 183.32 7 10 0 0.333 -0.5
 t 1 1
 _99%svg%&lt;!--Z TR1619 --&gt;
-1 1 180.229 7 10 0 0.333333 -0.5 0 0.25
+1 2 183.32 2 10 0 0.333
 t 1 1
 _99%svg%&lt;!--Z TR1620 --&gt;
-1 1 183.32 7 10 0 0.333333 -0.5
+1 2 186.539 -1 10 0 0.333 3
 t 1 1
 _99%svg%&lt;!--Z TR1621 --&gt;
-1 2 183.32 2 10 0 0.333333
+1 1 186.539 4 10 0 0.333 2.5
 t 1 1
 _99%svg%&lt;!--Z TR1622 --&gt;
-1 2 186.539 -1 10 0 0.333333 3
-t 1 1
-_99%svg%&lt;!--Z TR1623 --&gt;
-1 1 186.539 4 10 0 0.333333 2.5
-t 1 1
-_99%svg%&lt;!--Z TR1624 --&gt;
 6 1 186.539 6.5 6.5 196.173 11
 t 1 1
-_99%svg%&lt;!--Z TR1625 --&gt;
+_99%svg%&lt;!--Z TR1623 --&gt;
 6 2 186.539 2 2 196.173 11
 t 1 1
+_99%svg%&lt;!--Z TR1624 --&gt;
+1 1 189.976 4 10 0 0.333 2.5
+t 1 1
+_99%svg%&lt;!--Z TR1625 --&gt;
+1 2 189.976 -1 10 0 0.333 3
+t 1 1
 _99%svg%&lt;!--Z TR1626 --&gt;
-1 1 189.976 4 10 0 0.333333 2.5
-t 1 1
-_99%svg%&lt;!--Z TR1627 --&gt;
-1 2 189.976 -1 10 0 0.333333 3
-t 1 1
-_99%svg%&lt;!--Z TR1628 --&gt;
 2 6 189.976 0 0 0 1
 t 1 1
+_99%svg%&lt;!--Z TR1627 --&gt;
+1 1 193.067 7 10 0 0.333 -0.5
+t 1 1
+_99%svg%&lt;!--Z TR1628 --&gt;
+1 2 193.067 2 10 0 0.333
+t 1 1
 _99%svg%&lt;!--Z TR1629 --&gt;
-1 1 193.067 7 10 0 0.333333 -0.5
-t 1 1
-_99%svg%&lt;!--Z TR1630 --&gt;
-1 2 193.067 2 10 0 0.333333
-t 1 1
-_99%svg%&lt;!--Z TR1631 --&gt;
 1 4 194.613 5 20 0 0.5 0 1
 t 1 1
-_99%svg%&lt;!--Z TR1632 --&gt;
-1 2 196.173 2 10 0 0.333333
+_99%svg%&lt;!--Z TR1630 --&gt;
+1 2 196.173 2 10 0 0.333
 t 1 1
-_99%svg%&lt;!--Z TR1633 --&gt;
-1 1 196.173 7 10 0 0.333333 -0.5
+_99%svg%&lt;!--Z TR1631 --&gt;
+1 1 196.173 7 10 0 0.333 -0.5
 
 t 1 1
-_99%svg%&lt;!--Z TR1634 --&gt;
+_99%svg%&lt;!--Z TR1632 --&gt;
 14 4 200 1
 t 1 1
-_99%svg%&lt;!--Z TR1635 --&gt;
+_99%svg%&lt;!--Z TR1633 --&gt;
 14 1 200 5
 t 1 1
-_99%svg%&lt;!--Z TR1636 --&gt;
+_99%svg%&lt;!--Z TR1634 --&gt;
 14 5 200 1
 t 1 1
-_99%svg%&lt;!--Z TR1637 --&gt;
+_99%svg%&lt;!--Z TR1635 --&gt;
 14 3 200 1
 t 1 1
-_99%svg%&lt;!--Z TR1638 --&gt;
+_99%svg%&lt;!--Z TR1636 --&gt;
 14 2 200 1
 t 1 1
-_99%svg%&lt;!--Z TR1639 --&gt;
+_99%svg%&lt;!--Z TR1637 --&gt;
 14 6 200 1
-
 ?>

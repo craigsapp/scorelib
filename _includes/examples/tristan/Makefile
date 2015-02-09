@@ -41,8 +41,8 @@ redo-svg: svg svg-fix
 
 svg:
 #	$(BINDIR)/score2svg t1a.pmx > t1a.svg
-#	$(BINDIR)/score2svg t1b.pmx > t1b.svg
-#	$(BINDIR)/score2svg t1c.pmx > t1c.svg
+	$(BINDIR)/score2svg t1b.pmx > t1b.svg
+	$(BINDIR)/score2svg t1c.pmx > t1c.svg
 
 #	$(BINDIR)/score2svg t2a.pmx > t2a.svg
 #	$(BINDIR)/score2svg t2b.pmx > t2b.svg
@@ -56,8 +56,8 @@ svg-fix:
 #	$(FCL) t2d.svg | $(ANS) -n _T2d > $(FILE2)d-markup-svg.html
 
 #	$(FCL) t1a.svg | $(ANS) -n _T1a > $(FILE1)a-markup-svg.html
-#	$(FCL) t1b.svg | $(ANS) -n _T1b > $(FILE1)b-markup-svg.html
-#	$(FCL) t1c.svg | $(ANS) -n _T1c > $(FILE1)c-markup-svg.html
+	$(FCL) t1b.svg | $(ANS) -n _T1b > $(FILE1)b-markup-svg.html
+	$(FCL) t1c.svg | $(ANS) -n _T1c > $(FILE1)c-markup-svg.html
 
 
 

@@ -1,8 +1,9 @@
 _site
 Gemfile.lock
 
-!.gitignore
 .*
+!.gitignore
+!.serve
 
 lib/
 obj/
