@@ -6,7 +6,7 @@
 @PARAMETERS:	int x, int y
 @PARAMETERS:	set<int>& numbers
 @FILE:		ScoreUtility_math.cpp
-@LINES:		
+@LINES:		17-48
 @SEEALSO:	gcd
 @SHORTDESC:	Find the least common multiple of two or more integers.
 @LONGDESC:	Fine the least common multiple of two or more integers.

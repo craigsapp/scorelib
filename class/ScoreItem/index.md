@@ -30,3 +30,6 @@ group: [
 This page will contain documentation about the ScoreItem class.
 
 
+
+{% include docslot/keyboardCommands.html %}
+

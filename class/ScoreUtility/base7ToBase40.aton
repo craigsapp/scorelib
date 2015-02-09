@@ -5,7 +5,7 @@
 @RETURN:	int
 @PARAMETERS:	int base7
 @FILE:		ScoreUtility_pitch.cpp
-@LINES:		
+@LINES:		18-51
 @SEEALSO:	
 @SHORTDESC:	Converts diatonic base-7 note into a base-40 note.
 @LONGDESC:	Converts a diatonic base-7 note into a base-40 note.

@@ -18,3 +18,7 @@ group: [
 This page will contain documentation about the ScorePageBase class.
 
 
+
+
+{% include docslot/keyboardCommands.html %}
+

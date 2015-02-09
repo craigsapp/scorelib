@@ -56,5 +56,6 @@ Tie-processing functions
 
 
 
+{% include docslot/keyboardCommands.html %}
 
 

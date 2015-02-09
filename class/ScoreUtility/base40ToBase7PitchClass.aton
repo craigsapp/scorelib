@@ -5,7 +5,7 @@
 @RETURN:	int
 @PARAMETERS:	int base40
 @FILE:		ScoreUtility_pitch.cpp
-@LINES:		
+@LINES:		53-101
 @SEEALSO:	base40ToBase7
 @SHORTDESC:	Converts a base-40 note into a base-7 pitch class.
 @LONGDESC:	Converts a base-40 note into a base-7 pitch class.

@@ -5,6 +5,7 @@
 @RETURN:	void
 @PARAMETERS:	void
 @FILE:		ScoreItemBase.cpp
+@LINES:		100-116
 @SEEALSO:	
 @SHORTDESC:	Erase all contents of the item.
 @LONGDESC:	Erase all of the contents of the item.

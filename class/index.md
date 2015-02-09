@@ -14,7 +14,7 @@ one set for dealing with a single SCORE item (colored light blue),
 and the other set that manages multiple items (colored
 purple).  The three main classes to use directly are ScoreItem,
 ScorePage, and ScorePageSet, while the others are used to deal with
-lower-level maintence and abstraction.  The [ScorePageSet](ScorePageSet)
+lower-level maintenance and abstraction.  The [ScorePageSet](ScorePageSet)
 class is used to organize multiple pages; the [ScorePage](ScorePage)
 class is used to manage a single page; and [ScoreItem](ScoreItem)
 manages a single SCORE item.
@@ -47,7 +47,7 @@ ScorePageBase
 The [ScorePageBase](ScorePageBase) class contains numerous helper classes
 used to coordinate relationships between individual ScoreItems contained 
 on the page.  These classes are not accessed directly, but are used to
-facilite efficient higher-level manipulation of the items.  The main
+facilitate efficient higher-level manipulation of the items.  The main
 helper classes for ScorePageBase are:
 
 <ul style="margin-left:40px;">
@@ -83,7 +83,7 @@ objects.  Each printed page is held in a
 [ScorePageOverlay](ScorePageOverlay) object which consists of a
 list of [ScorePage](ScorePage) objects.  Each ScorePage in a
 ScorePageOverlay object is intended to be displayed on the same
-page.  Use of the overlay system is dependend on the implemention.
+page.  Use of the overlay system is dependent on the implementation.
 It can be used to store analytic markup, variants, ossia, older
 versions of the page, etc.
 
@@ -109,14 +109,14 @@ ScoreSegment object contains a list of
 each contain a list of [AddressSystem](AddressSystem) which locate
 the staves for each part in the score.  The AddressSystem
 two dimensional list of system addresses.  When a part contains
-more than one staff, additionay system addresses will be given on
+more than one staff, additional system addresses will be given on
 a row in the AddressSystem list.
 
 The ScorePageSet class contains a list of ScoreSegments that in turn consists
 of a list of SegmentParts, which is a list of the instrumental parts in the
 segment. Each SegmentPart contains a list of AddressSystem objects that keep
 track of the staff assignment for each system for the instrument.  The schematic
-below shows the relationship between thses classes:
+below shows the relationship between these classes:
 
 <center>
 <img style="width:600px;" src="/img/scorepageset-segment.png">

@@ -6,7 +6,7 @@
 @RETURN:	void
 @PARAMETERS:	ScoreItem* startslur, SCORE_FLOAT slurdur, vectorSIp& leftnotes, ScoreItem* endslur, vectorSIp& rightnotes
 @FILE:		ScoreUtility_ties.cpp
-@LINES:		
+@LINES:		305-421
 @SEEALSO:	identifySlurStartStopOffsets
 @SHORTDESC:	Helper function for ScoreUtility::identifySlurStartStopOffsets.
 @LONGDESC:	Helper function for ScoreUtility::identifySlurStartStopOffsets.

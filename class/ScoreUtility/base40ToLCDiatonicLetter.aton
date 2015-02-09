@@ -5,7 +5,7 @@
 @RETURN:	char
 @PARAMETERS:	int base40
 @FILE:		ScoreUtility_pitch.cpp
-@LINES:		
+@LINES:		126-147
 @SEEALSO:	base40ToUCDiatonicLetter
 @SHORTDESC:	Converts a base-40 pitch into a lower-case base-7 diatonic letter.
 @LONGDESC:	Converts a base-40 pitch into a lower-case base-7 diatonic

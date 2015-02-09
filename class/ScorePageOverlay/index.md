@@ -12,3 +12,6 @@ group: [
 This page will contain documentation about the ScorePageOverlay class.
 
 
+
+{% include docslot/keyboardCommands.html %}
+

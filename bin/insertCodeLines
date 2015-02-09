@@ -38,10 +38,22 @@ sub processFile {
    my @contents = <FILE>;
    close FILE;
    my $function = getFunctionName($file, @contents);
-print "FUNCTION = $function\n";
    my @src = getSourceContents($file, @contents);
    my $linerange = getSourceLines($file, $function, @src);
    print "$function: $linerange\n";
+   my $i;
+   my $line;
+   open (XFILE, ">$file") or die "Cannot write to $file\n";
+   for ($i=0; $i<@contents; $i++) {
+      $line = $contents[$i];
+      chomp $line;
+      if ($line =~ /^\@LINES\s*:/) {
+         print XFILE "\@LINES:\t\t$linerange\n";
+      } else {
+         print XFILE "$line\n";
+      }
+   }
+   close XFILE;
 }
 
 
@@ -62,13 +74,12 @@ sub getSourceLines {
    for ($i=0; $i<@src; $i++) {
       $line = $src[$i];
       if ($line =~ /^\/{20}/) {
-         $tline = $1;
+         $tline = $i;
       } elsif ($line !~ /^\//) {
          $tline = -1;
       }
       if ($line =~ /^\/\/\s*[^:]+::([^\s]+)\s*--/) {
          $fname = $1;
-print "FNAME = $fname and FUNCTION eq $function\n";
          if ($fname eq $function) {
             $startline = $i;
             last;
@@ -97,8 +108,22 @@ print "FNAME = $fname and FUNCTION eq $function\n";
       die "Could not find end line in $file for function $function.\n";
    }
 
+   if ($startline - $tline < 5) {
+      $startline = $tline;
+   }
+
+   # make start line be one line back and endline one line forward if
+   # those lines are blank.
+   $startline-- if $src[$startline - 1] =~ /^\s*$/;
+   #if (($endline + 1 < @src) && ($src[$endline + 1] =~ /^\s*$/)) {
+   if ($src[$endline + 1] =~ /^\s*$/) {
+      $endline++ 
+   }
+
+   # offset by 1 rather than 0
    $startline++;
    $endline++;
+
    return "$startline-$endline";
 }
 
@@ -116,12 +141,10 @@ sub getSourceContents {
    foreach my $line (@contents) {
       if ($line =~ /^\@FILE\s*:\s*([^\s]+)\s*$/) {
          $srcname = $1;
-print "FILENAME = $srcname\n";
          if ($SrcContents{$srcname} !~ /^\s*$/) {
             return split(/\n/, $SrcContents{$srcname});
          } else {
-            $SrcContents{$srcname} = `wget "$urlbase/$srcname" -O -`;
-print "DOWNLOADED $SrcContents{$srcname}\n\n";
+            $SrcContents{$srcname} = `wget "$urlbase/$srcname" -O - 2> /dev/null`;
             return split(/\n/, $SrcContents{$srcname});
          }
       }

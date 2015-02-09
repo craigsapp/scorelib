@@ -6,7 +6,7 @@
 @RETURN:	string
 @PARAMETERS:	ostream& out, const string& text
 @FILE:		ScoreUtility_text.cpp
-@LINES:		
+@LINES:		29-87
 @SEEALSO:	printXmlTextEscapedUTF8
 @SHORTDESC:	Converts SCORE text to UTF-8, using XML entities.
 @LONGDESC:	Converts SCORE text to UTF-8, using XML entities for

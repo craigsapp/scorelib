@@ -5,7 +5,7 @@
 @RETURN:	int
 @PARAMETERS:	int base40
 @FILE:		ScoreUtility_pitch.cpp
-@LINES:		
+@LINES:		163-212
 @SEEALSO:	
 @SHORTDESC:	Extract chromatic alteration of diatonic pitch given a
 		base-40 number.

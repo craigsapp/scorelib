@@ -6,7 +6,7 @@
 @RETURN:	void
 @PARAMETERS:	int staffnum, vectorSIp& items, vectorSIp& hangingleft, vectorSIp& leftnotes, vectorSIp& hangingright, vectorSIp& rightnotes
 @FILE:		ScoreUtility_ties.cpp
-@LINES:		
+@LINES:		17-108
 @SEEALSO:	
 @SHORTDESC:	Calculate variables which are used to link slurs/ties across 
 		system breaks.

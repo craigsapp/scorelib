@@ -18,3 +18,6 @@ Public member functions of ScoreItemBase:
 
 
 
+{% include docslot/keyboardCommands.html %}
+
+

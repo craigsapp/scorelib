@@ -11,9 +11,9 @@
 
 BINDIR = ../../bin
 
+all: lines
 
-
-all: 
+lines:
 	$(BINDIR)/insertCodeLines *.aton
 
 

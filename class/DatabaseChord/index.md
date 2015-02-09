@@ -11,3 +11,6 @@ group: [
 This page will contain documentation about the DatabaseChord class.
 
 
+
+{% include docslot/keyboardCommands.html %}
+

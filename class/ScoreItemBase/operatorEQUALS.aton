@@ -5,6 +5,7 @@
 @METHOD:	operator=
 @PARAMETERS:	const ScoreItemBase& anItem
 @FILE:		ScoreItemBase.cpp
+@LINES:		79-98
 @SEEALSO:	
 @SHORTDESC:	Copy from another item object.
 @LONGDESC:	Copy from another item object.

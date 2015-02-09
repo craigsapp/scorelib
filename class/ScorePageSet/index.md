@@ -20,3 +20,6 @@ group: [
 This page will contain documentation about the ScorePageSet class.
 
 
+
+{% include docslot/keyboardCommands.html %}
+

@@ -3,7 +3,7 @@
 //
 // Programmer:    Craig Stuart Sapp <craig.stanford.edu>
 // Creation Date: Wed Jan 28 01:45:01 PST 2015
-// Last Modified: Sun Feb  8 20:37:58 PST 2015
+// Last Modified: Sun Feb  8 22:21:48 PST 2015
 // Filename:      scorelib/_includes/docslot/docslot.html
 // Syntax:        JavaScript 1.5 (EMCAScript 5)
 // vim:           ts=3 ft=javascript hlsearch
@@ -225,8 +225,8 @@ summary {
 				{{#if PARAMETERS }}
 					{{{printDeclarations this}}}
 				{{/if}}
+				{{{codeLink METHOD FILE LINES}}}
 				{{{LONGDESC}}}
-				{{{codeLink METHOD FILE}}}
 				{{{showExamples EXAMPLE}}}
 			</div>
 		</details>
@@ -301,7 +301,7 @@ Handlebars.registerHelper('codeLink', function (method, file, linerange) {
 
 	output += '<details>\n';
 	output += '<summary>\n';
-	output += '<a href="' + url + '">Source code for ' + method + ' on GitHub';
+	output += '<a target="new" href="' + url + '">Source code for ' + method + '() on GitHub';
    output += '</a>\n';
 	output += '</summary>\n';
 	output += '</details>\n';
@@ -348,7 +348,7 @@ Handlebars.registerHelper('printDeclarations', function (entry) {
 
    if (entry.PARAMETERS instanceof Array) {
 		for (var i=0; i<entry.PARAMETERS.length; i++) {
-   		output += '<span style="color:#000088; font-weight:600;">';
+   		output += '<span style="color:#000088; font-weight:500;">';
 			if (entry.RETURN instanceof Array) {
 				output += entry.RETURN[i];
 			} else {
@@ -366,7 +366,7 @@ Handlebars.registerHelper('printDeclarations', function (entry) {
 		}
 
 	} else {
-   	output += '<span style="color:#000088; font-weight:600;">';
+   	output += '<span style="color:#000088; font-weight:500;">';
 		if (entry.RETURN instanceof Array) {
 			output += entry.RETURN[0];
 		} else {
