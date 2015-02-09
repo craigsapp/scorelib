@@ -121,6 +121,7 @@ print "FILENAME = $srcname\n";
             return split(/\n/, $SrcContents{$srcname});
          } else {
             $SrcContents{$srcname} = `wget "$urlbase/$srcname" -O -`;
+print "DOWNLOADED $SrcContents{$srcname}\n\n";
             return split(/\n/, $SrcContents{$srcname});
          }
       }
