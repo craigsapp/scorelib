@@ -613,7 +613,7 @@ Z" fill="currentColor"/>
 </g>
 </defs>
 <!--Z TR1391 -->
-<text transform="translate(150,-20855) scale(1,-1)" fill="currentColor" stroke="none" font-size="569" style="font-family:Nimbus Roman No9 L">vlns. 1,2</text>
+<text transform="translate(150,-20855) scale(0.9,-0.9)" fill="currentColor" stroke="none" font-size="569" style="font-family:Nimbus Roman No9 L">vlns. 1,2</text>
 <!--Z TR1392 -->
 <text transform="translate(300,-14490) scale(1,-1)" fill="currentColor" stroke="none" font-size="569" style="font-family:Nimbus Roman No9 L">wood-</text>
 <!--Z TR1393 -->
@@ -3163,7 +3163,7 @@ M20130 -21703
 L20130 -20827
 "/>
 <!--Z TR1552 -->
-<text transform="translate(19355,-11751) scale(1,-1)" fill="currentColor" stroke="none" font-size="501" >Isolde</text>
+<text transform="translate(19355,-11751) scale(1,-1)" fill="currentColor" stroke="none" font-size="501" font-weight="900">Isolde</text>
 <!--Z TR1553 -->
 <use transform="translate(20202,-23431) scale(.650)" stroke-width="41.087" xlink:href="#P04"/>
 <path  d="

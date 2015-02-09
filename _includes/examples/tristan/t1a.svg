@@ -3546,8 +3546,8 @@ L21951 8716
 <path stroke-width=".0000" d="
 M23741 10226
 L23741 10112
-L22408 10226
-L22408 10340
+L22308 10226
+L22308 10340
 L23741 10226
 L23741 10112
 Z" fill="currentColor"/>
@@ -3649,7 +3649,7 @@ L22554 5905
 L22554 5820
 Z" fill="currentColor"/>
 <!--Z TR1158 -->
-<use transform="translate(22408,6261) scale(.650)" stroke-width="41.087" xlink:href="#P04"/>
+<use transform="translate(22408,6261) scale(.650)" stroke-width="41.087" xlink:href="#P02"/>
 <text transform="translate(22473,6659) scale(1,-1)" fill="currentColor" stroke="none" font-size="351" style="font-family:Nimbus Roman No9 L">6</text>
 <path  d="
 M22408 6226

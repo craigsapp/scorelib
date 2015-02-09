@@ -2429,7 +2429,7 @@ L20717 -8040
 L20717 -7926
 "/>
 <!--Z TR1315 -->
-<text transform="translate(19500,-4099) scale(1,-1)" fill="currentColor" stroke="none" font-size="501" style="font-family:Nimbus Roman No9 L">w</text>
+<text transform="translate(19500,-4099) scale(1,-1)" fill="currentColor" stroke="none" font-size="501" style="font-family:Nimbus Roman No9 L">&nbsp;w/</text>
 <text transform="translate(20162,-4099) scale(1,-1)" fill="currentColor" stroke="none" font-size="501" style="font-family:Nimbus Roman No9 L">&#160; horns, bassn.</text>
 <!--Z TR1316 -->
 <use transform="translate(19630,-7243) scale(.650)" stroke-width="41.087" xlink:href="#P03"/>

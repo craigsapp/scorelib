@@ -2721,7 +2721,7 @@ M23384 6199
 L23384 12588
 "/>
 <!--Z TR2163 -->
-<text transform="translate(21789,14864) scale(1,-1)" fill="currentColor" stroke="none" font-size="501" >Isolde</text>
+<text transform="translate(21789,14864) scale(1,-1)" fill="currentColor" stroke="none" font-size="501" font-weight="900">Isolde</text>
 <!--Z TR2164 -->
 <use transform="translate(23682,6199) scale(.650)" stroke-width="41.087" xlink:href="#P04"/>
 <!--Z TR2165 -->
