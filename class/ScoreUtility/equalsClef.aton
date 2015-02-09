@@ -6,10 +6,11 @@
 @RETURN:	bool
 @PARAMETERS:	ScoreItem* a, ScoreItem* b
 @FILE:		ScoreUtility_compare.cpp
+@LINES:		
 @SEEALSO:	
-@SHORTDESC:	Return true if two items reprepresent the same clef.
-@LONGDESC:	Return true if the two intems represent the same clef.
-		If either one of the items is NULL, then the returl
+@SHORTDESC:	Return true if two items represent the same clef.
+@LONGDESC:	Return true if the two items represent the same clef.
+		If either one of the items is NULL, then the return
 		value will be false.
 
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@

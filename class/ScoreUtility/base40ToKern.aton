@@ -5,6 +5,7 @@
 @RETURN:	string
 @PARAMETERS:	int base40
 @FILE:		ScoreUtility_pitch.cpp
+@LINES:		
 @SEEALSO:	base40ToKern
 @SHORTDESC:	Converts a base-40 note a Humdrum **kern pitch name.
 @LONGDESC:	Converts a base-40 note a Humdrum **kern pitch name.

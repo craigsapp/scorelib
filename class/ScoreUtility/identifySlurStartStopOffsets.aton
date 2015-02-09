@@ -6,6 +6,7 @@
 @RETURN:	void
 @PARAMETERS:	vectorSIp& slurs, vectorVSIp& notes, map<SCORE_FLOAT, int>& offsettoindex, vectorSIp& haningleft, vectorSIp& leftnotes, vectorSIp& hangingright, vectorSIp& rightnotes
 @FILE:		ScoreUtility_ties.cpp
+@LINES:		
 @SEEALSO:	analyzeStaffTies
 @SHORTDESC:	Helper function for ScoreUtility::analyzeStaffTies.
 @LONGDESC:	Helper function for ScoreUtility::analyzeStaffTies.

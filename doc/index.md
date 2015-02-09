@@ -42,6 +42,10 @@ Scorelib classes
 </ul>
 
 
+On class-documentation pages, press control-plus/equals to open 
+all documentation, control-minus to close all documetation, and
+control-click to open a single function entry and close all others.
+
 
 
 

@@ -8,6 +8,7 @@
 @RETURN:	bool
 @PARAMETERS:	ScoreItem* a, ScoreItem* b
 @FILE:		ScoreUtility_compare.cpp
+@LINES:		
 @SEEALSO:	
 @SHORTDESC:	Returns true if two items represent the same key signature.
 @LONGDESC:	Returns true if two the items represent the same key signature.

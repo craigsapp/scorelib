@@ -6,6 +6,7 @@
 @RETURN:	bool
 @PARAMETERS:	ScoreItem* a, ScoreItem* b
 @FILE:		ScoreUtility_sort.cpp
+@LINES:		
 @SEEALSO:	
 @SHORTDESC:	Sort two items by P3, then P1, then P4.
 @LONGDESC:	Sort two items by their horizontal positions (P3 values),

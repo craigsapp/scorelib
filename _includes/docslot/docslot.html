@@ -3,7 +3,7 @@
 //
 // Programmer:    Craig Stuart Sapp <craig.stanford.edu>
 // Creation Date: Wed Jan 28 01:45:01 PST 2015
-// Last Modified: Thu Feb  5 23:09:19 PST 2015
+// Last Modified: Sun Feb  8 20:37:58 PST 2015
 // Filename:      scorelib/_includes/docslot/docslot.html
 // Syntax:        JavaScript 1.5 (EMCAScript 5)
 // vim:           ts=3 ft=javascript hlsearch
@@ -49,17 +49,27 @@ document.addEventListener("DOMContentLoaded", function () {
 	var source   = document.getElementById("docslot-main").textContent;
 	var template = Handlebars.compile(source);
 	var matches = window.location.href.match(/#([^\/]+)$/);
+   var matches2;
+   var details;
+   var target = "";
 	if (matches) {
 		// have a download preference for the specific function documetation
 		// that should be viewed.
 		for (var i=0; i<docslots.length; i++) {
-			if (docslots[i].id === matches[1]) {
+			matches2 = docslots[i].id.match(/\s*(.*)::(.*)\s*/);
+			if (matches[1] === matches2[2]) {
 				insertDocumentation(docslots[i], template);
+				target = docslots[i].id;
+				details = docslots[i].querySelector('details');
+			} else if (docslots[i].id === matches[1]) {
+				insertDocumentation(docslots[i], template);
+				target = docslots[i].id;
+				details = docslots[i].querySelector('details');
 			}
 		}
 	}
 	for (var i=0; i<docslots.length; i++) {
-		if (matches && (matches[1] === docslots[i].id)) {
+		if (matches && (target === docslots[i].id)) {
 			continue;
 		}
 		insertDocumentation(docslots[i], template);
@@ -211,7 +221,10 @@ summary {
 			{{{SHORTDESC}}}
 			</span>
 			</summary>
-			<div style="margin-left:40px;">
+			<div style="margin-left:40px; margin-bottom:20px;">
+				{{#if PARAMETERS }}
+					{{{printDeclarations this}}}
+				{{/if}}
 				{{{LONGDESC}}}
 				{{{codeLink METHOD FILE}}}
 				{{{showExamples EXAMPLE}}}
@@ -275,28 +288,24 @@ summary {
 // Handlebars helper functions
 //
 
-Handlebars.registerHelper('codeLink', function (method, file) {
+Handlebars.registerHelper('codeLink', function (method, file, linerange) {
 	if (typeof method === 'undefined') { return '' }
 	if (typeof file   === 'undefined') { return '' }
-	var output = '<details ontoggle="displaySourceBox(';
-	output += '\'' + method + '\', \'' + file + '\');"';
-	output += '><summary>';
-	output += 'View method source code ';
-	output += '(<a href=https://sourcegraph.com/github.com/craigsapp/';
-	output += 'RationalNumber@master/.CommonJSPackage/rational-number/.def/';
-	if (file === 'RationalNumber-base.js') {
-		output += 'commonjs/lib/RationalNumber-base.js/-/prototype/';
-	} else if (file === 'RationalNumber-math.js') {
-		output += 'commonjs/index.js/-/prototype/';
-	} else {
-		return '';
+
+   var url = 'https://github.com/craigsapp/scorelib/tree/master/src-library/'
+	url += file;
+   if (linerange) {
+		url += '#L' + linerange;
 	}
-	output += method;
-	output += '>on Sourcegraph</a>)';
-	output += '</summary>';
-	output += '<div id="' + method + '_sourcebox">';
-	output += '</div>';
+	var output = '';
+
+	output += '<details>\n';
+	output += '<summary>\n';
+	output += '<a href="' + url + '">Source code for ' + method + ' on GitHub';
+   output += '</a>\n';
+	output += '</summary>\n';
 	output += '</details>\n';
+
 	return output;
 });
 
@@ -324,6 +333,66 @@ function displaySourceBox (method, file) {
 }
 
 
+//////////////////////////////
+//
+// printDeclarations -- Print list of examples for a function entry.
+//     @METHOD:	gcd
+//     @RETURN:	int
+//     @PARAMETERS:	int x, int y
+//
+//     Maps to:   int gcd(int x, int y);
+//
+
+Handlebars.registerHelper('printDeclarations', function (entry) {
+   var output = '';
+
+   if (entry.PARAMETERS instanceof Array) {
+		for (var i=0; i<entry.PARAMETERS.length; i++) {
+   		output += '<span style="color:#000088; font-weight:600;">';
+			if (entry.RETURN instanceof Array) {
+				output += entry.RETURN[i];
+			} else {
+				output += entry.RETURN;
+			}
+			output += ' ';
+			output += '<span class="docslot-long-title">';
+   		output += entry.METHOD;
+			output += '</span>';
+			output += '(';
+			output += entry.PARAMETERS[i];
+			output += ');';
+   		output += '</span>';
+   		output += '</br>';
+		}
+
+	} else {
+   	output += '<span style="color:#000088; font-weight:600;">';
+		if (entry.RETURN instanceof Array) {
+			output += entry.RETURN[0];
+		} else {
+			output += entry.RETURN;
+		}
+		output += ' ';
+		output += '<span class="docslot-long-title">';
+   	output += entry.METHOD;
+		output += '</span>';
+		output += '(';
+		output += entry.PARAMETERS;
+		output += ');';
+   	output += '</span>';
+   	output += '</br>';
+	}
+
+   return output;
+});
+
+
+
+
+//////////////////////////////
+//
+// showExamples -- Print list of examples for a function entry.
+//
 
 Handlebars.registerHelper('showExamples', function (entry) {
 	if (typeof entry === 'undefined') {
@@ -420,6 +489,7 @@ function insertDocumentation(target, template) {
    
 	var file    = '/class/' + classname + '/' + functionname + '.aton';
 	var request = new XMLHttpRequest();
+	var matches2;
 	request.open('GET', file);
 	request.addEventListener('load', function () {
 		var atondata = this.responseText;
@@ -429,8 +499,8 @@ function insertDocumentation(target, template) {
 		var dochtml = template(docobj);
 		target.innerHTML = dochtml;
 		var matches = window.location.href.match(/#([^\/]+)$/);
-		if (matches && (matches[1] === name)) {
-			showSlotDocumentation(name);
+		if (matches && (matches[1] === functionname)) {
+			showSlotDocumentation(fullname);
 		}
 	});
 	request.addEventListener('error', function () {
@@ -566,7 +636,8 @@ function showSlotDocumentation(id) {
 	for (var i=0; i<details.length; i++) {
 		details[i].setAttribute('open', true);
 	}
-	target.scrollIntoView();
+	//target.scrollIntoView();
+	target.scrollIntoViewIfNeeded();
 }
 
 

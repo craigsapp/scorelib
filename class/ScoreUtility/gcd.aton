@@ -5,9 +5,10 @@
 @RETURN:	int
 @PARAMETERS:	int x, int y
 @FILE:		ScoreUtility_math.cpp
+@LINES:		
 @SEEALSO:	lcm
 @SHORTDESC:	Find the greatest common divisor between two integers.
-@LONGDESC:	Fine the greatest common divisor between two integers.
+@LONGDESC:	Find the greatest common divisor between two integers.
 
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
