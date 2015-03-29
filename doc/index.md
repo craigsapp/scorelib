@@ -51,7 +51,7 @@ Other SCORE documentation
 =========================
 
 <ol>
-<li> <a href=coordinates/StaffPositions.pdf>SCORE Staff Placement</a> &mdash; detailed description of staff layout on a page.
+<li> <a href="coordinates/StaffPositions.pdf">SCORE Staff Placement</a> &mdash; detailed description of staff layout on a page.
 </ol>
 
 
