@@ -47,7 +47,12 @@ all documentation, control-minus to close all documetation, and
 control-click to open a single function entry and close all others.
 
 
+Other SCORE documentation
+=========================
 
+<ol>
+<li> <a href=coordinates/StaffPositions.pdf>SCORE Staff Placement</a> &mdash; detailed description of staff layout on a page.
+</ol>
 
 
 
