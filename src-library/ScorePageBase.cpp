@@ -177,7 +177,10 @@ int ScorePageBase::getItemCount(void) {
 
 //////////////////////////////
 //
-// ScorePageBase::getItem -- 
+// ScorePageBase::getItem --  Use of this function implies that the
+//    data is sorted.  If it is not sorted, then the data list will
+//    have zero length, but the count will not be zero.  So need to 
+//    set up a dependency on sorting when calling this function.
 //
 
 ScoreItem* ScorePageBase::getItem(int index) {

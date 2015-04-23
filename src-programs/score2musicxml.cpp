@@ -2315,7 +2315,7 @@ int printKeySigItem(stringstream& stream, ScoreItem* item, int indent) {
    }
    int p5 = item->getAccidentalCount();
   
-   if (abs(p5 < 10)) {
+   if (abs(p5) < 10) {
       printIndent(stream, indent++, "<key>\n");   
       printIndent(stream, indent, "<fifths>");   
       stream << p5 << "</fifths>\n";

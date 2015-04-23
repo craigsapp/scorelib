@@ -4,6 +4,7 @@ Gemfile.lock
 obj
 lib
 bin
+err
 
 !.gitignore
 

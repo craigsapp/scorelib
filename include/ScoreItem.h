@@ -217,11 +217,20 @@ using listSIp     = list<ScoreItem*>;
       // Trill (P1=7) processing functions
 
       // Staff (P1=8) processing functions (defined in ScoreItem_staff.cpp):
-      SCORE_FLOAT    getPartNumber               (void);
-      int            getPartNumberInt            (void);
-      SCORE_FLOAT    getInstrumentNumber         (void);
-      int            getInstrumentNumberInt      (void);
-      SCORE_FLOAT    getScale                    (void);
+      SCORE_FLOAT  getPartNumber                 (void);
+      int          getPartNumberInt              (void);
+      SCORE_FLOAT  getInstrumentNumber           (void);
+      int          getInstrumentNumberInt        (void);
+      SCORE_FLOAT  getScale                      (void);
+      void         convertStaffP4ToP10Inches     (void);
+      void         convertStaffP4ToP10Centimeters(void);
+      void         convertStaffP10InchesToP4Value(void);
+      void         convertStaffP10CentimetersToP4Value(void);
+      void         setStaffP4FromP10Inches       (SCORE_FLOAT p10);
+      void         setStaffP4FromP10Centimeters  (SCORE_FLOAT p10);
+      void         setStaffP10InchesFromP4Value  (SCORE_FLOAT p4);
+      void         setStaffP10CentimetersFromP4Value(SCORE_FLOAT p4);
+
 
       // Symbol (P1=9) processing functions
 
