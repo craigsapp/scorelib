@@ -51,7 +51,11 @@ Other SCORE documentation
 =========================
 
 <ol>
+
 <li> <a href="coordinates/StaffPositions.pdf">SCORE Staff Placement</a> &mdash; detailed description of staff layout on a page.
+
+<li> <a href="staffp4p10/staffp10p4-20150423.pdf">Conversion between P4 and P10 vertical placement for staff items</a>.
+
 </ol>
 
 
