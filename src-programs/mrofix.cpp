@@ -27,11 +27,12 @@ void   adjustAccidentals    (ScorePage& infile);
 
 int main(int argc, char** argv) {
    Options opts;
+   opts.define("A|no-accidental-adjust=b", "do not adjust accidentals");
    opts.define("R|no-rest-fix=b", "fix vertical placement of 16th-note rests");
-   opts.define("V|no-staff-adjust=b", "do not convert P10 to P4 for staves");
+   opts.define("S|no-thin-slurs=b", "do not make slurs thinner");
    opts.define("T|no-text-clean=b", "do not convert remove short text items");
    opts.define("U|no-tuplet-fix=b", "do not fix tuplet rhythms");
-   opts.define("S|no-thin-slurs=b", "do not make slurs thinner");
+   opts.define("V|no-staff-adjust=b", "do not convert P10 to P4 for staves");
    opts.process(argc, argv);
    
    ScorePageSet infiles(opts);

@@ -12,7 +12,7 @@
 ##
 
 # targets which don't actually refer to files
-.PHONY: src-programs src-library include bin lib obj tests update
+.PHONY: src-programs src-library include bin lib obj tests update status
 
 ###########################################################################
 #                                                                         #
@@ -43,6 +43,9 @@ tests: library
 	(cd tests; $(MAKE) all)
 
 update: pull library-update programs-update
+
+status:
+	-git status
 
 pull:
 	-git pull
