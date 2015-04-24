@@ -5,9 +5,9 @@
 ## Last Modified: Wed Feb  4 21:23:52 PST 2015
 ## Filename:      ...scorelib/Makefile
 ##
-## Description: This Makefile can create the score library or programs 
+## Description: This Makefile can create the score library or programs
 ##
-## To run this makefile, type (without quotes) "make library" (or 
+## To run this makefile, type (without quotes) "make library" (or
 ## "gmake library" on FreeBSD computers), then "make programs".
 ##
 
@@ -36,18 +36,21 @@ info:
 	@echo Typing \"make\" alone with compile both the library and all programs.
 	@echo ""
 
-library: 
+library:
 	$(MAKE) -f Makefile.library
 
 tests: library
 	(cd tests; $(MAKE) all)
 
-update: library-update programs-update
+update: pull library-update programs-update
+
+pull:
+	-git pull
 
 examples-update: programs-update
 example-update:  programs-update
 program-update:  programs-update
-programs-update: 
+programs-update:
 	touch src-programs/*.cpp
 	$(MAKE) -f Makefile.programs
 
@@ -73,7 +76,7 @@ examples: programs
 programs:
 	$(MAKE) -f Makefile.programs
 
-%: 
+%:
 	-mkdir -p bin
 	@echo compiling file $@
 	$(MAKE) -f Makefile.programs $@
