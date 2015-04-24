@@ -126,6 +126,7 @@ using listSIp     = list<ScoreItem*>;
       // P4 accessors
       SCORE_FLOAT  getVerticalPosition          (void);
       SCORE_FLOAT  getVPos                      (void);
+      // Add a setVPos function.
       bool         isAboveStaff                 (void);
       bool         isBelowStaff                 (void);
       bool         isOnStaff                    (void);

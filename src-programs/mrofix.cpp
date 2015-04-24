@@ -1,9 +1,9 @@
 //
 // Programmer:    Craig Stuart Sapp <craig@ccrma.stanford.edu>
 // Creation Date: Thu Apr 23 14:03:10 PDT 2015
-// Last Modified: Thu Apr 23 14:37:26 PDT 2015
+// Last Modified: Fri Apr 24 00:20:26 PDT 2015
 // Filename:      mrofix.cpp
-// URL: 	  https://github.com/craigsapp/scorelib/blob/master/src-programs/mrofix.cpp
+// URL:           https://github.com/craigsapp/scorelib/blob/master/src-programs/mrofix.cpp
 // Documentation: https://github.com/craigsapp/scorelib/wiki/mrofix
 // Syntax:        C++ 11
 //
@@ -16,18 +16,21 @@ using namespace std;
 
 void   processPage          (ScorePage& infile, Options& opts);
 void   fixRests             (ScorePage& infile);
+void   fixTuplets           (ScorePage& infile);
 void   assignPartNumbers    (ScorePage& infile);
 void   makeThinSlurs        (ScorePage& infile);
 void   makeStaffP4Values    (ScorePage& infile);
 void   removeShortTextItems (ScorePage& infile);
+void   adjustAccidentals    (ScorePage& infile);
 
 ///////////////////////////////////////////////////////////////////////////
 
 int main(int argc, char** argv) {
    Options opts;
-   opts.define("r|rest|rests=b", "fix vertical placement of rests");
+   opts.define("R|no-rest-fix=b", "fix vertical placement of 16th-note rests");
    opts.define("V|no-staff-adjust=b", "do not convert P10 to P4 for staves");
    opts.define("T|no-text-clean=b", "do not convert remove short text items");
+   opts.define("U|no-tuplet-fix=b", "do not fix tuplet rhythms");
    opts.define("S|no-thin-slurs=b", "do not make slurs thinner");
    opts.process(argc, argv);
    
@@ -51,7 +54,7 @@ int main(int argc, char** argv) {
 
 void processPage(ScorePage& infile, Options& opts) {
 
-   if (opts.getBoolean("rests")) {
+   if (!opts.getBoolean("no-rest-fix")) {
       fixRests(infile);
    }
 
@@ -59,8 +62,16 @@ void processPage(ScorePage& infile, Options& opts) {
       makeStaffP4Values(infile);
    }
 
+   if (!opts.getBoolean("no-accidental-adjust")) {
+      adjustAccidentals(infile);
+   }
+
    if (!opts.getBoolean("no-text-clean")) {
       removeShortTextItems(infile);
+   }
+
+   if (!opts.getBoolean("no-tuplet-fix")) {
+      fixTuplets(infile);
    }
 
    if (!opts.getBoolean("no-thin-slurs")) {
@@ -73,13 +84,62 @@ void processPage(ScorePage& infile, Options& opts) {
 
 //////////////////////////////
 //
+// adjustAccidentals -- 
+//
+
+void adjustAccidentals(ScorePage& infile) {
+   listSIp& data = infile.lowLevelDataAccess();
+   SCORE_FLOAT fract;
+   int acc;
+   for (auto it : data) {
+      if (!it->isNoteItem()) {
+         continue;
+      }
+      // If the accidental is shifted slightly to the left, 
+      // then put it back in the default position.
+      fract = it->getParameterFraction(5);
+      if ((fract > 0.0) && (fract < 0.05)) {
+         acc = it->getP5Int();
+         it->setP5(acc);
+      }
+   }
+}
+
+
+
+//////////////////////////////
+//
 // makeStaffP4Values --
 //
 
 void makeStaffP4Values(ScorePage& infile) {
    listSIp& data = infile.lowLevelDataAccess();
    for (auto it : data) {
-	it->convertStaffP10InchesToP4Value();
+      it->convertStaffP10InchesToP4Value();
+   }
+}
+
+
+
+//////////////////////////////
+//
+// fixTuplets -- Fix the duration of tuplets to avoid round-off errors.
+//     Should also add number to beams for tuplets...
+//
+
+void fixTuplets(ScorePage& infile) {
+   listSIp& data = infile.lowLevelDataAccess();
+   SCORE_FLOAT duration;
+
+   for (auto it : data) {
+      if (!it->hasDuration()) {
+         continue;
+      }
+      duration = it->getDuration();
+      if (duration == 0.167) {
+         // fix duration of triplet sixteenths.
+         it->setP7(0.1667);
+      }
    }
 }
 
@@ -91,11 +151,25 @@ void makeStaffP4Values(ScorePage& infile) {
 //
 
 void fixRests(ScorePage& infile) {
-   // 99 Raise 16th note rests by one unit:
-   // if p1=2 and p7=0.25 then p4=p4+1
+   listSIp& data = infile.lowLevelDataAccess();
 
-   // 99 Lower quarter-note rests by one unit:
-   // if p1=2 and p7=1 then p4=p4-1
+   SCORE_FLOAT duration;
+   SCORE_FLOAT vpos;
+   for (auto it : data) {
+      if (!it->isRestItem()) {
+         continue;
+      }
+
+      duration = it->getDuration();
+      vpos = it->getVPos();
+      if ((duration == 0.25) && (vpos == -1.0)) {
+         // Raise 16th note rests by one unit:
+         it->setP4(0.0);  // change to setVpos() later for grace note rests.
+      } else if ((duration == 1.0) && (vpos == 1.0)) {
+         // Lower quarter-note rests by one unit:
+         it->setP4(0.0);  // change to setVpos() later for grace note rests.
+      }
+   }
 }
 
 
