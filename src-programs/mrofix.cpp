@@ -92,6 +92,7 @@ void adjustAccidentals(ScorePage& infile) {
    listSIp& data = infile.lowLevelDataAccess();
    SCORE_FLOAT fract;
    int acc;
+   double threshold = 0.1;
    for (auto it : data) {
       if (!it->isNoteItem()) {
          continue;
@@ -99,7 +100,7 @@ void adjustAccidentals(ScorePage& infile) {
       // If the accidental is shifted slightly to the left, 
       // then put it back in the default position.
       fract = it->getParameterFraction(5);
-      if ((fract > 0.0) && (fract < 0.05)) {
+      if ((fract > 0.0) && (fract <= threshold)) {
          acc = it->getP5Int();
          it->setP5(acc);
       }
