@@ -19,6 +19,7 @@ void   printPartInfo        (ScorePageSet& infiles, int page, Options& opts);
 void   assignPartNumbers    (ScorePageSet& infiles, int page, Options& opts);
 void   extractStaffItems    (ScorePageSet& infiles, int page, Options& opts);
 void   printHeader          (ScorePageSet& infiles, int page, int onlypage);
+void   generatePECF         (ScorePageSet& infiles);
 
 ///////////////////////////////////////////////////////////////////////////
 
@@ -28,11 +29,15 @@ int main(int argc, char** argv) {
    opts.define("p|page=i:1", "Process only given page # (indexed from 1)");
    opts.define("t|test-assignment=b", "Test part assignment");
    opts.define("i|8|staff-items=b", "Extract staff items from page");
+   opts.define("c|pecf|part-extractor-control-file=b", 
+         "file needed for part extraction");
    opts.process(argc, argv);
    ScorePageSet infiles(opts);
 
    if (opts.getBoolean("page")) {
       processPage(infiles, opts.getInteger("page")-1, opts);
+   } else if (opts.getBoolean("part-extractor-control-file")) {
+      generatePECF(infiles);
    } else {
       for (int i=0; i<infiles.getPageCount(); i++) {
          processPage(infiles, i, opts);
@@ -47,6 +52,35 @@ int main(int argc, char** argv) {
 }
 
 ///////////////////////////////////////////////////////////////////////////
+
+
+//////////////////////////////
+//
+// generatePECF -- Create Part Extractor Control File.  This is used to
+//     extract parts with the page.exe program.  See page 263 of the 
+//     Score 3 reference manual.
+//
+
+void generatePECF(ScorePageSet& infiles) {
+   int pagecount = infiles.getPageCount();
+   if (pagecount < 1) {
+      return;
+   }
+   string filebase = infiles.getPage(0)->getFilenameBase();
+   string fileext   = infiles.getPage(0)->getFilenameExtension();
+   if (fileext.size() == 0) {
+      fileext = "mus";
+   }
+   cout << filebase << "." << fileext;
+   cout << " ";
+   if (pagecount < 10) {
+      cout << "0";
+   }
+   cout << pagecount;
+   cout << "01";
+   cout << endl;
+}
+
 
 
 //////////////////////////////
