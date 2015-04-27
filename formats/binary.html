@@ -179,12 +179,12 @@ value at the start of the trailer.
 </tr>
 </thead>
 <tbody>
-<tr><td><span style="color:green"><tt><b>00 00 00 00</b></tt></span></td><td>0.0</td><td class="indent0">Trailer byte 5: beginning of trailer. Must be 0.0 which indicates that there are no more items.</td></tr>
+<tr><td><span style="color:green"><tt><b>00 00 00 00</b></tt></span></td><td>0.0</td><td class="indent0">Trailer byte 5: beginning of trailer. Must be 0.0, which indicates that there are no more items.  The number of parameters in the footer is given as the penultimate number in the file.</td></tr>
 <tr><td><span style="color:green"><tt><b>01 00 00 00</b></tt></span></td><td>1.</td><td class="indent0">Trailer byte 4: serial number (32-bit integer)</td></tr>
 <tr><td><span style="color:green"><tt><b>00 00 40 40</b></tt></span></td><td>3.0</td><td class="indent0">Trailer byte 3: program version number</td></tr>
 <tr><td><span style="color:green"><tt><b>00 00 00 00</b></tt></span></td><td>0.0</td><td class="indent0">Trailer byte 2: measurement units (0.0=inches/1.0=centimeters)</td></tr>
 <tr><td><span style="color:green"><tt><b>00 00 a0 40</b></tt></span></td><td>5.0</td><td class="indent0">Trailer byte 1: Word count in trailer (including this one)</td></tr>
-<tr><td><span style="color:green"><tt><b>00 3c 1c c6</b></tt></span></td><td>-9999.0</td><td class="indent0">End of file/trailer marker</td></tr>
+<tr><td><span style="color:green"><tt><b>00 3c 1c c6</b></tt></span></td><td>-9999.0</td><td class="indent0">End of file/trailer marker, always -9999.0</td></tr>
 </tbody>
 </table>
 
