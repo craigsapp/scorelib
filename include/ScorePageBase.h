@@ -37,6 +37,7 @@ class ScorePageBase {
 
    public:
                      ScorePageBase            (void);
+                     ScorePageBase            (const string& filename);
                      ScorePageBase            (const char* filename);
                      ScorePageBase            (istream& instream);
                      ScorePageBase            (const ScorePageBase& apage);
@@ -98,6 +99,7 @@ class ScorePageBase {
       void           read            (const string& filename, int verboseQ = 0);
       void           read            (istream& infile, int verboseQ = 0);
       void           readFile        (const char* filename, int verboseQ = 0);
+      void           readFile        (const string& filename, int verboseQ = 0);
       void           readStream      (istream& instream, int verboseQ = 0);
       void           readPmx         (const char* filename, int verboseQ = 0);
       void           readPmx         (istream& infile, int verboseQ = 0);
@@ -111,6 +113,7 @@ class ScorePageBase {
 
       // file writing functions:
       void           writeBinary     (const char* filename);
+      void           writeBinary     (const string& filename);
       ostream&       writeBinary     (ostream& outfile);
       ostream&       writeLittleFloat(ostream& out, SCORE_FLOAT number);
       ostream&       printPmx        (ostream& out, int roundQ = 1,

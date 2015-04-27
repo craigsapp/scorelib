@@ -28,6 +28,7 @@ void   adjustAccidentals    (ScorePage& infile);
 int main(int argc, char** argv) {
    Options opts;
    opts.define("A|no-accidental-adjust=b", "do not adjust accidentals");
+   opts.define("P|no-part-assignment=b", "do not staves to parts");
    opts.define("R|no-rest-fix=b", "fix vertical placement of 16th-note rests");
    opts.define("S|no-thin-slurs=b", "do not make slurs thinner");
    opts.define("T|no-text-clean=b", "do not convert remove short text items");
@@ -77,6 +78,10 @@ void processPage(ScorePage& infile, Options& opts) {
 
    if (!opts.getBoolean("no-thin-slurs")) {
       makeThinSlurs(infile);
+   }
+
+   if (!opts.getBoolean("no-part-assignment")) {
+      assignPartNumbers(infile);
    }
 
 }
@@ -236,15 +241,33 @@ void makeThinSlurs(ScorePage& infile) {
 //
 
 void assignPartNumbers(ScorePage& infile) {
-   vectorVSIp& staffItems = infile.staffItems();
-   int i, j;
-   for (i=0; i<staffItems.size(); i++) {
-      int ssize = staffItems[i].size();
-      for (j=0; j<ssize; j++) {
-         if (staffItems[i][j]->getP9Int() != 0) {
-            continue;
+   infile.analyzeSystems();
+   // Get a list of the staff items on the page.  The list is two
+   // dimensional: The first dimension is the P2 index value, the
+   // second dimension is an index into the the list for the given
+   // P2 index (in the rare case that there is more than one staff
+   // item for a given staff position.
+   vectorVSIp& staffItems = infile.getStaffItemListNotConst();
+
+   // Get the mapping of systems/staves into page staves for the page.
+   vectorVI& sysmap = infile.reverseSystemMap();
+   
+   // Now iterate through each system, and then each system-staff and
+   // set the part number based on the system-staff (flipped and starting
+   // at 1 rather than 0) for staff items on the page.
+   int i, j, k, ksize;
+ 
+cout << "SYSMAP SIZE = " << sysmap.size() << endl;
+   for (i=0; i<sysmap.size(); i++) {
+      for (j=0; j<sysmap[i].size(); j++) {
+         ksize = staffItems[sysmap[i][j]].size();
+         for (k=0; k<ksize; k++) {
+            if (staffItems[sysmap[i][j]][k]->getP9() != 0) {
+               // don't reassign part numbers if they are already present.
+               continue;
+            }
+            staffItems[sysmap[i][j]][k]->setP9(sysmap[i].size() - j);
          }
-         staffItems[i][j]->setP9(ssize-j);
       }
    }
 }

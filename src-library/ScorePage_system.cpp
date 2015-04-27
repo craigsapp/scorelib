@@ -48,6 +48,7 @@ int ScorePage::analyzeSystems(void) {
    }
    analysis_info.invalidate("systems");
 
+
    int i, j, k;
 
    int maxstaff = getMaxStaff();

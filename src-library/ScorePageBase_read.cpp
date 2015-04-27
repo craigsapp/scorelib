@@ -49,6 +49,11 @@ void ScorePageBase::read(istream& instream, int verboseQ) {
 //     default value: verboseQ = 0
 //
 
+void ScorePageBase::readFile(const string& filename, int verboseQ) {
+   readFile(filename.data(), verboseQ);
+}
+
+
 void ScorePageBase::readFile(const char* filename, int verboseQ) {
    int binaryQ = 0;  // to test if reading a binary or PMX data file.
 

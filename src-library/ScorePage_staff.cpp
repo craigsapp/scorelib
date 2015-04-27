@@ -32,6 +32,8 @@ void ScorePage::analyzeStaves(void) {
 
    int staffnum;
    int itemtype;
+
+   // don't clear system here...
    staff_info.clear();
 
    for (auto& it : item_storage) {
@@ -126,6 +128,7 @@ const vectorVSIp& ScorePage::getStaffItemList(void) {
 
   return staff_info.getStaffItems();
 }
+
 
 vectorVSIp& ScorePage::getStaffItemListNotConst(void) {
    if (!analysis_info.stavesIsValid()) {

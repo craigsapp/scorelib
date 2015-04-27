@@ -91,6 +91,11 @@ ostream& ScorePageBase::printPmxFixedParameters(ostream& out, int roundQ,
 // ScorePageBase::writeBinary --  Write SCORE data to a binary files.
 //
 
+void ScorePageBase::writeBinary(const string& filename) {
+   writeBinary(filename.data());
+}
+
+
 void ScorePageBase::writeBinary(const char* filename) {
    #ifdef VISUAL
       fstream outfile(filename, ios::out | ios::binary);

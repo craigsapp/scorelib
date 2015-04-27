@@ -19,7 +19,7 @@ using namespace std;
 
 //////////////////////////////
 //
-// ScorePage::analyzeStaffDurations -- Calulate the durations of each
+// ScorePage::analyzeStaffDurations -- Calculate the durations of each
 //      staff on the page.  This function also assigns a durational
 //      offset to each item on the staff as a side effect.
 //

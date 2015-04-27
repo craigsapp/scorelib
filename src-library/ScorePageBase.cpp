@@ -44,6 +44,16 @@ ScorePageBase::ScorePageBase(const char* filename) {
 }
 
 
+ScorePageBase::ScorePageBase(const string& filename) {
+   pageset_owner = NULL;
+   trailer.reserve(8);
+   setDefaultPrintParameters();
+   clearAnalysisStates();
+   readFile(filename);
+   ppmx_page_style = PPMX_PAGE_MARKER_RS;
+}
+
+
 ScorePageBase::ScorePageBase(istream& instream) { 
    pageset_owner = NULL;
    trailer.reserve(8);

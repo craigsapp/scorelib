@@ -47,6 +47,7 @@ StaffInfo& StaffInfo::operator=(const StaffInfo& info) {
 }
 
 
+
 ///////////////////////////////
 //
 // StaffInfo::~StaffInfo --
@@ -63,8 +64,10 @@ StaffInfo::~StaffInfo() {
 //
 void StaffInfo::clear(void) {
    staffdur.clear();
-   system.clear();
-   sysindex.clear();
+// These should not be cleared in certain situations, check how to 
+// not clear it in those cases...
+//   system.clear();
+//   sysindex.clear();
    staffitems.clear();
 }
 
