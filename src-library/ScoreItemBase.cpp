@@ -6,7 +6,7 @@
 // URL:           https://github.com/craigsapp/scorelib/blob/master/src-library/ScoreItemBase.cpp
 // Syntax:        C++11
 //
-// Description:   The ScoreItemBase class forms the basic data storage 
+// Description:   The ScoreItemBase class forms the basic data storage
 //                component for storing SCORE item parameters.
 //
 
@@ -49,7 +49,7 @@ ScoreItemBase::ScoreItemBase(const ScoreItemBase& anItem) {
 ScoreItemBase::ScoreItemBase(const vectorSF& parameters) {
    fixed_parameters.reserve(parameters.size()+1);
    fixed_parameters.push_back(0.0); // 0th index not used
-   fixed_parameters.insert(fixed_parameters.end(), 
+   fixed_parameters.insert(fixed_parameters.end(),
          parameters.begin(), parameters.end());
    page_owner       = NULL;
    staff_duration_offset = -1;
@@ -124,7 +124,7 @@ void ScoreItemBase::clear(void) {
 //      the named parameter list.
 //
 
-const string& ScoreItemBase::getParameter(const string& nspace, 
+const string& ScoreItemBase::getParameter(const string& nspace,
       const string& key) {
    auto it = named_parameters.find(nspace);
    if (it == named_parameters.end()) {
@@ -133,7 +133,7 @@ const string& ScoreItemBase::getParameter(const string& nspace,
    auto it2 = it->second.find(key);
    if (it2 == it->second.end()) {
       return emptyString;
-   } 
+   }
    return it2->second;
 
    // This one-line version will create an empty value in the map:
@@ -208,7 +208,7 @@ double ScoreItemBase::getParameterDouble(const string& key) {
 }
 
 
-double ScoreItemBase::getParameterDouble(const string& nspace, 
+double ScoreItemBase::getParameterDouble(const string& nspace,
       const string& key) {
    double value;
    try {
@@ -230,7 +230,7 @@ SCORE_FLOAT ScoreItemBase::getParameter(int pindex) {
 
 // Aliases for the above functions:
 
-const string& ScoreItemBase::getP(const string& nspace, 
+const string& ScoreItemBase::getP(const string& nspace,
       const string& key) {
    return getParameter(nspace, key);
 }
@@ -397,25 +397,25 @@ SCORE_FLOAT ScoreItemBase::getParameterFraction(int pindex) {
 //     first argument is a string.
 //
 
-void ScoreItemBase::setParameterQuiet(const string& nspace, const string& key, 
+void ScoreItemBase::setParameterQuiet(const string& nspace, const string& key,
       const string& value) {
    named_parameters[nspace][key] = value;
 }
 
 
-void ScoreItemBase::setParameterQuiet(const string& nspace, const string& key, 
+void ScoreItemBase::setParameterQuiet(const string& nspace, const string& key,
       int value) {
    named_parameters[nspace][key] = to_string(value);
 }
 
 
-void ScoreItemBase::setParameterQuiet(const string& nspace, const string& key, 
+void ScoreItemBase::setParameterQuiet(const string& nspace, const string& key,
       SCORE_FLOAT value) {
    named_parameters[nspace][key] = to_string(value);
 }
 
 
-void ScoreItemBase::setParameterQuiet(const string& nspace, const string& key, 
+void ScoreItemBase::setParameterQuiet(const string& nspace, const string& key,
       void* pointer) {
    named_parameters[nspace][key] = to_string((uint64_t)pointer);
 }
@@ -426,7 +426,7 @@ void ScoreItemBase::storeAutoAddress(void) {
 }
 
 
-void ScoreItemBase::setParameter(const string& nspace, const string& key, 
+void ScoreItemBase::setParameter(const string& nspace, const string& key,
       const string& value) {
    setParameterQuiet(nspace, key, value);
    notifyPageOfChange("named");
@@ -435,13 +435,13 @@ void ScoreItemBase::setParameter(const string& nspace, const string& key,
 
 // Aliases and variants of named parameter setting:
 
-void ScoreItemBase::setParameter(const string& nspace, const string& key, 
+void ScoreItemBase::setParameter(const string& nspace, const string& key,
       int value) {
    setParameter(nspace, key, to_string(value));
 }
 
 
-void ScoreItemBase::setParameter(const string& nspace, const string& key, 
+void ScoreItemBase::setParameter(const string& nspace, const string& key,
       SCORE_FLOAT value) {
    char buffer[32];
    sprintf(buffer, "%g", value);
@@ -487,19 +487,19 @@ void ScoreItemBase::setParameter(int index, SCORE_FLOAT value) {
 
 // Aliases for the above functions:
 
-void ScoreItemBase::setP(const string& nspace, const string& key, 
+void ScoreItemBase::setP(const string& nspace, const string& key,
       const string& value) {
    setParameter(nspace, key, value);
 }
 
 
-void ScoreItemBase::setP(const string& nspace, const string& key, 
+void ScoreItemBase::setP(const string& nspace, const string& key,
       int value) {
    setParameter(nspace, key, value);
 }
 
 
-void ScoreItemBase::setP(const string& nspace, const string& key, 
+void ScoreItemBase::setP(const string& nspace, const string& key,
       SCORE_FLOAT value) {
    setParameter(nspace, key, value);
 }
@@ -613,12 +613,12 @@ void ScoreItemBase::setFixedParameterAllocation(int asize) {
 
 //////////////////////////////
 //
-// ScoreItemBase::hasParameter -- returns true (1) if there is a named 
-//    parameter matching the input argument.  Returns false (0) if there 
+// ScoreItemBase::hasParameter -- returns true (1) if there is a named
+//    parameter matching the input argument.  Returns false (0) if there
 //    is not a named parameter matching the input argument.
 //
 
-int ScoreItemBase::hasParameter(const string& nspace, 
+int ScoreItemBase::hasParameter(const string& nspace,
       const string& testkey) {
    return named_parameters[nspace].count(testkey);
 }
@@ -672,7 +672,7 @@ void ScoreItemBase::clearNamespace(const string& nspace) {
 //    one namespace to another.
 //
 
-int ScoreItemBase::changeNamespace(const string& newspace, 
+int ScoreItemBase::changeNamespace(const string& newspace,
       const string& oldspace, const string& parameter) {
    if (!isDefined(oldspace, parameter)) {
       return 0;
@@ -697,27 +697,27 @@ void ScoreItemBase::deleteParameter(const string& nspace, const string& key) {
 
 // Aliases for above function:
 
-void ScoreItemBase::eraseParameter(const string& nspace, const string& key) { 
+void ScoreItemBase::eraseParameter(const string& nspace, const string& key) {
    deleteParameter(nspace, key);
 }
 
 
-void ScoreItemBase::clearParameter(const string& nspace, const string& key) { 
+void ScoreItemBase::clearParameter(const string& nspace, const string& key) {
    deleteParameter(nspace, key);
 }
 
 
-void ScoreItemBase::deleteParameter(const string& key) { 
+void ScoreItemBase::deleteParameter(const string& key) {
    deleteParameter("", key);
 }
 
 
-void ScoreItemBase::eraseParameter(const string& key) { 
+void ScoreItemBase::eraseParameter(const string& key) {
    deleteParameter("", key);
 }
 
 
-void ScoreItemBase::clearParameter(const string& key) { 
+void ScoreItemBase::clearParameter(const string& key) {
    deleteParameter("", key);
 }
 
@@ -747,7 +747,7 @@ int ScoreItemBase::getCompactFixedParameterCount(void) {
 
 //////////////////////////////
 //
-// ScoreItemBase::getNamespaceCount -- 
+// ScoreItemBase::getNamespaceCount --
 //
 
 int ScoreItemBase::getNamespaceCount(void) const {
@@ -833,7 +833,7 @@ void ScoreItemBase::notifyPageOfChange(const string& message) {
 void ScoreItemBase::notifyPageOfChange(const string& message, int index,
       SCORE_FLOAT oldp, SCORE_FLOAT newp) {
    if (page_owner != NULL) {
-      ((ScorePageBase*)page_owner)->itemChangeNotification(this, message, 
+      ((ScorePageBase*)page_owner)->itemChangeNotification(this, message,
             index, oldp, newp);
    }
 }
@@ -848,8 +848,8 @@ void ScoreItemBase::notifyPageOfChange(const string& message, int index,
 //////////////////////////////
 //
 // ScoreItemBase::printPmx -- print the ScoreItemBase as ASCII PMX text.  The
-//     fixed parameters are listed on a single line as floats (doubles).  The 
-//     named parameters are given one on each following line prefixed with @ 
+//     fixed parameters are listed on a single line as floats (doubles).  The
+//     named parameters are given one on each following line prefixed with @
 //     and separated by a colon and space(s) after the key name.
 //
 
@@ -896,7 +896,7 @@ ostream& ScoreItemBase::printPmxNamedParameters(ostream& out) {
          if (it->first == "") {
             out << '@' << its->first << ":\t" << its->second << endl;
          } else {
-            out << '@' << it->first << "@" << its->first 
+            out << '@' << it->first << "@" << its->first
                 << ":\t" << its->second << endl;
          }
       }
@@ -917,7 +917,7 @@ ostream& ScoreItemBase::printPmxNamedParametersNoAnalysis(ostream& out) {
          if (it->first == "") {
             out << '@' << its->first << ":\t" << its->second << endl;
          } else {
-            out << '@' << it->first << "@" << its->first 
+            out << '@' << it->first << "@" << its->first
                 << ":\t" << its->second << endl;
          }
       }
@@ -935,7 +935,7 @@ ostream& ScoreItemBase::printPmxNamedParametersNoAnalysis(ostream& out) {
 //     on the element, and named parameters are subelements.
 //
 
-ostream& ScoreItemBase::printXml(ostream& out, int indentcount, 
+ostream& ScoreItemBase::printXml(ostream& out, int indentcount,
       const string& indentstring) {
 
    printIndent(out, indentcount, indentstring);
@@ -962,7 +962,7 @@ ostream& ScoreItemBase::printXml(ostream& out, int indentcount,
             out << "<namespace scope=\"";
             out << it->first;
             out << "\">\n";
-               printNamedParametersXml(out, it->first, indentcount+3, 
+               printNamedParametersXml(out, it->first, indentcount+3,
                   indentstring);
             printIndent(out, indentcount+2, indentstring);
             out << "</namespace>\n";
@@ -1021,7 +1021,7 @@ ostream& ScoreItemBase::printFixedListPieceXml(ostream& out) {
 // ScoreItemBase::printNamedParametersXml --
 //
 
-ostream& ScoreItemBase::printNamedParametersXml(ostream& out, 
+ostream& ScoreItemBase::printNamedParametersXml(ostream& out,
       const string& nspace, int indentcount, const string& indentstring) {
 
    mapSS& np = named_parameters[nspace];
@@ -1046,7 +1046,7 @@ ostream& ScoreItemBase::printNamedParametersXml(ostream& out,
 // ScoreItemBase::printIndent --
 //
 
-ostream& ScoreItemBase::printIndent(ostream& out, int indentcount, 
+ostream& ScoreItemBase::printIndent(ostream& out, int indentcount,
       const string& indentstring) {
    for (int i=0; i<indentcount; i++) {
       out << indentstring;
@@ -1077,7 +1077,7 @@ void ScoreItemBase::readPmx(istream& instream, int verboseQ) {
    parameters.reserve(16);
    parameters.push_back(0);  // first index (0) is not used.
    string text;
-   
+
    char* ptr = strtok(buffer, "\n\t ");
    float number = 0.0;
    if (ptr != NULL) {
@@ -1221,7 +1221,7 @@ void ScoreItemBase::writeLittleEndianFloat(ostream& out, double number) {
 
 //////////////////////////////
 //
-// ScoreItemBase::roundFractionDigits -- Parameter data in SCORE binary 
+// ScoreItemBase::roundFractionDigits -- Parameter data in SCORE binary
 //    files are stored as floats.  These floats are not reliable past the third
 //    decimal place in the number, so typically this fuction will be called
 //    after reading a float from a binary file, using digits=3.
@@ -1258,23 +1258,22 @@ int ScoreItemBase::writeBinary(ostream& out) {
    }
 
    int i;
-   if ((getPInt(P1) == P1_ImportedEPSGraphic)
-         || (getPInt(P1) == P1_Text)) {
+   if ((getPInt(P1) == P1_ImportedEPSGraphic) || (getPInt(P1) == P1_Text)) {
       // process a EPS file item or Text item.
 
       // There must be 13 parameters before the name of the file or the text.
       fixedcount = 13;
 
-      // text is stored in fixed_text, but need to add extra spaces after 
-      // filename/text to make the length of the filename/text be a multiple 
+      // text is stored in fixed_text, but need to add extra spaces after
+      // filename/text to make the length of the filename/text be a multiple
       // of four bytes
       int pad = getFixedText().size() % 4;
       if (pad > 0) {
          pad = 4 - pad;
       }
 
-      float wordsize = fixedcount + (getFixedText().size() + pad) % 4;
-    
+      float wordsize = fixedcount + (getFixedText().size() + pad) / 4;
+
       // write the total number of 4-byte words to follow in item:
       writeLittleEndianFloat(out, wordsize);
 
@@ -1282,18 +1281,17 @@ int ScoreItemBase::writeBinary(ostream& out) {
          writeLittleEndianFloat(out, getP(i));
       }
 
-      // write filename:
+      // write filename/text string:
       out << getFixedText();
-  
-      // write padding after filename:
+
+      // write padding after filename/text string:
       for (i=0; i<pad; i++) {
          out << ' ';
       }
       return wordsize + 1;
 
-   } else{
-
-      // SCORE items which do not include the fixed text field:
+   } else {
+      // SCORE items which do not include a text field:
       writeLittleEndianFloat(out, fixedcount);
 
       for (i=1; i<=fixedcount; i++) {
