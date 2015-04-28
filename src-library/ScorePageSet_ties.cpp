@@ -6,7 +6,7 @@
 // URL:           https://github.com/craigsapp/scorelib/blob/master/src-library/ScorePageSet_ties.cpp
 // Syntax:        C++11
 //
-// Description:   Functions related to lyrics identification 
+// Description:   Functions related to lyrics identification
 //      within ScoreSegments.
 //
 
@@ -29,7 +29,7 @@ void ScorePageSet::analyzeTies(void) {
    analyzeStaffDurations();
    analyzePitch();
 
-   // Iterate through each Segment, which will stitching 
+   // Iterate through each Segment, which will stitching
    // system break ties together.
    for (unsigned int i=0; i<getSegmentCount(); i++) {
       getSegment(i).analyzeSystemBreakTies();

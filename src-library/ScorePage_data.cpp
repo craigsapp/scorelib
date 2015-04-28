@@ -149,7 +149,7 @@ void ScorePage::getUnsortedSystemItems(int sysindex, vectorSIp& sysseq) {
 //      Maybe pre-calculate such data.
 //
 
-void ScorePage::getHorizontallySortedSystemItems(vectorSIp& sysseq, 
+void ScorePage::getHorizontallySortedSystemItems(vectorSIp& sysseq,
       int sysindex) {
    getUnsortedSystemItems(sysseq, sysindex);
    sort(sysseq.begin(), sysseq.end(), SU::sortP3);
@@ -157,7 +157,7 @@ void ScorePage::getHorizontallySortedSystemItems(vectorSIp& sysseq,
 
 // Alias:
 
-void ScorePage::getHorizontallySortedSystemItems(int sysindex, 
+void ScorePage::getHorizontallySortedSystemItems(int sysindex,
       vectorSIp& sysseq) {
    getHorizontallySortedSystemItems(sysseq, sysindex);
 }

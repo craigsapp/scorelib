@@ -18,7 +18,7 @@ using namespace std;
 //////////////////////////////
 //
 // ScoreItem::getHumdrumPitch -- convert any analysis@base40Pitch parameter
-//     into a Humdrum **kern note name. 
+//     into a Humdrum **kern note name.
 //
 
 string ScoreItem::getHumdrumPitch(void) {

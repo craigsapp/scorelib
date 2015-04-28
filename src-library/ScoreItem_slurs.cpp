@@ -17,7 +17,7 @@ using namespace std;
 //////////////////////////////
 //
 // ScoreItem::isTie -- Returns true if the slur/tie item is a slur
-//      between two notes.  Slur analysis needs to be done first. 
+//      between two notes.  Slur analysis needs to be done first.
 //      At the moment not checking automatically to see if it has been done.
 //
 

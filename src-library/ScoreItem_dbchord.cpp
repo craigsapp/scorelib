@@ -61,7 +61,7 @@ int ScoreItem::getChordNoteCount(void) {
 //////////////////////////////
 //
 // ScoreItem::isPrimaryChordNote -- returns true if the ScoreItem is
-//     the first note in a chord group.  This is the chord note which 
+//     the first note in a chord group.  This is the chord note which
 //     posses the stem for the chord.  Returns true if the note
 //     is the only note in the chord (i.e., not a chord, just a single
 //     notes).  Rests will always return true.

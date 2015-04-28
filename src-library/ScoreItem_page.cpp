@@ -181,7 +181,7 @@ void ScoreItem::setPageOwner(void* page) {
 
 //////////////////////////////
 //
-// ScoreItem::getPageOwner -- 
+// ScoreItem::getPageOwner --
 //
 
 ScorePage* ScoreItem::getPageOwner(void) {

@@ -63,7 +63,7 @@ BeamGroup* ScorePage::beamInfo(ScoreItem* item) {
 ostream& ScorePage::printBeamDatabase(ostream& out) {
    int size = beam_database.size();
    out << "# BEAM DATABASE (" << size;
-   if (size == 1) { out << " entry):"   << endl; } 
+   if (size == 1) { out << " entry):"   << endl; }
    else           { out << " entries):" << endl; }
    beam_database.printDatabase(out);
    return out;
@@ -77,7 +77,7 @@ ostream& ScorePage::printBeamDatabase(ostream& out) {
 
 //////////////////////////////
 //
-// ScorePage::analyzeBeamsOnStaff -- 
+// ScorePage::analyzeBeamsOnStaff --
 //
 
 void ScorePage::analyzeBeamsOnStaff(int p2index, SCORE_FLOAT tolerance) {
@@ -114,7 +114,7 @@ void ScorePage::analyzeBeamsOnStaff(int p2index, SCORE_FLOAT tolerance) {
          // account later, although these are not exactly the same as beams.
          continue;
       }
-      while ((bi < beamitems.size()) 
+      while ((bi < beamitems.size())
             && (beamitems[bi]->getHorizontalPosition() <= noteP3 + tolerance)) {
          activebeams.push_back(beamitems[bi]);
          bi++;
@@ -138,7 +138,7 @@ void ScorePage::analyzeBeamsOnStaff(int p2index, SCORE_FLOAT tolerance) {
          }
          if (p3 > noteP3 + tolerance) {
             continue;
-         } 
+         }
          bstem = (*it)->getStemDirection();
          if (bstem != nstem) {
             continue;

@@ -52,7 +52,7 @@ int main(int argc, char** argv) {
    opts.define("a|analysis=b",  "Include pitch analysis data in output");
    opts.define("e|editorial=b", "put editorial accs. on all non-natural notes");
    opts.process(argc, argv);
-   
+
    ScorePage infile;
 
    int argcount = opts.getArgCount();
@@ -206,12 +206,12 @@ void doParenStyle(ScorePage& infile, Options& opts) {
    vectorI systemschanged;
    systemschanged.resize(infile.getSystemCount());
    fill(systemschanged.begin(), systemschanged.end(), 0);
- 
+
    int ljQ = opts.getBoolean("lj");
    infile.getFileOrderList(items);
    for (auto& item : items) {
       if (item->getParameter("analysis", "courtesy") == "true") {
-         item->setAccidentalParentheses(); 
+         item->setAccidentalParentheses();
          if (ljQ) {
             systemschanged[item->getSystemIndex()] = 1;
          }
@@ -240,7 +240,7 @@ void doRemoveParens(ScorePage& infile, Options& opts) {
    infile.getFileOrderList(items);
    for (auto& item : items) {
       if (item->getParameter("analysis", "courtesy") == "true") {
-         item->removeAccidentalParentheses(); 
+         item->removeAccidentalParentheses();
       }
    }
    if (!opts.getBoolean("analysis")) {
@@ -264,7 +264,7 @@ void doEditorialStyle(ScorePage& infile, Options& opts) {
    for (auto& item : items) {
       if (item->getParameter("analysis", "courtesy") == "true") {
          int accidental = item->getPrintedAccidental();
-         item->setNoAccidental(); 
+         item->setNoAccidental();
          switch (accidental) {
             case -1: item->setP(P11, 1); break;
             case +1: item->setP(P11, 2); break;

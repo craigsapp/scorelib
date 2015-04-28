@@ -70,11 +70,11 @@ void ScorePage::analyzeSystemPitch(vectorSIp& systemitems) {
    // is encountered, this variable is updated.  Each staff has a different
    // key signature state.
    vectorVI keysig(MAX_STAFF_COUNT, vectorI(7, 0));
- 
-   // pitchstate keeps track of the current chormatic state of each 
+
+   // pitchstate keeps track of the current chormatic state of each
    // diatonic pitch on each staff in the system.  These values are
    // reset after each barline.
-   vectorVI pitchstate(MAX_STAFF_COUNT, vectorI(70, 0)); 
+   vectorVI pitchstate(MAX_STAFF_COUNT, vectorI(70, 0));
 
    int vpos, base40, diatonic, accidental, printedaccidental;
    int haseditorial, sysstaff;
@@ -159,7 +159,7 @@ void ScorePage::analyzeSystemPitch(vectorSIp& systemitems) {
 //    a barline has been encountered.
 //
 
-void ScorePage::resetPitchSpellings(int staffidx, int barheight, 
+void ScorePage::resetPitchSpellings(int staffidx, int barheight,
       vectorVI& pitchstate, vectorVI& keysig) {
    if (barheight == 0) {
       barheight = 1;

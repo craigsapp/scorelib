@@ -61,19 +61,19 @@ namespace ScoreUtility {
    int    lcm                 (set<int>& numbers);
 
    // Tie/Slur differentiation functions (defined in ScoreUtility_ties.cpp):
-   void   analyzeStaffTies    (int staffnum, vectorSIp& items, 
-                               vectorSIp& hangingleft, vectorSIp& leftnotes, 
+   void   analyzeStaffTies    (int staffnum, vectorSIp& items,
+                               vectorSIp& hangingleft, vectorSIp& leftnotes,
                                vectorSIp& hangingright, vectorSIp& rightnotes);
-   void identifySlurStartStopOffsets(int index, 
-                               vectorSIp& slurs, 
-                               vectorVSIp& notes, 
+   void identifySlurStartStopOffsets(int index,
+                               vectorSIp& slurs,
+                               vectorVSIp& notes,
                                map<SCORE_FLOAT, int>& offsettoindex,
-                               vectorSIp& hangingleft, 
+                               vectorSIp& hangingleft,
                                vectorSIp& leftnotes,
-                               vectorSIp& hangingright, 
+                               vectorSIp& hangingright,
                                vectorSIp& rightnotes);
    void   linkNotesByTie      (ScoreItem* startslur,  SCORE_FLOAT slurdur,
-                               vectorSIp& leftnotes, ScoreItem* endslur, 
+                               vectorSIp& leftnotes, ScoreItem* endslur,
                                vectorSIp& rightnotes);
 
    // text-related functions (defined in ScoreUtility_text.cpp):

@@ -6,7 +6,7 @@
 // URL:           https://github.com/craigsapp/scorelib/blob/master/src-library/ScorePageSet_tuplets.cpp
 // Syntax:        C++11
 //
-// Description:   Functions related to tuplet identification 
+// Description:   Functions related to tuplet identification
 //      within ScorePages.
 //
 

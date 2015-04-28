@@ -82,7 +82,7 @@ int ScorePage::getSystemMeasureCount(int sysindex) {
 
 //////////////////////////////
 //
-// ScorePage::getSystemMeasures -- 
+// ScorePage::getSystemMeasures --
 //
 
 vectorSMp& ScorePage::getSystemMeasures(int sysindex) {
@@ -96,7 +96,7 @@ vectorSMp& ScorePage::getSystemMeasures(int sysindex) {
 
 //////////////////////////////
 //
-// ScorePage::getSystemMeasure -- 
+// ScorePage::getSystemMeasure --
 //
 
 SystemMeasure& ScorePage::getSystemMeasure(int sysindex, int measureindex) {
@@ -138,14 +138,14 @@ void ScorePage::analyzeBarlines(vectorSMp& sysmeasures, int sysindex) {
    sysmeasures.push_back(smp);
    int currentbar = 0;
    SCORE_FLOAT currentdur = 0.0;
-   int i;   
+   int i;
 
    for (i=0; i<sysitems.size(); i++) {
       sysmeasures[currentbar]->addItem(sysitems[i]);
       if (!sysitems[i]->isBarlineItem()) {
          continue;
-      }   
-      
+      }
+
       currentdur = sysmeasures[currentbar]->getDuration();
 
       if (currentdur > 0.0) {
@@ -160,7 +160,7 @@ void ScorePage::analyzeBarlines(vectorSMp& sysmeasures, int sysindex) {
          sysmeasures[currentbar]->addItem(sysitems[i]);
          continue;
       }
-      
+
       if ((currentdur <= 0.0) && (currentbar > 0)) {
          // also add to end of last measure
          sysmeasures[currentbar-1]->addItem(sysitems[i]);

@@ -29,21 +29,21 @@ using namespace std;
 class ParameterHistory {
     public:
       ParameterHistory(void);
-      ParameterHistory(const string& nspace, const string& key, 
+      ParameterHistory(const string& nspace, const string& key,
             const string& oldvalue, const string& newvalue, int hindex);
-      ParameterHistory(const string& nspace, const string& key, 
+      ParameterHistory(const string& nspace, const string& key,
             int created_state, const string& newvalue, int hindex);
-      ParameterHistory(const string& nspace, const string& key, 
+      ParameterHistory(const string& nspace, const string& key,
             const string& oldvalue, int deleted_state, int hindex);
-      ParameterHistory(const string& key, const string& oldvalue, 
+      ParameterHistory(const string& key, const string& oldvalue,
             const string& newvalue, int hindex);
       ParameterHistory(const string& key, int created_state,
             const string& newvalue, int hindex);
-      ParameterHistory(const string& key, const string& oldvalue, 
+      ParameterHistory(const string& key, const string& oldvalue,
             int deleted_state, int hindex);
-      ParameterHistory(int key, SCORE_FLOAT oldvalue, SCORE_FLOAT newvalue, 
+      ParameterHistory(int key, SCORE_FLOAT oldvalue, SCORE_FLOAT newvalue,
             int hindex);
-      ParameterHistory(int key, int created_state, SCORE_FLOAT newvalue, 
+      ParameterHistory(int key, int created_state, SCORE_FLOAT newvalue,
             int hindex);
       ParameterHistory(int key, SCORE_FLOAT oldvalue, int deleted_state,
             int hindex);

@@ -30,22 +30,22 @@ class P3VerticalItems : public vectorSIp {
    public:
       P3VerticalItems* previous;
       P3VerticalItems* next;
-   
+
       P3VerticalItems   (void) { clear(); }
      ~P3VerticalItems   ()     { clear(); }
-      void clear        (void) { 
-         previous = next = NULL; 
+      void clear        (void) {
+         previous = next = NULL;
          vectorSIp::clear();
       }
 };
-      
 
-      
+
+
 class DatabaseP3 {
    public:
                        DatabaseP3        (void);
                       ~DatabaseP3        ();
-    
+
       void             clear             (void);
       int              size              (void);
       ostream&         printDatabase     (ostream& out = cout);

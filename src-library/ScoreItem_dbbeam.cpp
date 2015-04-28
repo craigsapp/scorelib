@@ -41,17 +41,17 @@ BeamGroup*  ScoreItem::getBeamGroup(void) {
 BeamGroup* ScoreItem::getBeamInfo(void) {
    return getBeamGroup();
 }
-   
+
 
 BeamGroup* ScoreItem::beamInfo(void) {
    return getBeamGroup();
 }
-   
+
 
 BeamGroup* ScoreItem::beamGroup(void) {
    return getBeamGroup();
 }
-   
+
 
 
 //////////////////////////////

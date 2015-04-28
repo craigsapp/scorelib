@@ -6,7 +6,7 @@
 // URL:           https://github.com/craigsapp/scorelib/blob/master/include/DatabaseTuplet.cpp
 // Syntax:        C++11
 //
-// Description:   Keeps tracks of tuplet brackets and the notes demarked 
+// Description:   Keeps tracks of tuplet brackets and the notes demarked
 //                by them.
 //
 
@@ -69,7 +69,7 @@ int DatabaseTuplet::size(void) {
 
 //////////////////////////////
 //
-// DatabaseTuplet::tupletInfo -- Return tuplet info associated with the 
+// DatabaseTuplet::tupletInfo -- Return tuplet info associated with the
 //     given input ScoreItem (which can be either a bracket a note or a rest).
 //
 
@@ -95,7 +95,7 @@ TupletGroup* DatabaseTuplet::linkItems(ScoreItem* item1, ScoreItem* item2) {
 
    if (info1 == NULL) {
       if (info2 == NULL) {
-         // Case 1: neither item is in the tuplet database. Create entries 
+         // Case 1: neither item is in the tuplet database. Create entries
          // for both items.
          TupletGroup *bg = new TupletGroup;
          database.push_back(bg);
@@ -105,7 +105,7 @@ TupletGroup* DatabaseTuplet::linkItems(ScoreItem* item1, ScoreItem* item2) {
          interface[item2] = database.back();
          return database.back();
       } else {
-         // Case 2: item1 is not in the database, but item2 is.  Add item1 
+         // Case 2: item1 is not in the database, but item2 is.  Add item1
          // to item2's list.
          insertItem(info2, item1);
          interface[item1] = info2;
@@ -141,11 +141,11 @@ ostream& DatabaseTuplet::printDatabase(ostream& out) {
       out << "\n# TUPLET GROUP START\n";
       out << "# TUPLETS:\n";
       for (auto& bracket : it->brackets) {
-         out << bracket;         
+         out << bracket;
       }
       out << "# NOTES/RESTS:\n";
       for (auto& note : it->notes) {
-         out << note;         
+         out << note;
       }
       out << "\n# TUPLET GROUP END\n";
    }

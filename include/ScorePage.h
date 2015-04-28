@@ -6,8 +6,8 @@
 // URL:           https://github.com/craigsapp/scorelib/blob/master/include/ScorePage.h
 // Syntax:        C++11
 //
-// Description:   This class handles analysis of relationships between 
-//                SCORE items on the page, such as system, pitch, and chord 
+// Description:   This class handles analysis of relationships between
+//                SCORE items on the page, such as system, pitch, and chord
 //                groupings.
 //
 
@@ -134,7 +134,7 @@ class ScorePage : public ScorePageBase {
       BeamGroup*  beamInfo              (ScoreItem* item);
       ostream&    printBeamDatabase     (ostream& out = cout);
    private:
-      void        analyzeBeamsOnStaff   (int p2index, 
+      void        analyzeBeamsOnStaff   (int p2index,
                                          SCORE_FLOAT tolerance = 0.001);
    public:
 
@@ -143,7 +143,7 @@ class ScorePage : public ScorePageBase {
       ostream&     printTupletDatabase   (ostream& out);
       TupletGroup* tupletInfo            (ScoreItem* item);
    private:
-      void        analyzeTupletsOnStaff  (int p2index, 
+      void        analyzeTupletsOnStaff  (int p2index,
                                          SCORE_FLOAT tolerance = 0.001);
    public:
 
@@ -152,11 +152,11 @@ class ScorePage : public ScorePageBase {
       SCORE_FLOAT getP3OfStaffDurationOffset(int sys, SCORE_FLOAT offset);
 
       // Global parameter processing functions (ScorePage_parameter.cpp):
-      void         copyParameterOverwrite (const string& newnamespace, 
-                                           const string& oldnamespace, 
+      void         copyParameterOverwrite (const string& newnamespace,
+                                           const string& oldnamespace,
                                            const string& parameter);
-      void         copyParameterNoOverwrite(const string& newnamespace, 
-                                           const string& oldnamespace, 
+      void         copyParameterNoOverwrite(const string& newnamespace,
+                                           const string& oldnamespace,
                                            const string& parameter);
 
       // Segment data (defined in ScorePage_segment.cpp):
@@ -170,8 +170,8 @@ class ScorePage : public ScorePageBase {
       void        sortPageHorizontally  (void);
 
       // private pitch analysis functions:
-      void        resetPitchSpellings   (int staffidx, int barheight, 
-                                         vectorVI& pitchstate, 
+      void        resetPitchSpellings   (int staffidx, int barheight,
+                                         vectorVI& pitchstate,
                                          vectorVI& keysig);
       void        fillPitchStatesWithKeySig(vectorVI& pitchstate, int sysidx,
                                          vectorVI& keysig);

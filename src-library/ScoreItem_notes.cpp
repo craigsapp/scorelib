@@ -18,7 +18,7 @@ using namespace std;
 //////////////////////////////
 //
 // ScoreItem::hasStem -- Returns 0 if no stem, +1 for stem up and -1 for stem
-//     down.  For Notes, the stem direction is located in P5 10's digit.  
+//     down.  For Notes, the stem direction is located in P5 10's digit.
 //     For Beams, the stem direction is located in P7 10's digit.
 //
 
@@ -27,9 +27,9 @@ int ScoreItem::hasStem(void) {
    if ((type == P1_Note) || (type == P1_Beam)) {
       int stemdir;
       if (type == P1_Note) {
-         stemdir = getPDigit(P5, 1); 
+         stemdir = getPDigit(P5, 1);
       } else {
-         stemdir = getPDigit(P7, 1); 
+         stemdir = getPDigit(P7, 1);
       }
       switch (stemdir) {
          case 1: return +1;
@@ -136,8 +136,8 @@ int ScoreItem::getPrintedAccidental(void) {
    }
    int ones = getParameterDigit(P5, 0);
    switch (ones) {
-      case 0:  return -123456;  // no printed accidental, but sounding 
-                                // accidental will depend on larger 
+      case 0:  return -123456;  // no printed accidental, but sounding
+                                // accidental will depend on larger
                                 // musical context
       case 1:  return -1;       // flat sign
       case 2:  return +1;       // sharp sign
@@ -152,7 +152,7 @@ int ScoreItem::getPrintedAccidental(void) {
 
 //////////////////////////////
 //
-// ScoreItem::getEditorialAccidental -- 
+// ScoreItem::getEditorialAccidental --
 //         -1 == flat
 //          0 == natural
 //         +1 == sharp
@@ -246,7 +246,7 @@ int ScoreItem::hasNatural(void) {
 //     of a note's stem.
 //
 
-int ScoreItem::getStemBottomVPos(void) { 
+int ScoreItem::getStemBottomVPos(void) {
    if (!isNoteItem()) {
       return 0;
    }
@@ -258,7 +258,7 @@ int ScoreItem::getStemBottomVPos(void) {
    }
 
    SCORE_FLOAT slen  = getStemLength();
- 
+
    if (stemdirection > 0) {
       return vpos;
    } else {
@@ -270,11 +270,11 @@ int ScoreItem::getStemBottomVPos(void) {
 
 //////////////////////////////
 //
-// ScoreItem::getStemTopVPos -- Get the highest vertical position of a 
+// ScoreItem::getStemTopVPos -- Get the highest vertical position of a
 //      note's stem.
 //
 
-int ScoreItem::getStemTopVPos(void) { 
+int ScoreItem::getStemTopVPos(void) {
    if (!isNoteItem()) {
       return 0;
    }
@@ -286,7 +286,7 @@ int ScoreItem::getStemTopVPos(void) {
    }
 
    SCORE_FLOAT slen  = getStemLength();
- 
+
    if (stemdirection < 0) {
       return vpos;
    } else {
@@ -299,8 +299,8 @@ int ScoreItem::getStemTopVPos(void) {
 //////////////////////////////
 //
 // ScoreItem::getStemLength -- Return the length of the stem (P8 value).
-//    Not exactly the stem length since the offset is from 7.0, but 
-//    close enough since the initial offset is constant. (add 7.0 for 
+//    Not exactly the stem length since the offset is from 7.0, but
+//    close enough since the initial offset is constant. (add 7.0 for
 //    true vertical stem length).
 //
 
@@ -341,7 +341,7 @@ int ScoreItem::isCueSize(void) {
 // ScoreItem::removeArticulation -- Clear P7 if the item is a note (P1==1).
 //
 
-void ScoreItem::removeArticulation(void) { 
+void ScoreItem::removeArticulation(void) {
    if (!isNoteItem()) {
       return;
    }
@@ -359,7 +359,7 @@ int ScoreItem::getArticulation(void) {
    if (!isNoteItem()) {
       return 0;
    }
-   return getP11Int(); 
+   return getP11Int();
 }
 
 
@@ -367,7 +367,7 @@ int ScoreItem::getArticulation(void) {
 //////////////////////////////
 //
 // ScoreItem::hasFermata -- returns true if note has a fermata.  If negative
-//    return value, then fermata is inverted. 
+//    return value, then fermata is inverted.
 //
 
 int ScoreItem::hasFermata(void) {
@@ -390,7 +390,7 @@ int ScoreItem::hasFermata(void) {
 //     to make it recoverable.  To hide a notehead, set P6 to 7 or -1.
 //
 
-void ScoreItem::hideNotehead(void) { 
+void ScoreItem::hideNotehead(void) {
    if (!isNoteItem()) {
       return;
    }
@@ -406,7 +406,7 @@ void ScoreItem::hideNotehead(void) {
 //      is lost.
 //
 
-void ScoreItem::hideStem(void) { 
+void ScoreItem::hideStem(void) {
    if (!isNoteItem()) {
       return;
    }
@@ -432,7 +432,7 @@ void ScoreItem::setNoAccidental(void) {
 
 //////////////////////////////
 //
-// ScoreItem::setAccidentalParentheses -- Put parentheses around 
+// ScoreItem::setAccidentalParentheses -- Put parentheses around
 //    accidentals.
 //
 //
@@ -448,7 +448,7 @@ void ScoreItem::setAccidentalParentheses(void) {
 
 //////////////////////////////
 //
-// ScoreItem::removeAccidentalParentheses -- Remove parentheses from around 
+// ScoreItem::removeAccidentalParentheses -- Remove parentheses from around
 //    accidentals.
 //
 //
@@ -499,7 +499,7 @@ int ScoreItem::getDotCount(void) {
       } else {
          return p6;
       }
-   } 
+   }
 
    return 0;
 }
@@ -511,7 +511,7 @@ int ScoreItem::getDotCount(void) {
 // ScoreItem::inTieGroup --
 //
 
-bool ScoreItem::inTieGroup(void) { 
+bool ScoreItem::inTieGroup(void) {
    if (!isNoteItem()) {
       return false;
    }
@@ -526,7 +526,7 @@ bool ScoreItem::inTieGroup(void) {
 // ScoreItem::isTieGroupStart --
 //
 
-bool ScoreItem::isTieGroupStart(void) { 
+bool ScoreItem::isTieGroupStart(void) {
    if (!isNoteItem()) {
       return false;
    }
@@ -541,7 +541,7 @@ bool ScoreItem::isTieGroupStart(void) {
 // ScoreItem::isTieGroupMiddle --
 //
 
-bool ScoreItem::isTieGroupMiddle(void) { 
+bool ScoreItem::isTieGroupMiddle(void) {
    if (!isNoteItem()) {
       return false;
    }
@@ -555,7 +555,7 @@ bool ScoreItem::isTieGroupMiddle(void) {
 // ScoreItem::isTieGroupEnd --
 //
 
-bool ScoreItem::isTieGroupEnd(void) { 
+bool ScoreItem::isTieGroupEnd(void) {
    if (!isNoteItem()) {
       return false;
    }

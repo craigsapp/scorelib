@@ -53,7 +53,7 @@ class DatabaseTuplet {
    public:
                          DatabaseTuplet  (void);
                         ~DatabaseTuplet  ();
-   
+
       void               clear          (void);
       int                size           (void);
       TupletGroup*       tupletInfo     (ScoreItem*);

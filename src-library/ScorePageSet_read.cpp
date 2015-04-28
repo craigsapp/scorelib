@@ -19,8 +19,8 @@ using namespace std;
 //////////////////////////////
 //
 // ScorePageSet::appendReadFromOptionArguments -- Read earch argument
-//    of the option class as a file.  The file may be in binary, 
-//    PMX or XML formats, and each file may contain one or more 
+//    of the option class as a file.  The file may be in binary,
+//    PMX or XML formats, and each file may contain one or more
 //    pages/overlays.
 //
 
@@ -81,7 +81,7 @@ void ScorePageSet::appendRead(const string& filename) {
    }
    setPageOwnerships();
 }
-   
+
 
 
 //////////////////////////////
@@ -103,7 +103,7 @@ void ScorePageSet::appendReadStandardInput(void) {
 //
 
 void ScorePageSet::appendRead(istream& instream, const string& filename) {
-   appendReadPmx(instream, filename);   
+   appendReadPmx(instream, filename);
    setPageOwnerships();
 }
 
@@ -152,7 +152,7 @@ void ScorePageSet::appendReadPmx(istream& instream, const string& filename,
    int format = informat;   // 1 = RS method 2 = ###ScorePage: method.
 
    stringstream data;  // temporary storage of file contents to be parsed
-   string testname; 
+   string testname;
    string transfer;
    string nextfilename = "UNDEFINED";
    string localtype    = pagetype;
@@ -226,7 +226,7 @@ void ScorePageSet::appendReadPmx(istream& instream, const string& filename,
             continue;
          }
       }
-    
+
       if ((format == PPMX_PAGE_MARKER_RS) && regex_search(transfer, spname3)) {
          regex_search(transfer, match, spname3);
          if (match.size() >= 2) {
@@ -280,7 +280,7 @@ void ScorePageSet::appendReadPmx(istream& instream, const string& filename,
       appendPage(pageptr);
       localfile = testname;
       pagestart = 0;
-   } else if (overlaystart) { 
+   } else if (overlaystart) {
       ScorePage* pageptr = new ScorePage;
       pageptr->read(data);
       pageptr->setFilename(localfile);

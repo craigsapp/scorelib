@@ -69,7 +69,7 @@ int DatabaseBeam::size(void) {
 
 //////////////////////////////
 //
-// DatabaseBeam::beamInfo -- Return beam info associated with the 
+// DatabaseBeam::beamInfo -- Return beam info associated with the
 //     given input ScoreItem (which can be either a beam a note or a rest).
 //
 
@@ -95,7 +95,7 @@ BeamGroup* DatabaseBeam::linkItems(ScoreItem* item1, ScoreItem* item2) {
 
    if (info1 == NULL) {
       if (info2 == NULL) {
-         // Case 1: neither item is in the beam database. Create entries 
+         // Case 1: neither item is in the beam database. Create entries
          // for both items.
          BeamGroup *bg = new BeamGroup;
          database.push_back(bg);
@@ -105,7 +105,7 @@ BeamGroup* DatabaseBeam::linkItems(ScoreItem* item1, ScoreItem* item2) {
          interface[item2] = database.back();
          return database.back();
       } else {
-         // Case 2: item1 is not in the database, but item2 is.  Add item1 
+         // Case 2: item1 is not in the database, but item2 is.  Add item1
          // to item2's list.
          insertItem(info2, item1);
          interface[item1] = info2;
@@ -141,11 +141,11 @@ ostream& DatabaseBeam::printDatabase(ostream& out) {
       out << "\n# BEAM GROUP START\n";
       out << "# BEAMS:\n";
       for (auto& beam : it->beams) {
-         out << beam;         
+         out << beam;
       }
       out << "# NOTES/RESTS:\n";
       for (auto& note : it->notes) {
-         out << note;         
+         out << note;
       }
       out << "\n# BEAM GROUP END\n";
    }

@@ -19,7 +19,7 @@ using namespace std;
 
 ///////////////////////////////////////////////////////////////////////////
 //
-// auto namespace -- The "auto" namespace is used to store automatically 
+// auto namespace -- The "auto" namespace is used to store automatically
 //    calculated parameters, such as pitch.
 //
 
@@ -31,16 +31,16 @@ const string ns_auto = "auto";
 // Automatic rhythm analysis parameters:
 //
 
-// @auto@staffOffsetDuration -- The duration from the start of the staff 
+// @auto@staffOffsetDuration -- The duration from the start of the staff
 //      to the given item, in terms of quarter notes.
 const string np_staffOffsetDuration = "staffOffsetDuration";
 
-// @auto@segmentOffsetDuration -- The duration from the start of the segment 
-//      (typically a movement) the starting time of the given item, in 
+// @auto@segmentOffsetDuration -- The duration from the start of the segment
+//      (typically a movement) the starting time of the given item, in
 //      terms of quarter notes.
 const string np_segmentOffsetDuration = "segmentOffsetDuration";
 
-// @auto@pagesetOffsetDuration -- The duration from the start of the work 
+// @auto@pagesetOffsetDuration -- The duration from the start of the work
 //      until the starting time of the given item, in terms of quarter notes.
 const string np_pagesetOffsetDuration = "pagesetOffsetDuration";
 
@@ -88,19 +88,19 @@ const string np_tieLast = "tieLast";
 // @auto@tieNext -- The previous tie though which the last note is connected.
 const string np_tieNext = "tieNext";
 
-// @auto@handLeft -- The slur/tie is attached to a note on the right, but 
+// @auto@handLeft -- The slur/tie is attached to a note on the right, but
 // goes off the left end of the system.
 const string np_hangLeft = "hangLeft";
 
-// @auto@handRight -- The slur/tie is attached to a note on the left, but 
+// @auto@handRight -- The slur/tie is attached to a note on the left, but
 // goes off the right end of the system.
 const string np_hangRight = "hangRight";
 
-// @auto@tiedNextSlur -- indicates the next slur in a tied group 
+// @auto@tiedNextSlur -- indicates the next slur in a tied group
 // (occurs across system breaks).
 const string np_tiedNextSlur = "tiedNextSlur";
 
-// @auto@tiedLastSlur -- indicates the previous slur in a tied group 
+// @auto@tiedLastSlur -- indicates the previous slur in a tied group
 // (occurs across system breaks).
 const string np_tiedLastSlur = "tiedLastSlur";
 
@@ -138,7 +138,7 @@ const string np_function = "function";
 
 ///////////////////////////////////////////////////////////////////////////
 //
-// lyrics namespace -- The "lyrics" namespace is used to store information 
+// lyrics namespace -- The "lyrics" namespace is used to store information
 //      about musical lyrics.
 
 const string ns_lyrics = "lyrics";
@@ -148,17 +148,17 @@ const string ns_lyrics = "lyrics";
 //     is number 1.  Zero is not used for a lyric number.
 const string np_verseLine = "verseLine";
 
-// @lyrics@hyphenAfter: indicates that a text items is not the end of 
+// @lyrics@hyphenAfter: indicates that a text items is not the end of
 //     a word, and there is another syllable to follow.  The value
 //     should be true|false.
 const string np_hyphenAfter = "hyphenAfter";
 
-// @lyrics@hyphenBefore: indicates that a text items is not the start of 
+// @lyrics@hyphenBefore: indicates that a text items is not the start of
 //     a word, and there is another syllable preceding it.  The value
 //     should be true|false.
 const string np_hyphenBefore = "hyphenBefore";
 
-// @lyrics@hyphen: indicates that a line item (P1=4) is a word hyphen 
+// @lyrics@hyphen: indicates that a line item (P1=4) is a word hyphen
 //     within lyrics.  The value should be true|false.
 const string np_lyricsHyphen = "lyricsHyphen";
 

@@ -50,7 +50,7 @@ void ScorePageBase::setVersionWinScore(void) {
 
 //////////////////////////////
 //
-// ScorePageBase::getVersion -- Get the SCORE version that was red from 
+// ScorePageBase::getVersion -- Get the SCORE version that was red from
 //      a binary SCORE file. Return 4.0 if undefined.
 //
 
@@ -113,7 +113,7 @@ inline uint32_t ScorePageBase::getSerial(void) {
 
 //////////////////////////////
 //
-// ScorePageBase::getUnits -- return 0.0 for inches (or undefined), 
+// ScorePageBase::getUnits -- return 0.0 for inches (or undefined),
 //     or 1.0 for centimeters.  These units are neede for certain types
 //     of staff vertical placement types.
 //

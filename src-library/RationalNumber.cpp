@@ -4,7 +4,7 @@
 // Last Modified: Wed May 19 21:10:51 PDT 2010
 // Filename:      ...sig/maint/code/base/RationalNumber/RationalNumber.cpp
 // Web Address:   http://sig.sapp.org/src/sigBase/RationalNumber.cpp
-// Syntax:        C++ 
+// Syntax:        C++
 //
 // Description:   Rational number class (fraction with an integer
 //                numerator and integer denominator).
@@ -87,7 +87,7 @@ RationalNumber RationalNumber::operator+(const RationalNumber &r) const {
    int lcm_val = lcm( this->_den, r._den );
    int a = this->_num * ( lcm_val / this->_den );
    int c = r._num * ( lcm_val / r._den );
-   // int b = lcm_val; 
+   // int b = lcm_val;
    // int d = b;
    temp._num = a + c;
    temp._den = lcm_val;
@@ -283,7 +283,7 @@ int RationalNumber::operator ==(const RationalNumber &r) const {
    if ((this->getNumerator() == 0) && (r.getNumerator() == 0)) {
       return 1;
    } else {
-      return ((this->getNumerator() == r.getNumerator()) && 
+      return ((this->getNumerator() == r.getNumerator()) &&
             (this->getDenominator() == r.getDenominator() ));
    }
 }
@@ -330,7 +330,7 @@ int RationalNumber::operator>(const RationalNumber &r) const {
 
 //////////////////////////////
 //
-// RationalNumber::operator< -- 
+// RationalNumber::operator< --
 //
 
 int RationalNumber::operator<(const RationalNumber &r) const {
@@ -437,10 +437,10 @@ void RationalNumber::simplify(RationalNumber &r) {
 //
 
 RationalNumber RationalNumber::_abs(const RationalNumber &r) {
-   if (r._num < 0 ) { 
+   if (r._num < 0 ) {
       this->_num = -r._num;
    }
-   if (r._den < 0 ) { 
+   if (r._den < 0 ) {
       this->_den = -r._den;
    }
    return *this;
@@ -453,7 +453,7 @@ RationalNumber RationalNumber::_abs(const RationalNumber &r) {
 // RationalNumber::_min --
 //
 
-RationalNumber RationalNumber::_min(const RationalNumber &p, 
+RationalNumber RationalNumber::_min(const RationalNumber &p,
       const RationalNumber &q ) {
    return (p < q ? p : q);
 }
@@ -465,7 +465,7 @@ RationalNumber RationalNumber::_min(const RationalNumber &p,
 // RationalNumber::_max --
 //
 
-RationalNumber RationalNumber::_max(const RationalNumber &p, 
+RationalNumber RationalNumber::_max(const RationalNumber &p,
       const RationalNumber &q ) {
    return (p > q ? p : q);
 }
@@ -482,21 +482,21 @@ RationalNumber RationalNumber::convert_to_fraction(char *strNum) {
       _error_msg("input string is not understandable fraction value.");
       assert(isNumber(strNum));
    }
-   int counter = 0; 
-   // int len = 0; 
+   int counter = 0;
+   // int len = 0;
    int pos = -1;
    int i = 0;
    int isdecimal = false;
    char *str = strNum;
    char *temp = new char[20];
    while (*str) {
-      if (*str == '.') { 
-         isdecimal = true; 
-         pos = counter; 
+      if (*str == '.') {
+         isdecimal = true;
+         pos = counter;
       } else {
          *(temp + i++) = *str;
       }
-      str++; 
+      str++;
       counter++;
    }
    temp[i] = 0;
@@ -515,7 +515,7 @@ RationalNumber RationalNumber::convert_to_fraction(char *strNum) {
 
 //////////////////////////////
 //
-// RationalNumber::getFloat -- 
+// RationalNumber::getFloat --
 //
 
 double RationalNumber::getFloat(const RationalNumber &r ) {
@@ -556,7 +556,7 @@ void RationalNumber::invert(void) {
 
 //////////////////////////////
 //
-// RationalNumber::isNegative -- returns true if less than zero, 
+// RationalNumber::isNegative -- returns true if less than zero,
 //       false otherwise.
 //
 
@@ -572,7 +572,7 @@ int RationalNumber::isNegative(void) const {
 
 //////////////////////////////
 //
-// RationalNumber::isPositive -- returns true if greater than zero, 
+// RationalNumber::isPositive -- returns true if greater than zero,
 //       false otherwise.
 //
 
@@ -609,7 +609,7 @@ int RationalNumber::isZero(void) const {
 int RationalNumber::isInteger(void) const {
    if (this->getDenominator() == 1) {
       return 1;
-   } else {  
+   } else {
       if (this->getNumerator() == 0) {
          // zero could have any denominator (except zero -- but who cares?).
          return 1;
@@ -623,7 +623,7 @@ int RationalNumber::isInteger(void) const {
 
 //////////////////////////////
 //
-// RationalNumber::Log -- 
+// RationalNumber::Log --
 //
 
 double RationalNumber::Log(const RationalNumber &r) {
@@ -638,7 +638,7 @@ double RationalNumber::Log(const RationalNumber &r) {
 
 //////////////////////////////
 //
-// RationalNumber::Log10 -- 
+// RationalNumber::Log10 --
 //
 
 double RationalNumber::Log10(const RationalNumber &r) {
@@ -653,7 +653,7 @@ double RationalNumber::Log10(const RationalNumber &r) {
 
 //////////////////////////////
 //
-// RationalNumber::Exp -- 
+// RationalNumber::Exp --
 //
 
 double RationalNumber::Exp(const RationalNumber &r) {
@@ -664,7 +664,7 @@ double RationalNumber::Exp(const RationalNumber &r) {
 
 //////////////////////////////
 //
-// RationalNumber::Pow -- 
+// RationalNumber::Pow --
 //
 
 double RationalNumber::Pow(const RationalNumber &p, const RationalNumber &q) {
@@ -754,7 +754,7 @@ ostream& RationalNumber::printRecip(ostream& out, const char* spacer) {
    out << num.getDenominator();
    if (num.getNumerator() != 1) {
       out << spacer << num.getNumerator();
-   } 
+   }
    return out;
 }
 
@@ -775,12 +775,12 @@ istream& operator>>(istream& input, RationalNumber &p ) {
    int i = 0;
    // search "/" operator in "str" and retriving numerator
    while (*str) {
-      if (*str == '/') { 
-         is_fraction = true; 
-         break; 
+      if (*str == '/') {
+         is_fraction = true;
+         break;
       }
       *(tmp + i) = *str;
-      str++; 
+      str++;
       i++;
    }
    tmp[i] = 0;
@@ -788,15 +788,15 @@ istream& operator>>(istream& input, RationalNumber &p ) {
    //   is_rational = false;
    //}
    RationalNumber::verify_number(tmp, is_fraction);
-   RationalNumber P, Q(1,1); 
-   i = 0; 
+   RationalNumber P, Q(1,1);
+   i = 0;
    P.convert_to_fraction(tmp);
    if (is_fraction) {
       str++;
       // retriving denominator
       while (is_fraction && *str) {
          *(tmp + i) = *str;
-         str++; 
+         str++;
          i++;
       }
       tmp[i] = 0;
@@ -806,7 +806,7 @@ istream& operator>>(istream& input, RationalNumber &p ) {
    p = P/Q;
    delete tmp; delete buff;
    return input;
-} 
+}
 
 
 
@@ -815,12 +815,12 @@ istream& operator>>(istream& input, RationalNumber &p ) {
 // RationalNumber::verify_number -- static function
 //
 
-void RationalNumber::verify_number(char *strNum, int is_fraction) { 
-   int len = strlen(strNum); 
-   if (is_fraction && (len == 0 || !isNumber(strNum))) { 
-      _error_msg("this is not a rational number."); 
-      assert(isNumber(strNum)); 
-   } 
+void RationalNumber::verify_number(char *strNum, int is_fraction) {
+   int len = strlen(strNum);
+   if (is_fraction && (len == 0 || !isNumber(strNum))) {
+      _error_msg("this is not a rational number.");
+      assert(isNumber(strNum));
+   }
    if (len > 9) {
       _error_msg("this number is too big.");
       assert(len < 10);
@@ -838,7 +838,7 @@ int RationalNumber::isNumber(char *number) {
    int len = strlen(number);
    int isnumber = true;
    int i = 0;
-   
+
    if (len == 0) {
       return !isnumber;
    }
@@ -897,7 +897,7 @@ int main() {
    RationalNumber summation;
    summation = value * value;
    summation *= 4;
-   
+
    cout << summation << endl;
 
    RationalNumber R[3], R1;
@@ -935,7 +935,7 @@ int main() {
 
    R1 = R[2];
    cout << "_abs("  << R1 << ") = " << R[2]._abs(R[2])  << endl;
-   cout << "Pow("   << R[0] << "," << R[1] << ") = " 
+   cout << "Pow("   << R[0] << "," << R[1] << ") = "
         << R1.Pow( R[0], R[1] ) << endl;
    cout << "Log("   << R[1] << ") = " << R1.Log(R[1])   << endl;
    cout << "Log10(" << R[1] << ") = " << R1.Log10(R[1]) << endl;

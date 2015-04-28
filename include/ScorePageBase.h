@@ -48,11 +48,11 @@ class ScorePageBase {
       ScoreItem*     getItem                  (int index);
       listSIp&       lowLevelDataAccess       (void);
       void           deleteNamespace          (const string& nspace);
-      int            changeNamespace          (const string& newspace, 
-                                               const string& oldspace, 
+      int            changeNamespace          (const string& newspace,
+                                               const string& oldspace,
                                                const string& parameter);
-      int            changeNamespace          (const string& newspace, 
-                                               const string& oldspace, 
+      int            changeNamespace          (const string& newspace,
+                                               const string& oldspace,
                                                const string& parameter,
                                                int itemtype);
 
@@ -129,10 +129,10 @@ class ScorePageBase {
    protected:
       SCORE_FLOAT    readLittleFloat (istream& instream);
       int            readLittleShort (istream& input);
-      
+
    protected:
       // Variable "item_storage" contains pointers to all SCORE items on the
-      // page.  It is the responsibility of an instance of this class to 
+      // page.  It is the responsibility of an instance of this class to
       // delete these items (unless they are transfered to another page
       // before this one is destroyed).
       listSIp item_storage;
@@ -158,13 +158,13 @@ class ScorePageBase {
       // reverse order are:
       // 0: The last number is -9999.0 to indicate the end of the trailer
       // 1: The second to last number is a count of the number of 4-byte
-      //    numbers in the trailer.  Typically this is 5.0, but may be 
+      //    numbers in the trailer.  Typically this is 5.0, but may be
       //    larger in new versions of SCORE.
       // 2: The measurement unit code: 0.0 = inches, 1.0 = centimeters.
       // 3: The program version number which created the file.
       // 4: The program serial number (or 0.0 for version 3 or earlier)
       // 5: The last number in the trailer (i.e., the first number of the
-      //    trailer in the file is 0.0.  Normally this is the position in 
+      //    trailer in the file is 0.0.  Normally this is the position in
       //    the file which the parameter count for an item is given.
       //    Objects cannot have zero parameters, so when 0.0 is found,
       //    that indicates the start of the trailer.
@@ -222,9 +222,9 @@ class ScorePageBase {
                             // page PPMX content.
 
    protected:
-      void    itemChangeNotification  (ScoreItemBase* sitem, 
+      void    itemChangeNotification  (ScoreItemBase* sitem,
                                        const string& message);
-      void    itemChangeNotification  (ScoreItemBase* sitem, 
+      void    itemChangeNotification  (ScoreItemBase* sitem,
                                        const string& message, int index,
                                        SCORE_FLOAT oldp, SCORE_FLOAT newp);
       void    clearAnalysisStates     (void);

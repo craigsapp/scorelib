@@ -54,19 +54,19 @@ class RationalDuration {
       RationalNumber        getDurationReduced (void);
       double                getDurationDouble  (void);
       void                  makeReduced        (void);
-      void                  setDuration        (const RationalNumber& rn, 
+      void                  setDuration        (const RationalNumber& rn,
                                                 int dcount = 0);
-      void                  setDuration        (int numerator, int denominator, 
+      void                  setDuration        (int numerator, int denominator,
                                                 int dcount = 0);
-      void                  setRhythm          (int denominator, 
+      void                  setRhythm          (int denominator,
                                                 int numerator, int dcount = 0);
-      void                  setRhythm          (int denominator, 
+      void                  setRhythm          (int denominator,
                                                 int dcount = 0);
-      void                  setDuration        (double duration, 
+      void                  setDuration        (double duration,
                                                 int dcount = 0);
-      void                  setDurationWholeNoteUnits(double duration, 
+      void                  setDurationWholeNoteUnits(double duration,
                                                 int dcount = 0);
-      void                  setDurationQuarterNoteUnits(double duration, 
+      void                  setDurationQuarterNoteUnits(double duration,
                                                 int dcount = 0);
       int                   isPowerOfTwo       (void);
 
@@ -91,7 +91,7 @@ class RationalDuration {
       vector<RationalNumber> tupletfactors;
 
    protected:
-       int                   powerOfTwoDuration (RationalDuration& rd, 
+       int                   powerOfTwoDuration (RationalDuration& rd,
                                                  double basedur);
        int                   ceilingPowerOfTwo  (double value);
 

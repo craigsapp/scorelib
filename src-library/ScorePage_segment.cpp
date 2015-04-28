@@ -17,7 +17,7 @@ using namespace std;
 
 //////////////////////////////
 //
-// ScorePage::getPartIndex -- 
+// ScorePage::getPartIndex --
 //
 
 int ScorePage::getPartIndex(int p2value) {

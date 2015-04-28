@@ -29,18 +29,18 @@ ScoreItemEdit::ScoreItemEdit(void) : ScoreItemBase() {
 }
 
 
-ScoreItemEdit::ScoreItemEdit(const ScoreItemBase& anItem) : 
+ScoreItemEdit::ScoreItemEdit(const ScoreItemBase& anItem) :
       ScoreItemBase(anItem) {
    // do nothing
 }
 
-ScoreItemEdit::ScoreItemEdit(const ScoreItemEdit& anItem) : 
+ScoreItemEdit::ScoreItemEdit(const ScoreItemEdit& anItem) :
       ScoreItemBase((ScoreItemBase)anItem) {
    // do nothing
 }
 
 
-ScoreItemEdit::ScoreItemEdit(const vectorSF& parameters) : 
+ScoreItemEdit::ScoreItemEdit(const vectorSF& parameters) :
       ScoreItemBase(parameters) {
    // do nothing
 }
@@ -60,7 +60,7 @@ ScoreItemEdit::~ScoreItemEdit() {
 
 ///////////////////////////////
 //
-// ScoreItemEdit::operator= -- 
+// ScoreItemEdit::operator= --
 //
 
 ScoreItemEdit& ScoreItemEdit::operator=(const ScoreItemEdit& anItem) {
@@ -70,7 +70,7 @@ ScoreItemEdit& ScoreItemEdit::operator=(const ScoreItemEdit& anItem) {
 
    *(ScoreItemBase*)this = (ScoreItemBase)anItem;
 
-   // history not copied, or probably better, 
+   // history not copied, or probably better,
    // store all old parameters in history?
    return *this;
 }
@@ -95,7 +95,7 @@ void ScoreItemEdit::clearHistory(void) {
 void ScoreItemEdit::deleteNamespace(const string& nspace) {
    mapSS& params = named_parameters[nspace];
    for (auto& it : params) {
-      history_list.emplace_back(nspace, it.first, it.second, 
+      history_list.emplace_back(nspace, it.first, it.second,
             SCOREITEM_DELETED, history_index);
    }
    named_parameters.erase(nspace);
@@ -117,11 +117,11 @@ void ScoreItemEdit::clearNamespace(const string& nspace) {
 // ScoreItemEdit::deleteParameter --
 //
 
-void ScoreItemEdit::deleteParameter(const string& nspace, const string& key) { 
+void ScoreItemEdit::deleteParameter(const string& nspace, const string& key) {
    int exists = hasParameter(nspace, key);
    if (exists) {
       string value = getParameter(nspace, key);
-      history_list.emplace_back(nspace, key, value, SCOREITEM_DELETED, 
+      history_list.emplace_back(nspace, key, value, SCOREITEM_DELETED,
             history_index);
       ScoreItemBase::deleteParameter(nspace, key);
    }
@@ -130,27 +130,27 @@ void ScoreItemEdit::deleteParameter(const string& nspace, const string& key) {
 
 // Aliases for above function:
 
-void ScoreItemEdit::eraseParameter(const string& nspace, const string& key) { 
+void ScoreItemEdit::eraseParameter(const string& nspace, const string& key) {
    deleteParameter(nspace, key);
 }
 
 
-void ScoreItemEdit::clearParameter(const string& nspace, const string& key) { 
+void ScoreItemEdit::clearParameter(const string& nspace, const string& key) {
    deleteParameter(nspace, key);
 }
 
 
-void ScoreItemEdit::deleteParameter(const string& key) { 
+void ScoreItemEdit::deleteParameter(const string& key) {
    deleteParameter("", key);
 }
 
 
-void ScoreItemEdit::eraseParameter(const string& key) { 
+void ScoreItemEdit::eraseParameter(const string& key) {
    deleteParameter("", key);
 }
 
 
-void ScoreItemEdit::clearParameter(const string& key) { 
+void ScoreItemEdit::clearParameter(const string& key) {
    deleteParameter("", key);
 }
 
@@ -161,8 +161,8 @@ void ScoreItemEdit::clearParameter(const string& key) {
 // setParameter --
 //
 
-void ScoreItemEdit::setParameter(const string& nspace, const string& key, 
-      const string& value) { 
+void ScoreItemEdit::setParameter(const string& nspace, const string& key,
+      const string& value) {
    if (historyIsActive()) {
       if (historyIsThawed()) {
          incrementHistoryIndex();
@@ -171,7 +171,7 @@ void ScoreItemEdit::setParameter(const string& nspace, const string& key,
          string currentValue = getParameter(nspace, key);
          if (currentValue == value) {
             return;
-         } 
+         }
          appendToHistory(nspace, key, currentValue, value);
       } else {
          appendToHistory(nspace, key, 1, value);
@@ -181,35 +181,35 @@ void ScoreItemEdit::setParameter(const string& nspace, const string& key,
 }
 
 
-void ScoreItemEdit::setParameter(const string& nspace, const string& key, 
-      int value) { 
+void ScoreItemEdit::setParameter(const string& nspace, const string& key,
+      int value) {
    setParameter(nspace, key, to_string(value));
 }
 
 
-void ScoreItemEdit::setParameter(const string& nspace, const string& key, 
-      SCORE_FLOAT value) { 
+void ScoreItemEdit::setParameter(const string& nspace, const string& key,
+      SCORE_FLOAT value) {
    setParameter(nspace, key, to_string(value));
 }
 
 
-void ScoreItemEdit::setParameter(const string& key, 
-      const string& value) { 
+void ScoreItemEdit::setParameter(const string& key,
+      const string& value) {
    setParameter("", key, value);
 }
 
 
-void ScoreItemEdit::setParameter(const string& key, int value) { 
+void ScoreItemEdit::setParameter(const string& key, int value) {
    setParameter("", key, value);
 }
 
 
-void ScoreItemEdit::setParameter(const string& key, SCORE_FLOAT value) { 
+void ScoreItemEdit::setParameter(const string& key, SCORE_FLOAT value) {
    setParameter("", key, value);
 }
 
 
-void ScoreItemEdit::setParameter(int index, SCORE_FLOAT value) { 
+void ScoreItemEdit::setParameter(int index, SCORE_FLOAT value) {
    if (historyIsActive()) {
       if (historyIsThawed()) {
          incrementHistoryIndex();
@@ -217,7 +217,7 @@ void ScoreItemEdit::setParameter(int index, SCORE_FLOAT value) {
       SCORE_FLOAT currentValue = getParameter(index);
       if (currentValue == value) {
          return;
-      } 
+      }
       appendToHistory(index, currentValue, value);
    }
    ScoreItemBase::setParameter(index, value);
@@ -230,10 +230,10 @@ void ScoreItemEdit::setParameter(int index, SCORE_FLOAT value) {
 // ScoreItemEdit::setFixedText --
 //
 
-void ScoreItemEdit::setFixedText(const string& text) { 
+void ScoreItemEdit::setFixedText(const string& text) {
    if (text == getFixedText()) {
       return;
-   } 
+   }
    if (historyIsActive()) {
       if (historyIsThawed()) {
          incrementHistoryIndex();
@@ -247,19 +247,19 @@ void ScoreItemEdit::setFixedText(const string& text) {
 
 // Aliases for the above functions:
 
-void ScoreItemEdit::setP(const string& nspace, const string& key, 
+void ScoreItemEdit::setP(const string& nspace, const string& key,
       const string& value) {
    setParameter(nspace, key, value);
 }
 
 
-void ScoreItemEdit::setP(const string& nspace, const string& key, 
+void ScoreItemEdit::setP(const string& nspace, const string& key,
       int value) {
    setParameter(nspace, key, value);
 }
 
 
-void ScoreItemEdit::setP(const string& nspace, const string& key, 
+void ScoreItemEdit::setP(const string& nspace, const string& key,
       SCORE_FLOAT value) {
    setParameter(nspace, key, value);
 }
@@ -325,7 +325,7 @@ ostream& ScoreItemEdit::printPmxEditHistory(ostream& out) {
 // ScoreItemEdit::printXmlWithEdits --
 //
 
-ostream& ScoreItemEdit::printXmlWithEdits(ostream& out, int indentcount, 
+ostream& ScoreItemEdit::printXmlWithEdits(ostream& out, int indentcount,
       const string& indentstring) {
 
    printIndent(out, indentcount, indentstring);
@@ -353,7 +353,7 @@ ostream& ScoreItemEdit::printXmlWithEdits(ostream& out, int indentcount,
             out << "<namespace scope=\"";
             out << it.first;
             out << "\">\n";
-               printNamedParametersXml(out, it.first, indentcount+3, 
+               printNamedParametersXml(out, it.first, indentcount+3,
                   indentstring);
             printIndent(out, indentcount+2, indentstring);
             out << "</namespace>\n";
@@ -370,7 +370,7 @@ ostream& ScoreItemEdit::printXmlWithEdits(ostream& out, int indentcount,
       out << "<parameter-history current=\"";
       out << getHistoryIndex() + 1;
       out << "\">\n";
-    
+
       printHistoryXml(out, indentcount+2, indentstring);
 
       printIndent(out, indentcount+1, indentstring);
@@ -397,7 +397,7 @@ ostream& ScoreItemEdit::printXmlWithEdits(ostream& out, int indentcount,
 // ScoreItemEdit::printHistoryPmx --
 //
 
-ostream& ScoreItemEdit::printHistoryPmx(ostream& out, 
+ostream& ScoreItemEdit::printHistoryPmx(ostream& out,
       const ParameterHistory& hEntry) {
    return hEntry.printAsPmx(out);
 }
@@ -409,7 +409,7 @@ ostream& ScoreItemEdit::printHistoryPmx(ostream& out,
 // ScoreItemEdit::printHistoryXml --
 //
 
-ostream& ScoreItemEdit::printHistoryXml(ostream& out, 
+ostream& ScoreItemEdit::printHistoryXml(ostream& out,
       int indentcount, const string& indentstring) {
 
    HistoryList::reverse_iterator it;
@@ -429,19 +429,19 @@ ostream& ScoreItemEdit::printHistoryXml(ostream& out,
 // ScoreItemEdit::appendToHistory --
 //
 
-void ScoreItemEdit::appendToHistory(const string& nspace, const string& key, 
+void ScoreItemEdit::appendToHistory(const string& nspace, const string& key,
       const string& oldvalue, const string& newvalue) {
     history_list.emplace_back(nspace, key, oldvalue, newvalue, history_index);
 }
 
 
-void ScoreItemEdit::appendToHistory(const string& nspace, const string& key, 
+void ScoreItemEdit::appendToHistory(const string& nspace, const string& key,
       int created_state, const string& newvalue) {
     history_list.emplace_back(nspace, key, created_state, newvalue, history_index);
 }
 
 
-void ScoreItemEdit::appendToHistory(const string& nspace, const string& key, 
+void ScoreItemEdit::appendToHistory(const string& nspace, const string& key,
       const string& oldvalue, int deleted_state) {
     history_list.emplace_back(nspace, key, oldvalue, deleted_state, history_index);
 }
@@ -465,7 +465,7 @@ void ScoreItemEdit::appendToHistory(const string& key, const string& oldvalue,
 }
 
 
-void ScoreItemEdit::appendToHistory(int index, SCORE_FLOAT oldvalue, 
+void ScoreItemEdit::appendToHistory(int index, SCORE_FLOAT oldvalue,
       SCORE_FLOAT newvalue) {
     history_list.emplace_back(index, oldvalue, newvalue, history_index);
 }
@@ -477,7 +477,7 @@ void ScoreItemEdit::appendToHistory(int index, int created_state,
 }
 
 
-void ScoreItemEdit::appendToHistory(int index, SCORE_FLOAT oldvalue, 
+void ScoreItemEdit::appendToHistory(int index, SCORE_FLOAT oldvalue,
       int deleted_state) {
     history_list.emplace_back(index, oldvalue, deleted_state, history_index);
 }
@@ -502,7 +502,7 @@ void ScoreItemEdit::incrementHistoryIndex(void) {
 
 ///////////////////////////////
 //
-// ScoreItemEdit::thawHistoryIndex -- Prevent the history index from 
+// ScoreItemEdit::thawHistoryIndex -- Prevent the history index from
 //    incrementing automatically.
 //
 
@@ -514,7 +514,7 @@ void ScoreItemEdit::freezeHistoryIndex(void) {
 
 ///////////////////////////////
 //
-// ScoreItemEdit::thawHistoryIndex -- All the history index to increment 
+// ScoreItemEdit::thawHistoryIndex -- All the history index to increment
 //    automatically.
 //
 

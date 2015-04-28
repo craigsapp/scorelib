@@ -24,7 +24,7 @@ ParameterHistory::ParameterHistory(void) {
    state       = SCOREITEM_UNDEFINED;
 }
 
-ParameterHistory::ParameterHistory(const string& nspace, const string& key, 
+ParameterHistory::ParameterHistory(const string& nspace, const string& key,
       const string& oldvalue, const string& newvalue, int hindex) {
    history         = hindex;
    named_nspace    = nspace;
@@ -35,7 +35,7 @@ ParameterHistory::ParameterHistory(const string& nspace, const string& key,
    state           = SCOREITEM_UNDEFINED;
 }
 
-ParameterHistory::ParameterHistory(const string& nspace, const string& key, 
+ParameterHistory::ParameterHistory(const string& nspace, const string& key,
       int created_state, const string& newvalue, int hindex) {
    history         = hindex;
    named_nspace    = nspace;
@@ -46,7 +46,7 @@ ParameterHistory::ParameterHistory(const string& nspace, const string& key,
    state           = SCOREITEM_CREATED;
 }
 
-ParameterHistory::ParameterHistory(const string& nspace, const string& key, 
+ParameterHistory::ParameterHistory(const string& nspace, const string& key,
       const string& oldvalue, int deleted_state, int hindex) {
    history         = hindex;
    named_nspace    = nspace;
@@ -57,7 +57,7 @@ ParameterHistory::ParameterHistory(const string& nspace, const string& key,
    state           = SCOREITEM_DELETED;
 }
 
-ParameterHistory::ParameterHistory(const string& key, const string& oldvalue, 
+ParameterHistory::ParameterHistory(const string& key, const string& oldvalue,
       const string& newvalue, int hindex) {
    history         = hindex;
    named_nspace    = "";
@@ -79,7 +79,7 @@ ParameterHistory::ParameterHistory(const string& key, int created_state,
    state           = SCOREITEM_CREATED;
 }
 
-ParameterHistory::ParameterHistory(const string& key, const string& oldvalue, 
+ParameterHistory::ParameterHistory(const string& key, const string& oldvalue,
       int deleted_state, int hindex) {
    history         = hindex;
    named_nspace    = "";
@@ -90,7 +90,7 @@ ParameterHistory::ParameterHistory(const string& key, const string& oldvalue,
    state           = SCOREITEM_DELETED;
 }
 
-ParameterHistory::ParameterHistory(int key, SCORE_FLOAT oldvalue, SCORE_FLOAT newvalue, 
+ParameterHistory::ParameterHistory(int key, SCORE_FLOAT oldvalue, SCORE_FLOAT newvalue,
       int hindex) {
    history        = hindex;
    fixed_index    = key;
@@ -99,7 +99,7 @@ ParameterHistory::ParameterHistory(int key, SCORE_FLOAT oldvalue, SCORE_FLOAT ne
    state          = SCOREITEM_UNDEFINED;
 }
 
-ParameterHistory::ParameterHistory(int key, int created_state, SCORE_FLOAT newvalue, 
+ParameterHistory::ParameterHistory(int key, int created_state, SCORE_FLOAT newvalue,
       int hindex) {
    history        = hindex;
    fixed_index    = key;
@@ -132,13 +132,13 @@ void ParameterHistory::clear(void) {
 ostream& ParameterHistory::printAsPmx(ostream& out) const {
    out << "@_HISTORY-" << history << ":";
    if (fixed_index >= 0) {
-      out << fixed_index << ":\t" << fixed_oldvalue 
+      out << fixed_index << ":\t" << fixed_oldvalue
           << "\t=>\t" << fixed_newvalue << endl;
    } else {
       if (named_nspace == "") {
          out << "@" << named_key << ":\t";
          if (state == SCOREITEM_CREATED) {
-            out << "_CREATED"; 
+            out << "_CREATED";
          } else {
             out << named_oldvalue;
          }
@@ -150,7 +150,7 @@ ostream& ParameterHistory::printAsPmx(ostream& out) const {
          }
          out << endl;
       } else {
-         out << "@" << named_nspace << "::" 
+         out << "@" << named_nspace << "::"
              << named_key << ":\t";
          if (state == SCOREITEM_CREATED) {
             out << "_CREATED";

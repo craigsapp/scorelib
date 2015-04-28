@@ -27,7 +27,7 @@ using listSPp = list<ScorePage*>;
 #endif
 
 
-class ScorePageOverlay { 
+class ScorePageOverlay {
    public:
                   ScorePageOverlay              (void);
                  ~ScorePageOverlay              ();
@@ -48,7 +48,7 @@ class ScorePageOverlay {
       // overlay_sequence contains an ordered set of score pages
       // which are stored in overlay_storage.
       vectorSPp overlay_sequence;
- 
+
 };
 
 

@@ -69,7 +69,7 @@ class Options {
       int             argc              (void) const;
       const vectorS&  argv              (void) const;
       int             define            (const string& aDefinition);
-      int             define            (const string& aDefinition, 
+      int             define            (const string& aDefinition,
                                          const string& description);
       const string&   getArg            (int index);
       const string&   getArgument       (int index);
@@ -90,7 +90,7 @@ class Options {
       string          getString         (const string& optionName);
       char            getType           (const string& optionName);
       int             optionsArg        (void);
-      ostream&        print             (ostream& out); 
+      ostream&        print             (ostream& out);
       ostream&        printOptionList   (ostream& out);
       ostream&        printOptionListBooleanState(ostream& out);
       void            process           (int error_check = 1, int suppress = 0);
@@ -98,13 +98,13 @@ class Options {
                                             int error_check = 1,
                                             int suppress = 0);
       void            reset             (void);
-      void            xverify           (int argc, char** argv, 
+      void            xverify           (int argc, char** argv,
                                             int error_check = 1,
                                             int suppress = 0);
       void            xverify           (int error_check = 1,
                                             int suppress = 0);
       void            setFlag           (char aFlag);
-      void            setModified       (const string& optionName, 
+      void            setModified       (const string& optionName,
                                          const string& optionValue);
       void            setOptions        (int argc, char** argv);
       void            appendOptions     (int argc, char** argv);
@@ -133,7 +133,7 @@ class Options {
 
       int         getRegIndex             (const string& optionName);
       int         optionQ                 (const string& aString, int& argp);
-      int         storeOption             (int gargp, int& position, 
+      int         storeOption             (int gargp, int& position,
                                              int& running);
 
 };

@@ -56,7 +56,7 @@ void ScorePage::analyzeStaffDurations(void) {
 // ScorePage::calculateStaffDurations -- Calculates the total duration
 //      of the note/rest sequence on a staff.  The input is presumed to
 //      be sorted according to P3 (from left to right on the staff).
-//      This function has a side effect which sets the durational offset 
+//      This function has a side effect which sets the durational offset
 //      of each object from the start of the staff. (Private function
 //      used to analyze the duration on staves).
 //
@@ -112,7 +112,7 @@ SCORE_FLOAT ScorePage::calculateStaffDuration(vectorSIp& staffitems) {
 
    // Maybe assign staff duration offsets to non-durational offsets here.
 
-   // There should be one last event in the storage which represents 
+   // There should be one last event in the storage which represents
    // the duration of the system:
    if (expectedOffset.size() > 0) {
       return *expectedOffset.begin();
@@ -139,7 +139,7 @@ void ScorePage::setStaffDuration(int staffnum, SCORE_FLOAT duration) {
 //////////////////////////////
 //
 // ScorePage::getStaffDuration --  The sum of the durations for notes
-//     and rests (P7 values) found on the staff.  
+//     and rests (P7 values) found on the staff.
 //
 
 SCORE_FLOAT ScorePage::getStaffDuration(int staffnum) {

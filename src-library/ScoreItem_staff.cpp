@@ -115,7 +115,7 @@ void ScoreItem::convertStaffP4ToP10Inches(void) {
 
 //////////////////////////////
 //
-// ScoreItem::convertStaffP4ToP10Centimeters -- Convert P4 representation 
+// ScoreItem::convertStaffP4ToP10Centimeters -- Convert P4 representation
 //   (diatonic step method) of vertical placements into P10 version (absolute
 //   distance from bottom line of first staff).
 //
@@ -132,14 +132,14 @@ void ScoreItem::convertStaffP4ToP10Centimeters(void) {
 
 //////////////////////////////
 //
-// ScoreItem::convertStaffP10InchesToP4Value -- Convert P10 representation 
-//   (absolute distance from bottom line of first staff) of vertical 
+// ScoreItem::convertStaffP10InchesToP4Value -- Convert P10 representation
+//   (absolute distance from bottom line of first staff) of vertical
 //   placements into P4 version (diatonic step method).
 //
 // The conversion equation is:
 //   P4 = (P10 / 0.04375 - 18.0 * (P2 - 1)) / P5
 //
-// Note that the physical units of P10 are in inches.  This function 
+// Note that the physical units of P10 are in inches.  This function
 // will not do anything if P10 is not zero.
 //
 
@@ -156,11 +156,11 @@ void ScoreItem::convertStaffP10InchesToP4Value(void) {
 
 //////////////////////////////
 //
-// ScoreItem::convertStaffP10CentimetersToP4Value -- Convert P10 representation 
-//   (absolute distance from bottom line of first staff) of vertical 
+// ScoreItem::convertStaffP10CentimetersToP4Value -- Convert P10 representation
+//   (absolute distance from bottom line of first staff) of vertical
 //   placements into P4 version (diatonic step method).
 //
-// Note that the physical units of P10 are in centimeters.  This function 
+// Note that the physical units of P10 are in centimeters.  This function
 // will not do anything if P10 is not zero.
 //
 
@@ -182,7 +182,7 @@ void ScoreItem::convertStaffP10CentimetersToP4Value(void) {
 //   input P10 value is in inches.
 //
 
-void ScoreItem::setStaffP4FromP10Inches(SCORE_FLOAT p10) { 
+void ScoreItem::setStaffP4FromP10Inches(SCORE_FLOAT p10) {
    if (!isStaffItem()) {
       return;
    }
@@ -205,7 +205,7 @@ void ScoreItem::setStaffP4FromP10Inches(SCORE_FLOAT p10) {
 //   input P10 value is in centimeters.
 //
 
-void ScoreItem::setStaffP4FromP10Centimeters(SCORE_FLOAT p10) { 
+void ScoreItem::setStaffP4FromP10Centimeters(SCORE_FLOAT p10) {
    setStaffP4FromP10Inches(p10 / 2.54);
 }
 
@@ -217,7 +217,7 @@ void ScoreItem::setStaffP4FromP10Centimeters(SCORE_FLOAT p10) {
 //   calculate and set the P10 value which corresponds with this value.
 //
 
-void ScoreItem::setStaffP10InchesFromP4Value(SCORE_FLOAT p4) { 
+void ScoreItem::setStaffP10InchesFromP4Value(SCORE_FLOAT p4) {
    if (!isStaffItem()) {
       return;
    }
@@ -237,7 +237,7 @@ void ScoreItem::setStaffP10InchesFromP4Value(SCORE_FLOAT p4) {
 //   calculate and set the P10 value which corresponds with this value.
 //
 
-void ScoreItem::setStaffP10CentimetersFromP4Value(SCORE_FLOAT p4) { 
+void ScoreItem::setStaffP10CentimetersFromP4Value(SCORE_FLOAT p4) {
    setStaffP10InchesFromP4Value(p4);
    setP10(getP10() * 2.54);
 }

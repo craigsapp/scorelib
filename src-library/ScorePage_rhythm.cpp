@@ -22,7 +22,7 @@ using namespace std;
 //
 // ScorePage::getSystemLCMRhythm -- Return the smallest rhythmic
 //    duration which can represent all other rhythms on the page
-//    as integer units of that rhythm.  The return value is in 
+//    as integer units of that rhythm.  The return value is in
 //    reference to quarter notes, so if the smallest duration
 //    on the system is a whole note, then return value will be "1"
 //    for quarter notes.

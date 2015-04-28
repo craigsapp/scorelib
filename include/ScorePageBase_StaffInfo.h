@@ -57,7 +57,7 @@ class StaffInfo {
       // staffitems: collect a list of the staff items for each staff position.
       // In theory there can be more than one per staff position, but they
       // must all have the same vertical scale value (P5) since SCORE will
-      // ignore the P3 range of separate staff items.  Note that 
+      // ignore the P3 range of separate staff items.  Note that
       // staffitems[0] is not intended to be used (may refer in the future
       // to page positioned items.)
       vectorVSIp staffitems;

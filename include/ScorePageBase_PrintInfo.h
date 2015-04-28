@@ -56,7 +56,7 @@ class PrintInfo {
       double width;
       double height;
 
-      // The left margin setting in the SCORE print menu (parameter 4, 
+      // The left margin setting in the SCORE print menu (parameter 4,
       // first number).  This is the distance from the left margin of the
       // page to the P3=0.0 point on the staff, not including an extra
       // width (called Lbuffer below) of 0.025 inches.  The default setting
@@ -75,7 +75,7 @@ class PrintInfo {
 
       // The resolution print setting is for calculating the width of a line
       // in physical units.  The line width is specified as a pixel width.
-      // tDPI is equivalent to the RESOLUTION parameter from the SCORE 
+      // tDPI is equivalent to the RESOLUTION parameter from the SCORE
       // print menu. The oDPI variable is the actually desired DPI for a
       // bitmap image of the page (not necessarily the same as tDPI, but
       // it usually is).  The default RESOLUTION is 600 dots per inch.
@@ -86,7 +86,7 @@ class PrintInfo {
       // controls the width of staff lines in particular, but also the width
       // of stems, and strokes around all graphical objects other than beams.
       // (Beams are handled from a setting in the SCORE preferences file
-      // found in the lib directory (prefs-4.scr).  The default value is 
+      // found in the lib directory (prefs-4.scr).  The default value is
       // 4.0 pixels when the RESOLUTION is 600.
       double lineWidth;
 
@@ -107,7 +107,7 @@ class PrintInfo {
       //
       // Below are variables which cannot be changed with the SCORE
       // editor, so they are store here as constants.
-      // 
+      //
       // Lbuffer  == extra padding between left margin and P3=0.0.
       // Bbuffer  == extra padding between bottom margin and P4=0 of P2=1.
       // StaffLen == length of staff lines at page scaling=1.0.

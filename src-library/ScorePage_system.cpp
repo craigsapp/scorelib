@@ -8,8 +8,8 @@
 //
 // Description:   This file contains ScorePage class functions related to
 //                system analysis (grouping of staves).  Staves connected
-//                to each other by barlines are considered part of the same 
-//                system.  Ossia staves which are not attached to the 
+//                to each other by barlines are considered part of the same
+//                system.  Ossia staves which are not attached to the
 //                system with barlines still have to be considered (they
 //                will currently be considered separate systems).
 //
@@ -23,11 +23,11 @@ using namespace std;
 
 ///////////////////////////////
 //
-// ScorePage::analyzeSystems -- Group staves into systems.  Examine how 
+// ScorePage::analyzeSystems -- Group staves into systems.  Examine how
 //    each staff is connected to others, and system breaks are defined where
 //    there are gaps between staves with no barlines.  Returns the number of
-//    systems on the page.  
-//  
+//    systems on the page.
+//
 //    Assign each staff to a system, starting with system[0]
 //    at the top of the page, going down.  Also assign the staff number on
 //    the system, with staff[0] being the bottom staff of the system, and
@@ -36,7 +36,7 @@ using namespace std;
 //    The system variable is fixed to 100 elements, representing the mapping
 //    of SCORE staves 1 through 99 (don't use system[0] or system(99) onto
 //    a particular system number on the page.  SCORE does not allow staff 99
-//    as that is a special code for all staves when editing in SCORE.  So the 
+//    as that is a special code for all staves when editing in SCORE.  So the
 //    real range is from staff 1 to 98.
 //
 //    Return value is the number of systems on the page.
@@ -59,7 +59,7 @@ int ScorePage::analyzeSystems(void) {
    vectorI tempsystem(maxstaff+1, -1);
    systemMap().assign(maxstaff+1, -1);
    systemStaffMap().assign(maxstaff+1, -1);
-  
+
    vectorSIp barlines;
    selectBarlines(barlines, item_storage);
 
@@ -88,7 +88,7 @@ int ScorePage::analyzeSystems(void) {
 
    // "tempsystem" array contains a list of systems marked by the lowest
    // staff in the system.  Renumber the systems so that the top
-   // system on the page is system 0, then increment by 1 going down 
+   // system on the page is system 0, then increment by 1 going down
    // the page.  Note that system[0] is invalid (there is no P2=0 staff).
    int currentSystem = 0;
    // int laststaff = -1;
@@ -108,8 +108,8 @@ int ScorePage::analyzeSystems(void) {
    currentSystem++;
 
 
-   // The system numbering is for system 0 at the top of the page so the 
-   // system identification is reversed, starting at high staff numbers 
+   // The system numbering is for system 0 at the top of the page so the
+   // system identification is reversed, starting at high staff numbers
    // and working lower down on the page for higher numbered systems.
    // The currentSystem variable from the last loop is the count
    // of systems on the page minus one.
@@ -121,7 +121,7 @@ int ScorePage::analyzeSystems(void) {
    }
 
 
-   // Store the system staff index assignments.  The system staff 
+   // Store the system staff index assignments.  The system staff
    // index start at 0 for the bottom staff on a system.
    int lastsystem = -1;
    int sysstaffindex = 0;
@@ -135,18 +135,18 @@ int ScorePage::analyzeSystems(void) {
       } else {
          sysstaffindex++;
       }
-      systemStaffMap()[i] = sysstaffindex; 
+      systemStaffMap()[i] = sysstaffindex;
    }
 
    // Build the reverse system mapping:
    reverseSystemMap().clear();
    reverseSystemMap().resize(currentSystem);
    for (i=1; i<=maxstaff; i++) {
-      j = systemMap()[i];   
+      j = systemMap()[i];
       if (j < 0) {
          continue;
       }
-      reverseSystemMap()[j].push_back(i);      
+      reverseSystemMap()[j].push_back(i);
    }
 
    analysis_info.validate("systems");
@@ -297,7 +297,7 @@ int ScorePage::getSystemIndex(int staffnumber) {
 
 //////////////////////////////
 //
-// ScorePage::getSystemStaffIndex -- Return the system staff index of 
+// ScorePage::getSystemStaffIndex -- Return the system staff index of
 //      the given P2 staff number on the page.  Return -1 if no systems.
 //
 
@@ -360,7 +360,7 @@ vectorSIp& ScorePage::getStaffItemsByPageStaff(int p2index) {
 }
 
 
-vectorSIp& ScorePage::getStaffItemsBySystemStaff(int sysindex, 
+vectorSIp& ScorePage::getStaffItemsBySystemStaff(int sysindex,
       int sysstaffindex) {
    vectorVVSIp& data = getStaffItemsBySystem();
    return data[sysindex][sysstaffindex];

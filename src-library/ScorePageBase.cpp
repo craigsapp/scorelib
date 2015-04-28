@@ -54,7 +54,7 @@ ScorePageBase::ScorePageBase(const string& filename) {
 }
 
 
-ScorePageBase::ScorePageBase(istream& instream) { 
+ScorePageBase::ScorePageBase(istream& instream) {
    pageset_owner = NULL;
    trailer.reserve(8);
    setDefaultPrintParameters();
@@ -64,14 +64,14 @@ ScorePageBase::ScorePageBase(istream& instream) {
 }
 
 
-ScorePageBase::ScorePageBase(const ScorePageBase& apage) { 
+ScorePageBase::ScorePageBase(const ScorePageBase& apage) {
    // make a copy of an existing page
    // have to deal with unique ids...
    trailer.reserve(8);
    clearAnalysisStates();
 
    print_info = apage.print_info;
-   
+
    const listSIp& itemlist = apage.item_storage;
    ScoreItem* sip;
    for (auto& it : itemlist) {
@@ -126,8 +126,8 @@ void ScorePageBase::clear(void) {
 
 //////////////////////////////
 //
-// ScorePageBase::prependItem -- make a copy of the item and store 
-//   it in the item_storage list. Returns a pointer to the 
+// ScorePageBase::prependItem -- make a copy of the item and store
+//   it in the item_storage list. Returns a pointer to the
 //   stored item.
 //
 
@@ -141,8 +141,8 @@ ScoreItem* ScorePageBase::prependItem(ScoreItem& anItem) {
 
 //////////////////////////////
 //
-// ScorePageBase::appendItem -- make a copy of the item and store 
-//   it in the item_storage list. Returns a pointer to the 
+// ScorePageBase::appendItem -- make a copy of the item and store
+//   it in the item_storage list. Returns a pointer to the
 //   stored item.
 //
 
@@ -163,7 +163,7 @@ ScoreItem* ScorePageBase::appendItem(const string& itemstring) {
 
 //////////////////////////////
 //
-// ScorePageBase::setDefaultPrintParameters -- Set print parameters to 
+// ScorePageBase::setDefaultPrintParameters -- Set print parameters to
 //     their default values.
 //
 
@@ -175,7 +175,7 @@ void ScorePageBase::setDefaultPrintParameters(void) {
 
 //////////////////////////////
 //
-// ScorePageBase::getItemCount -- Return the number of ScoreItems owned 
+// ScorePageBase::getItemCount -- Return the number of ScoreItems owned
 //     by the page.
 //
 
@@ -189,7 +189,7 @@ int ScorePageBase::getItemCount(void) {
 //
 // ScorePageBase::getItem --  Use of this function implies that the
 //    data is sorted.  If it is not sorted, then the data list will
-//    have zero length, but the count will not be zero.  So need to 
+//    have zero length, but the count will not be zero.  So need to
 //    set up a dependency on sorting when calling this function.
 //
 
@@ -281,12 +281,12 @@ void ScorePageBase::getStaffItemListOrdered(vectorVSIp& data) {
 //
 //
 
-void ScorePageBase::itemChangeNotification(ScoreItemBase* sitem, 
+void ScorePageBase::itemChangeNotification(ScoreItemBase* sitem,
       const string& message ) {
    analysis_info.invalidateModified();
 }
 
-void ScorePageBase::itemChangeNotification(ScoreItemBase* sitem, 
+void ScorePageBase::itemChangeNotification(ScoreItemBase* sitem,
       const string& message, int index, SCORE_FLOAT oldp, SCORE_FLOAT newp ) {
    analysis_info.invalidateModified();
    if (monitor_P3 && (index == P3) && (oldp != newp)) {
@@ -330,7 +330,7 @@ void ScorePageBase::deleteNamespace(const string& nspace) {
 //     of items which had the paramter moved to another namespace.
 //
 
-int ScorePageBase::changeNamespace(const string& newspace, 
+int ScorePageBase::changeNamespace(const string& newspace,
       const string& oldspace, const string& parameter) {
    int count = 0;
    for (auto& it : item_storage) {
@@ -342,7 +342,7 @@ int ScorePageBase::changeNamespace(const string& newspace,
 }
 
 
-int ScorePageBase::changeNamespace(const string& newspace, 
+int ScorePageBase::changeNamespace(const string& newspace,
       const string& oldspace, const string& parameter, int itemtype) {
    int count = 0;
    for (auto& it : item_storage) {

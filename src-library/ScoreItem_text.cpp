@@ -73,13 +73,13 @@ const string& ScoreItem::getText(void) {
 
 //////////////////////////////
 //
-// ScoreItem::getTextWithoutInitialFontCode -- Return the fixed text field 
+// ScoreItem::getTextWithoutInitialFontCode -- Return the fixed text field
 //    of the object without the intial font code, if present.
 //
 
 string ScoreItem::getTextWithoutInitialFontCode(void) {
-   if ((getFixedText().size() >= 3) && (getFixedText()[0] == '_') 
-         && isdigit(getFixedText()[1]) 
+   if ((getFixedText().size() >= 3) && (getFixedText()[0] == '_')
+         && isdigit(getFixedText()[1])
          && isdigit(getFixedText()[2]) ) {
       return getFixedText().substr(3, string::npos);
    } else {
@@ -231,7 +231,7 @@ bool ScoreItem::isBold(void) {
 //    etc.
 //
 
-string ScoreItem::getInitialFontCode(void) { 
+string ScoreItem::getInitialFontCode(void) {
    int p8 = getP8Int();
    if (p8 >= 1000) {
       // font override parameter
@@ -244,8 +244,8 @@ string ScoreItem::getInitialFontCode(void) {
       return out;
    }
 
-   if ((getFixedText().size() >= 3) && (getFixedText()[0] == '_') 
-      && isdigit(getFixedText()[1]) 
+   if ((getFixedText().size() >= 3) && (getFixedText()[0] == '_')
+      && isdigit(getFixedText()[1])
       && isdigit(getFixedText()[2]) ) {
       return getFixedText().substr(0, 3);
    } else {
@@ -267,15 +267,15 @@ string ScoreItem::getInitialFontCode(void) {
 //    etc.
 //
 
-int ScoreItem::getInitialFontCodeAsInteger(void) { 
-   if ((getFixedText().size() >= 3) && (getFixedText()[0] == '_') 
-      && isdigit(getFixedText()[1]) 
+int ScoreItem::getInitialFontCodeAsInteger(void) {
+   if ((getFixedText().size() >= 3) && (getFixedText()[0] == '_')
+      && isdigit(getFixedText()[1])
       && isdigit(getFixedText()[2]) ) {
       return (getFixedText()[1] - '0') * 10 + (getFixedText()[2] - '0');
    } else {
       return -1;
    }
-} 
+}
 
 
 

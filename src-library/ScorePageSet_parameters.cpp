@@ -17,15 +17,15 @@ using namespace std;
 
 //////////////////////////////
 //
-// ScorePageSet::copyParameterOverwrite -- 
+// ScorePageSet::copyParameterOverwrite --
 //
 
-void ScorePageSet::copyParameterOverwrite(const string& newnamespace, 
+void ScorePageSet::copyParameterOverwrite(const string& newnamespace,
       const string& oldnamespace, const string& parameter) {
    for (auto& it : page_storage) {
       int overlaycount = it->getOverlayCount();
       for (unsigned int j=0; j<overlaycount; j++) {
-         it->getPage(j)->copyParameterOverwrite(newnamespace, oldnamespace, 
+         it->getPage(j)->copyParameterOverwrite(newnamespace, oldnamespace,
                parameter);
       }
    }
@@ -35,15 +35,15 @@ void ScorePageSet::copyParameterOverwrite(const string& newnamespace,
 
 //////////////////////////////
 //
-// ScorePageSet::copyParameterNoOverwrite -- 
+// ScorePageSet::copyParameterNoOverwrite --
 //
 
-void ScorePageSet::copyParameterNoOverwrite(const string& newnamespace, 
+void ScorePageSet::copyParameterNoOverwrite(const string& newnamespace,
       const string& oldnamespace, const string& parameter) {
    for (auto& it : page_storage) {
       int overlaycount = it->getOverlayCount();
       for (unsigned int j=0; j<overlaycount; j++) {
-         it->getPage(j)->copyParameterNoOverwrite(newnamespace, oldnamespace, 
+         it->getPage(j)->copyParameterNoOverwrite(newnamespace, oldnamespace,
                parameter);
       }
    }

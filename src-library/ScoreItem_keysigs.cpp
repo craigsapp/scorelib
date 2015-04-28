@@ -6,7 +6,7 @@
 // URL:           https://github.com/craigsapp/scorelib/blob/master/src-library/ScoreItem_keysigs.cpp
 // Syntax:        C++11
 //
-// Description:   Functions which (primarily) process P1=17 
+// Description:   Functions which (primarily) process P1=17
 //       (key signature) items.
 //
 
@@ -17,8 +17,8 @@ using namespace std;
 
 //////////////////////////////
 //
-// ScoreItem::getDiatonicAccidentalState -- returns an array of seven integers 
-//     representing the accidental state of each diatonic pitch in 
+// ScoreItem::getDiatonicAccidentalState -- returns an array of seven integers
+//     representing the accidental state of each diatonic pitch in
 //     this order:  C, D, E, F, G, A, B.
 //
 //     Return value is the key signature count, such as -4 for four flats.
@@ -73,7 +73,7 @@ int ScoreItem::getDiatonicAccidentalState(vectorI& states) {
 //////////////////////////////
 //
 // ScoreItem::getAccidentalCount --  Return the number of accidentals
-//    in the key signature.  -1 == one flat, 2 == two sharps, 
+//    in the key signature.  -1 == one flat, 2 == two sharps,
 //    0 == no sharps/flats.
 //
 

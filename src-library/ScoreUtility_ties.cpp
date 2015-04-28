@@ -17,7 +17,7 @@ using namespace std;
 
 //////////////////////////////
 //
-// ScoreUtility::analyzeStaffTies -- 
+// ScoreUtility::analyzeStaffTies --
 //    items == list of items on the system (or single staff).
 //
 //    Output variables which are used to link slurs/ties across system
@@ -27,7 +27,7 @@ using namespace std;
 //    hangingright == slurs/ties which extent to the right of the system.
 //
 
-void ScoreUtility::analyzeStaffTies(int staffnum, vectorSIp& items, 
+void ScoreUtility::analyzeStaffTies(int staffnum, vectorSIp& items,
       vectorSIp& hangingleft, vectorSIp& leftnotes, vectorSIp& hangingright,
       vectorSIp& rightnotes) {
    vectorVSIp notes;
@@ -44,7 +44,7 @@ void ScoreUtility::analyzeStaffTies(int staffnum, vectorSIp& items,
    SCORE_FLOAT tolerance = 0.001;
    SCORE_FLOAT dur;
    ScoreItem* sip;
-   
+
    // first place notes
    for (i=0; i<items.size(); i++) {
       if (staffnum != items[i]->getStaffNumber()) {
@@ -113,13 +113,13 @@ void ScoreUtility::analyzeStaffTies(int staffnum, vectorSIp& items,
 // ScoreUtility::identifySlurStartStopOffsets --
 //
 
-void ScoreUtility::identifySlurStartStopOffsets(int index, 
-      vectorSIp& slurs, 
-      vectorVSIp& notes, 
+void ScoreUtility::identifySlurStartStopOffsets(int index,
+      vectorSIp& slurs,
+      vectorVSIp& notes,
       map<SCORE_FLOAT, int>& offsettoindex,
-      vectorSIp& hangingleft, 
+      vectorSIp& hangingleft,
       vectorSIp& leftnotes,
-      vectorSIp& hangingright, 
+      vectorSIp& hangingright,
       vectorSIp& rightnotes) {
 
    if (notes.size() == 0) {
@@ -154,7 +154,7 @@ void ScoreUtility::identifySlurStartStopOffsets(int index,
       // search for the starting position of the slur
       if (!startQ) {
          if (hpos == starthpos) {
-            startoffset = notes[i][0]->getParameterDouble(ns_auto, 
+            startoffset = notes[i][0]->getParameterDouble(ns_auto,
                      np_staffOffsetDuration);
             startQ = 1;
             startindex = i;
@@ -163,12 +163,12 @@ void ScoreUtility::identifySlurStartStopOffsets(int index,
             diff2 = starthpos - lasthpos;
 
             if (diff1 < diff2) {
-               startoffset = notes[i][0]->getParameterDouble(ns_auto, 
+               startoffset = notes[i][0]->getParameterDouble(ns_auto,
                      np_staffOffsetDuration);
                startQ = 1;
                startindex = i;
             } else if (i > 0) {
-               startoffset = notes[i-1][0]->getParameterDouble(ns_auto, 
+               startoffset = notes[i-1][0]->getParameterDouble(ns_auto,
                      np_staffOffsetDuration);
                startQ = 1;
                startindex = i;
@@ -183,9 +183,9 @@ void ScoreUtility::identifySlurStartStopOffsets(int index,
       // search for the ending position of the slur
       if (!endQ) {
          if (hpos == endhpos) {
-            sip->setParameterQuiet(ns_auto, np_staffOffsetRight, 
+            sip->setParameterQuiet(ns_auto, np_staffOffsetRight,
                notes[i][0]->getParameter(ns_auto, np_staffOffsetDuration));
-            endoffset = notes[i][0]->getParameterDouble(ns_auto, 
+            endoffset = notes[i][0]->getParameterDouble(ns_auto,
                   np_staffOffsetDuration);
             endQ = 1;
             endindex = i;
@@ -194,16 +194,16 @@ void ScoreUtility::identifySlurStartStopOffsets(int index,
             diff2 = endhpos - lasthpos;
 
             if (diff1 < diff2) {
-               sip->setParameterQuiet(ns_auto, np_staffOffsetRight, 
+               sip->setParameterQuiet(ns_auto, np_staffOffsetRight,
                   notes[i][0]->getParameter(ns_auto, np_staffOffsetDuration));
-               endoffset = notes[i][0]->getParameterDouble(ns_auto, 
+               endoffset = notes[i][0]->getParameterDouble(ns_auto,
                      np_staffOffsetDuration);
                endQ = 1;
                endindex = i;
             } else if (i > 0) {
-               sip->setParameterQuiet(ns_auto, np_staffOffsetRight, 
+               sip->setParameterQuiet(ns_auto, np_staffOffsetRight,
                   notes[i-1][0]->getParameter(ns_auto, np_staffOffsetDuration));
-               endoffset = notes[i-1][0]->getParameterDouble(ns_auto, 
+               endoffset = notes[i-1][0]->getParameterDouble(ns_auto,
                   np_staffOffsetDuration);
                endQ = 1;
                endindex = i;
@@ -241,10 +241,10 @@ void ScoreUtility::identifySlurStartStopOffsets(int index,
    // Have to deal with slurs which hang left and right off of the system.
 
    if ((endindex <= 0) && (endQ == 0)) {
-      // Never found the end of the tie.  Check to see if it should be 
+      // Never found the end of the tie.  Check to see if it should be
       // attached to the last chord in the system, or to the break of the
       // system.
-      if ((lastnotep3 < endhpos) && 
+      if ((lastnotep3 < endhpos) &&
             ((endhpos - lastnotep3) <  (systemendp3 - endhpos))) {
          endindex = notes.size()-1;
       } else if ((lastnotep3 < endhpos) &&
@@ -339,7 +339,7 @@ void ScoreUtility::linkNotesByTie(ScoreItem* startslur,  SCORE_FLOAT slurdur,
    // a note with the same vertical placement at the end of the slur,
    // then call it a tie. (this won't work when there is a tie over a clef
    // change, but it is currently more important to catch ties over barlines,
-   // where the pitch identification of the second note requires the 
+   // where the pitch identification of the second note requires the
    // identification of the tie, so pitch is not 100% reliable at this point
    // in the automatically determined pitch values.
    SCORE_FLOAT vpos1, vpos2;
@@ -351,11 +351,11 @@ void ScoreUtility::linkNotesByTie(ScoreItem* startslur,  SCORE_FLOAT slurdur,
 
          if (vpos1 != vpos2) {
             // can't be tied because notes not at the same vertical position
-            // (unless there was a clef change which will have to be considered 
+            // (unless there was a clef change which will have to be considered
             // later).
             continue;
          }
-    
+
          if (startslur == endslur) {
             if (leftnotes[i]->getDuration() != slurdur) {
                continue;
@@ -364,7 +364,7 @@ void ScoreUtility::linkNotesByTie(ScoreItem* startslur,  SCORE_FLOAT slurdur,
 
          // This is almost certainly a tie so add links between the
          // two notes and the intervening slur.
-         
+
          // Indicate that the slur/tie is a tie:
          startslur->setParameterQuiet(ns_auto, np_tie, "true");
          if (startslur != endslur) {
@@ -374,9 +374,9 @@ void ScoreUtility::linkNotesByTie(ScoreItem* startslur,  SCORE_FLOAT slurdur,
          }
 
          // Link the two notes together:
-         leftnotes[i]->setParameterQuiet(ns_auto, np_tiedNextNote, 
+         leftnotes[i]->setParameterQuiet(ns_auto, np_tiedNextNote,
             rightnotes[j]);
-         rightnotes[j]->setParameterQuiet(ns_auto, np_tiedLastNote, 
+         rightnotes[j]->setParameterQuiet(ns_auto, np_tiedLastNote,
             leftnotes[i]);
 
          // Link the notes to the ties:
@@ -384,14 +384,14 @@ void ScoreUtility::linkNotesByTie(ScoreItem* startslur,  SCORE_FLOAT slurdur,
          rightnotes[j]->setParameterQuiet(ns_auto, np_tieNext, endslur);
 
          // Link the ties to the notes:
-         startslur->setParameterQuiet(ns_auto, np_tiedLastNote, 
+         startslur->setParameterQuiet(ns_auto, np_tiedLastNote,
             leftnotes[i]);
-         startslur->setParameterQuiet(ns_auto, np_tiedNextNote, 
+         startslur->setParameterQuiet(ns_auto, np_tiedNextNote,
             rightnotes[j]);
          if (endslur != startslur) {
-            endslur->setParameterQuiet(ns_auto, np_tiedLastNote, 
+            endslur->setParameterQuiet(ns_auto, np_tiedLastNote,
                leftnotes[i]);
-            endslur->setParameterQuiet(ns_auto, np_tiedNextNote, 
+            endslur->setParameterQuiet(ns_auto, np_tiedNextNote,
                rightnotes[j]);
          }
 
@@ -401,8 +401,8 @@ void ScoreUtility::linkNotesByTie(ScoreItem* startslur,  SCORE_FLOAT slurdur,
          // if the second note has an explicit accidental which is not in
          // agreement with the first note; if so, then the notes are not tied
          // together and are actually slured together (example C to C#).
-         // This particular case is needed tied notes across barlines: 
-         // (C# | C), where the second C has an implicit sharp from the 
+         // This particular case is needed tied notes across barlines:
+         // (C# | C), where the second C has an implicit sharp from the
          // first note of the tie.
          rightnotes[j]->setParameterQuiet(ns_auto, np_base40Pitch,
             leftnotes[i]->getParameter(ns_auto, np_base40Pitch));

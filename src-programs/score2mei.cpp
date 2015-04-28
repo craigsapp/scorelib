@@ -7,7 +7,7 @@
 // Documentation: https://github.com/craigsapp/scorelib/wiki/score2mei
 // Syntax:        C++ 11
 //
-// Description:   Converts a ScorePageSet into MEI.  
+// Description:   Converts a ScorePageSet into MEI.
 //
 
 #include "scorelib.h"
@@ -19,20 +19,20 @@
 using namespace std;
 
 void     processData                (ScorePageSet& infiles, Options& opts);
-ostream& convertSingleSegment       (ostream& out, ScorePageSet& infiles, 
+ostream& convertSingleSegment       (ostream& out, ScorePageSet& infiles,
                                      int segment, int indent);
 ostream& convertAllSegmentsToMdivs  (ostream& out, ScorePageSet& infiles);
 
-void     printToFile                (ScorePageSet& infiles, int segment, 
+void     printToFile                (ScorePageSet& infiles, int segment,
                                      string& filebase);
-void     convertAllSegmentsToSeparateFiles(ScorePageSet& infiles, 
+void     convertAllSegmentsToSeparateFiles(ScorePageSet& infiles,
                                            string& filebase);
-// 
+//
 // Utility functions:
 //
 
 ostream& printIndent                (ostream& out, int indent, string text);
-void     printIndent                (stringstream& out, int indent, 
+void     printIndent                (stringstream& out, int indent,
                                      string text);
 ScoreItem* getComposer              (ScorePageSet& infiles, int segment);
 ScoreItem* getTitle                 (ScorePageSet& infiles, int segment);
@@ -42,71 +42,71 @@ string   getDurAttributeValue       (ScoreItem* si);
 // Element printing functions:
 //
 
-ostream& printMeiHeadElement        (ostream& out, ScorePageSet& infiles, 
-                                     int segment, int indent, 
+ostream& printMeiHeadElement        (ostream& out, ScorePageSet& infiles,
+                                     int segment, int indent,
                                      map<string, ScoreItem*>& infoText);
-ostream& printEncodingDescElement   (ostream& out, ScorePageSet& infiles, 
-                                     int segment, int indent, 
+ostream& printEncodingDescElement   (ostream& out, ScorePageSet& infiles,
+                                     int segment, int indent,
                                      map<string, ScoreItem*>&  infoText);
-ostream& printFileDescElement       (ostream& out, ScorePageSet& infiles, 
-                                     int segment, int indent, 
+ostream& printFileDescElement       (ostream& out, ScorePageSet& infiles,
+                                     int segment, int indent,
                                      map<string, ScoreItem*>& infoText);
-ostream& printRevisionDescElement   (ostream& out, ScorePageSet& infiles, 
-                                     int segment, int indent, 
+ostream& printRevisionDescElement   (ostream& out, ScorePageSet& infiles,
+                                     int segment, int indent,
                                      map<string, ScoreItem*>&  infoText);
-ostream& printSegmentElement        (ostream& out, ScorePageSet& infiles, 
+ostream& printSegmentElement        (ostream& out, ScorePageSet& infiles,
                                      int segment, int indent, int divisions,
                                      map<string, ScoreItem*>& infoText);
-ostream& printScoreDefElement       (ostream& out, ScorePageSet& infiles, 
-                                     int segment, int indent, int divisions, 
+ostream& printScoreDefElement       (ostream& out, ScorePageSet& infiles,
+                                     int segment, int indent, int divisions,
                                      map<string, ScoreItem*>& infoText);
-ostream& printStaffGrpElement       (ostream& out, ScorePageSet& infiles, 
+ostream& printStaffGrpElement       (ostream& out, ScorePageSet& infiles,
                                      int segment, int indent);
-ostream& printSectionElement        (ostream& out, ScorePageSet& infiles, 
+ostream& printSectionElement        (ostream& out, ScorePageSet& infiles,
                                      int segment, int indent);
 ostream& printChordElement          (ostream& out, ScoreItem* si, int partstaff,
-                                     int indent, int divisions, 
+                                     int indent, int divisions,
                                      SCORE_FLOAT measureP3);
 ostream& printNoteElement           (ostream& out, ScoreItem* si,
                                      int partstaff, int indent, int divisions,
                                      SCORE_FLOAT measureP3);
-ostream& printPgHeadElement         (ostream& out, ScorePageSet& infiles, 
+ostream& printPgHeadElement         (ostream& out, ScorePageSet& infiles,
                                      int segment, int indent,
                                      map<string, ScoreItem*>& infoText);
-ostream& printRestElement           (ostream& out, ScoreItem* si, 
-                                     int partstaff, int indent, 
+ostream& printRestElement           (ostream& out, ScoreItem* si,
+                                     int partstaff, int indent,
                                      int divisions, SCORE_FLOAT measureP3);
-ostream& printBeamElement           (ostream& out, ScoreItem* si, 
-                                     vectorSIp& items, int index, 
-                                     int partstaff, int indent, int divisions, 
+ostream& printBeamElement           (ostream& out, ScoreItem* si,
+                                     vectorSIp& items, int index,
+                                     int partstaff, int indent, int divisions,
                                      SCORE_FLOAT measureP3);
 ostream& printVerseElements         (ostream& out, ScoreItem* si, int indent);
-ostream& printStaffElement          (ostream& out, ScorePageSet& infiles, 
-                                     ScorePage& page, 
+ostream& printStaffElement          (ostream& out, ScorePageSet& infiles,
+                                     ScorePage& page,
                                      SystemMeasure& measureitems,
-                                     int sysindex, int measureindex, 
-                                     vectorVSIp& curclef, vectorVSIp& curkey, 
-                                     vectorVSIp& curtime, int mcounter, 
-                                     int indent, int divisions, 
-                                     int systemindex, vectorSF& staffsizes, 
-                                     int segmentindex, int partcount, 
+                                     int sysindex, int measureindex,
+                                     vectorVSIp& curclef, vectorVSIp& curkey,
+                                     vectorVSIp& curtime, int mcounter,
+                                     int indent, int divisions,
+                                     int systemindex, vectorSF& staffsizes,
+                                     int segmentindex, int partcount,
                                      int partindex);
-ostream& printMeasureElement        (ostream&  out, ScorePageSet& infiles, 
-                                     int segment, int systemindex, int indent, 
+ostream& printMeasureElement        (ostream&  out, ScorePageSet& infiles,
+                                     int segment, int systemindex, int indent,
                                      vectorVSIp& curclef, vectorVSIp& curkey,
                                      vectorVSIp& curtime, int& mcounter,
                                      int divisions, vectorSF& staffsizes,
                                      int partcount);
-ostream& printMeasureElementContents(ostream& out, ScorePageSet& infiles, 
-                                     ScorePage& page, 
-                                     SystemMeasure& measureitems, 
-                                     int sysindex, int measureindex, 
-                                     vectorVSIp& curclef, vectorVSIp& curkey, 
-                                     vectorVSIp& curtime, int mcounter, 
+ostream& printMeasureElementContents(ostream& out, ScorePageSet& infiles,
+                                     ScorePage& page,
+                                     SystemMeasure& measureitems,
+                                     int sysindex, int measureindex,
+                                     vectorVSIp& curclef, vectorVSIp& curkey,
+                                     vectorVSIp& curtime, int mcounter,
                                      int indent, int divisions,
                                      int systemindex, vectorSF& staffsizes,
                                      int segmentindex, int partcount);
-ostream& printStaffDefElement       (ostream& out, ScorePageSet& infiles, 
+ostream& printStaffDefElement       (ostream& out, ScorePageSet& infiles,
                                      int segment, int indent, int partindex,
                                      int partcount);
 
@@ -128,13 +128,13 @@ int      dufayQ           = 0;
 
 int main(int argc, char** argv) {
    Options opts;
-   opts.define("L|no-location=b", 
+   opts.define("L|no-location=b",
          "Don't print location of each measure as comment");
    opts.define("s|segment=i:0", "segment to process");
-   opts.define("f|filebase=s:filebase", 
+   opts.define("f|filebase=s:filebase",
          "Base of filename for multiple segments");
    opts.define("debug=b", "Print debugging information");
-   opts.define("scale|scaling|rhythmic-scaling=i:0", 
+   opts.define("scale|scaling|rhythmic-scaling=i:0",
          "Global rhythmic scaling of durations");
    opts.define("I|no-invisible=b", "Don't convert invisible rests/notes");
    opts.define("no-lyrics=b", "Don't process Lyrics");
@@ -158,7 +158,7 @@ int main(int argc, char** argv) {
       invisibleQ       = 1;
       StartTempo       = 525;
    }
- 
+
    ScorePageSet infiles(opts);
 
    processData(infiles, opts);
@@ -203,7 +203,7 @@ void processData(ScorePageSet& infiles, Options& opts) {
 // convertAllSegmentsToSeparateFiles --
 //
 
-void convertAllSegmentsToSeparateFiles(ScorePageSet& infiles, 
+void convertAllSegmentsToSeparateFiles(ScorePageSet& infiles,
       string& filebase) {
    int segmentcount =  infiles.getSegmentCount();
    for (int i=0; i<segmentcount; i++) {
@@ -241,10 +241,10 @@ void printToFile(ScorePageSet& infiles, int segment, string& filebase) {
 // convertSingleSegment --
 //
 
-ostream& convertSingleSegment(ostream& out, ScorePageSet& infiles, 
+ostream& convertSingleSegment(ostream& out, ScorePageSet& infiles,
    int segment, int indent) {
    if (indent == 0) {
-      out << R"(<?xml version="1.0" encoding="UTF-8" standalone="no"?>)" 
+      out << R"(<?xml version="1.0" encoding="UTF-8" standalone="no"?>)"
           << "\n";
 
       out << R"(<?xml-model href="http://music-encoding.googlecode.com/svn/tags/MEI2013_v2.1.0/schemata/mei-all.rng")";
@@ -303,7 +303,7 @@ ostream& convertSingleSegment(ostream& out, ScorePageSet& infiles,
 //     The <mei> entry point is inside of <score> element.
 //
 
-ostream& printSegmentElement(ostream& out, ScorePageSet& infiles, int segment, 
+ostream& printSegmentElement(ostream& out, ScorePageSet& infiles, int segment,
       int indent, int divisions, map<string, ScoreItem*>& infoText) {
 
    // <scoreDef>
@@ -380,7 +380,7 @@ ostream& printScoreDefElement(ostream& out, ScorePageSet& infiles, int segment,
    printIndent(out, indent, "page.rightmar=\"");
    out << 0.475 * 25.4 / vuheight << "\"\n";
 
-   // top and bottom margins are set to 0 
+   // top and bottom margins are set to 0
    printIndent(out, indent, "page.topmar=\"0\"\n");
    printIndent(out, indent, "page.botmar=\"0\"\n");
 
@@ -413,7 +413,7 @@ ostream& printScoreDefElement(ostream& out, ScorePageSet& infiles, int segment,
 // printPgHeadElement -- Identify the title and composer on the first system.
 //
 
-ostream& printPgHeadElement(ostream& out, ScorePageSet& infiles, int segment, 
+ostream& printPgHeadElement(ostream& out, ScorePageSet& infiles, int segment,
       int indent, map<string, ScoreItem*>& infoText) {
 
    indent++;
@@ -440,7 +440,7 @@ ostream& printPgHeadElement(ostream& out, ScorePageSet& infiles, int segment,
       if (text.length() == 0) {
          continue;
       }
-      p2              = si->getStaffNumber();    
+      p2              = si->getStaffNumber();
       p3              = si->getHPos();
       scale           = si->getStaffScale();
       staffoffset     = si->getStaffVerticalOffset();
@@ -469,7 +469,7 @@ ostream& printPgHeadElement(ostream& out, ScorePageSet& infiles, int segment,
       tout << " y=\"" << yposition << "\"";
       tout << ">\n";
       printIndent(tout, indent, "<rend");
-      tout << " fontsize=\"" << fontsize << "\">";         
+      tout << " fontsize=\"" << fontsize << "\">";
       tout << SU::getTextNoFontXmlEscapedUTF8(text);
       tout << "</rend>\n";
       printIndent(tout, --indent, "</anchoredText>\n");
@@ -492,7 +492,7 @@ ostream& printPgHeadElement(ostream& out, ScorePageSet& infiles, int segment,
 // printStaffGrpElement --
 //
 
-ostream& printStaffGrpElement(ostream& out, ScorePageSet& infiles, 
+ostream& printStaffGrpElement(ostream& out, ScorePageSet& infiles,
       int segment, int indent) {
 
    ScoreSegment& seg = infiles.getSegment(segment);
@@ -581,7 +581,7 @@ ostream& printStaffGrpElement(ostream& out, ScorePageSet& infiles,
 // printStaffDefElement -- Print the <part-list> element.
 //
 
-ostream& printStaffDefElement(ostream& out, ScorePageSet& infiles, 
+ostream& printStaffDefElement(ostream& out, ScorePageSet& infiles,
       int segment, int indent, int partindex, int partcount) {
 
    ScoreSegment& seg = infiles.getSegment(segment);
@@ -648,7 +648,7 @@ ostream& printStaffDefElement(ostream& out, ScorePageSet& infiles,
 //    <mei>/<music>/<body>/<mdiv>/<score>/<section>
 //
 
-ostream& printSectionElement(ostream& out, ScorePageSet& infiles, int segment, 
+ostream& printSectionElement(ostream& out, ScorePageSet& infiles, int segment,
       int indent) {
    printIndent(out, indent++, "<section>\n");
 
@@ -673,8 +673,8 @@ ostream& printSectionElement(ostream& out, ScorePageSet& infiles, int segment,
    fill(staffsizes.begin(), staffsizes.end(), 1.0);
 
    for (i=0; i<systemcount; i++) {
-      printMeasureElement(out, infiles, segment, i, indent, current_clef, 
-            current_keysig, current_timesig, measure_counter, divisions, 
+      printMeasureElement(out, infiles, segment, i, indent, current_clef,
+            current_keysig, current_timesig, measure_counter, divisions,
             staffsizes, partcount);
    }
 
@@ -690,19 +690,19 @@ ostream& printSectionElement(ostream& out, ScorePageSet& infiles, int segment,
 // printMeiHeadElement -- print <mei>/<meiHead> element.
 //
 
-ostream& printMeiHeadElement(ostream& out, ScorePageSet& infiles, int segment, 
+ostream& printMeiHeadElement(ostream& out, ScorePageSet& infiles, int segment,
       int indent, map<string, ScoreItem*>& infoText) {
 
    printIndent(out, indent++, "<meiHead>\n");
 
    // <fileDesc>
-   printFileDescElement(out, infiles, segment, indent, infoText); 
+   printFileDescElement(out, infiles, segment, indent, infoText);
 
    // <encodingDesc>
-   printEncodingDescElement(out, infiles, segment, indent, infoText); 
+   printEncodingDescElement(out, infiles, segment, indent, infoText);
 
    // <revisionDesc>
-   printRevisionDescElement(out, infiles, segment, indent, infoText); 
+   printRevisionDescElement(out, infiles, segment, indent, infoText);
 
    printIndent(out, --indent, "</meiHead>\n");
 
@@ -716,7 +716,7 @@ ostream& printMeiHeadElement(ostream& out, ScorePageSet& infiles, int segment,
 // printRevisionDescElement -- print <mei>/<meiHead>/<revisionDesc> element.
 //
 
-ostream&  printRevisionDescElement(ostream& out, ScorePageSet& infiles, 
+ostream&  printRevisionDescElement(ostream& out, ScorePageSet& infiles,
       int segment, int indent, map<string, ScoreItem*>&  infoText) {
 
    return out;
@@ -729,7 +729,7 @@ ostream&  printRevisionDescElement(ostream& out, ScorePageSet& infiles,
 // printEncodingDescElement -- print <mei>/<meiHead>/<encodingDesc> element.
 //
 
-ostream&  printEncodingDescElement(ostream& out, ScorePageSet& infiles, 
+ostream&  printEncodingDescElement(ostream& out, ScorePageSet& infiles,
       int segment, int indent, map<string, ScoreItem*>&  infoText) {
 
    return out;
@@ -770,7 +770,7 @@ ostream&  printEncodingDescElement(ostream& out, ScorePageSet& infiles,
 //  </fileDesc>
 //
 
-ostream& printFileDescElement(ostream& out, ScorePageSet& infiles, 
+ostream& printFileDescElement(ostream& out, ScorePageSet& infiles,
       int segment, int indent, map<string, ScoreItem*>& infoText) {
 
    printIndent(out, indent++, "<fileDesc>\n");
@@ -1035,8 +1035,8 @@ void printIndent(stringstream& out, int indent, string text) {
 // printMeasureElement -- Print all parts on the given system.
 //
 
-ostream& printMeasureElement(ostream& out, ScorePageSet& infiles, 
-      int segment, int systemindex, int indent, vectorVSIp& curclef, 
+ostream& printMeasureElement(ostream& out, ScorePageSet& infiles,
+      int segment, int systemindex, int indent, vectorVSIp& curclef,
       vectorVSIp& curkey, vectorVSIp& curtime, int& mcounter, int divisions,
       vectorSF& staffsizes, int partcount) {
 
@@ -1075,13 +1075,13 @@ ostream& printMeasureElement(ostream& out, ScorePageSet& infiles,
       out << " width=\"" << width << "\"";
       out << ">\n";
 
-      printMeasureElementContents(out, infiles, *page, 
-            measureitems, sysindex, i, curclef, curkey, curtime, 
+      printMeasureElementContents(out, infiles, *page,
+            measureitems, sysindex, i, curclef, curkey, curtime,
             mcounter, indent, divisions, systemindex, staffsizes,
             segment, partcount);
 
       printIndent(out, --indent, "</measure>\n");
-      printIndent(out, indent, 
+      printIndent(out, indent,
          "<!--=======================================================-->\n");
       mcounter++;
    }
@@ -1096,11 +1096,11 @@ ostream& printMeasureElement(ostream& out, ScorePageSet& infiles,
 // printStaffElement -- print a single measure for the given part
 //
 
-ostream&  printStaffElement(ostream& out, ScorePageSet& infiles, 
+ostream&  printStaffElement(ostream& out, ScorePageSet& infiles,
       ScorePage& page, SystemMeasure& measureitems,
-      int sysindex, int measureindex, vectorVSIp& curclef, 
+      int sysindex, int measureindex, vectorVSIp& curclef,
       vectorVSIp& curkey, vectorVSIp& curtime, int mcounter, int indent,
-      int divisions, int systemindex, vectorSF& staffsizes, 
+      int divisions, int systemindex, vectorSF& staffsizes,
       int segmentindex, int partcount, int partindex) {
 
    ScoreSegment& seg = infiles.getSegment(segmentindex);
@@ -1119,7 +1119,7 @@ ostream&  printStaffElement(ostream& out, ScorePageSet& infiles,
    ScoreItem* nextclef = NULL;
    ScoreItem* nextkey  = NULL;
    ScoreItem* nexttime = NULL;
- 
+
    // double measuredur = measureitems.getDuration();
    int partstaff = page.getPageStaffIndex(partaddress);
 
@@ -1163,7 +1163,7 @@ ostream&  printStaffElement(ostream& out, ScorePageSet& infiles,
             continue;
          }
          if (si->isFirstNoteInBeamGroup()) {
-            printBeamElement(out, si, items, i, partstaff, indent, divisions, 
+            printBeamElement(out, si, items, i, partstaff, indent, divisions,
                 measureP3);
          }
          if (si->getChordNoteCount() > 1) {
@@ -1203,7 +1203,7 @@ ostream&  printStaffElement(ostream& out, ScorePageSet& infiles,
 // printBeamElement -- returns the index number of the last note in the group.
 //
 
-ostream& printBeamElement(ostream& out, ScoreItem* si, vectorSIp& items, int index, 
+ostream& printBeamElement(ostream& out, ScoreItem* si, vectorSIp& items, int index,
       int partstaff, int indent, int divisions, SCORE_FLOAT measureP3) {
 
    BeamGroup* bgp = si->getBeamGroup();
@@ -1221,10 +1221,10 @@ ostream& printBeamElement(ostream& out, ScoreItem* si, vectorSIp& items, int ind
          continue;
       }
       if (si->getChordNoteCount() > 1) {
-         printChordElement(out, bg.notes[i], partstaff, indent, divisions, 
+         printChordElement(out, bg.notes[i], partstaff, indent, divisions,
                measureP3);
       }
-      printNoteElement(out, bg.notes[i], partstaff, indent, divisions, 
+      printNoteElement(out, bg.notes[i], partstaff, indent, divisions,
             measureP3);
    }
 
@@ -1240,7 +1240,7 @@ ostream& printBeamElement(ostream& out, ScoreItem* si, vectorSIp& items, int ind
 //      to a common stem.
 //
 
-ostream& printChordElement(ostream& out, ScoreItem* si, int partstaff, 
+ostream& printChordElement(ostream& out, ScoreItem* si, int partstaff,
       int indent, int divisions, SCORE_FLOAT measureP3) {
 
    int i;
@@ -1250,7 +1250,7 @@ ostream& printChordElement(ostream& out, ScoreItem* si, int partstaff,
    printIndent(out, indent++, "<chord>\n");
 
    for (i=0; i<notecount; i++) {
-      printNoteElement(out, chordnotes[i], partstaff, indent, divisions, 
+      printNoteElement(out, chordnotes[i], partstaff, indent, divisions,
             measureP3);
    }
 
@@ -1266,15 +1266,15 @@ ostream& printChordElement(ostream& out, ScoreItem* si, int partstaff,
 // printMeasureElementContents -- print a single measure for the given part
 //
 
-ostream&  printMeasureElementContents(ostream& out, ScorePageSet& infiles, 
+ostream&  printMeasureElementContents(ostream& out, ScorePageSet& infiles,
       ScorePage& page, SystemMeasure& measureitems,
-      int sysindex, int measureindex, vectorVSIp& curclef, 
+      int sysindex, int measureindex, vectorVSIp& curclef,
       vectorVSIp& curkey, vectorVSIp& curtime, int mcounter, int indent,
-      int divisions, int systemindex, vectorSF& staffsizes, 
+      int divisions, int systemindex, vectorSF& staffsizes,
       int segmentindex, int partcount) {
    int i;
    for (i=partcount-1; i >= 0; i--) {
-      printStaffElement(out, infiles, page, measureitems, 
+      printStaffElement(out, infiles, page, measureitems,
             sysindex, measureindex, curclef, curkey, curtime, mcounter, indent,
             divisions, systemindex, staffsizes, segmentindex, partcount, i);
    }
@@ -1288,7 +1288,7 @@ ostream&  printMeasureElementContents(ostream& out, ScorePageSet& infiles,
 // printRestElement -- Print a rest.
 //
 
-ostream& printRestElement(ostream& out, ScoreItem* si, int partstaff, 
+ostream& printRestElement(ostream& out, ScoreItem* si, int partstaff,
       int indent, int divisions, SCORE_FLOAT measureP3) {
 
    printIndent(out, indent++, "<rest");
@@ -1318,13 +1318,13 @@ ostream& printRestElement(ostream& out, ScoreItem* si, int partstaff,
 // printNoteElement -- Print a note and any chord-notes attached to it.
 //
 
-ostream&  printNoteElement(ostream& out, ScoreItem* si, int partstaff, 
+ostream&  printNoteElement(ostream& out, ScoreItem* si, int partstaff,
       int indent, int divisions, SCORE_FLOAT measureP3) {
 
    printIndent(out, indent++, "<note\n");
    printIndent(out, indent, "xml:id=\"n");
    out << (uint64_t)si << "\"\n";
-  
+
    string dur = getDurAttributeValue(si);
    if (dur.size() > 0) {
       printIndent(out, indent, "dur=\"");
@@ -1342,7 +1342,7 @@ ostream&  printNoteElement(ostream& out, ScoreItem* si, int partstaff,
    // note@pname -- The diatonic pitch letter name of the note.
    printIndent(out, indent, "pname=\"");
    out << step << "\"\n";
-   
+
    // note@accid -- The chromatic alteration of the note.
    switch (alter) {
       case -2: printIndent(out, indent, "accid=\"ff\"\n"); break;
@@ -1355,7 +1355,7 @@ ostream&  printNoteElement(ostream& out, ScoreItem* si, int partstaff,
    printIndent(out, indent, "oct=\"");
    out << octave << "\"\n";
 
-   // note@stem 
+   // note@stem
    if (si->hasStem()) {
       if (si->stemUp()) {
          printIndent(out, indent, "stem.dir=\"up\"\n");
@@ -1485,7 +1485,7 @@ ostream& printVerseElements(ostream& out, ScoreItem* si, int indent) {
                // a single-word syllable.
             }
          }
-      
+
          // syl@con -- The continue attribute for a syllable.  What comes
          // after it to link to the next syllable in the verse:
          //    s = space is the connector to next syllable
@@ -1502,7 +1502,7 @@ ostream& printVerseElements(ostream& out, ScoreItem* si, int indent) {
          }
 
          // syl@fontsize -- print the font size (in points):
-         out << " font-size=\"" 
+         out << " font-size=\""
              << verses[i][j]->getFontSizeInPoints(staffscale) << "\"";
          out << ">";
 
@@ -1553,7 +1553,7 @@ string getDurAttributeValue(ScoreItem* si) {
       case -7:  return "1024";
       case -8:  return "2048";
    }
- 
+
    // unknown type
    return "";
 }

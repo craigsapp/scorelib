@@ -6,7 +6,7 @@
 // URL:           https://github.com/craigsapp/scorelib/blob/master/src-library/ScorePageSet_lyrics.cpp
 // Syntax:        C++11
 //
-// Description:   Functions related to lyrics identification 
+// Description:   Functions related to lyrics identification
 //      within ScoreSegments.
 //
 
@@ -86,7 +86,7 @@ void ScorePageSet::analyzeLyrics(int segmentindex, int partindex) {
    vectorSF average(maxlyriccount);
    fill(average.begin(), average.end(), 0.0);
    int counter = 0;
- 
+
    for (i=0; i<systems.size(); i++) {
       if (verseP4s[i].size() != maxlyriccount) {
          continue;
@@ -140,23 +140,23 @@ void ScorePageSet::analyzeLyrics(int segmentindex, int partindex) {
          // a maximum on other lines.  Search for lyrics which were not
          // initially identified, looking at expected vertical positions
          // based on the average height for systems which are complete.
-         identifyExtraVerses(text[i], segmentindex, partindex, i, verseP4s[i], 
-               average, p2vals[i]); 
+         identifyExtraVerses(text[i], segmentindex, partindex, i, verseP4s[i],
+               average, p2vals[i]);
       }
 
-      // The following code will search for lyrics underneath the lowest 
+      // The following code will search for lyrics underneath the lowest
       // expected/identified lyric line in case it has been missed.
       SCORE_FLOAT linedistance = 5.0;
       SCORE_FLOAT sum = 0.0;
       if (average.size() > 1) {
          for (j=0; j<average.size()-1; j++) {
-            sum += average[j] - average[j+1]; 
+            sum += average[j] - average[j+1];
          }
          linedistance = sum / (average.size()-1.0);
       }
       if (verseP4s[i].size() >= average.size()) {
          // looking for an extra line which is greater than maxlyrics count:
-         addedlyrics[i] = addVerseLine(text[i], verseP4s[i].size()+1, 2, 
+         addedlyrics[i] = addVerseLine(text[i], verseP4s[i].size()+1, 2,
                average.back()-linedistance, p2vals[i]);
          if (addedlyrics[i]) {
             average.push_back(average.back()-linedistance);
@@ -164,7 +164,7 @@ void ScorePageSet::analyzeLyrics(int segmentindex, int partindex) {
          }
       } else {
          // looking for an extra line which is less than maxlyrics count:
-         addedlyrics[i] = addVerseLine(text[i], verseP4s[i].size()+1, 2, 
+         addedlyrics[i] = addVerseLine(text[i], verseP4s[i].size()+1, 2,
                average[verseP4s[i].size()], p2vals[i]);
          if (addedlyrics[i]) {
             verseP4s[i].push_back(average.back());
@@ -276,8 +276,8 @@ void ScorePageSet::linkLyricsToNotes(int segmentindex, int partindex) {
 // fillStaffText --
 //
 
-void ScorePageSet::fillStaffText(vectorVSIp& text, int segmentindex, 
-      int partindex, int systemindex, vectorI& verses, vectorSF& average, 
+void ScorePageSet::fillStaffText(vectorVSIp& text, int segmentindex,
+      int partindex, int systemindex, vectorI& verses, vectorSF& average,
       int staffindex) {
    ScoreSegment& seg = getSegment(segmentindex);
    const vectorVASp& systems = getSystemAddresses(segmentindex, partindex);
@@ -292,7 +292,7 @@ void ScorePageSet::fillStaffText(vectorVSIp& text, int segmentindex,
    SCORE_FLOAT staffp3 = 0.0;
    int staffQ = 0;
    SCORE_FLOAT p4;
-  
+
    // Store information about possible lyrics
    int i;
    int p1, p2;
@@ -342,8 +342,8 @@ void ScorePageSet::fillStaffText(vectorVSIp& text, int segmentindex,
 //    may have been skipped over in the initial analysis.
 //
 
-int ScorePageSet::identifyExtraVerses(vectorVSIp& text, int segmentindex, 
-      int partindex, int systemindex, vectorI& verses, vectorSF& average, 
+int ScorePageSet::identifyExtraVerses(vectorVSIp& text, int segmentindex,
+      int partindex, int systemindex, vectorI& verses, vectorSF& average,
       int staffindex) {
 
    ScoreSegment& seg = getSegment(segmentindex);
@@ -352,11 +352,11 @@ int ScorePageSet::identifyExtraVerses(vectorVSIp& text, int segmentindex,
    int output = 0;
    address = *systems[systemindex][0];
    vectorSIp& items = seg.getSystemItems(address);
-  
+
    // Store information about possible lyrics
    int i, j;
 
-   // Now iterate through the average array which contains the 
+   // Now iterate through the average array which contains the
    // P4 positions of already detected lyrics, sorted from high to
    // low in the list.  If there is a mis-match between the detected
    // lyrics and the average positions, try to justify the existence
@@ -367,7 +367,7 @@ int ScorePageSet::identifyExtraVerses(vectorVSIp& text, int segmentindex,
    int isum;
    int newlyrics = 0;
    for (i=0; i<average.size(); i++) {
-      if ((currentv < verses.size()) 
+      if ((currentv < verses.size())
             && fabs(average[i] - verses[currentv]) < 2.5) {
          // The identified verse is in the expected location
          // (no gaps in the verse line above this currentv verse).
@@ -376,17 +376,17 @@ int ScorePageSet::identifyExtraVerses(vectorVSIp& text, int segmentindex,
       }
       if ((currentv == 0) || (currentv < verses.size())) {
          // There are no more verses to process, so check to
-         // see if there is an additional line of lyrics 
+         // see if there is an additional line of lyrics
          // that can be detected.  If no additional line of lyrics,
          // then give up and declare the lyric count to be final (no
-         // missing lyric lines are be permitted unless they are 
+         // missing lyric lines are be permitted unless they are
          // at the bottom of the lyric list).
          if (average[i] < 0) {
             trg = -int(-average[i]+0.5);
          } else {
             trg = int(average[i]+0.5);
          }
-         isum = text[1000+trg].size() + text[1000+trg+1].size() 
+         isum = text[1000+trg].size() + text[1000+trg+1].size()
               + text[1000+trg-1].size();
          if (isum == 0) {
             // no observed lyrics where expected, so give up on trying
@@ -442,7 +442,7 @@ void ScorePageSet::adjustHyphenInfo(vectorSIp& items, int staffnum) {
       versenum = items[i]->getParameterInt(ns_auto, np_verseLine);
       if ((versenum < 0) || (versenum > 999)) {
          continue;
-      }     
+      }
       lastitem = lastlyric[versenum];
       lastlyric[versenum] = items[i];
       if (lastitem == NULL) {
@@ -451,7 +451,7 @@ void ScorePageSet::adjustHyphenInfo(vectorSIp& items, int staffnum) {
       p1 = items[i]->getItemType();
       lastp1 = lastitem->getItemType();
       if (p1 == lastp1) {
-         continue; 
+         continue;
       }
       if (p1 == P1_Text) {
          // previous item is a line.  If it is a hyphen, then
@@ -509,7 +509,7 @@ int ScorePageSet::addVerseLine(vectorVSIp& vertical, int newnum,
             si->setParameter(ns_auto, np_wordExtension, "true");
          }
       }
-   } 
+   }
    return output;
 }
 
@@ -517,7 +517,7 @@ int ScorePageSet::addVerseLine(vectorVSIp& vertical, int newnum,
 
 //////////////////////////////
 //
-// ScorePageSet::changeVerseLine -- 
+// ScorePageSet::changeVerseLine --
 //
 
 void ScorePageSet::changeVerseLine(vectorVSIp& vertical, int oldnum, int newnum,
@@ -532,7 +532,7 @@ void ScorePageSet::changeVerseLine(vectorVSIp& vertical, int oldnum, int newnum,
          if (!si->isDefined(ns_auto, np_verseLine)) {
             continue;
          }
-         if ((oldnum >= 0) && 
+         if ((oldnum >= 0) &&
              (si->getParameterInt(ns_auto, np_verseLine) != oldnum)) {
             continue;
          }
@@ -549,7 +549,7 @@ void ScorePageSet::changeVerseLine(vectorVSIp& vertical, int oldnum, int newnum,
 //    ends of lines to the first syllable on the next system.
 //
 
-void ScorePageSet::stitchLyricsHyphensAcrossSystems(int segmentindex, 
+void ScorePageSet::stitchLyricsHyphensAcrossSystems(int segmentindex,
       int partindex, int lyriccount) {
    const vectorVASp& systems = getSystemAddresses(segmentindex, partindex);
    ScoreSegment& seg = getSegment(segmentindex);
@@ -581,10 +581,10 @@ void ScorePageSet::stitchLyricsHyphensAcrossSystems(int segmentindex,
          }
          p1 = it->getItemType();
          versenum = it->getParameterInt(ns_auto, np_verseLine);
-         if ((lastsys[versenum] != i) && (p1 == P1_Text) && 
+         if ((lastsys[versenum] != i) && (p1 == P1_Text) &&
              (lastlyric[versenum] == P1_Line)) {
-            it->setParameterQuiet(ns_auto, np_hyphenBefore, "true");            
-         } 
+            it->setParameterQuiet(ns_auto, np_hyphenBefore, "true");
+         }
          lastlyric[versenum] = p1;
          lastsys[versenum] = i;
       }
@@ -631,7 +631,7 @@ void ScorePageSet::identifyLyricsOnStaff(vectorSIp& systemitems, int staffidx,
          // Don't count hairpins as lyric text lines
          continue;
       }
-         
+
       if (si->isWavyLine()) {
          // Don't count wavy lines as lyric text lines
          continue;
@@ -666,14 +666,14 @@ void ScorePageSet::identifyLyricsOnStaff(vectorSIp& systemitems, int staffidx,
             vpos += 0.002;
          }
          vposes.push_back(vpos);
-         
+
          if (vpos < 0) {
             vvpos = -(int(-vpos));
          } else {
             vvpos = int(vpos);
          }
          histlinepos[(int)(vvpos+100)]++;
-      } 
+      }
    }
 
    vectorI lyricverse;
@@ -693,17 +693,17 @@ void ScorePageSet::identifyLyricsOnStaff(vectorSIp& systemitems, int staffidx,
    for (i=1; i<histtextpos.size()-2; i++) {
       if (histtextpos[i] == 0) {
          continue;
-      } 
+      }
       tval = histtextpos[i];
       lval = histlinepos[i];
-   
-      // Lyrics may not be exactly aligned vertically, so allow for +/- 1 
-      // variation.  This is more true of hyphens which will have a 
+
+      // Lyrics may not be exactly aligned vertically, so allow for +/- 1
+      // variation.  This is more true of hyphens which will have a
       // slightly higher vpos than the text.
       //
       // The score should be also based on text of previous/subsequent systems.
-      // If the vpos of a single word is the same as the lyric line of another 
-      // system for the same staff, then that single word would be part 
+      // If the vpos of a single word is the same as the lyric line of another
+      // system for the same staff, then that single word would be part
       // of the lyrics.
       if (i > 0) {
          lval += histlinepos[i-1];
@@ -733,10 +733,10 @@ void ScorePageSet::identifyLyricsOnStaff(vectorSIp& systemitems, int staffidx,
       value = i-100;
       lyricvpos.push_back(value);
    }
-   
+
    for (i=0; i<lyricverse.size(); i++) {
       verseP4s.push_back(lyricvpos[i]);
-      processVerse(lyricverse[i], lyricvpos[i], staffidx, itemidx, 
+      processVerse(lyricverse[i], lyricvpos[i], staffidx, itemidx,
             vposes, items);
    }
 
@@ -746,7 +746,7 @@ void ScorePageSet::identifyLyricsOnStaff(vectorSIp& systemitems, int staffidx,
 
 //////////////////////////////
 //
-// ScorePageSet::processVerse -- 
+// ScorePageSet::processVerse --
 //
 // Example of a syllable continuation line:
 // P1 P2 P3           P4         P5        P6
@@ -764,15 +764,15 @@ void ScorePageSet::identifyLyricsOnStaff(vectorSIp& systemitems, int staffidx,
 // P4 = vpos of left side
 // P5 = vpos of right side (or 999 for hairpins)
 // P6 = hpos of right side
-// P7 = type of line (0=normal, 1=dashed, -1=wavy, -1,P5:999 = dimuendo, 
+// P7 = type of line (0=normal, 1=dashed, -1=wavy, -1,P5:999 = dimuendo,
 //                    0,P5:999 = crescendo)
 // P8 = length of dashes on a dashed line
 // P9 = angle of line, or spaces between lines when dashed
 //
-// Identify whether syllables are connected to adjacent syllables with 
+// Identify whether syllables are connected to adjacent syllables with
 // hyphens.  Also, identify line extensions.
 //
-// Set these numeric named parameters on the lyrics and the lines between 
+// Set these numeric named parameters on the lyrics and the lines between
 // them (may change numbering system later to link the items together).
 //
 // hyphenBefore  : true if part of a word with a hyphen preceeding it.
@@ -781,7 +781,7 @@ void ScorePageSet::identifyLyricsOnStaff(vectorSIp& systemitems, int staffidx,
 // verse         : verse number starting at 1 for the highest verse on the line
 //
 
-void ScorePageSet::processVerse(int verse, int vpos, 
+void ScorePageSet::processVerse(int verse, int vpos,
       int staffidx, vectorI& objlist, vectorSF& vposes, vectorSIp& data) {
 
    vectorI verseitems;
@@ -804,17 +804,17 @@ void ScorePageSet::processVerse(int verse, int vpos,
       if (srecord->isDefined(ns_lyrics, np_verseLine)) {
          srecord->copyParameterOverwrite(ns_auto, ns_lyrics, np_verseLine);
       } else {
-         srecord->setParameter(ns_auto, np_verseLine, verse+1); 
-                                           // offset by 1 for data so 
+         srecord->setParameter(ns_auto, np_verseLine, verse+1);
+                                           // offset by 1 for data so
                                            // that 0 can mean not a lyric
       }
       if (i>0) {
-         slast = data[verseitems[i-1]]; 
+         slast = data[verseitems[i-1]];
       } else {
          slast = NULL;
       }
       if (i<verseitems.size()-1) {
-         snext = data[verseitems[i+1]]; 
+         snext = data[verseitems[i+1]];
       } else {
          snext = NULL;
       }
@@ -823,52 +823,52 @@ void ScorePageSet::processVerse(int verse, int vpos,
          if (snext != NULL) {
             if (snext->isDashedLine()) {
                if (srecord->isDefined(ns_lyrics, np_hyphenAfter)) {
-                  srecord->copyParameterOverwrite(ns_auto, ns_lyrics, 
+                  srecord->copyParameterOverwrite(ns_auto, ns_lyrics,
                         np_hyphenAfter);
                } else {
                   srecord->setParameter(ns_auto, np_hyphenAfter, "true");
                }
                if (snext->isDefined(ns_lyrics, np_lyricsHyphen)) {
-                  snext->copyParameterOverwrite(ns_auto, ns_lyrics, 
+                  snext->copyParameterOverwrite(ns_auto, ns_lyrics,
                         np_lyricsHyphen);
                } else {
                   snext->setParameter(ns_auto, np_lyricsHyphen, "true");
                }
             } else if (snext->isPlainLine()) {
                if (srecord->isDefined(ns_lyrics, np_wordExtension)) {
-                  srecord->copyParameterOverwrite(ns_auto, ns_lyrics, 
+                  srecord->copyParameterOverwrite(ns_auto, ns_lyrics,
                         np_wordExtension);
                } else {
                   srecord->setParameter(ns_auto, np_wordExtension, "true");
                }
 
                if (snext->isDefined(ns_lyrics, np_wordExtension)) {
-                  snext->copyParameterOverwrite(ns_auto, ns_lyrics, 
+                  snext->copyParameterOverwrite(ns_auto, ns_lyrics,
                         np_wordExtension);
                } else {
                   snext->setParameter(ns_auto, np_wordExtension, "true");
                }
 
-            } 
+            }
 
          }
          if (slast != NULL) {
             if (slast->isDashedLine()) {
                if (srecord->isDefined(ns_lyrics, np_hyphenBefore)) {
-                  srecord->copyParameterOverwrite(ns_auto, ns_lyrics, 
+                  srecord->copyParameterOverwrite(ns_auto, ns_lyrics,
                         np_hyphenBefore);
                } else {
                   srecord->setParameter(ns_auto, np_hyphenBefore, "true");
                }
 
                if (slast->isDefined(ns_lyrics, np_lyricsHyphen)) {
-                  slast->copyParameterOverwrite(ns_auto, ns_lyrics, 
+                  slast->copyParameterOverwrite(ns_auto, ns_lyrics,
                         np_lyricsHyphen);
                } else {
                   slast->setParameter(ns_auto, np_lyricsHyphen, "true");
                }
 
-            } 
+            }
          }
       }
    }

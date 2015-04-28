@@ -29,7 +29,7 @@ int main(int argc, char** argv) {
    opts.define("p|page=i:1", "Process only given page # (indexed from 1)");
    opts.define("t|test-assignment=b", "Test part assignment");
    opts.define("i|8|staff-items=b", "Extract staff items from page");
-   opts.define("c|pecf|part-extractor-control-file=b", 
+   opts.define("c|pecf|part-extractor-control-file=b",
          "file needed for part extraction");
    opts.process(argc, argv);
    ScorePageSet infiles(opts);
@@ -57,7 +57,7 @@ int main(int argc, char** argv) {
 //////////////////////////////
 //
 // generatePECF -- Create Part Extractor Control File.  This is used to
-//     extract parts with the page.exe program.  See page 263 of the 
+//     extract parts with the page.exe program.  See page 263 of the
 //     Score 3 reference manual.
 //
 
@@ -135,7 +135,7 @@ void printPartInfo(ScorePageSet& infiles, int page, Options& opts) {
 
       cout << i;
       cout << "\t";
-      
+
       // System number, indexed from 1, starting at top of page:
       cout << staff2system[i] + 1;
       cout << "\t";
@@ -205,7 +205,7 @@ void extractStaffItems(ScorePageSet& infiles, int page, Options& opts) {
 //
 // assignPartNumbers -- If P9 of staff is set to zero, then fill in
 //   with the staff number of the current system, with the top staff
-//   on the system being "1".  Automatic part assignment only works well 
+//   on the system being "1".  Automatic part assignment only works well
 //   if all parts are present in every system of the input data.
 //
 
@@ -222,12 +222,12 @@ void assignPartNumbers(ScorePageSet& infiles, int page, Options& opts) {
 
    // Get the mapping of systems/staves into page staves for the page.
    vectorVI& sysmap = infile.reverseSystemMap();
-   
+
    // Now iterate through each system, and then each system-staff and
    // set the part number based on the system-staff (flipped and starting
    // at 1 rather than 0) for staff items on the page.
    int i, j, k, ksize;
- 
+
    for (i=0; i<sysmap.size(); i++) {
       for (j=0; j<sysmap[i].size(); j++) {
          ksize = staffItems[sysmap[i][j]].size();

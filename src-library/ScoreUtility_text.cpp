@@ -20,7 +20,7 @@ using namespace std;
 // ScoreItemBase::printXmlTextEscapedUTF8 --
 //
 
-ostream& ScoreUtility::printXmlTextEscapedUTF8(ostream& out, 
+ostream& ScoreUtility::printXmlTextEscapedUTF8(ostream& out,
       const string& text) {
    out << SU::getTextNoFontXmlEscapedUTF8(text);
    return out;

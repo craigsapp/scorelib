@@ -52,7 +52,7 @@ class DatabaseBeam {
    public:
                          DatabaseBeam  (void);
                         ~DatabaseBeam  ();
-   
+
       void               clear          (void);
       int                size           (void);
       BeamGroup*         beamInfo       (ScoreItem*);

@@ -6,7 +6,7 @@
 // URL:           https://github.com/craigsapp/scorelib/blob/master/src-library/ScoreItem_timesigs.cpp
 // Syntax:        C++11
 //
-// Description:   Functions which (primarily) process P1=18 
+// Description:   Functions which (primarily) process P1=18
 //       (time signature) items.
 //
 
@@ -22,7 +22,7 @@ using namespace std;
 //     if the time signature is cut-time, "2" will be returned.
 //
 
-int ScoreItem::getTimeSignatureTop(void) { 
+int ScoreItem::getTimeSignatureTop(void) {
    if (!isTimeSignatureItem()) {
       return 0;
    }
@@ -59,7 +59,7 @@ int ScoreItem::getTimeSignatureTop(void) {
 //     if the time signature is cut-time, "2" will be returned.
 //
 
-int ScoreItem::getTimeSignatureBottom(void) { 
+int ScoreItem::getTimeSignatureBottom(void) {
    if (!isTimeSignatureItem()) {
       return 0;
    }
@@ -93,7 +93,7 @@ int ScoreItem::getTimeSignatureBottom(void) {
 // typically represents 4/4 time signature.
 //
 
-bool ScoreItem::isCommonTime(void) { 
+bool ScoreItem::isCommonTime(void) {
    if (!isTimeSignatureItem()) {
       return false;
    }
@@ -115,7 +115,7 @@ bool ScoreItem::isCommonTime(void) {
 // typically represents 2/2 time signature.
 //
 
-bool ScoreItem::isCutTime(void) { 
+bool ScoreItem::isCutTime(void) {
    if (!isTimeSignatureItem()) {
       return false;
    }

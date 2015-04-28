@@ -7,7 +7,7 @@
 // Documentation: https://github.com/craigsapp/scorelib/wiki/score2musicxml
 // Syntax:        C++ 11
 //
-// Description:   Converts a ScorePageSet into MusicXML.  If there is one 
+// Description:   Converts a ScorePageSet into MusicXML.  If there is one
 //                segment <score-partwise> will be used.  If there are more
 //                than one segment to process <opus> will be used.
 //
@@ -23,112 +23,112 @@
 using namespace std;
 
 void     processData                (ScorePageSet& infiles, Options& opts);
-ostream& convertSingleSegment       (ostream& out, ScorePageSet& infiles, 
+ostream& convertSingleSegment       (ostream& out, ScorePageSet& infiles,
                                      int segment, int indent);
 ostream& convertAllSegmentsToOpus   (ostream& out, ScorePageSet& infiles);
 ostream& printIndent                (ostream& out, int indent, string text);
-void     printIndent                (stringstream& out, int indent, 
+void     printIndent                (stringstream& out, int indent,
                                      string text);
-ostream& printPart                  (ostream& out, ScorePageSet& infiles, 
+ostream& printPart                  (ostream& out, ScorePageSet& infiles,
                                      int segment, int part, int indent);
-ostream& printPartList              (ostream& out, ScorePageSet& infiles, 
+ostream& printPartList              (ostream& out, ScorePageSet& infiles,
                                      int segment, int indent);
-void     printToFile                (ScorePageSet& infiles, int segment, 
+void     printToFile                (ScorePageSet& infiles, int segment,
                                      string& filebase);
-void     convertAllSegmentsToSeparateFiles(ScorePageSet& infiles, 
+void     convertAllSegmentsToSeparateFiles(ScorePageSet& infiles,
                                            string& filebase);
-ostream& printIdentification        (ostream& out, ScorePageSet& infiles, 
-                                     int segment, int indent, 
+ostream& printIdentification        (ostream& out, ScorePageSet& infiles,
+                                     int segment, int indent,
                                      map<string, ScoreItem*>& credits);
-ostream& printDefaults              (ostream& out, ScorePageSet& infiles, 
+ostream& printDefaults              (ostream& out, ScorePageSet& infiles,
                                      int segment, int indent);
-ostream& printCredits               (ostream& out, 
-                                     map<string, ScoreItem*>& credits, 
+ostream& printCredits               (ostream& out,
+                                     map<string, ScoreItem*>& credits,
                                      int indent);
-ostream& printPartInfo              (ostream& out, ScorePageSet& infiles, 
-                                     int segment, int part, int indent, 
+ostream& printPartInfo              (ostream& out, ScorePageSet& infiles,
+                                     int segment, int part, int indent,
                                      int partcount);
 ostream& printXml                   (ostream& out, const string& text);
-void     printSystem                (vector<stringstream*>& partouts, 
-                                     ScorePageSet& infiles, int segment, 
-                                     int systemindex, int indent, 
+void     printSystem                (vector<stringstream*>& partouts,
+                                     ScorePageSet& infiles, int segment,
+                                     int systemindex, int indent,
                                      vectorVSIp& curclef, vectorVSIp& curkey,
                                      vectorVSIp& curtime, int& mcounter,
                                      int divisions, vectorSF& staffsizes,
                                      vectorI& partVisible);
-void     printPartMeasure           (stringstream& out, ScorePageSet& infiles, 
-                                     ScorePage& page, 
+void     printPartMeasure           (stringstream& out, ScorePageSet& infiles,
+                                     ScorePage& page,
                                      AddressSystem& partaddress,
-                                     SystemMeasure& measureitems, 
-                                     int sysindex, int measureindex, 
-                                     int partindex, vectorVSIp& curclef, 
-                                     vectorVSIp& curkey, vectorVSIp& curtime, 
+                                     SystemMeasure& measureitems,
+                                     int sysindex, int measureindex,
+                                     int partindex, vectorVSIp& curclef,
+                                     vectorVSIp& curkey, vectorVSIp& curtime,
                                      int mcounter, int indent, int divisions,
                                      int systemindex, SCORE_FLOAT& staffsize,
                                      int segmentindex, vectorI& partVisible);
 void     printNote                  (ostream& out, ScoreItem* si,
                                      int partstaff, int indent, int divisions,
                                      SCORE_FLOAT measureP3);
-void     printRest                  (ostream& out, ScoreItem* si, 
-                                     int partstaff, int indent, 
+void     printRest                  (ostream& out, ScoreItem* si,
+                                     int partstaff, int indent,
                                      int divisions, SCORE_FLOAT measureP3);
-void     printMeasureAttributes     (ostream& out, vectorSIp& items, int index, 
-                                     int sysindex, int partindex, 
-                                     int partstaff, int measureindex, 
-                                     int divisions, int indent, 
-                                     ScoreItem* currkey, ScoreItem* currtime, 
-                                     ScoreItem* currclef, 
+void     printMeasureAttributes     (ostream& out, vectorSIp& items, int index,
+                                     int sysindex, int partindex,
+                                     int partstaff, int measureindex,
+                                     int divisions, int indent,
+                                     ScoreItem* currkey, ScoreItem* currtime,
+                                     ScoreItem* currclef,
                                      SCORE_FLOAT& laststaffsize,
                                      vectorI& partVisible);
-int      printClefItem              (stringstream& stream, ScoreItem* item, 
+int      printClefItem              (stringstream& stream, ScoreItem* item,
                                      int indent);
-int      printTimeSigItem           (stringstream& stream, ScoreItem* item, 
+int      printTimeSigItem           (stringstream& stream, ScoreItem* item,
                                      int indent);
-int      printKeySigItem            (stringstream& stream, ScoreItem* item, 
+int      printKeySigItem            (stringstream& stream, ScoreItem* item,
                                      int indent);
-void     printBarlineStyle          (ostream& out, SystemMeasure& measureitems, 
+void     printBarlineStyle          (ostream& out, SystemMeasure& measureitems,
                                      int partstaff, int indent);
-void     printForwardBarlineStyle   (ostream& out, SystemMeasure& measureitems, 
+void     printForwardBarlineStyle   (ostream& out, SystemMeasure& measureitems,
                                      int partstaff, int indent);
-void     printNoteNotations         (ostream& out, ScoreItem* si, int indent, 
+void     printNoteNotations         (ostream& out, ScoreItem* si, int indent,
                                      string& notetype);
 string   getNoteType                (ScoreItem* si);
 string   getRestType                (ScoreItem* si);
 void     printLyrics                (ostream& out, ScoreItem* si, int indent);
-void     printDirection             (ostream& out, ScoreItem* si, 
+void     printDirection             (ostream& out, ScoreItem* si,
                                      ScoreItem* anchor, int indent);
 void     printDirections            (ostream& out, SystemMeasure& measureitems,
-                                     int index, int partstaff, int indent, 
+                                     int index, int partstaff, int indent,
                                      int divisions);
-void     printDirectionsBackwards   (ostream& out, SystemMeasure& measureitems, 
-                                     int index, int partstaff, int indent, 
+void     printDirectionsBackwards   (ostream& out, SystemMeasure& measureitems,
+                                     int index, int partstaff, int indent,
                                      int divisions);
-void     printDirectionsForwards    (ostream& out, SystemMeasure& items, 
-                                     int index, int partstaff, int indent, 
+void     printDirectionsForwards    (ostream& out, SystemMeasure& items,
+                                     int index, int partstaff, int indent,
                                      int divisions);
-void     printMinorColoration       (ostream& out, SystemMeasure& measureitems, 
-                                     int index, int partstaff, int indent, 
+void     printMinorColoration       (ostream& out, SystemMeasure& measureitems,
+                                     int index, int partstaff, int indent,
                                      int divisions);
-void     printSystemLayout          (stringstream& out, ScorePage& page, 
+void     printSystemLayout          (stringstream& out, ScorePage& page,
                                      const AddressSystem& system, int indent);
-void     printStaffLayout           (stringstream& out, ScorePage& page, 
+void     printStaffLayout           (stringstream& out, ScorePage& page,
                                      const AddressSystem& system, int indent);
-ScoreItem* printComposer            (ostream& out, ScorePageSet& infiles, 
+ScoreItem* printComposer            (ostream& out, ScorePageSet& infiles,
                                      int segment, int indent);
-ScoreItem* printTitle               (ostream& out, ScorePageSet& infiles, 
+ScoreItem* printTitle               (ostream& out, ScorePageSet& infiles,
                                      int segment, int indent);
-SCORE_FLOAT getMusicXmlTenthsBetweenStaves(ScoreItem* lostaff, 
+SCORE_FLOAT getMusicXmlTenthsBetweenStaves(ScoreItem* lostaff,
                                      ScoreItem* histaff);
 SCORE_FLOAT getMusicXmlTenthsFromStaffTopToPageBottom(ScoreItem* staff);
-int      printGroup1                (ostream& out, ScorePageSet& infiles, 
+int      printGroup1                (ostream& out, ScorePageSet& infiles,
                                      int segment, int indent);
-void     printDufayCredits          (ostream& out, ScorePageSet& infiles, 
+void     printDufayCredits          (ostream& out, ScorePageSet& infiles,
                                      int segment, int indent);
-ostream& printTimeModification      (ostream& out, int indent, ScoreItem* si, 
+ostream& printTimeModification      (ostream& out, int indent, ScoreItem* si,
                                      int divisions);
-ostream& printMensurationDirection  (ostream& out, ScoreItem* item, 
+ostream& printMensurationDirection  (ostream& out, ScoreItem* item,
                                      int partstaff, int indent);
-void     extractMensurationDirection(ostream& out, vectorSIp& items, 
+void     extractMensurationDirection(ostream& out, vectorSIp& items,
                                      int index, int partstaff, int indent);
 
 #define INDENT_STRING "\t"
@@ -149,27 +149,27 @@ int      dufayQ           = 0;
 
 int main(int argc, char** argv) {
    Options opts;
-   opts.define("L|no-location=b", 
+   opts.define("L|no-location=b",
          "Don't print location of each measure as comment");
-   opts.define("s|segment=i:0", 
+   opts.define("s|segment=i:0",
          "Segment number to process");
-   opts.define("f|filebase=s:filebase", 
+   opts.define("f|filebase=s:filebase",
          "Base of filename for multiple segments");
-   opts.define("debug=b", 
+   opts.define("debug=b",
          "Print debugging information");
-   opts.define("scale|scaling|rhythmic-scaling=i:0", 
+   opts.define("scale|scaling|rhythmic-scaling=i:0",
          "Global rhythmic scaling of durations");
-   opts.define("I|no-invisible=b", 
+   opts.define("I|no-invisible=b",
          "Don't convert invisible rests/notes");
-   opts.define("no-lyrics=b", 
+   opts.define("no-lyrics=b",
          "Don't process Lyrics");
-   opts.define("no-system-breaks=b", 
+   opts.define("no-system-breaks=b",
          "Don't print system break information");
-   opts.define("no-page-breaks=b", 
+   opts.define("no-page-breaks=b",
          "Don't print page break information");
-   opts.define("M|movement=b", 
+   opts.define("M|movement=b",
          "Treat entire input as a single movment");
-   opts.define("D|dufay=b", 
+   opts.define("D|dufay=b",
          "Use default options for Dufay translations");
    opts.process(argc, argv);
 
@@ -189,7 +189,7 @@ int main(int argc, char** argv) {
       invisibleQ       = 1;
       StartTempo       = 525;
    }
- 
+
    ScorePageSet infiles(opts);
    processData(infiles, opts);
 
@@ -241,7 +241,7 @@ void processData(ScorePageSet& infiles, Options& opts) {
 // convertAllSegmentsToSeparateFiles --
 //
 
-void convertAllSegmentsToSeparateFiles(ScorePageSet& infiles, 
+void convertAllSegmentsToSeparateFiles(ScorePageSet& infiles,
       string& filebase) {
    int segmentcount =  infiles.getSegmentCount();
    for (int i=0; i<segmentcount; i++) {
@@ -279,7 +279,7 @@ void printToFile(ScorePageSet& infiles, int segment, string& filebase) {
 // convertSingleSegment --
 //
 
-ostream& convertSingleSegment(ostream& out, ScorePageSet& infiles, 
+ostream& convertSingleSegment(ostream& out, ScorePageSet& infiles,
    int segment, int indent) {
    if (indent == 0) {
       out << "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n";
@@ -295,13 +295,13 @@ ostream& convertSingleSegment(ostream& out, ScorePageSet& infiles,
    map<string, ScoreItem*> credits;
 
    // <movement-title>
-   credits["title"] = printTitle(out, infiles, segment, indent);        
+   credits["title"] = printTitle(out, infiles, segment, indent);
 
    // <identification>
-   printIdentification(out, infiles, segment, indent, credits); 
+   printIdentification(out, infiles, segment, indent, credits);
 
    // <defaults>
-   printDefaults(out, infiles, segment, indent);     
+   printDefaults(out, infiles, segment, indent);
 
    // <credit>*
    printCredits(out, credits, indent);
@@ -317,7 +317,7 @@ ostream& convertSingleSegment(ostream& out, ScorePageSet& infiles,
    vector<stringstream*> partoutput;
    partoutput.resize(partcount);
    fill(partoutput.begin(), partoutput.end(), (stringstream*)NULL);
- 
+
    int systemcount = seg.getSystemCount();
 
    int i;
@@ -339,7 +339,7 @@ ostream& convertSingleSegment(ostream& out, ScorePageSet& infiles,
       current_keysig[i].push_back(NULL);
       current_timesig[i].push_back(NULL);
    }
-    
+
 
    int measure_counter = 1;
 
@@ -350,8 +350,8 @@ ostream& convertSingleSegment(ostream& out, ScorePageSet& infiles,
    fill(partVisible.begin(), partVisible.end(), 1);
 
    for (i=0; i<systemcount; i++) {
-      printSystem(partoutput, infiles, segment, i, indent+1, current_clef, 
-            current_keysig, current_timesig, measure_counter, divisions, 
+      printSystem(partoutput, infiles, segment, i, indent+1, current_clef,
+            current_keysig, current_timesig, measure_counter, divisions,
             staffsizes, partVisible);
    }
 
@@ -386,7 +386,7 @@ ostream& convertSingleSegment(ostream& out, ScorePageSet& infiles,
 //  </credit>
 //
 
-ostream& printCredits(ostream& out, map<string, ScoreItem*>& credits, 
+ostream& printCredits(ostream& out, map<string, ScoreItem*>& credits,
       int indent) {
    int p2;
    SCORE_FLOAT p3;
@@ -411,7 +411,7 @@ ostream& printCredits(ostream& out, map<string, ScoreItem*>& credits,
       if (text.length() == 0) {
          continue;
       }
-      p2              = si->getStaffNumber();    
+      p2              = si->getStaffNumber();
       p3              = si->getHPos();
       scale           = si->getStaffScale();
       staffoffset     = si->getStaffVerticalOffset();
@@ -440,7 +440,7 @@ ostream& printCredits(ostream& out, map<string, ScoreItem*>& credits,
       out << " default-y=\"" << defaulty << "\"";
       out << " font-size=\"" << fontsize << "\"";
       out << ">";
-   
+
       out << SU::getTextNoFontXmlEscapedUTF8(text);
       out << "</credit-words>\n";
 
@@ -457,7 +457,7 @@ ostream& printCredits(ostream& out, map<string, ScoreItem*>& credits,
 // printDufayCredits --
 //
 
-void printDufayCredits(ostream& out, ScorePageSet& infiles, int segment, 
+void printDufayCredits(ostream& out, ScorePageSet& infiles, int segment,
       int indent) {
    map<string, ScoreItem*> credits;
 
@@ -502,10 +502,10 @@ void printDufayCredits(ostream& out, ScorePageSet& infiles, int segment,
          if (teststr.compare("Guillaume Du Fay,") == 0) {
             credits["credit" + to_string(counter++)] = items[j];
             items[j]->setParameterQuiet(ns_auto, np_function, "credit");
-         } 
+         }
       }
    }
-   
+
    // process page footers
    for (i=0; i<addresses.size(); i++) {
       page = infiles.getPage(*addresses[i][0]);
@@ -543,7 +543,7 @@ void printDufayCredits(ostream& out, ScorePageSet& infiles, int segment,
          }
       }
    }
-   
+
    printCredits(out, credits, indent);
 }
 
@@ -553,7 +553,7 @@ void printDufayCredits(ostream& out, ScorePageSet& infiles, int segment,
 //
 // printDefaults --
 //
-//     
+//
 //  <defaults>
 //    <scaling>
 //      <millimeters>7.2319</millimeters>
@@ -601,7 +601,7 @@ void printDufayCredits(ostream& out, ScorePageSet& infiles, int segment,
 //  </defaults>
 //
 
-ostream& printDefaults(ostream& out, ScorePageSet& infiles, 
+ostream& printDefaults(ostream& out, ScorePageSet& infiles,
       int segment, int indent) {
    printIndent(out, indent++, "<defaults>\n");
 
@@ -671,10 +671,10 @@ ostream& printDefaults(ostream& out, ScorePageSet& infiles,
 //       <supports attribute="new-page" element="print" type="yes" value="yes"/>
 //    </encoding>
 //  </identification>
-//     
+//
 //
 
-ostream& printIdentification(ostream& out, ScorePageSet& infiles, 
+ostream& printIdentification(ostream& out, ScorePageSet& infiles,
       int segment, int indent, map<string, ScoreItem*>& credits) {
    printIndent(out, indent++, "<identification>\n");
 
@@ -711,7 +711,7 @@ ostream& printIdentification(ostream& out, ScorePageSet& infiles,
 // printTitle --
 //
 
-ScoreItem* printTitle(ostream& out, ScorePageSet& infiles, int segment, 
+ScoreItem* printTitle(ostream& out, ScorePageSet& infiles, int segment,
       int indent) {
    ScoreSegment& seg = infiles.getSegment(segment);
    const AddressSystem& sys = seg.getSystemAddress(0);
@@ -777,7 +777,7 @@ ScoreItem* printTitle(ostream& out, ScorePageSet& infiles, int segment,
 // printComposer --
 //
 
-ScoreItem* printComposer(ostream& out, ScorePageSet& infiles, int segment, 
+ScoreItem* printComposer(ostream& out, ScorePageSet& infiles, int segment,
       int indent) {
    ScoreSegment& seg = infiles.getSegment(segment);
    const AddressSystem& sys = seg.getSystemAddress(0);
@@ -839,7 +839,7 @@ ScoreItem* printComposer(ostream& out, ScorePageSet& infiles, int segment,
 // printPartList -- Print the <part-list> element.
 //
 
-ostream& printPartList(ostream& out, ScorePageSet& infiles, 
+ostream& printPartList(ostream& out, ScorePageSet& infiles,
     int segment, int indent) {
    printIndent(out, indent++, "<part-list>\n");
 
@@ -973,7 +973,7 @@ int printGroup1(ostream& out, ScorePageSet& infiles, int segment, int indent) {
 //  </score-part>
 //
 
-ostream& printPartInfo(ostream& out, ScorePageSet& infiles, int segment, 
+ostream& printPartInfo(ostream& out, ScorePageSet& infiles, int segment,
    int part, int indent, int partcount) {
    ScoreSegment& seg = infiles.getSegment(segment);
    printIndent(out, indent++, "<score-part id=\"P");
@@ -1062,8 +1062,8 @@ void printIndent(stringstream& out, int indent, string text) {
 // printSystem -- print all parts on the given system.
 //
 
-void printSystem(vector<stringstream*>& partouts, ScorePageSet& infiles, 
-      int segment, int systemindex, int indent, vectorVSIp& curclef, 
+void printSystem(vector<stringstream*>& partouts, ScorePageSet& infiles,
+      int segment, int systemindex, int indent, vectorVSIp& curclef,
       vectorVSIp& curkey, vectorVSIp& curtime, int& mcounter, int divisions,
       vectorSF& staffsizes, vectorI& partVisible) {
 
@@ -1082,13 +1082,13 @@ void printSystem(vector<stringstream*>& partouts, ScorePageSet& infiles,
       }
       for (j=0; j<partcount; j++) {
          partaddress = seg.getPartAddress(systemindex, j);
-         printPartMeasure(*partouts[j], infiles, *page, partaddress, 
-               measureitems, sysindex, i, j, curclef, curkey, curtime, 
+         printPartMeasure(*partouts[j], infiles, *page, partaddress,
+               measureitems, sysindex, i, j, curclef, curkey, curtime,
                mcounter, indent, divisions, systemindex, staffsizes[j],
                segment, partVisible);
       }
       for (j=0; j<partcount; j++) {
-         printIndent(*partouts[j], indent, 
+         printIndent(*partouts[j], indent,
             "<!--=======================================================-->\n");
       }
       mcounter++;
@@ -1102,11 +1102,11 @@ void printSystem(vector<stringstream*>& partouts, ScorePageSet& infiles,
 // printPartMeasure -- print a single measure for the given part
 //
 
-void printPartMeasure(stringstream& out, ScorePageSet& infiles, 
+void printPartMeasure(stringstream& out, ScorePageSet& infiles,
       ScorePage& page, AddressSystem& partaddress, SystemMeasure& measureitems,
-      int sysindex, int measureindex, int partindex, vectorVSIp& curclef, 
+      int sysindex, int measureindex, int partindex, vectorVSIp& curclef,
       vectorVSIp& curkey, vectorVSIp& curtime, int mcounter, int indent,
-      int divisions, int systemindex, SCORE_FLOAT& staffsize, 
+      int divisions, int systemindex, SCORE_FLOAT& staffsize,
       int segmentindex, vectorI& partVisible) {
 
    bool firstSystem          = (systemindex == 0);
@@ -1121,7 +1121,7 @@ void printPartMeasure(stringstream& out, ScorePageSet& infiles,
    ScoreItem* nextclef = NULL;
    ScoreItem* nextkey  = NULL;
    ScoreItem* nexttime = NULL;
- 
+
    double measuredur = measureitems.getDuration();
    if (measuredur - (int)measuredur < 0.0001) {
       measuredur = (int)measuredur;
@@ -1132,7 +1132,7 @@ void printPartMeasure(stringstream& out, ScorePageSet& infiles,
 
    SCORE_FLOAT width = measureitems.getP3Width();
    width = width * 5.0 * 6.0 / 7.0;
-   
+
    SCORE_FLOAT measureP3 = measureitems.getP3();
 
    if (locationQ) {
@@ -1202,8 +1202,8 @@ void printPartMeasure(stringstream& out, ScorePageSet& infiles,
    }
 
    // <attributes>
-   printMeasureAttributes(out, items, 0, sysindex, partindex, partstaff, 
-         measureindex, divisions, indent, currentkey, currenttime, 
+   printMeasureAttributes(out, items, 0, sysindex, partindex, partstaff,
+         measureindex, divisions, indent, currentkey, currenttime,
          currentclef, staffsize, partVisible);
 
    // <sound> -- Finale ignores tempo markings.
@@ -1294,7 +1294,7 @@ void printPartMeasure(stringstream& out, ScorePageSet& infiles,
 //
 //
 
-void  extractMensurationDirection(ostream& out, vectorSIp& items, 
+void  extractMensurationDirection(ostream& out, vectorSIp& items,
       int index, int partstaff, int indent) {
    ScoreItem* si = items[index];
    if (!si->isTimeSigItem()) {
@@ -1357,7 +1357,7 @@ void  extractMensurationDirection(ostream& out, vectorSIp& items,
 // MenCircle = P1=12 unfilled circle
 //
 
-ostream& printMensurationDirection(ostream& out, ScoreItem* item, 
+ostream& printMensurationDirection(ostream& out, ScoreItem* item,
       int partstaff, int indent) {
    SCORE_FLOAT vpos = (item->getVPos() - 11.0) * 5.0;
    if (vpos < 0) {
@@ -1384,7 +1384,7 @@ ostream& printMensurationDirection(ostream& out, ScoreItem* item,
    if (!item->isShapeItem()) {
       return out;
    }
-   if (item->isUnfilledCircle()) { 
+   if (item->isUnfilledCircle()) {
       int p9 = item->getP9Int();
       int p10 = item->getP10Int();
       if ((p9 == 0) && (p10 == 0)) {
@@ -1430,7 +1430,7 @@ ostream& printMensurationDirection(ostream& out, ScoreItem* item,
 // printSystemLayout --
 //
 
-void printSystemLayout(stringstream& out, 
+void printSystemLayout(stringstream& out,
       ScorePage& page, const AddressSystem& system, int indent) {
    int sysindex        = system.getSystemIndex();
    int sysstaffindex   = system.getSystemStaffIndex();
@@ -1457,7 +1457,7 @@ void printSystemLayout(stringstream& out,
       leftside[i]  = staves[sysindex][i][0]->getHPos();
       rightside[i] = staves[sysindex][i][0]->getHPosRight();
    }
- 
+
    sort(leftside.begin(), leftside.end());
    sort(rightside.begin(), rightside.end());
 
@@ -1467,7 +1467,7 @@ void printSystemLayout(stringstream& out,
    indent++;
 
    if ((sysleft != 0.0) || (sysright != 200.0)) {
-      // The system staves are not in default positions, so 
+      // The system staves are not in default positions, so
       // print where they should go.
       SCORE_FLOAT leftmargin = sysleft * 7.0 / 6.0 * 5.0;
       SCORE_FLOAT rightmargin = (200.0 - sysright) * 7.0 / 6.0 * 5.0;
@@ -1487,10 +1487,10 @@ void printSystemLayout(stringstream& out,
 
    // <system-distance>
    // If the staff is at the top of a system, then print
-   // the distance to the bottom of the next system.  If 
+   // the distance to the bottom of the next system.  If
    // there is no staff above the top staff of the system,
    // then display distance to top margin with <top-system-distance>
- 
+
    ScoreItem* lostaff;
    ScoreItem* histaff;
 
@@ -1552,7 +1552,7 @@ SCORE_FLOAT getMusicXmlTenthsFromStaffTopToPageBottom(ScoreItem* staff) {
 // printStaffLayout --
 //
 
-void printStaffLayout(stringstream& out, 
+void printStaffLayout(stringstream& out,
       ScorePage& page, const AddressSystem& system, int indent) {
    int sysindex = system.getSystemIndex();
    vectorVVSIp& staves = page.getStaffItemsBySystem();
@@ -1561,7 +1561,7 @@ void printStaffLayout(stringstream& out,
       // tacet part of some sort
       return;
    }
- 
+
    int staffcount = staves[sysindex].size();
    if (staffcount <= 0) {
       return;
@@ -1574,7 +1574,7 @@ void printStaffLayout(stringstream& out,
 
    ScoreItem* histaff = staves[sysindex][sysstaffindex+1][0];
    ScoreItem* lostaff = staves[sysindex][sysstaffindex][0];
- 
+
    if ((histaff == NULL) || (lostaff == NULL)) {
       // no staff lines for some strange reason.
       return;
@@ -1594,7 +1594,7 @@ void printStaffLayout(stringstream& out,
 // getMusicXmlTenthsBetweenStaves --
 //
 
-SCORE_FLOAT getMusicXmlTenthsBetweenStaves(ScoreItem* lostaff, 
+SCORE_FLOAT getMusicXmlTenthsBetweenStaves(ScoreItem* lostaff,
       ScoreItem* histaff) {
 
    SCORE_FLOAT p2hi = histaff->getStaffNumber();
@@ -1605,7 +1605,7 @@ SCORE_FLOAT getMusicXmlTenthsBetweenStaves(ScoreItem* lostaff,
    SCORE_FLOAT scalelo = lostaff->getScale();
 
    // staff distance is the distance between the default P2 locations
-   // minus the height of the bottom staff 
+   // minus the height of the bottom staff
    // minus the vertical offset of the bottom staff
    // plus the vertical offset of the top staff
    // Units are in MusicXML tenths (1/10 of nominal size spacing)
@@ -1632,15 +1632,15 @@ SCORE_FLOAT getMusicXmlTenthsBetweenStaves(ScoreItem* lostaff,
 //      layers.
 //
 
-void printDirections(ostream& out, SystemMeasure& measureitems, int index, 
+void printDirections(ostream& out, SystemMeasure& measureitems, int index,
       int partstaff, int indent, int divisions) {
-   printDirectionsBackwards(out, measureitems, index, partstaff, indent, 
+   printDirectionsBackwards(out, measureitems, index, partstaff, indent,
          divisions);
-   printDirectionsForwards(out, measureitems, index, partstaff, indent, 
+   printDirectionsForwards(out, measureitems, index, partstaff, indent,
          divisions);
    if (dufayQ) {
       // Search for minor color markings:
-      // printMinorColoration(out, measureitems, index, partstaff, indent, 
+      // printMinorColoration(out, measureitems, index, partstaff, indent,
       //      divisions);
    }
 }
@@ -1652,7 +1652,7 @@ void printDirections(ostream& out, SystemMeasure& measureitems, int index,
 // printMinorColoration --
 //
 
-void printMinorColoration(ostream& out, SystemMeasure& measureitems, 
+void printMinorColoration(ostream& out, SystemMeasure& measureitems,
       int index, int partstaff, int indent, int divisions) {
    vectorSIp& items = measureitems.getItems();
    int i;
@@ -1745,7 +1745,7 @@ void printMinorColoration(ostream& out, SystemMeasure& measureitems,
       printIndent(out, indent++, "<direction placement=\"above\">\n");
       printIndent(out, indent++, "<direction-type>\n");
       printIndent(out, indent,   "<words");
-      out << " font-weight=\"bold\" default-y=\"" 
+      out << " font-weight=\"bold\" default-y=\""
           << (vpos - 12.0)*5.0 << "\">minorColor</words>\n";
       printIndent(out, --indent, "</direction-type>\n");
       printIndent(out, --indent, "</direction>\n");
@@ -1753,7 +1753,7 @@ void printMinorColoration(ostream& out, SystemMeasure& measureitems,
       printIndent(out, indent++, "<direction placement=\"above\">\n");
       printIndent(out, indent++, "<direction-type>\n");
       printIndent(out, indent,   "<words");
-      out << " font-weight=\"bold\" default-y=\"" 
+      out << " font-weight=\"bold\" default-y=\""
           << (vpos - 12.0)*5.0 << "\">minorColorEnd</words>\n";
       printIndent(out, --indent, "</direction-type>\n");
       printIndent(out, --indent, "</direction>\n");
@@ -1761,7 +1761,7 @@ void printMinorColoration(ostream& out, SystemMeasure& measureitems,
       printIndent(out, indent++, "<direction placement=\"above\">\n");
       printIndent(out, indent++, "<direction-type>\n");
       printIndent(out, indent,   "<words");
-      out << " font-weight=\"bold\" default-y=\"" 
+      out << " font-weight=\"bold\" default-y=\""
           << (vpos - 12.0)*5.0 << "\">minorColorEnd</words>\n";
       printIndent(out, --indent, "</direction-type>\n");
       printIndent(out, --indent, "</direction>\n");
@@ -1772,13 +1772,13 @@ void printMinorColoration(ostream& out, SystemMeasure& measureitems,
 
 //////////////////////////////
 //
-// printDirectionsBackwards -- print any free-form text from the current 
+// printDirectionsBackwards -- print any free-form text from the current
 //      position (expected to be a note or rest), backwards to the previous
 //      note/rest on the given staff within the list of system items for the
 //      current line.
 //
 
-void printDirectionsBackwards(ostream& out, SystemMeasure& measureitems, 
+void printDirectionsBackwards(ostream& out, SystemMeasure& measureitems,
       int index, int partstaff, int indent, int divisions) {
    vectorSIp& items = measureitems.getItems();
    ScoreItem* si;
@@ -1856,7 +1856,7 @@ void printDirectionsBackwards(ostream& out, SystemMeasure& measureitems,
          // text is being used for another purpose (composer, title)).
          continue;
       }
- 
+
       // found some text which should be printed as a <direction>
       printDirection(out, si, items[index], indent);
    }
@@ -1866,13 +1866,13 @@ void printDirectionsBackwards(ostream& out, SystemMeasure& measureitems,
 
 //////////////////////////////
 //
-// printDirectionsForwards -- print any free-form text from the current 
+// printDirectionsForwards -- print any free-form text from the current
 //      position (expected to be a note or rest), forwards to the previous
 //      note/rest on the given staff within the list of system items for the
 //      current line.  The input vectorSIp items is for a
 //
 
-void printDirectionsForwards(ostream& out, SystemMeasure& measureitems, 
+void printDirectionsForwards(ostream& out, SystemMeasure& measureitems,
       int index, int partstaff, int indent, int divisions) {
    vectorSIp& items = measureitems.getItems();
    ScoreItem* si;
@@ -1950,7 +1950,7 @@ void printDirectionsForwards(ostream& out, SystemMeasure& measureitems,
          // text is being used for another purpose (composer, title)).
          continue;
       }
- 
+
       // found some text which should be printed as a <direction>
       printDirection(out, si, items[index], indent);
    }
@@ -1963,7 +1963,7 @@ void printDirectionsForwards(ostream& out, SystemMeasure& measureitems,
 // printDirection --
 //
 
-void printDirection(ostream& out, ScoreItem* si, ScoreItem* anchor, 
+void printDirection(ostream& out, ScoreItem* si, ScoreItem* anchor,
       int indent) {
    string word = si->getTextNoFontXmlEscapedUTF8();
    if (word.size() == 0) {
@@ -1974,7 +1974,7 @@ void printDirection(ostream& out, ScoreItem* si, ScoreItem* anchor,
          // "3" means men3 and is handled elsewhere.
          return;
       }
-      if ((word.compare("a") == 0) && si->isAboveStaff() 
+      if ((word.compare("a") == 0) && si->isAboveStaff()
             && (si->getHPos() < 30)) {
          // "a" is used on some measure numbers
          return;
@@ -2039,7 +2039,7 @@ void printDirection(ostream& out, ScoreItem* si, ScoreItem* anchor,
 // printForwardBarlineStyle -- print a forward repeat if required.
 //
 
-void printForwardBarlineStyle(ostream& out, SystemMeasure& measureitems, 
+void printForwardBarlineStyle(ostream& out, SystemMeasure& measureitems,
       int partstaff, int indent) {
    int i;
    ScoreItem* barline = NULL;
@@ -2061,11 +2061,11 @@ void printForwardBarlineStyle(ostream& out, SystemMeasure& measureitems,
    int style = barline->getP5Int();
 
    switch (style) {
-      case 4:                      // right-facing repeat 
+      case 4:                      // right-facing repeat
       case 5:                      // both-way repeat, light-heavy-light lines
          printIndent(out, indent, "<barline location=\"left\">\n");
          printIndent(out, indent+1, "<bar-style>heavy-light</bar-style>\n");
-         printIndent(out, indent+1, 
+         printIndent(out, indent+1,
                "<repeat direction=\"forward\" winged=\"none\"/>\n");
          printIndent(out, indent, "</barline>\n");
          return;
@@ -2076,11 +2076,11 @@ void printForwardBarlineStyle(ostream& out, SystemMeasure& measureitems,
 
 //////////////////////////////
 //
-// printBarlineStyle -- Only checking the first barline found which 
+// printBarlineStyle -- Only checking the first barline found which
 //       affects the part.
 //
 
-void printBarlineStyle(ostream& out, SystemMeasure& measureitems, 
+void printBarlineStyle(ostream& out, SystemMeasure& measureitems,
       int partstaff, int indent) {
    int i;
    ScoreItem* barline = NULL;
@@ -2127,22 +2127,22 @@ void printBarlineStyle(ostream& out, SystemMeasure& measureitems,
          printIndent(out, indent+1, "<bar-style>light-heavy</bar-style>\n");
          printIndent(out, indent, "</barline>\n");
          return;
-      case 3:                      // left-facing repeat 
+      case 3:                      // left-facing repeat
          printIndent(out, indent, "<barline location=\"right\">\n");
          printIndent(out, indent+1, "<bar-style>light-heavy</bar-style>\n");
-         printIndent(out, indent+1, 
+         printIndent(out, indent+1,
                "<repeat direction=\"backward\" winged=\"none\"/>\n");
          printIndent(out, indent, "</barline>\n");
          return;
-      case 4:                      // right-facing repeat 
+      case 4:                      // right-facing repeat
          return;
       case 5:                      // both-way repeat, light-heavy-light lines
          printIndent(out, indent, "<barline location=\"right\">\n");
          printIndent(out, indent+1, "<bar-style>light-heavy</bar-style>\n");
-         printIndent(out, indent+1, 
+         printIndent(out, indent+1,
                "<repeat direction=\"backward\" winged=\"none\"/>\n");
          printIndent(out, indent, "</barline>\n");
-         // forward part of repeat is handled previously, 
+         // forward part of repeat is handled previously,
          // this is just the back repeat part.
          return;
       case 6:                      // both-way repeat, two heavy lines
@@ -2167,9 +2167,9 @@ void printBarlineStyle(ostream& out, SystemMeasure& measureitems,
 // printMeasureAttributes --
 //
 
-void printMeasureAttributes(ostream& out, vectorSIp& items, int index, 
-      int sysindex, int partindex, int partstaff, int measureindex, 
-      int divisions, int indent, ScoreItem* currkey, ScoreItem* currtime, 
+void printMeasureAttributes(ostream& out, vectorSIp& items, int index,
+      int sysindex, int partindex, int partstaff, int measureindex,
+      int divisions, int indent, ScoreItem* currkey, ScoreItem* currtime,
       ScoreItem* currclef, SCORE_FLOAT& laststaffsize, vectorI& partVisible) {
 
    stringstream divisionstream;
@@ -2195,7 +2195,7 @@ void printMeasureAttributes(ostream& out, vectorSIp& items, int index,
          // Unhide the part.  The part staff was hidden on the previous system
          // but this system should show it.
          partVisible[partindex] = 1;
-         printIndent(hiddenstream, indent, 
+         printIndent(hiddenstream, indent,
             "<staff-details print-object=\"yes\"/>\n");
          printing++;
       }
@@ -2234,7 +2234,7 @@ void printMeasureAttributes(ostream& out, vectorSIp& items, int index,
    }
 
    if (staffsize < 0) {
-      // If the staff is hidden, use the staff size from the 
+      // If the staff is hidden, use the staff size from the
       // previous system.
       staffsize = laststaffsize;
    }
@@ -2314,13 +2314,13 @@ int printKeySigItem(stringstream& stream, ScoreItem* item, int indent) {
       return 0;
    }
    int p5 = item->getAccidentalCount();
-  
+
    if (abs(p5) < 10) {
-      printIndent(stream, indent++, "<key>\n");   
-      printIndent(stream, indent, "<fifths>");   
+      printIndent(stream, indent++, "<key>\n");
+      printIndent(stream, indent, "<fifths>");
       stream << p5 << "</fifths>\n";
       // don't know the mode, and anyway it is irrelevant to know for key sig.
-      printIndent(stream, --indent, "</key>\n");   
+      printIndent(stream, --indent, "</key>\n");
       return 1;
    }
 
@@ -2446,7 +2446,7 @@ int printClefItem(stringstream& stream, ScoreItem* item, int indent) {
    stream << line << "</line>\n";
 
    if (fabs(fraction - 0.8) < 0.001) {
-      printIndent(stream, indent, 
+      printIndent(stream, indent,
             "<clef-octave-change>-1</clef-octave-change>\n");
    }
 
@@ -2515,7 +2515,7 @@ void printRest(ostream& out, ScoreItem* si, int partstaff, int indent,
 //     can be placed in any order.
 //
 
-void printNoteNotations(ostream& out, ScoreItem* si, int indent, 
+void printNoteNotations(ostream& out, ScoreItem* si, int indent,
       string& notetype) {
    stringstream notations;
 
@@ -2544,9 +2544,9 @@ void printNoteNotations(ostream& out, ScoreItem* si, int indent,
    // <technical> /////////////////////////////////////////////////////////
 
    // <tied> //////////////////////////////////////////////////////////////
-   // attributes: type, number, line-type, dash-length, space-length, 
+   // attributes: type, number, line-type, dash-length, space-length,
    //      deafult-x, default-y, relative-x, relative-y, placement,
-   //      orientation, bezier-offset, bezier-offset2, bezier-x, 
+   //      orientation, bezier-offset, bezier-offset2, bezier-x,
    //      bezier-y, bezier-x2, bezier-y2, color.
    if (si->isTieGroupStart()) {
       printIndent(notations, indent+1, "<tied type=\"start\"/>\n");
@@ -2563,7 +2563,7 @@ void printNoteNotations(ostream& out, ScoreItem* si, int indent,
          if (si->isFirstNoteInTupletGroup()) {
             printIndent(notations, indent+1, "<tuplet bracket=\"yes\"");
             notations << " type=\"start\"/>\n";
-         } else if (si->isLastNoteInTupletGroup()) { 
+         } else if (si->isLastNoteInTupletGroup()) {
             printIndent(notations, indent+1, "<tuplet bracket=\"yes\"");
             notations << " type=\"stop\"/>\n";
          }
@@ -2675,7 +2675,7 @@ void printNote(ostream& out, ScoreItem* si, int partstaff, int indent,
          case  0: out << "natural";      break;
          case  1: out << "sharp";        break;
          case  2: out << "double-sharp"; break;
-         default: out << "unknown-accidental" << si->getEditorialAccidental(); 
+         default: out << "unknown-accidental" << si->getEditorialAccidental();
             break;
       }
       out << "</accidental>\n";
@@ -2687,7 +2687,7 @@ void printNote(ostream& out, ScoreItem* si, int partstaff, int indent,
          case  0: out << "natural";      break;
          case  1: out << "sharp";        break;
          case  2: out << "double-sharp"; break;
-         default: out << "unknown-accidental" << si->getEditorialAccidental(); 
+         default: out << "unknown-accidental" << si->getEditorialAccidental();
            break;
       }
       out << "</accidental>\n";
@@ -2739,7 +2739,7 @@ void printNote(ostream& out, ScoreItem* si, int partstaff, int indent,
 // printTimeModification --
 //
 
-ostream& printTimeModification(ostream& out, int indent, ScoreItem* si, 
+ostream& printTimeModification(ostream& out, int indent, ScoreItem* si,
       int divisions) {
    RationalDuration rd = si->getRationalDuration();
    if (rd.isPowerOfTwo()) {
@@ -2753,8 +2753,8 @@ ostream& printTimeModification(ostream& out, int indent, ScoreItem* si,
       regular = 1 << exponent;
    } else if (exponent < 0) {
       regular /= (1 << (-exponent));
-   } 
-   
+   }
+
    RationalNumber tuplet = rn / regular;
    // printIndent(out, indent, "<!-- tuplet ");
    // out << tuplet << " -->\n";
@@ -2764,10 +2764,10 @@ ostream& printTimeModification(ostream& out, int indent, ScoreItem* si,
    printIndent(out, indent, "<normal-notes>");
    out <<  tuplet.getNumerator() << "</normal-notes>\n";
    printIndent(out, --indent, "</time-modification>\n");
-  
+
    return out;
 }
-   
+
 
 
 //////////////////////////////
@@ -2865,13 +2865,13 @@ void printLyrics(ostream& out, ScoreItem* si, int indent) {
                printIndent(out, indent, "<syllabic>single</syllabic>\n");
             }
          }
- 
+
          // <text>
          // only considering initial lyric attached
          // have to figure out what happens with multiple syllables
          // of the same verse number.
          printIndent(out, indent, "<text");
-         out << " font-size=\"" 
+         out << " font-size=\""
              << verses[i][j]->getFontSizeInPoints(staffscale) << "\"";
          if (verses[i][j]->isItalic()) {
             out << " font-style=\"italic\"";
@@ -2950,7 +2950,7 @@ string getNoteType(ScoreItem* si) {
       case -4:  return "64th";
       case -5:  return "128th";
    }
- 
+
    // unknown type
    return "";
 }

@@ -6,7 +6,7 @@
 // URL:           https://github.com/craigsapp/scorelib/blob/master/src-library/ScoreItem_shapes.cpp
 // Syntax:        C++11
 //
-// Description:   Functions which (primarily) process P1=12 
+// Description:   Functions which (primarily) process P1=12
 //       (special shapes) items.
 //
 
@@ -64,14 +64,14 @@ bool ScoreItem::isCircle(void) {
    // arcing information
    SCORE_FLOAT p10 = getP10();
    SCORE_FLOAT p11 = getP11();
- 
+
    if ((p10 != 0.0) && (p11 != 0.0)) {
       if (fabs(p11 - p10) < 360) {
          // arc, but doesn't cycle at least one time.
          return false;
       }
    }
-  
+
    // circle should be round
    SCORE_FLOAT p6 = getP6();
    SCORE_FLOAT p7 = getP7();
@@ -117,7 +117,7 @@ bool ScoreItem::isEllipse(void) {
       // arc, but cycles at least one time.
       return false;
    }
-  
+
    double threshold = 0.01;
    if ((p7 == 0) || (fabs(p7-p6) < threshold)) {
       // circle
@@ -162,7 +162,7 @@ bool ScoreItem::isSquare(void) {
    int p5 = getP5Int();
    if (p5 != 0) {
       return false;
-   } 
+   }
    SCORE_FLOAT p6 = getP6();
    SCORE_FLOAT p7 = getP7();
    double threshold = 0.01;
@@ -187,7 +187,7 @@ bool ScoreItem::isRectangle(void) {
    int p5 = getP5Int();
    if (p5 != 0) {
       return false;
-   } 
+   }
    SCORE_FLOAT p6 = getP6();
    SCORE_FLOAT p7 = getP7();
    double threshold = 0.01;
@@ -219,7 +219,7 @@ bool ScoreItem::isParallelogram(void) {
    int p5 = getP5Int();
    if (p5 != 0) {
       return false;
-   } 
+   }
    SCORE_FLOAT p10 = getP10();
    if (p10 != 0.0) {
       return true;
@@ -241,7 +241,7 @@ bool ScoreItem::isFilled(void) {
    int p5 = getP5Int();
    if (!(p5 == 0 || p5 == 1)) {
       return false;
-   } 
+   }
 
    int p13 = getP13Int();
    if (p13 == 1) {
@@ -265,7 +265,7 @@ bool ScoreItem::isUnfilled(void) {
    int p5 = getP5Int();
    if (!(p5 == 0 || p5 == 1)) {
       return false;
-   } 
+   }
 
    int p13 = getP13Int();
    if (p13 == 0) {
@@ -311,8 +311,8 @@ bool ScoreItem::isUnfilledCircle(void) {
 //////////////////////////////
 //
 // ScoreItem::getVerticalRadius -- Returns P7 of item if a shape.  If P7==0, then
-//    returns P6.  Units are diatonic steps (1/2 of distance between 
-//    staff lines).  This is the radius of a circle; the 1/2 height of 
+//    returns P6.  Units are diatonic steps (1/2 of distance between
+//    staff lines).  This is the radius of a circle; the 1/2 height of
 //    an ellipse, square, rectangle, or parallelogram.
 //
 
@@ -333,13 +333,13 @@ SCORE_FLOAT ScoreItem::getVerticalRadius(void) {
       return p7/2.0;
    }
 }
-   
+
 
 
 //////////////////////////////
 //
 // ScoreItem::getHorizontalRadius -- Returns P6 of item if a shape.  Units are
-// diatonic steps (1/2 of the distance between staff lines).  This is the radius 
+// diatonic steps (1/2 of the distance between staff lines).  This is the radius
 // of a circle; the 1/2 width of an ellipse, square, rectangle, or parallelogram.
 //
 
@@ -354,6 +354,6 @@ SCORE_FLOAT ScoreItem::getHorizontalRadius(void) {
       return getP6()/2.0;
    }
 }
-   
+
 
 

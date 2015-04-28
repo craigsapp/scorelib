@@ -47,7 +47,7 @@ using mapNamespace = map<string, mapSS>;
 // enum PARAM is a list of SCORE fixed parameter indexes.  These are indexed
 // from 1, with the 0th index of fixed parameter lists reserverd for future use.
 // It is preferable to use these enumeration values to access the fixed
-// parameter data, in cases where the starting position of the fixed 
+// parameter data, in cases where the starting position of the fixed
 // index changes.
 typedef enum {
         P1 = 1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14,

@@ -18,14 +18,14 @@ using namespace std;
 //
 // ScoreItem::getBarlineHeight --  The number of staves that a barline
 //    connect to is stored in P4.  If P4 is negative, then the barline
-//    is invisible.  This function currently does not allow the P4 value 
+//    is invisible.  This function currently does not allow the P4 value
 //    to be larger than 99 (or less than -99).  This is because SCORE
 //    limits the number of staves on the page (MS-DOS versions of SCORE
 //    limit the staff count for a page to 32).  Returns 0 if the item
 //    is not a barline.
 //
 
-int ScoreItem::getBarlineHeight(void) { 
+int ScoreItem::getBarlineHeight(void) {
    if (!isBarlineItem()) {
       return 0;
    }
@@ -42,12 +42,12 @@ int ScoreItem::getBarlineHeight(void) {
 // Aliases:
 //
 
-int ScoreItem::getBarHeight(void) { 
+int ScoreItem::getBarHeight(void) {
    return getBarlineHeight();
 }
 
 
-int ScoreItem::getHeight(void) { 
+int ScoreItem::getHeight(void) {
    return getBarlineHeight();
 }
 

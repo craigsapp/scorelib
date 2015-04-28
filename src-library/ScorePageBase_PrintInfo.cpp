@@ -85,7 +85,7 @@ void PrintInfo::setDefaultValues(void) {
                               //    5 pixs after setStrokeAdjust adjusts lines).
    mirror     = 0; // Don't revers the left-right axis when printing.
    setStroke  = 1; // Use setStrokeAdjust when rendering v graphics.
-      
+
    // These print variables are fixed:
    //
    // Lbuffer = 0.025;  // extra width added to lmargin

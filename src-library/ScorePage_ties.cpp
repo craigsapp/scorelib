@@ -47,7 +47,7 @@ int ScorePage::analyzeTies(void) {
          continue;
       }
       staffnum = i;
-      SU::analyzeStaffTies(staffnum, staffsequence[i],  righthanging, 
+      SU::analyzeStaffTies(staffnum, staffsequence[i],  righthanging,
             leftnotes, lefthanging, rightnotes);
    }
 

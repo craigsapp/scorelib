@@ -25,7 +25,7 @@ class SegmentPart {
                         ~SegmentPart         ();
 
       void               clear               (void);
-      AddressSystem&     getAddress          (int systemindex, 
+      AddressSystem&     getAddress          (int systemindex,
                                               int staffindex = 0);
       const vectorVASp&  getAddresses        (void) const;
       const vectorVASp&  getSystemAddresses  (void) const;
@@ -33,11 +33,11 @@ class SegmentPart {
       ScorePageOverlay&  getScoreOverlay     (int partindex, int pindex = 0);
       ScorePage&         getScorePage        (int partindex, int pindex = 0);
       int                getScorePageIndex   (int partindex, int pindex = 0);
-      int                getPageSystemIndex  (int partindex, 
+      int                getPageSystemIndex  (int partindex,
                                                  int subpartindex = 0);
-      int                getSystemStaffIndex (int systemindex, 
+      int                getSystemStaffIndex (int systemindex,
                                               int subpartindex = 0);
-      int                getPageStaffIndex   (int systemindex, 
+      int                getPageStaffIndex   (int systemindex,
                                               int subpartindex = 0);
       int                systemCount         (void);
       void               setOwner            (ScorePageSet* owner);
@@ -45,7 +45,7 @@ class SegmentPart {
       ScorePageSet*      getOwner            (void);
       void               appendAddress       (AddressSystem& anAddress);
       void               addToLastAddress    (AddressSystem& anAddress);
-      void               addAddress          (AddressSystem& anAddress, 
+      void               addAddress          (AddressSystem& anAddress,
                                               int index);
       void               setPartIndex        (unsigned int index);
       void               setPartNumber       (int number);

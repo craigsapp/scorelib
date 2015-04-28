@@ -66,7 +66,7 @@ ostream& ScorePageBase::printPmxWithNamedParameters(ostream& out, int roundQ,
 
 //////////////////////////////
 //
-// ScorePageBase::printPmxFixedParameters -- Print PMX data without 
+// ScorePageBase::printPmxFixedParameters -- Print PMX data without
 //      any named parameters.
 //
 
@@ -171,7 +171,7 @@ ostream& ScorePageBase::writeBinary(ostream& outfile) {
       outfile.write((char*)&blo, 1);
       outfile.write((char*)&bhi, 1);
    } else {
-      // write four-byte counter 
+      // write four-byte counter
       unsigned char bloest = writecount & 0xff;
       unsigned char bloer  = (writecount >> 8)  & 0xff;
       unsigned char bhier  = (writecount >> 16) & 0xff;
@@ -240,7 +240,7 @@ ostream& ScorePageBase::printAsciiTrailer(ostream& out) {
 
    SCORE_FLOAT version = getVersion();
    out << "#VERSION:\t" << version << "\n";
-  
+
    int serial = getSerialNumber();
    if (serial != 0) {
       out << "#SERIAL:\t" << serial << endl;

@@ -65,7 +65,7 @@ void ScorePage::private_analyzeStaffLayers(vectorSIp& items) {
    SCORE_FLOAT tolerance = 0.001;
    SCORE_FLOAT dur;
    ScoreItem* sip;
-   
+
    for (i=0; i<items.size(); i++) {
       if (!items[i]->hasDuration()) {
          continue;

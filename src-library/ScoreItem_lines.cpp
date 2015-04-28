@@ -16,10 +16,10 @@ using namespace std;
 
 //////////////////////////////
 //
-// ScoreItem::isHairpin -- 
+// ScoreItem::isHairpin --
 //
 
-bool ScoreItem::isHairpin(void) { 
+bool ScoreItem::isHairpin(void) {
    if (!isLineItem()) {
       return false;
    }
@@ -88,7 +88,7 @@ bool ScoreItem::isHairpinCrescendo(void) {
 
 //////////////////////////////
 //
-// ScoreItem::isWavyLine -- 
+// ScoreItem::isWavyLine --
 //
 
 bool ScoreItem::isWavyLine(void) {

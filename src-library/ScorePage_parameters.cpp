@@ -17,10 +17,10 @@ using namespace std;
 
 //////////////////////////////
 //
-// ScorePage::copyParameterOverwrite -- 
+// ScorePage::copyParameterOverwrite --
 //
 
-void ScorePage::copyParameterOverwrite(const string& newnamespace, 
+void ScorePage::copyParameterOverwrite(const string& newnamespace,
       const string& oldnamespace, const string& parameter) {
    for (auto& it : item_storage) {
       it->copyParameterOverwrite(newnamespace, oldnamespace, parameter);
@@ -31,10 +31,10 @@ void ScorePage::copyParameterOverwrite(const string& newnamespace,
 
 //////////////////////////////
 //
-// ScorePage::copyParameterNoOverwrite -- 
+// ScorePage::copyParameterNoOverwrite --
 //
 
-void ScorePage::copyParameterNoOverwrite(const string& newnamespace, 
+void ScorePage::copyParameterNoOverwrite(const string& newnamespace,
       const string& oldnamespace, const string& parameter) {
    for (auto& it : item_storage) {
       it->copyParameterNoOverwrite(newnamespace, oldnamespace, parameter);

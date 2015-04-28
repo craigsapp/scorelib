@@ -18,7 +18,7 @@ using namespace std;
 
 //////////////////////////////
 //
-// ScorePage::analyzeP3 -- 
+// ScorePage::analyzeP3 --
 //
 
 void ScorePage::analyzeP3(void) {

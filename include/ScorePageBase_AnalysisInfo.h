@@ -109,9 +109,9 @@ class AnalysisInfo {
       // Dependencies for layers: staves, (sorted, notmodified).
       int layers;
 
-      // p3: true if P3 analysis has been done.  This analysis 
+      // p3: true if P3 analysis has been done.  This analysis
       // organizes ScoreItems* into a list of P3 values.  The P3 analysis
-      // also cross-indexes the P3 value and staff offset durations of 
+      // also cross-indexes the P3 value and staff offset durations of
       // items on a system.
       int p3;
 

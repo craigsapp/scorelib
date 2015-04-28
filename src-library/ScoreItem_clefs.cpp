@@ -69,7 +69,7 @@ int ScoreItem::getMiddleCVpos(void) {
 
 ///////////////////////////////
 //
-// ScoreItem::getStaffLine -- 1=bottom line of staff, 5=top line 
+// ScoreItem::getStaffLine -- 1=bottom line of staff, 5=top line
 //     of 5-lined staff.  Will be confused if clef if placed
 //     on a staff space...
 //
@@ -100,7 +100,7 @@ int ScoreItem::getStaffLine(void) {
 //    X for percussion clef, and ? for other clefs.
 //
 
-char ScoreItem::getClefLetter(void) { 
+char ScoreItem::getClefLetter(void) {
    if (!isClefItem()) {
       return '?';
    }
@@ -123,7 +123,7 @@ char ScoreItem::getClefLetter(void) {
 // ScoreItem::soundsOctaveDown --
 //
 
-bool ScoreItem::soundsOctaveDown(void) { 
+bool ScoreItem::soundsOctaveDown(void) {
    if (!isClefItem()) {
       return false;
    }

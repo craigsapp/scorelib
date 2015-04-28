@@ -22,7 +22,7 @@ typedef vector<ScorePageOverlay*> vectorSPOp;
 typedef list<ScorePageOverlay*>   listSPOp;
 typedef vector<ScoreSegment*>     vectorSSp;
 
-class ScorePageSet { 
+class ScorePageSet {
 
    public:
                   ScorePageSet                  (void);
@@ -41,11 +41,11 @@ class ScorePageSet {
       void        appendReadFromOptionArguments (Options& opts);
       void        read                          (Options& opts);
       void        appendRead                    (const string& filename);
-      void        appendRead                    (istream& instream, 
+      void        appendRead                    (istream& instream,
                                                    const string& filename);
-      void        appendReadBinary              (istream& instream, 
+      void        appendReadBinary              (istream& instream,
                                                  const string& filename);
-      void        appendReadPmx                 (istream& instream, 
+      void        appendReadPmx                 (istream& instream,
                                                  const string& filename,
                                                  const string& pagetype="page",
                                                  int informat =0);
@@ -56,7 +56,7 @@ class ScorePageSet {
                                                  SCORE_FLOAT threshold2 = 40.0);
       void        analyzeSingleSegment          (void);
       void        setPageOwnerships             (void);
-     
+
       // Page-related functions
       void        analyzePitch                  (void);
       void        analyzeTies                   (void);
@@ -71,11 +71,11 @@ class ScorePageSet {
 
 
       // ScoreItem parameter manipulation (ScorePageSet_parameters.cpp):
-      void         copyParameterOverwrite (const string& newnamespace, 
-                                           const string& oldnamespace, 
+      void         copyParameterOverwrite (const string& newnamespace,
+                                           const string& oldnamespace,
                                            const string& parameter);
-      void         copyParameterNoOverwrite(const string& newnamespace, 
-                                           const string& oldnamespace, 
+      void         copyParameterNoOverwrite(const string& newnamespace,
+                                           const string& oldnamespace,
                                            const string& parameter);
       void         deleteNamespace         (const string& nspace);
 
@@ -85,57 +85,57 @@ class ScorePageSet {
       int           getPartCount                (int segmentindex);
       int           getPartCountInSegment       (int segmentindex);
       ScoreSegment& getSegment                  (int index);
-      const vectorVASp& getSystemAddresses      (int segmentindex, 
+      const vectorVASp& getSystemAddresses      (int segmentindex,
                                                  int partindex);
       void          clearSegments               (void);
-      void          createSegment               (AddressSystem& startaddress, 
+      void          createSegment               (AddressSystem& startaddress,
                                                  AddressSystem& endaddress);
       int           getLCMRhythm                (int segmentindex);
-      SCORE_FLOAT   getPartScale                (int segmentindex, 
+      SCORE_FLOAT   getPartScale                (int segmentindex,
                                                  int partindex);
 
       // Lyrics identification (defined in ScorePageSet_lyrics.cpp):
       void          analyzeLyrics               (void);
       void          analyzeLyrics               (int segmentindex);
-      void          analyzeLyrics               (int segmentindex, 
+      void          analyzeLyrics               (int segmentindex,
                                                  int partindex);
    private:
-      void          linkLyricsToNotes           (int segmentindex, 
+      void          linkLyricsToNotes           (int segmentindex,
                                                  int partindex);
-      int           identifyExtraVerses         (vectorVSIp& text, 
-                                                 int segmentindex, 
-                                                 int partindex, 
+      int           identifyExtraVerses         (vectorVSIp& text,
+                                                 int segmentindex,
+                                                 int partindex,
                                                  int systemindex,
-                                                 vectorI& verses, 
+                                                 vectorI& verses,
                                                  vectorSF& average,
                                                  int staffindex);
-      void          identifyLyricsOnStaff       (vectorSIp& items, 
+      void          identifyLyricsOnStaff       (vectorSIp& items,
                                                  int staffidx,
                                                  vectorI& verseP4s);
-      void          processVerse                (int verse, int vpos, 
-                                                 int staffidx, 
-                                                 vectorI& objlist, 
-                                                 vectorSF& vposes, 
+      void          processVerse                (int verse, int vpos,
+                                                 int staffidx,
+                                                 vectorI& objlist,
+                                                 vectorSF& vposes,
                                                  vectorSIp& data);
-      void          stitchLyricsHyphensAcrossSystems(int segmentindex, 
+      void          stitchLyricsHyphensAcrossSystems(int segmentindex,
                                                  int partindex,
                                                  int lyriccount);
-      void          changeVerseLine             (vectorVSIp& vertical, 
+      void          changeVerseLine             (vectorVSIp& vertical,
                                                  int oldnum, int newnum,
-                                                 int tolerance, 
+                                                 int tolerance,
                                                  SCORE_FLOAT p4target);
-      int           addVerseLine                (vectorVSIp& vertical, 
-                                                 int newnum, int tolerance, 
+      int           addVerseLine                (vectorVSIp& vertical,
+                                                 int newnum, int tolerance,
                                                  SCORE_FLOAT p4target,
                                                  int staffindex);
-      void          fillStaffText               (vectorVSIp& text, 
-                                                 int segmentindex, 
-                                                 int partindex, 
-                                                 int systemindex, 
-                                                 vectorI& verses, 
-                                                 vectorSF& average, 
+      void          fillStaffText               (vectorVSIp& text,
+                                                 int segmentindex,
+                                                 int partindex,
+                                                 int systemindex,
+                                                 vectorI& verses,
+                                                 vectorSF& average,
                                                  int staffindex);
-      void          adjustHyphenInfo            (vectorSIp& items, 
+      void          adjustHyphenInfo            (vectorSIp& items,
                                                  int staffnum);
 
    protected:
@@ -150,7 +150,7 @@ class ScorePageSet {
       vectorSPOp page_sequence;
 
       // score_segments is a list of score segmentations across multiple
-      // pages.  Each segment is assumed to have a constant number of 
+      // pages.  Each segment is assumed to have a constant number of
       // parts, and typically represents one movement of a work.  The
       // segments are destroyed when the object is deconstructed.
       vectorSSp segment_storage;

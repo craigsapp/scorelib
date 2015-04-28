@@ -25,7 +25,7 @@ using namespace std;
 // ScorePageBase::getFilename -- Returns the filename base and the extension.
 //
 
-string& ScorePageBase::getFilename(string& output) { 
+string& ScorePageBase::getFilename(string& output) {
    output.clear();
    output = filename_base;
    if (filename_extension.size() > 0) {
@@ -45,16 +45,16 @@ string ScorePageBase::getFilename(void) {
 
 //////////////////////////////
 //
-// ScorePageBase::getFilenameWithPath -- Returns the filename 
+// ScorePageBase::getFilenameWithPath -- Returns the filename
 //     base and the extension. Prefixed by the directory name (if it
 //     is not empty).
 //
 
-string& ScorePageBase::getFilenameWithPath(string& output) { 
+string& ScorePageBase::getFilenameWithPath(string& output) {
    output.clear();
    if (filename_path.size() > 0) {
       output = filename_path;
-      if (output.back() != '/') { 
+      if (output.back() != '/') {
          output += "/";
       }
    }
@@ -63,7 +63,7 @@ string& ScorePageBase::getFilenameWithPath(string& output) {
       output += ".";
       output += filename_extension;
    }
-   return output; 
+   return output;
 }
 
 
@@ -73,7 +73,7 @@ string& ScorePageBase::getFilenameWithPath(string& output) {
 // ScorePageBase::getFilenameBase --
 //
 
-const string& ScorePageBase::getFilenameBase(void) { 
+const string& ScorePageBase::getFilenameBase(void) {
    return filename_base;
 }
 
@@ -84,7 +84,7 @@ const string& ScorePageBase::getFilenameBase(void) {
 // ScorePageBase::getFilenameExtension --
 //
 
-const string& ScorePageBase::getFilenameExtension(void) { 
+const string& ScorePageBase::getFilenameExtension(void) {
    return filename_extension;
 }
 
@@ -95,7 +95,7 @@ const string& ScorePageBase::getFilenameExtension(void) {
 // ScorePageBase::getFilenamePath --
 //
 
-const string& ScorePageBase::getFilenamePath(void) { 
+const string& ScorePageBase::getFilenamePath(void) {
    return filename_path;
 }
 
@@ -107,7 +107,7 @@ const string& ScorePageBase::getFilenamePath(void) {
 //     path/base.ext
 //
 
-void ScorePageBase::setFilename(const string& filename) { 
+void ScorePageBase::setFilename(const string& filename) {
    auto location = filename.rfind("/");
 
    // first split the path from the filename.
@@ -150,7 +150,7 @@ void ScorePageBase::setFilename(const string& filename) {
 // ScorePageBase::setFilenameBase --
 //
 
-const string& ScorePageBase::setFilenameBase(const string& filebase) { 
+const string& ScorePageBase::setFilenameBase(const string& filebase) {
    filename_base = filebase;
    return removeCharacter(filename_extension, '/');
 }
@@ -162,7 +162,7 @@ const string& ScorePageBase::setFilenameBase(const string& filebase) {
 // ScorePageBase::setFilenameExtension --
 //
 
-const string& ScorePageBase::setFilenameExtension(const string& fileext) { 
+const string& ScorePageBase::setFilenameExtension(const string& fileext) {
    if ((fileext.size() > 0) && (fileext[0] == '.')) {
       filename_extension = fileext.substr(1);
    } else {
@@ -180,7 +180,7 @@ const string& ScorePageBase::setFilenameExtension(const string& fileext) {
 //    path name is only "/", then do not remove the slash.
 //
 
-const string& ScorePageBase::setFilenamePath(const string& path) { 
+const string& ScorePageBase::setFilenamePath(const string& path) {
    filename_path = path;
    while (filename_path.size() > 1 && (filename_path.back() == '/')) {
       filename_path.resize(filename_path.size()-1);
@@ -197,7 +197,7 @@ const string& ScorePageBase::setFilenamePath(const string& path) {
 //
 
 string& ScorePageBase::removeCharacter(string& out, char character) {
-   auto pos = remove_if(out.begin(), out.end(), 
+   auto pos = remove_if(out.begin(), out.end(),
          [&character](char ch){ return ch == character; });
    out.erase(pos, out.end());
    return out;

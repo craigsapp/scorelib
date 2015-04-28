@@ -26,7 +26,7 @@ class AddressSystem {
             AddressSystem       (void);
             AddressSystem       (vectorI& anAddress);
             AddressSystem       (AddressSystem& anAddress);
-            AddressSystem       (int aPage, int anOverlay, int aSystem, 
+            AddressSystem       (int aPage, int anOverlay, int aSystem,
                                  int aSystemStaff);
            ~AddressSystem();
 
@@ -36,7 +36,7 @@ class AddressSystem {
       int   getOverlayIndex     (void) const;
       int   getSystemIndex      (void) const;
       int   getSystemStaffIndex (void) const;
-      void  setAddress          (int aPage, int anOverlay, int aSystem, 
+      void  setAddress          (int aPage, int anOverlay, int aSystem,
                                  int aSystemStaff);
       int   incrementSystem     (ScorePageSet& pageset);
       AddressSystem& operator=  (AddressSystem& anAddress);

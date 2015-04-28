@@ -82,7 +82,7 @@ ostream& DatabaseP3::printDatabase(ostream& out) {
    int size;
    for (auto it : database) {
       size = it->size();
-      if (size > 0) { 
+      if (size > 0) {
          out << "# P3=" << ((*it)[0])->getHPos()
              << "\tstoff=" << ((*it)[0])->getStaffOffsetDuration()
              << "\t" << size << "item";
@@ -178,7 +178,7 @@ P3VerticalItems* DatabaseP3::getScoreItemsByP3(SCORE_FLOAT p3) {
    auto it = interface_byP3.find(p3);
    if (it == interface_byP3.end()) {
       return NULL;
-   } 
+   }
    return it->second;
 }
 
@@ -194,7 +194,7 @@ P3VerticalItems* DatabaseP3::getScoreItemsByStaffDurationOffset(
    auto it = interface_byOffset.find(offset);
    if (it == interface_byOffset.end()) {
       return NULL;
-   } 
+   }
    return it->second;
 }
 
@@ -233,7 +233,7 @@ void DatabaseP3::prepare(void) {
    preparedQ = 0;
 
    database.sort(DatabaseP3_sortP3);
-   
+
    P3VerticalItems* last = NULL;
    for (auto& it : database) {
       it->next     = NULL;

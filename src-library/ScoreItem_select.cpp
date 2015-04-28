@@ -19,7 +19,7 @@ using namespace std;
 // selectP1Items -- return all items in the input list which match the
 //
 
-int selectP1Items(vectorSIp& output, const vectorSIp& input, 
+int selectP1Items(vectorSIp& output, const vectorSIp& input,
       const vectorI& p1values) {
    output.clear();
    output.reserve(input.size());
@@ -47,7 +47,7 @@ int selectP1Items(vectorSIp& output, const vectorSIp& input, int p1value) {
 }
 
 
-int selectP1Items(vectorSIp& output, const listSIp& input, 
+int selectP1Items(vectorSIp& output, const listSIp& input,
       const vectorI& p1values) {
    output.clear();
    output.reserve(input.size());

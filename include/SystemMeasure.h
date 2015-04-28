@@ -6,8 +6,8 @@
 // URL:           https://github.com/craigsapp/scorelib/blob/master/include/SystemMeasure.h
 // Syntax:        C++11
 //
-// Description:   Used in analyzeBarlines() in ScorePage class.  This class 
-//                stores all ScoreItems present in a measure of music.  
+// Description:   Used in analyzeBarlines() in ScorePage class.  This class
+//                stores all ScoreItems present in a measure of music.
 
 #ifndef _SYSTEMMEASURE_H_INCLUDED
 #define _SYSTEMMEASURE_H_INCLUDED

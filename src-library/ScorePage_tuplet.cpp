@@ -63,7 +63,7 @@ TupletGroup* ScorePage::tupletInfo(ScoreItem* item) {
 ostream& ScorePage::printTupletDatabase(ostream& out) {
    int size = tuplet_database.size();
    out << "# TUPLET DATABASE (" << size;
-   if (size == 1) { out << " entry):"   << endl; } 
+   if (size == 1) { out << " entry):"   << endl; }
    else           { out << " entries):" << endl; }
    tuplet_database.printDatabase(out);
    return out;
@@ -78,7 +78,7 @@ ostream& ScorePage::printTupletDatabase(ostream& out) {
 
 //////////////////////////////
 //
-// ScorePage::analyzeTupletsOnStaff -- 
+// ScorePage::analyzeTupletsOnStaff --
 //
 
 void ScorePage::analyzeTupletsOnStaff(int p2index, SCORE_FLOAT tolerance) {
@@ -105,7 +105,7 @@ void ScorePage::analyzeTupletsOnStaff(int p2index, SCORE_FLOAT tolerance) {
       }
       tupletQ = 0;
 
-      // If the beam is has a tuplet marking on it, presume that all 
+      // If the beam is has a tuplet marking on it, presume that all
       // notes in the beam group are to be placed in the tuplet group
       // (This is not always true).
       if (item->isTupletBeam()) {

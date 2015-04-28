@@ -147,8 +147,8 @@ bool ScoreUtility::sortP3P2P1(ScoreItem* a, ScoreItem* b) {
 
 //////////////////////////////
 //
-// ScoreUtility::sortP3P1P4 -- sort by horizontal position/item type/vertical 
-//      position.  P4 values are limited to +/- 99 since the 100's digit 
+// ScoreUtility::sortP3P1P4 -- sort by horizontal position/item type/vertical
+//      position.  P4 values are limited to +/- 99 since the 100's digit
 //      indicates grace notes.
 //
 
@@ -162,7 +162,7 @@ bool ScoreUtility::sortP3P1P4(ScoreItem* a, ScoreItem* b) {
       return false;
    }
 
-   // vertical positions are the same so try to break tie by 
+   // vertical positions are the same so try to break tie by
    // item type.
 
    a_test = a->getPInt(P1);
@@ -172,9 +172,9 @@ bool ScoreUtility::sortP3P1P4(ScoreItem* a, ScoreItem* b) {
       return true;
    } else if (a_test > b_test) {
       return false;
-   } 
+   }
 
-   // horizontal positions are the same so try to break tie by 
+   // horizontal positions are the same so try to break tie by
    // vertical position.
 
    a_test = a->getVerticalPosition();
@@ -194,8 +194,8 @@ bool ScoreUtility::sortP3P1P4(ScoreItem* a, ScoreItem* b) {
 
 //////////////////////////////
 //
-// ScoreUtility::sortP3P4P1 -- sort by horizontal position/vertical 
-//      position/item type.  P4 values are limited to +/- 99 since 
+// ScoreUtility::sortP3P4P1 -- sort by horizontal position/vertical
+//      position/item type.  P4 values are limited to +/- 99 since
 //      the 100's digit indicates grace notes.
 //
 
@@ -209,7 +209,7 @@ bool ScoreUtility::sortP3P4P1(ScoreItem* a, ScoreItem* b) {
       return false;
    }
 
-   // horizontal positions are the same so try to break tie by 
+   // horizontal positions are the same so try to break tie by
    // vertical position.
 
    a_test = a->getVerticalPosition();
@@ -221,7 +221,7 @@ bool ScoreUtility::sortP3P4P1(ScoreItem* a, ScoreItem* b) {
       return false;
    }
 
-   // vertical positions are the same so try to break tie by 
+   // vertical positions are the same so try to break tie by
    // item type.
 
    a_test = a->getPInt(P1);

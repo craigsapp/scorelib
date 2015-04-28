@@ -99,7 +99,7 @@ void ScorePageBase::readStream(istream& testfile, int verboseQ) {
       testfile.seekg(-4, ios::end);
       unsigned char databytes[4] = {0xff};
       testfile.read((char*)databytes, 4);
-      if (databytes[0] == 0x00 && databytes[1] == 0x3c && 
+      if (databytes[0] == 0x00 && databytes[1] == 0x3c &&
             databytes[2] == 0x1c && databytes[3] == 0xc6) {
          binaryQ = 1;
       } else {
@@ -119,7 +119,7 @@ void ScorePageBase::readStream(istream& testfile, int verboseQ) {
 
 //////////////////////////////
 //
-// ScorePageBase::readPmx -- Read data in ASCII PMX format from given input 
+// ScorePageBase::readPmx -- Read data in ASCII PMX format from given input
 //     textfile.
 //     default value: verboseQ = 0
 //
@@ -148,7 +148,7 @@ void ScorePageBase::readPmx(const char* filename, int verboseQ) {
 void ScorePageBase::readPmx(istream& infile, int verboseQ) {
    clear();
 
-   ScoreItem* sip = NULL; 
+   ScoreItem* sip = NULL;
    while (!infile.eof()) {
       sip = readPmxScoreLine(infile, verboseQ);
       if (sip != NULL) {
@@ -179,7 +179,7 @@ ScoreItem* ScorePageBase::readPmxScoreLine(istream& infile, int verboseQ) {
    vectorSF parameters;
    parameters.reserve(ScoreItemBase::SCORE_MAX_FIXED_PARAMETERS);
    string text;
-   
+
    char* ptr = strtok(buffer, "\n\t ");
    float number = 0.0;
    if (ptr != NULL) {
@@ -239,7 +239,7 @@ ScoreItem* ScorePageBase::readPmxScoreLine(istream& infile, int verboseQ) {
 
 //////////////////////////////
 //
-// ScorePageBase::addPmxData -- Add one or more PMX line of data to the 
+// ScorePageBase::addPmxData -- Add one or more PMX line of data to the
 //     page.
 //
 

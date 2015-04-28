@@ -40,7 +40,7 @@ int main(int argc, char** argv) {
    if (opts.getBoolean("comment")) {
       commentQ = 1;
    }
-   
+
    ScorePageSet infiles(opts);
 
    if (opts.getBoolean("system")) {
@@ -61,7 +61,7 @@ int main(int argc, char** argv) {
 
 //////////////////////////////
 //
-// printBySystemWithBarlines -- print each page/overlay by system 
+// printBySystemWithBarlines -- print each page/overlay by system
 //      (top to bottom of page).
 //
 
@@ -74,14 +74,14 @@ cout << "GOT HERE CCC" << endl;
             cout << "\n";
          }
          cout << "###ScorePage:\t" << infiles[i][0].getFilenameBase() << endl;
-      } else { 
+      } else {
          cout << "RS" << endl;
          cout << "SA " << infiles[i][0].getFilenameBase() << endl;
       }
       cout << endl;
       for (j=0; j<infiles[i].getOverlayCount(); j++) {
          if (j>0) {
-            cout << "\n###ScoreOverlay:\t" 
+            cout << "\n###ScoreOverlay:\t"
                  << infiles[i][j].getFilenameBase() << endl;
          }
          printPageBySystemWithBarlines(infiles[i][j], extra);
@@ -110,7 +110,7 @@ cout << "GOT HERE BBB" << endl;
       cout << "\n";
       for (j=0; j<infiles[i].getOverlayCount(); j++) {
          if (j>0) {
-            cout << "\n###ScoreOverlay:\t" 
+            cout << "\n###ScoreOverlay:\t"
                  << infiles[i][j].getFilenameBase() << endl;
          }
          printPageBySystem(infiles[i][j], extra);
@@ -132,7 +132,7 @@ cout << "GOT HERE AAA" << endl;
    int i, j;
    int count;
    for (i=0; i<scount; i++) {
-      if (i>0) { 
+      if (i>0) {
          cout << "\n";
       }
       count = i;
@@ -140,7 +140,7 @@ cout << "GOT HERE AAA" << endl;
          count++;
       }
       cout << "##System:\t" << count << "\n";
-      sort(page.getSystemItems(i).begin(), page.getSystemItems(i).end(), 
+      sort(page.getSystemItems(i).begin(), page.getSystemItems(i).end(),
             SU::sortP3P1P2P4);
       if (extra) {
          vectorSIp& items = page.getSystemItems(i);
@@ -151,7 +151,7 @@ cout << "GOT HERE AAA" << endl;
             cout << endl;
          }
       } else {
-         cout << page.getSystemItems(i); 
+         cout << page.getSystemItems(i);
       }
    }
 }
@@ -160,7 +160,7 @@ cout << "GOT HERE AAA" << endl;
 
 //////////////////////////////
 //
-// printPageBySystemWithBarlines -- Print a page of music sorted 
+// printPageBySystemWithBarlines -- Print a page of music sorted
 //    by system and horizontal position (time) with barlines
 //    indicated.
 //
@@ -173,7 +173,7 @@ cout << "GOT HERE DDD" << endl;
    int scount;
    int mcount;
    for (i=0; i<syscount; i++) {
-      if (i>0) { 
+      if (i>0) {
          cout << "\n";
       }
       scount = i;

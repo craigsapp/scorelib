@@ -21,7 +21,7 @@ using namespace std;
 // DatabaseAnalysis::DatabaseAnalysis -- Constructor.
 //
 
-DatabaseAnalysis::DatabaseAnalysis(void) { 
+DatabaseAnalysis::DatabaseAnalysis(void) {
    // do nothing
 }
 
@@ -32,10 +32,10 @@ DatabaseAnalysis::DatabaseAnalysis(void) {
 // DatabaseAnalysis::~DatabaseAnalysis -- Deconstructor.
 //
 
-DatabaseAnalysis::~DatabaseAnalysis() { 
+DatabaseAnalysis::~DatabaseAnalysis() {
    // do nothing
 }
-   
+
 
 
 //////////////////////////////
@@ -43,7 +43,7 @@ DatabaseAnalysis::~DatabaseAnalysis() {
 // DatabaseAnalysis::addNode --
 //
 
-void DatabaseAnalysis::addNode(const string& nodename, int* state) { 
+void DatabaseAnalysis::addNode(const string& nodename, int* state) {
    nodes[nodename].data = state;
 }
 
@@ -54,7 +54,7 @@ void DatabaseAnalysis::addNode(const string& nodename, int* state) {
 // DatabaseAnalysis::addChild --
 //
 
-void DatabaseAnalysis::addChild(const string& parent, const string& child, 
+void DatabaseAnalysis::addChild(const string& parent, const string& child,
       int* cstate) {
    nodes[child].data = cstate;
    nodes[child].parents.push_back(parent);
@@ -71,7 +71,7 @@ void DatabaseAnalysis::addChild(const string& parent, const string& child,
 //    of recursive loops).
 //
 
-void DatabaseAnalysis::invalidateNode(const string& nodename) { 
+void DatabaseAnalysis::invalidateNode(const string& nodename) {
    auto entry = nodes.find(nodename);
    if (entry == nodes.end()) {
       cerr << "Searching for an undefined node: " << nodename << endl;
@@ -89,10 +89,10 @@ void DatabaseAnalysis::invalidateNode(const string& nodename) {
 //////////////////////////////
 //
 // DatabaseAnalysis::validateNode --  Set data for this node
-//    to 1 and don't modifiy any of its children.  
+//    to 1 and don't modifiy any of its children.
 //
 
-void DatabaseAnalysis::validateNode(const string& nodename) { 
+void DatabaseAnalysis::validateNode(const string& nodename) {
    *(nodes[nodename].data) = 1;
 }
 

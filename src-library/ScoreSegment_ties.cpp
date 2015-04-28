@@ -6,7 +6,7 @@
 // URL:           https://github.com/craigsapp/scorelib/blob/master/src-library/ScoreSegment_ties.cpp
 // Syntax:        C++11
 //
-// Description:   Functions related to lyrics identification 
+// Description:   Functions related to lyrics identification
 //      within ScoreSegments.
 //
 
@@ -54,7 +54,7 @@ void ScoreSegment::analyzeSystemBreakTies(int pindex) {
       // the order of pre/post slurs/notes looks weird in this
       // function call, but that is the order they need to
       // get the data in the right slots...
-      SU::analyzeStaffTies(partp2[i], getSystemItems(i), preslurs[i], 
+      SU::analyzeStaffTies(partp2[i], getSystemItems(i), preslurs[i],
             postnotes[i], postslurs[i], prenotes[i]);
    }
 
@@ -67,8 +67,8 @@ void ScoreSegment::analyzeSystemBreakTies(int pindex) {
       }
       for (a=0; a<preslurs[i].size(); a++) {
          for (b=0; b<postslurs[i-1].size(); b++) {
-            SU::linkNotesByTie(postslurs[i-1][b], 
-                  postnotes[i-1][0]->getDuration(), postnotes[i-1], 
+            SU::linkNotesByTie(postslurs[i-1][b],
+                  postnotes[i-1][0]->getDuration(), postnotes[i-1],
                   preslurs[i][a], prenotes[i]);
          }
       }

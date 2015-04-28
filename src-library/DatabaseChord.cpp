@@ -19,7 +19,7 @@ using namespace std;
 // DatabaseChord::DatabaseChord -- Constructor.
 //
 
-DatabaseChord::DatabaseChord(void) { 
+DatabaseChord::DatabaseChord(void) {
    // do nothing
 }
 
@@ -30,10 +30,10 @@ DatabaseChord::DatabaseChord(void) {
 // DatabaseChord::~DatabaseChord -- Deconstructor.
 //
 
-DatabaseChord::~DatabaseChord() { 
+DatabaseChord::~DatabaseChord() {
    clear();
 }
-   
+
 
 
 //////////////////////////////
@@ -41,7 +41,7 @@ DatabaseChord::~DatabaseChord() {
 // DatabaseChord::clear -- empty the chord database of all content.
 //
 
-void DatabaseChord::clear(void) { 
+void DatabaseChord::clear(void) {
    interface.clear();
    database.clear();
 }
@@ -50,7 +50,7 @@ void DatabaseChord::clear(void) {
 
 //////////////////////////////
 //
-// DatabaseChord::linkNotes -- merge two notes into a chord.  Will create a 
+// DatabaseChord::linkNotes -- merge two notes into a chord.  Will create a
 //    new entry if there is no existing entry for those notes; otherwise, will
 //    add one or the other note to an existing chord.  Linking of notes between
 //    different chords is currently not allowed.
@@ -82,7 +82,7 @@ vectorSIp* DatabaseChord::linkNotes(ScoreItem* note1, ScoreItem* note2) {
          interface[note2] = lista;
          return lista;
       } else {
-         // both notes are in the database.  They should be attached to the 
+         // both notes are in the database.  They should be attached to the
          // same chord.  If not, merging separate chords are currently
          // not allowed (may be added in the future).
          return lista;
@@ -99,7 +99,7 @@ vectorSIp* DatabaseChord::linkNotes(ScoreItem* note1, ScoreItem* note2) {
 //    of the chord (the note which posses the stem and articulations).
 //
 
-vectorSIp* DatabaseChord::notelist(ScoreItem* item) { 
+vectorSIp* DatabaseChord::notelist(ScoreItem* item) {
    auto result = interface.find(item);
    if (result == interface.end()) {
       return NULL;

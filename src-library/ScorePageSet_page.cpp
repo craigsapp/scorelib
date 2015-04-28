@@ -27,7 +27,7 @@ void ScorePageSet::analyzePitch(void) {
    for (i=0; i<pcount; i++) {
       ocount = sps[i].getOverlayCount();
       for (j=0; j<ocount; j++) {
-         sps[i][j].analyzePitch();         
+         sps[i][j].analyzePitch();
       }
    }
 }

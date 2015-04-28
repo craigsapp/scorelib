@@ -41,12 +41,12 @@ TupletGroup*  ScoreItem::getTupletGroup(void) {
 TupletGroup* ScoreItem::getTupletInfo(void) {
    return getTupletGroup();
 }
-   
+
 
 TupletGroup* ScoreItem::tupletInfo(void) {
    return getTupletGroup();
 }
-   
+
 
 TupletGroup* ScoreItem::tupletGroup(void) {
    return getTupletGroup();
@@ -56,7 +56,7 @@ TupletGroup* ScoreItem::tupletGroup(void) {
 
 //////////////////////////////
 //
-// ScoreItem::inTupletGroup -- Returns true if the item is within a 
+// ScoreItem::inTupletGroup -- Returns true if the item is within a
 //     tuplet group.
 //
 

@@ -30,7 +30,7 @@ ScoreSegment::ScoreSegment(void) {
 }
 
 
-ScoreSegment::ScoreSegment(ScorePageSet& pageset, AddressSystem& starting, 
+ScoreSegment::ScoreSegment(ScorePageSet& pageset, AddressSystem& starting,
       AddressSystem& ending, int debug) {
 
    defineSegment(pageset, starting, ending, debug);
@@ -95,7 +95,7 @@ void ScoreSegment::setOwner(ScorePageSet* owner) {
 // ScoreSegment::defineSegment --
 //
 
-void ScoreSegment::defineSegment(ScorePageSet& pageset, 
+void ScoreSegment::defineSegment(ScorePageSet& pageset,
       AddressSystem& starting, AddressSystem& ending, int debug) {
    pageset_owner = &pageset;
    start_system = starting;
@@ -188,11 +188,11 @@ void ScoreSegment::analyzePartStaves(vectorI& partlist, ScorePageSet&
          zerocounter = 0;
          for (int sysstaff = 0; sysstaff < staffcount; sysstaff++) {
             if ((p == sp.getPageIndex()) && (sys == sp.getSystemIndex())) {
-               staffitems[sys][sysstaff][0]->setParameter("segment", 
+               staffitems[sys][sysstaff][0]->setParameter("segment",
                      "start", "true");
             }
             if ((p == ep.getPageIndex()) && (sys == ep.getSystemIndex())) {
-               staffitems[sys][sysstaff][0]->setParameter("segment", 
+               staffitems[sys][sysstaff][0]->setParameter("segment",
                      "end", "true");
             }
             if (staffitems[sys][sysstaff].size() > 0) {
@@ -205,17 +205,17 @@ void ScoreSegment::analyzePartStaves(vectorI& partlist, ScorePageSet&
             }
             if ((p == sp.getPageIndex()) && (sys == sp.getSystemIndex())) {
                if (staffitems[sys][sysstaff][0]->isDefined("partname")) {
-                  string partname = 
+                  string partname =
                      staffitems[sys][sysstaff][0]->getParameter("partname");
                   if (partname != "") {
-                     staffitems[sys][sysstaff][0]->setParameter("segment", 
+                     staffitems[sys][sysstaff][0]->setParameter("segment",
                               "partname", partname);
                   }
                } else {
-                  string partname = 
+                  string partname =
                         part_storage[reverselist[partnum]]->getPartName();
                   if (partname != "") {
-                     staffitems[sys][sysstaff][0]->setParameter("segment", 
+                     staffitems[sys][sysstaff][0]->setParameter("segment",
                            "partname", partname);
                   }
                }
@@ -223,7 +223,7 @@ void ScoreSegment::analyzePartStaves(vectorI& partlist, ScorePageSet&
             partindex = reverselist[partnum];
             partcount = counter[partindex]++;
             partmarker = to_string(partindex) + "." + to_string(partcount);
-            staffitems[sys][sysstaff][0]->setParameter("segment", 
+            staffitems[sys][sysstaff][0]->setParameter("segment",
                "partstaff", partmarker);
 
             // Store the system addresses for each system for each part.
@@ -254,12 +254,12 @@ void ScoreSegment::analyzePartStaves(vectorI& partlist, ScorePageSet&
 
 //////////////////////////////
 //
-// ScoreSegment::extractPartName -- Extract text in front of a staff.  Expand 
-//      in the future to deal with instrument name split onto two (or more 
+// ScoreSegment::extractPartName -- Extract text in front of a staff.  Expand
+//      in the future to deal with instrument name split onto two (or more
 //      lines).
 //
 
-string ScoreSegment::extractPartName(ScorePageSet& pageset, 
+string ScoreSegment::extractPartName(ScorePageSet& pageset,
       AddressSystem& startsys, int partindex) {
    int pageindex = startsys.getPageIndex();
    int overlay = 0;
@@ -272,10 +272,10 @@ string ScoreSegment::extractPartName(ScorePageSet& pageset,
    for (auto& it : items) {
       if (pagestaff != it->getStaffNumber()) {
          continue;
-      } 
+      }
       if (it->isStaffItem()) {
          break;
-      } 
+      }
       if (!it->isTextItem()) {
          continue;
       }
@@ -295,9 +295,9 @@ string ScoreSegment::extractPartName(ScorePageSet& pageset,
 // ScoreSegment::getSystemStaffIndex --
 //
 
-int ScoreSegment::getSystemStaffIndex(int systemindex, int partindex, 
+int ScoreSegment::getSystemStaffIndex(int systemindex, int partindex,
       int subpartindex) {
-   return part_storage[partindex]->getSystemStaffIndex(systemindex, 
+   return part_storage[partindex]->getSystemStaffIndex(systemindex,
       subpartindex);
 }
 
@@ -309,10 +309,10 @@ int ScoreSegment::getSystemStaffIndex(int systemindex, int partindex,
 //    for the part on the given system in the segment.
 //
 
-int ScoreSegment::getPageStaffIndex(int systemindex, int partindex, 
+int ScoreSegment::getPageStaffIndex(int systemindex, int partindex,
       int subpartindex) {
    return part_storage[partindex]->getPageStaffIndex(systemindex,
-      subpartindex); 
+      subpartindex);
 }
 
 
@@ -323,19 +323,19 @@ int ScoreSegment::getPageStaffIndex(int systemindex, int partindex,
 //   numbers extracted from staff items.  Currently only processing
 //   the first page in ScorePageOverlay objects.
 //
-//   If the partnumber of a staff is zero, then an automatic identification of 
-//   parts by system staff number will be used.  The bottom staff will be 
-//   labeled as part -1, the next higher staff will be part -2, and so on.  
-//   If part numbers (P9|P1=8) are zero, then it is expected that the staff 
-//   number for each system is constant (otherwise you should number the 
-//   staves by parts).  If the staff counts are not constant, then the 
-//   staves will be assumed to be removed starting from the top.  So if 
-//   there are nominally 4 staves/system and there is a system with three 
+//   If the partnumber of a staff is zero, then an automatic identification of
+//   parts by system staff number will be used.  The bottom staff will be
+//   labeled as part -1, the next higher staff will be part -2, and so on.
+//   If part numbers (P9|P1=8) are zero, then it is expected that the staff
+//   number for each system is constant (otherwise you should number the
+//   staves by parts).  If the staff counts are not constant, then the
+//   staves will be assumed to be removed starting from the top.  So if
+//   there are nominally 4 staves/system and there is a system with three
 //   staves, and all staves are labeled as part 0, then the top staff on the
 //   4-staff system will be assumed to be removed in the 3-staff system.
 //
 
-void ScoreSegment::getPartList(vectorI& partlist, ScorePageSet& pageset, 
+void ScoreSegment::getPartList(vectorI& partlist, ScorePageSet& pageset,
       AddressSystem& sp, AddressSystem& ep) {
 
    partlist.resize(0);
@@ -369,7 +369,7 @@ void ScoreSegment::getPartList(vectorI& partlist, ScorePageSet& pageset,
          for (staff=0; staff<staffitems[sys].size(); staff++) {
             if (staffitems[sys][staff].size() == 0) {
                continue;
-            } 
+            }
             partnum = staffitems[sys][staff][0]->getPartNumber();
             if (partnum == 0) {
                partnum = --zeropart;
@@ -383,7 +383,7 @@ void ScoreSegment::getPartList(vectorI& partlist, ScorePageSet& pageset,
    partlist.reserve(partnums.size());
    for (auto& it : partnums) {
       partlist.push_back(it);
-   }   
+   }
 }
 
 
@@ -399,7 +399,7 @@ const AddressSystem& ScoreSegment::getBeginSystem(void) const {
 }
 
 //
-// Alias: 
+// Alias:
 //
 
 const AddressSystem& ScoreSegment::getStartSystem(void) const {
@@ -410,7 +410,7 @@ const AddressSystem& ScoreSegment::getStartSystem(void) const {
 
 //////////////////////////////
 //
-// ScoreSegment::getBeginSystem -- return the first system in a ScorePageSet 
+// ScoreSegment::getBeginSystem -- return the first system in a ScorePageSet
 //      which defines the segment.
 //
 
@@ -524,7 +524,7 @@ vectorSIp& ScoreSegment::getSystemItems(int sysindex) {
 
 //////////////////////////////
 //
-// ScoreSegment::getPartName -- 
+// ScoreSegment::getPartName --
 //
 
 string ScoreSegment::getPartName(int partindex) {
@@ -559,10 +559,10 @@ ScoreItem* ScoreSegment::getInitialClef(int partindex) {
    for (auto& it : items) {
       if (pagestaff != it->getStaffNumber()) {
          continue;
-      } 
+      }
       if (it->isNoteItem()) {
          break;
-      } 
+      }
       if (it->isClefItem()) {
          return it;
       }

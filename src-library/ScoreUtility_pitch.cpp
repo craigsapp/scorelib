@@ -18,7 +18,7 @@ using namespace std;
 
 //////////////////////////////
 //
-// ScoreUtility::base7ToBase40 -- convert a diatonic Base-7 note into 
+// ScoreUtility::base7ToBase40 -- convert a diatonic Base-7 note into
 //      a Base-40 pitch. Example for middle C (C4):
 //          base-7  : 0 + 4 * 7  =  28
 //          base-40 : 2 + 4 * 40 = 162
@@ -53,7 +53,7 @@ int ScoreUtility::base7ToBase40(int base7) {
 
 //////////////////////////////
 //
-// ScoreUtility::base40ToBase7PitchClass --  Convert a base-40 pitch 
+// ScoreUtility::base40ToBase7PitchClass --  Convert a base-40 pitch
 //     to Base-7 (losing any chromatic alterations of the diatonic pitch).
 //
 
@@ -103,7 +103,7 @@ int ScoreUtility::base40ToBase7PitchClass(int base40) {
 
 //////////////////////////////
 //
-// ScoreUtility::base40ToUCDiatonicLetter --  Convert a base-40 pitch 
+// ScoreUtility::base40ToUCDiatonicLetter --  Convert a base-40 pitch
 //     into a Base-7 diatonic pitch letter name (upper case).
 //     (losing any chromatic alterations of the diatonic pitch).
 //
@@ -126,7 +126,7 @@ char ScoreUtility::base40ToUCDiatonicLetter(int base40) {
 
 //////////////////////////////
 //
-// ScoreUtility::base40ToLCDiatonicLetter --  Convert a base-40 pitch 
+// ScoreUtility::base40ToLCDiatonicLetter --  Convert a base-40 pitch
 //     into a Base-7 diatonic pitch letter name (upper case).
 //     (losing any chromatic alterations of the diatonic pitch).
 //
@@ -149,7 +149,7 @@ char ScoreUtility::base40ToLCDiatonicLetter(int base40) {
 
 //////////////////////////////
 //
-// ScoreUtility::base40ToBase7 --  Convert a base-40 pitch to Base-7 
+// ScoreUtility::base40ToBase7 --  Convert a base-40 pitch to Base-7
 //     pitch (losing any chromatic alterations of the diatonic pitch.
 //
 
@@ -272,7 +272,7 @@ string ScoreUtility::base40ToKern(int base40) {
       case 39: chromastring = "b##"; break;
       default: chromastring = "X";
    }
-   
+
    if (octave >= 4) {
       chromastring[0] = std::tolower(chromastring[0]);
    } else {

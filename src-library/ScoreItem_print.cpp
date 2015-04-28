@@ -6,7 +6,7 @@
 // URL:           https://github.com/craigsapp/scorelib/blob/master/src-library/ScoreItem_print.cpp
 // Syntax:        C++11
 //
-// Description:   ostream functions for printing ASCII versions of 
+// Description:   ostream functions for printing ASCII versions of
 //                ScoreItem.
 //
 
@@ -18,7 +18,7 @@ using namespace std;
 
 //////////////////////////////
 //
-// ScoreItem::printNoAnalysis -- print a ScoreItem, excluding any 
+// ScoreItem::printNoAnalysis -- print a ScoreItem, excluding any
 //      named parameters in the "auto" namespace.
 //
 
@@ -33,7 +33,7 @@ ostream& ScoreItem::printNoAnalysis(ostream& out) {
 
 //////////////////////////////
 //
-// printNoAnalysis -- print a list of ScoreItems, excluding any 
+// printNoAnalysis -- print a list of ScoreItems, excluding any
 //      named parameters in the "auto" namespace.
 //
 

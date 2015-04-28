@@ -6,8 +6,8 @@
 // URL:           https://github.com/craigsapp/scorelib/blob/master/src-library/ScorePage.cpp
 // Syntax:        C++11
 //
-// Description:   This class handles analysis of relationships between 
-//                SCORE items on the page, such as system, pitch, and chord 
+// Description:   This class handles analysis of relationships between
+//                SCORE items on the page, such as system, pitch, and chord
 //                groupings.
 //
 
@@ -38,13 +38,13 @@ ScorePage::ScorePage(istream& instream) : ScorePageBase(instream) {
 }
 
 
-ScorePage::ScorePage(const ScorePage& apage) : 
+ScorePage::ScorePage(const ScorePage& apage) :
       ScorePageBase((ScorePageBase)apage) {
    // do nothing
 }
 
 
-ScorePage::ScorePage(const ScorePageBase& apage) : 
+ScorePage::ScorePage(const ScorePageBase& apage) :
       ScorePageBase(apage) {
    // do nothing
 }
@@ -64,7 +64,7 @@ ScorePage::~ScorePage() {
 
 //////////////////////////////
 //
-// ScorePage::setSetOwner -- 
+// ScorePage::setSetOwner --
 //
 
 void ScorePage::setSetOwner(ScorePageSet* pageset) {
@@ -103,7 +103,7 @@ void ScorePage::sortPageHorizontally  (void) {
    auto it = item_storage.begin();
    auto it2 = sortlist.begin();
 
-   for ( ; ((it != item_storage.end()) && (it2 != sortlist.end())); 
+   for ( ; ((it != item_storage.end()) && (it2 != sortlist.end()));
            it++, it2++) {
       *it2 = *it;
    }

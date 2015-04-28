@@ -16,7 +16,7 @@ using namespace std;
 
 //////////////////////////////
 //
-// ScorePageSet::getPage -- Return a ScorePage related to the given 
+// ScorePageSet::getPage -- Return a ScorePage related to the given
 //       AddressSystem.
 //
 

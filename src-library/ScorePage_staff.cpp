@@ -42,7 +42,7 @@ void ScorePage::analyzeStaves(void) {
          continue;
       }
       staffnum = it->getStaffNumber();
-      
+
       if ((staffnum < 0) || (staffnum >= (int)MAX_STAFF_COUNT)) {
          continue;
       }
@@ -72,7 +72,7 @@ void ScorePage::fillStaffScoreItemLists(void) {
    if (!analysis_info.stavesIsValid()) {
       analyzeStaves();
    }
-   
+
    vectorVSIp& stafflist = itemlist_staffsorted;
    vectorSIp& itemlist = itemlist_P3sorted;
    int maxstaff = getMaxStaff();
@@ -82,7 +82,7 @@ void ScorePage::fillStaffScoreItemLists(void) {
       stafflist[i].reserve(itemlist.size());
       stafflist[i].resize(0);
    }
-   
+
 
    int p2;
    for (auto& it : itemlist) {
@@ -158,7 +158,7 @@ vectorSIp&  ScorePage::staffItems(int p2index) {
    if (!analysis_info.stavesIsValid()) {
       analyzeStaves();
    }
- 
+
    return itemlist_staffsorted[p2index];
 }
 

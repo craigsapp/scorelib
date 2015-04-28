@@ -40,11 +40,11 @@ class ScoreItemEdit : public ScoreItemBase {
       int           getHistoryIndex      (void);
 
       // Namespace accessor functions
-      void          setParameter     (const string& nspace, const string& key, 
+      void          setParameter     (const string& nspace, const string& key,
                                       const string& value);
-      void          setParameter     (const string& nspace, const string& key, 
+      void          setParameter     (const string& nspace, const string& key,
                                       int value);
-      void          setParameter     (const string& nspace, const string& key, 
+      void          setParameter     (const string& nspace, const string& key,
                                       SCORE_FLOAT value);
       // Global accessor functions
       void          setParameter     (const string& key, const string& value);
@@ -55,11 +55,11 @@ class ScoreItemEdit : public ScoreItemBase {
       void          setFixedText     (const string& text);
 
       // Accessor function aliases:
-      void          setP             (const string& nspace, const string& key, 
+      void          setP             (const string& nspace, const string& key,
                                       const string& value);
-      void          setP             (const string& nspace, const string& key, 
+      void          setP             (const string& nspace, const string& key,
                                       int value);
-      void          setP             (const string& nspace, const string& key, 
+      void          setP             (const string& nspace, const string& key,
                                       SCORE_FLOAT value);
       void          setP             (const string& key, const string& value);
       void          setP             (const string& key, int value);
@@ -82,27 +82,27 @@ class ScoreItemEdit : public ScoreItemBase {
       // Printing functions
       ostream&      printPmx           (ostream& out);
       ostream&      printPmxEditHistory(ostream& out);
-      ostream&      printXmlWithEdits  (ostream& out, int indentcount = 0, 
+      ostream&      printXmlWithEdits  (ostream& out, int indentcount = 0,
                                         const string& indentstring = "\t");
 
    protected:
-      void          appendToHistory  (const string& nspace, const string& key, 
-                                      const string& oldvalue, 
-                                      const string& newvalue);
-      void          appendToHistory  (const string& nspace, const string& key, 
-                                      int created_state,
-                                      const string& newvalue);
-      void          appendToHistory  (const string& nspace, const string& key, 
-                                      const string& oldvalue, 
-                                      int deleted_state);
-
-      void          appendToHistory  (const string& key, 
+      void          appendToHistory  (const string& nspace, const string& key,
                                       const string& oldvalue,
                                       const string& newvalue);
-      void          appendToHistory  (const string& key, 
+      void          appendToHistory  (const string& nspace, const string& key,
                                       int created_state,
                                       const string& newvalue);
-      void          appendToHistory  (const string& key, 
+      void          appendToHistory  (const string& nspace, const string& key,
+                                      const string& oldvalue,
+                                      int deleted_state);
+
+      void          appendToHistory  (const string& key,
+                                      const string& oldvalue,
+                                      const string& newvalue);
+      void          appendToHistory  (const string& key,
+                                      int created_state,
+                                      const string& newvalue);
+      void          appendToHistory  (const string& key,
                                       const string& oldvalue,
                                       int deleted_state);
 
@@ -114,9 +114,9 @@ class ScoreItemEdit : public ScoreItemBase {
                                       int deleted_state);
 
       // Printing functions
-      ostream&       printHistoryPmx (ostream& out, 
+      ostream&       printHistoryPmx (ostream& out,
                                       const ParameterHistory& hEntry);
-      ostream&       printHistoryXml (ostream& out, int indentcount, 
+      ostream&       printHistoryXml (ostream& out, int indentcount,
                                       const string& indentstring);
 
    private:

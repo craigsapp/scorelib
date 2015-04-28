@@ -32,7 +32,7 @@ int main(int argc, char** argv) {
    opts.define("pmx=b", "Extract pages into ASCII .PMX files");
    opts.define("txt=b", "Extract pages into ASCII .TXT files");
    opts.process(argc, argv);
-   
+
    ScorePageSet infiles(opts);
 
    if (opts.getBoolean("count")) {

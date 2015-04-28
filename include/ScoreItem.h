@@ -72,11 +72,11 @@ using listSIp     = list<ScoreItem*>;
       void         setPDigit              (int pindex, int position, int value);
       void         setParameterIntegerPart(int pindex, int intval);
       void         setPIntPart            (int pindex, int intval);
-      void         copyParameterOverwrite (const string& newnamespace, 
-                                           const string& oldnamespace, 
+      void         copyParameterOverwrite (const string& newnamespace,
+                                           const string& oldnamespace,
                                            const string& parameter);
-      void         copyParameterNoOverwrite(const string& newnamespace, 
-                                           const string& oldnamespace, 
+      void         copyParameterNoOverwrite(const string& newnamespace,
+                                           const string& oldnamespace,
                                            const string& parameter);
 
       // P1-P4 are the same for most P1 item types.
@@ -165,9 +165,9 @@ using listSIp     = list<ScoreItem*>;
       int          getEditorialAccidental       (void);
       bool         hasEditorialAccidental       (void);
       int          hasNatural                   (void);
-      void         setNoAccidental              (void); 
+      void         setNoAccidental              (void);
       void         setAccidentalParentheses     (void);
-      void         removeAccidentalParentheses  (void); 
+      void         removeAccidentalParentheses  (void);
       // functions related to articulations
       int          getArticulation              (void);
       void         removeArticulation           (void);
@@ -344,7 +344,7 @@ using listSIp     = list<ScoreItem*>;
       // Chord analysis dependent functions:
       string       getHumdrumPitch                (void);
 
-      
+
 };
 
 
@@ -360,13 +360,13 @@ ostream&    printNoAnalysis   (ostream& out, vectorVSIp& sipvvector);
 
 
 // Selecting filters for list of ScoreItems (defined in ScoreItem_select.cpp):
-int    selectP1Items       (vectorSIp& output, const vectorSIp& input, 
+int    selectP1Items       (vectorSIp& output, const vectorSIp& input,
                             const vectorI& p1values);
-int    selectP1Items       (vectorSIp& output, const listSIp& input, 
+int    selectP1Items       (vectorSIp& output, const listSIp& input,
                             const vectorI& p1values);
-int    selectP1Items       (vectorSIp& output, const vectorSIp& input, 
+int    selectP1Items       (vectorSIp& output, const vectorSIp& input,
                             int p1value);
-int    selectP1Items       (vectorSIp& output, const listSIp& input, 
+int    selectP1Items       (vectorSIp& output, const listSIp& input,
                             int p1value);
 int    selectDurationItems (vectorSIp& output, const vectorSIp& input);
 int    selectDurationItems (vectorSIp& output, const listSIp& input);

@@ -20,7 +20,7 @@ using namespace std;
 // DatabaseLyrics::DatabaseLyrics -- Constructor.
 //
 
-DatabaseLyrics::DatabaseLyrics(void) { 
+DatabaseLyrics::DatabaseLyrics(void) {
    // do nothing
 }
 
@@ -31,10 +31,10 @@ DatabaseLyrics::DatabaseLyrics(void) {
 // DatabaseLyrics::~DatabaseLyrics -- Deconstructor.
 //
 
-DatabaseLyrics::~DatabaseLyrics() { 
+DatabaseLyrics::~DatabaseLyrics() {
    clear();
 }
-   
+
 
 
 //////////////////////////////
@@ -42,7 +42,7 @@ DatabaseLyrics::~DatabaseLyrics() {
 // DatabaseLyrics::clear -- empty the chord database of all content.
 //
 
-void DatabaseLyrics::clear(void) { 
+void DatabaseLyrics::clear(void) {
    interface.clear();
    database.clear();
 }
@@ -51,10 +51,10 @@ void DatabaseLyrics::clear(void) {
 
 //////////////////////////////
 //
-// DatabaseLyrics::link -- link a note and a lyric.  Will create a 
+// DatabaseLyrics::link -- link a note and a lyric.  Will create a
 //    new entry if there is no existing entry for those notes; otherwise, will
 //    add one or the other note to an existing chord.  Linking of lyrics between
-//    different notes is currently not allowed.  Lyrics should not be 
+//    different notes is currently not allowed.  Lyrics should not be
 //    linked to secondary chord notes.
 //
 
@@ -84,7 +84,7 @@ vectorSIp* DatabaseLyrics::link(ScoreItem* item1, ScoreItem* item2) {
          interface[item2] = lista;
          return lista;
       } else {
-         // both notes are in the database.  They should be attached to the 
+         // both notes are in the database.  They should be attached to the
          // same chord.  If not, merging separate chords are currently
          // not allowed (may be added in the future).
          return lista;
@@ -101,7 +101,7 @@ vectorSIp* DatabaseLyrics::link(ScoreItem* item1, ScoreItem* item2) {
 //    of the chord (the note which posses the stem and articulations).
 //
 
-vectorSIp* DatabaseLyrics::lyricslist(ScoreItem* item) { 
+vectorSIp* DatabaseLyrics::lyricslist(ScoreItem* item) {
    auto result = interface.find(item);
    if (result == interface.end()) {
       return NULL;

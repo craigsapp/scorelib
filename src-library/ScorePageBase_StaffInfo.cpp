@@ -19,7 +19,7 @@ using namespace std;
 // StaffInfo::StaffInfo --
 //
 
-StaffInfo::StaffInfo(void) { 
+StaffInfo::StaffInfo(void) {
    // do nothing
 }
 
@@ -52,8 +52,8 @@ StaffInfo& StaffInfo::operator=(const StaffInfo& info) {
 //
 // StaffInfo::~StaffInfo --
 //
-StaffInfo::~StaffInfo() { 
-   clear(); 
+StaffInfo::~StaffInfo() {
+   clear();
 }
 
 
@@ -64,7 +64,7 @@ StaffInfo::~StaffInfo() {
 //
 void StaffInfo::clear(void) {
    staffdur.clear();
-// These should not be cleared in certain situations, check how to 
+// These should not be cleared in certain situations, check how to
 // not clear it in those cases...
 //   system.clear();
 //   sysindex.clear();
@@ -180,7 +180,7 @@ vectorVI& StaffInfo::reverseSystemMap(void) {
 //
 // StafFInfo::systemStaffMap -- the system index for each staff.  The
 //     sysindex variable is index by p2 (starting at P2=1 and going up
-//     to maxstaff).  The system index starts at 0 for the bottom 
+//     to maxstaff).  The system index starts at 0 for the bottom
 //     staff in the system, and skips any staves on the page which
 //     do not contain music.
 //

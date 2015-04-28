@@ -6,8 +6,8 @@
 // URL:           https://github.com/craigsapp/scorelib/blob/master/include/SystemMeasure.cpp
 // Syntax:        C++11
 //
-// Description:   Used in analyzeBarlines() in ScorePage class.  This class 
-//                stores all ScoreItems present in a measure of music.  
+// Description:   Used in analyzeBarlines() in ScorePage class.  This class
+//                stores all ScoreItems present in a measure of music.
 
 
 #include "SystemMeasure.h"
@@ -161,7 +161,7 @@ int SystemMeasure::getSize(void) {
 
 //////////////////////////////
 //
-// SystemMeasure::getItems -- 
+// SystemMeasure::getItems --
 //
 
 vectorSIp& SystemMeasure::getItems(void) {
@@ -200,7 +200,7 @@ SCORE_FLOAT SystemMeasure::getHWidth(void) {
 // SystemMeasure::getP3Right --
 //
 
-SCORE_FLOAT SystemMeasure::getP3Right(void) { 
+SCORE_FLOAT SystemMeasure::getP3Right(void) {
    if (end_bars.size() > 0) {
       return end_bars.back()->getHPos();
    } else if (measure_items.size() > 0) {
@@ -214,12 +214,12 @@ SCORE_FLOAT SystemMeasure::getP3Right(void) {
 // Aliases:
 //
 
-SCORE_FLOAT SystemMeasure::getHorizontalPositionRight(void) { 
+SCORE_FLOAT SystemMeasure::getHorizontalPositionRight(void) {
    return getP3Right();
 }
 
 
-SCORE_FLOAT SystemMeasure::getHPosRight(void) { 
+SCORE_FLOAT SystemMeasure::getHPosRight(void) {
    return getP3Right();
 }
 
@@ -245,22 +245,22 @@ SCORE_FLOAT SystemMeasure::getP3(void) {
 // Aliases:
 //
 
-SCORE_FLOAT SystemMeasure::getP3Left(void) { 
+SCORE_FLOAT SystemMeasure::getP3Left(void) {
    return getP3();
 }
 
 
-SCORE_FLOAT SystemMeasure::getHorizontalPosition(void) { 
+SCORE_FLOAT SystemMeasure::getHorizontalPosition(void) {
    return getP3();
 }
 
 
-SCORE_FLOAT SystemMeasure::getHorizontalPositionLeft(void) { 
+SCORE_FLOAT SystemMeasure::getHorizontalPositionLeft(void) {
    return getP3();
 }
 
 
-SCORE_FLOAT SystemMeasure::getHPosLeft(void) { 
+SCORE_FLOAT SystemMeasure::getHPosLeft(void) {
    return getP3();
 }
 

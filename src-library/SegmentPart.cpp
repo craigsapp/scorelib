@@ -20,7 +20,7 @@ using namespace std;
 // SegmentPart::SegmentPart --
 //
 
-SegmentPart::SegmentPart(void) { 
+SegmentPart::SegmentPart(void) {
    address_storage.reserve(2000);
    pageset_owner = NULL;
 }
@@ -32,7 +32,7 @@ SegmentPart::SegmentPart(void) {
 // SegmentPart::~SegmentPart --
 //
 
-SegmentPart::~SegmentPart() { 
+SegmentPart::~SegmentPart() {
    clear();
    setOwner(NULL);
 }
@@ -62,7 +62,7 @@ void SegmentPart::clear(void) {
 // SegmentPart::getAddress --  First dimension is the part index
 //
 
-AddressSystem& SegmentPart::getAddress(int systemindex, int staffindex) { 
+AddressSystem& SegmentPart::getAddress(int systemindex, int staffindex) {
    return *(address_storage[systemindex][staffindex]);
 }
 
@@ -100,7 +100,7 @@ int SegmentPart::getAddressCount(void) const {
 // SegmentPart::getScoreOverlay --
 //
 
-ScorePageOverlay& SegmentPart::getScoreOverlay(int systemindex, int pindex) { 
+ScorePageOverlay& SegmentPart::getScoreOverlay(int systemindex, int pindex) {
    ScorePageSet& sps = *getOwner();
    return sps[address_storage[systemindex][pindex]->getPageIndex()];
 }
@@ -112,7 +112,7 @@ ScorePageOverlay& SegmentPart::getScoreOverlay(int systemindex, int pindex) {
 // SegmentPart::getScorePage --
 //
 
-ScorePage& SegmentPart::getScorePage(int systemindex, int pindex) { 
+ScorePage& SegmentPart::getScorePage(int systemindex, int pindex) {
    ScorePageSet& sps = *getOwner();
    ScorePageOverlay& so = sps[address_storage[systemindex][pindex]->getPageIndex()];
    return so[address_storage[systemindex][pindex]->getOverlayIndex()];
@@ -125,7 +125,7 @@ ScorePage& SegmentPart::getScorePage(int systemindex, int pindex) {
 // SegmentPart::getScorePageIndex --
 //
 
-int SegmentPart::getScorePageIndex(int systemindex, int pindex) { 
+int SegmentPart::getScorePageIndex(int systemindex, int pindex) {
    return address_storage[systemindex][pindex]->getPageIndex();
 }
 
@@ -136,7 +136,7 @@ int SegmentPart::getScorePageIndex(int systemindex, int pindex) {
 // SegmentPart::getPageSystemIndex --
 //
 
-int SegmentPart::getPageSystemIndex(int systemindex, int subpartindex) { 
+int SegmentPart::getPageSystemIndex(int systemindex, int subpartindex) {
    return address_storage[systemindex][subpartindex]->getSystemIndex();
 }
 
@@ -147,7 +147,7 @@ int SegmentPart::getPageSystemIndex(int systemindex, int subpartindex) {
 // SegmentPart::getSystemStaffIndex --
 //
 
-int SegmentPart::getSystemStaffIndex(int systemindex, int subpartindex) { 
+int SegmentPart::getSystemStaffIndex(int systemindex, int subpartindex) {
    return address_storage[systemindex][subpartindex]->getSystemStaffIndex();
 }
 
@@ -158,7 +158,7 @@ int SegmentPart::getSystemStaffIndex(int systemindex, int subpartindex) {
 // SegmentPart::getPageStaffIndex --
 //
 
-int SegmentPart::getPageStaffIndex(int systemindex, int subpartindex) { 
+int SegmentPart::getPageStaffIndex(int systemindex, int subpartindex) {
    AddressSystem systemaddress = getAddress(systemindex, subpartindex);
    ScorePage* page = pageset_owner->getPage(systemaddress);
    int output = page->getPageStaffIndex(systemaddress);
@@ -172,7 +172,7 @@ int SegmentPart::getPageStaffIndex(int systemindex, int subpartindex) {
 // SegmentPart::systemCount --
 //
 
-int SegmentPart::systemCount(void) { 
+int SegmentPart::systemCount(void) {
    return address_storage.size();
 }
 
@@ -220,9 +220,9 @@ ScorePageSet* SegmentPart::getOwner(void) {
 // SegmentPart::appendAddress --
 //
 
-void SegmentPart::appendAddress(AddressSystem & anAddress) { 
+void SegmentPart::appendAddress(AddressSystem & anAddress) {
    AddressSystem * sa = new AddressSystem (anAddress);
-   address_storage.resize(address_storage.size()+1); 
+   address_storage.resize(address_storage.size()+1);
    address_storage.back().push_back(sa);
 }
 
@@ -302,7 +302,7 @@ int SegmentPart::getPartNumber(void) const {
 //
 
 void SegmentPart::setPartName(const string& name) {
-   part_name = name; 
+   part_name = name;
 }
 
 
@@ -339,14 +339,14 @@ ostream& operator<<(ostream& out, const SegmentPart& part) {
          out << *part.getAddresses()[i][j];
          if (j < part.getAddresses()[i].size() - 1) {
             out << ", ";
-         } 
+         }
       }
       if (part.getAddresses()[i].size() > 1) {
          out << " }";
       }
       out << endl;
    }
-   
+
    return out;
 }
 

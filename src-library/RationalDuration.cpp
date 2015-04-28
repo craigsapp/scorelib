@@ -21,7 +21,7 @@
 //
 // RationalDuration::RationalDuration --
 //
-RationalDuration::RationalDuration(void) { 
+RationalDuration::RationalDuration(void) {
    clear();
 }
 
@@ -32,15 +32,15 @@ RationalDuration::RationalDuration(void) {
 // RationalDuration::RationalDuration -- Constructor.
 //
 
-RationalDuration::RationalDuration(const RationalNumber& rn, int dcount) { 
+RationalDuration::RationalDuration(const RationalNumber& rn, int dcount) {
    setDuration(rn, dcount);
 }
 
-RationalDuration::RationalDuration(int numerator, int denominator, int dcount) { 
+RationalDuration::RationalDuration(int numerator, int denominator, int dcount) {
    setDuration(numerator, denominator, dcount);
 }
 
-RationalDuration::RationalDuration(double duration, int dcount) { 
+RationalDuration::RationalDuration(double duration, int dcount) {
    setDuration(duration, dcount);
 }
 
@@ -51,7 +51,7 @@ RationalDuration::RationalDuration(double duration, int dcount) {
 // RationalDuration::~RationalDuration -- Deconstructor.
 //
 
-RationalDuration::~RationalDuration() { 
+RationalDuration::~RationalDuration() {
    clear();
 }
 
@@ -62,7 +62,7 @@ RationalDuration::~RationalDuration() {
 // RationalDuration::operator= -- Copy content from another duration.
 //
 
-RationalDuration& RationalDuration::operator=(const RationalDuration& value) { 
+RationalDuration& RationalDuration::operator=(const RationalDuration& value) {
    if (this != &value) {
       primaryvalue  = value.primaryvalue;
       dotcount      = value.dotcount;
@@ -73,7 +73,7 @@ RationalDuration& RationalDuration::operator=(const RationalDuration& value) {
 
 
 
-RationalDuration& RationalDuration::operator=(const RationalNumber& value) { 
+RationalDuration& RationalDuration::operator=(const RationalNumber& value) {
    primaryvalue = value;
    dotcount     = 0;
    tupletfactors.clear();
@@ -87,7 +87,7 @@ RationalDuration& RationalDuration::operator=(const RationalNumber& value) {
 // RationalDuration::operator+= -- Add two durations together.
 //
 
-RationalDuration& RationalDuration::operator+=(RationalDuration& value) { 
+RationalDuration& RationalDuration::operator+=(RationalDuration& value) {
    if (this == &value) {
       primaryvalue *= 2;
       return *this;
@@ -106,7 +106,7 @@ RationalDuration& RationalDuration::operator+=(RationalDuration& value) {
 }
 
 
-RationalDuration& RationalDuration::operator+=(RationalNumber& value) { 
+RationalDuration& RationalDuration::operator+=(RationalNumber& value) {
    if (dotcount == 0) {
       primaryvalue += value;
    } else {
@@ -125,14 +125,14 @@ RationalDuration& RationalDuration::operator+=(RationalNumber& value) {
 // RationalDuration::operator+ -- Add two durations together
 //
 
-RationalDuration RationalDuration::operator+(RationalDuration& value) { 
+RationalDuration RationalDuration::operator+(RationalDuration& value) {
    RationalDuration rd = *this;
    rd += value;
    return rd;
 }
 
 
-RationalDuration RationalDuration::operator+(RationalNumber& value) { 
+RationalDuration RationalDuration::operator+(RationalNumber& value) {
    RationalDuration rd = *this;
    rd += value;
    return rd;
@@ -145,7 +145,7 @@ RationalDuration RationalDuration::operator+(RationalNumber& value) {
 // RationalDuration::operator- --
 //
 
-RationalDuration RationalDuration::operator-(RationalDuration& value) { 
+RationalDuration RationalDuration::operator-(RationalDuration& value) {
    RationalDuration rd = -value;
    rd += *this;
    return rd;
@@ -153,7 +153,7 @@ RationalDuration RationalDuration::operator-(RationalDuration& value) {
 
 // Unary - operator:
 
-RationalDuration RationalDuration::operator-(void) { 
+RationalDuration RationalDuration::operator-(void) {
    RationalDuration rd = *this;
    rd.negate();
    return rd;
@@ -166,7 +166,7 @@ RationalDuration RationalDuration::operator-(void) {
 // RationalDuration::clear --
 //
 
-void RationalDuration::clear(void) { 
+void RationalDuration::clear(void) {
    zero();
 }
 
@@ -177,7 +177,7 @@ void RationalDuration::clear(void) {
 // RationalDuration::zero --
 //
 
-void RationalDuration::zero(void) { 
+void RationalDuration::zero(void) {
    primaryvalue = 0;
    dotcount     = 0;
    tupletfactors.clear();
@@ -190,7 +190,7 @@ void RationalDuration::zero(void) {
 // RationalDuration::negate --
 //
 
-void RationalDuration::negate(void) { 
+void RationalDuration::negate(void) {
    primaryvalue.setNumerator(-primaryvalue.getNumerator());
 }
 
@@ -212,7 +212,7 @@ int RationalDuration::getDotCount(void) {
 // RationalDuration::setDotCount --
 //
 
-void RationalDuration::setDotCount(int dcount) { 
+void RationalDuration::setDotCount(int dcount) {
    if (dcount > 0) {
       dotcount = dcount;
    } else {
@@ -227,7 +227,7 @@ void RationalDuration::setDotCount(int dcount) {
 // RationalDuration::getDurationPrimary --
 //
 
-const RationalNumber& RationalDuration::getDurationPrimary(void) { 
+const RationalNumber& RationalDuration::getDurationPrimary(void) {
    return primaryvalue;
 }
 
@@ -269,7 +269,7 @@ void RationalDuration::makeReduced(void) {
 // RationalDuration::getDurationDouble --
 //
 
-double RationalDuration::getDurationDouble(void) { 
+double RationalDuration::getDurationDouble(void) {
    RationalDuration rd = getDurationReduced();
    double output = rd.getNumerator() / rd.getDenominator();
    return output;
@@ -283,7 +283,7 @@ double RationalDuration::getDurationDouble(void) {
 //    default value: dcount = 0
 //
 
-void RationalDuration::setDuration(const RationalNumber& rn, int dcount) { 
+void RationalDuration::setDuration(const RationalNumber& rn, int dcount) {
    primaryvalue = rn;
    dotcount = dcount;
 }
@@ -302,12 +302,12 @@ void RationalDuration::setDuration(int numerator, int denominator, int dcount) {
 //    default value: dcount = 0
 //
 
-void RationalDuration::setRhythm(int denominator, int numerator, int dcount) { 
+void RationalDuration::setRhythm(int denominator, int numerator, int dcount) {
    setDuration(numerator, denominator, dcount);
 }
 
 
-void RationalDuration::setRhythm(int denominator, int dcount) { 
+void RationalDuration::setRhythm(int denominator, int dcount) {
    setDuration(1, denominator, dcount);
 }
 
@@ -315,11 +315,11 @@ void RationalDuration::setRhythm(int denominator, int dcount) {
 
 //////////////////////////////
 //
-// RationalDuration::getNumerator --  Return the top value of the 
+// RationalDuration::getNumerator --  Return the top value of the
 //     primary rational duration value.
 //
 
-int RationalDuration::getNumerator(void) { 
+int RationalDuration::getNumerator(void) {
    return primaryvalue.getNumerator();
 }
 
@@ -327,7 +327,7 @@ int RationalDuration::getNumerator(void) {
 
 //////////////////////////////
 //
-// RationalDuration::getDenominator --  Return the bottom value of the 
+// RationalDuration::getDenominator --  Return the bottom value of the
 //     primary rational duration value.
 //
 
@@ -347,7 +347,7 @@ int RationalDuration::getDenominator(void) {
 //      dotted half note:    1/2.
 //
 
-ostream& RationalDuration::print(ostream& out) { 
+ostream& RationalDuration::print(ostream& out) {
    out << primaryvalue.getNumerator();
    if ((primaryvalue.getDenominator() != 0) &&
        (primaryvalue.getDenominator() != 1)) {
@@ -367,7 +367,7 @@ ostream& RationalDuration::print(ostream& out) {
 // RationalDuration::printReduced --
 //
 
-ostream& RationalDuration::printReduced(ostream& out) { 
+ostream& RationalDuration::printReduced(ostream& out) {
    out << getDurationReduced();
    return out;
 }
@@ -379,8 +379,8 @@ ostream& RationalDuration::printReduced(ostream& out) {
 // RationalDuration::printHumdrum -- Print as Humdrum **recip rhythm
 //     format.  Durations in **recip are in units of whole notes,
 //     while those of RationalDuration are quarter notes, so
-//     multiply by 4 when converting.  Examples: 
-//           quarter note duration     1     => 4 
+//     multiply by 4 when converting.  Examples:
+//           quarter note duration     1     => 4
 //           double dotted eighth note 1/2.. => 8..
 //           triplet whole note        8/3   => 3%2
 //           dotted breve              8/3.  => 3%4.
@@ -393,7 +393,7 @@ ostream& RationalDuration::printHumdrum(ostream& out) {
    }
    RationalNumber rn = primaryvalue / 4;
    out << rn.getDenominator();
-   if (rn.getNumerator() != 1) { 
+   if (rn.getNumerator() != 1) {
       out << '%' << rn.getNumerator();
    }
    for (int i=0; i<dotcount; i++) {
@@ -406,9 +406,9 @@ ostream& RationalDuration::printHumdrum(ostream& out) {
 
 //////////////////////////////
 //
-// RationalDuration::setDurationQuarterNoteUnits -- This is not a closed 
-//    solution.  Converting from a double to a rational duration will not 
-//    be possible for all inputs, and there may be multiple solutions to 
+// RationalDuration::setDurationQuarterNoteUnits -- This is not a closed
+//    solution.  Converting from a double to a rational duration will not
+//    be possible for all inputs, and there may be multiple solutions to
 //    the same input.
 //
 
@@ -422,8 +422,8 @@ void RationalDuration::setDurationWholeNoteUnits(double duration, int dcount) {
 }
 
 
-void RationalDuration::setDurationQuarterNoteUnits(double duration, 
-      int dcount) { 
+void RationalDuration::setDurationQuarterNoteUnits(double duration,
+      int dcount) {
 
    double threshold = 0.00001;
 
@@ -458,7 +458,7 @@ void RationalDuration::setDurationQuarterNoteUnits(double duration,
 
    RationalDuration testrd;
 
-   // 1. Check to see if the duration consists of only 
+   // 1. Check to see if the duration consists of only
    // a power of two (untupleted rhythmic value):
    if (powerOfTwoDuration(testrd, basedur)) {
       *this = testrd;
@@ -506,10 +506,10 @@ void RationalDuration::setDurationQuarterNoteUnits(double duration,
 
 
    // 3. At this point the duration is not a power of two, and it is not
-   // a simple tuplet of a power of two.   It is a rational duration which 
-   // consists of a tuplet ratio not based on a power of two, such as five 
-   // quarter notes in the time of three (a 5:3 tuplet, where the second 
-   // number is not a power of two).  Figure out how to calculate this sort 
+   // a simple tuplet of a power of two.   It is a rational duration which
+   // consists of a tuplet ratio not based on a power of two, such as five
+   // quarter notes in the time of three (a 5:3 tuplet, where the second
+   // number is not a power of two).  Figure out how to calculate this sort
    // of case here...
 
 
@@ -547,7 +547,7 @@ void RationalDuration::setValue(int top, int bottom) {
 
 //////////////////////////////
 //
-// RationalDuration::powerOfTwoDuration -- 
+// RationalDuration::powerOfTwoDuration --
 //
 
 int RationalDuration::powerOfTwoDuration(RationalDuration& rd, double basedur) {

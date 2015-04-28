@@ -25,7 +25,7 @@ class DatabaseChord {
    public:
                          DatabaseChord  (void);
                         ~DatabaseChord  ();
-   
+
       void               clear          (void);
       vectorSIp*         notelist       (ScoreItem*);
       vectorSIp*         linkNotes      (ScoreItem* note1, ScoreItem* note2);

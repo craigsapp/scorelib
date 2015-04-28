@@ -6,7 +6,7 @@
 // URL:           https://github.com/craigsapp/scorelib/blob/master/include/ScoreItemBase.h
 // Syntax:        C++11
 //
-// Description:   The ScoreItemBase class forms the basic data storage 
+// Description:   The ScoreItemBase class forms the basic data storage
 //                class for storing SCORE item parameters.  This
 //                class can be inherited directly by either ScoreItem
 //                or ScoreItemEdit.  Memory management of ScoreItems is
@@ -48,7 +48,7 @@ class ScoreItemBase {
       int           getParameterInt   (int pindex);
       bool          getParameterBool  (int pindex);
       bool          getParameterBoolean(int pindex);
-      const string& getParameter      (const string& nspace, 
+      const string& getParameter      (const string& nspace,
                                        const string& key);
       const string& getParameter      (const string& key);
 
@@ -157,22 +157,22 @@ class ScoreItemBase {
       SCORE_FLOAT   getParameterFraction(int pindex);
 
       // namespaced parameters
-      void          setParameter      (const string& nspace, 
+      void          setParameter      (const string& nspace,
                                        const string& key, const string& value);
-      void          setParameter      (const string& nspace, 
+      void          setParameter      (const string& nspace,
                                        const string& key, int value);
-      void          setParameter      (const string& nspace, 
+      void          setParameter      (const string& nspace,
                                        const string& key, SCORE_FLOAT value);
-      int           changeNamespace   (const string& newspace, 
-                                       const string& oldspace, 
+      int           changeNamespace   (const string& newspace,
+                                       const string& oldspace,
                                        const string& parameter);
-      void          setParameterQuiet (const string& nspace, 
+      void          setParameterQuiet (const string& nspace,
                                        const string& key, const string& value);
-      void          setParameterQuiet (const string& nspace, 
+      void          setParameterQuiet (const string& nspace,
                                        const string& key, int value);
-      void          setParameterQuiet (const string& nspace, 
+      void          setParameterQuiet (const string& nspace,
                                        const string& key, SCORE_FLOAT value);
-      void          setParameterQuiet (const string& nspace, 
+      void          setParameterQuiet (const string& nspace,
                                        const string& key, void* pointer);
       void          storeAutoAddress  (void);
 
@@ -182,7 +182,7 @@ class ScoreItemBase {
       void          setParameter      (const string& key, int value);
       void          setParameter      (const string& key, SCORE_FLOAT value);
 
-      // numeric parameters 
+      // numeric parameters
       void          setParameter      (int index, SCORE_FLOAT value);
 
       void          setParameter1     (SCORE_FLOAT value);
@@ -258,15 +258,15 @@ class ScoreItemBase {
       int           getNamedParameterSize  (void);
       int           getCompactFixedParameterCount(void);
       int           hasParameter      (const string& testkey);
-      int           hasParameter      (const string& nspace, 
+      int           hasParameter      (const string& nspace,
                                       const string& testkey);
       int           isDefined         (const string& testkey);
-      int           isDefined         (const string& nspace, 
+      int           isDefined         (const string& nspace,
                                       const string& testkey);
       void          deleteNamespace   (const string& nspace);
       void          eraseNamespace    (const string& nspace);
       void          clearNamespace    (const string& nspace);
- 
+
       void          deleteParameter   (const string& nspace, const string& key);
       void          eraseParameter    (const string& nspace, const string& key);
       void          clearParameter    (const string& nspace, const string& key);
@@ -276,17 +276,17 @@ class ScoreItemBase {
       void          clearParameter    (const string& key);
 
       // Accessor function aliases:
-      void          setP              (const string& nspace, 
+      void          setP              (const string& nspace,
                                        const string& key, const string& value);
-      void          setP              (const string& nspace, const string& key, 
+      void          setP              (const string& nspace, const string& key,
                                        int value);
-      void          setP              (const string& nspace, const string& key, 
+      void          setP              (const string& nspace, const string& key,
                                        SCORE_FLOAT value);
 
       void          setP              (const string& key, const string& value);
       void          setP              (const string& key, int value);
       void          setP              (const string& key, SCORE_FLOAT value);
- 
+
       void          setP              (int index, SCORE_FLOAT value);
 
       SCORE_FLOAT   getP              (int pindex);
@@ -302,12 +302,12 @@ class ScoreItemBase {
       ostream&      printPmxFixedParameters(ostream& out);
       ostream&      printPmxNamedParameters(ostream& out);
       ostream&      printPmxNamedParametersNoAnalysis(ostream& out);
-      ostream&      printXml         (ostream& out, int indentcount = 0, 
+      ostream&      printXml         (ostream& out, int indentcount = 0,
                                       const string& indentstring = "\t");
 
-     
+
       static ostream& printXmlTextEscaped(ostream& out, const string& text);
-      static ostream& printIndent    (ostream& out, int indentcount, 
+      static ostream& printIndent    (ostream& out, int indentcount,
                                       const string& indentstring);
 
       void        setFixedParameterAllocation(int asize);
@@ -325,15 +325,15 @@ class ScoreItemBase {
       static int  historyIsFrozen      (void) { return 1; }
       static int  getHistoryIndex      (void) { return 0; }
       ostream&    printPmxWithEdits (ostream& out) { return printPmx(out); }
-      ostream&    printXmlWithEdits (ostream& out, int indentcount = 0, 
-                                       const string& indentstring = "\t") 
+      ostream&    printXmlWithEdits (ostream& out, int indentcount = 0,
+                                       const string& indentstring = "\t")
                         { return printXml(out, indentcount, indentstring); }
 
    protected:
      ostream&      printFixedListPieceXml  (ostream& out);
-     ostream&      printNamedParametersXml (ostream& out, 
-                                            const string& nspace, 
-                                            int indentcount, 
+     ostream&      printNamedParametersXml (ostream& out,
+                                            const string& nspace,
+                                            int indentcount,
                                             const string& indentstring);
    protected:
       // Page-related interface functions
@@ -361,7 +361,7 @@ class ScoreItemBase {
       void* page_owner;
 
       // sort_sequence is a variable which is used by ScorePageBase or
-      // similar classes/functinos to suggest a sequence ordering of 
+      // similar classes/functinos to suggest a sequence ordering of
       // SCROE items within the ScorePageBase primary storage.
       int sort_sequence;
 
@@ -376,9 +376,9 @@ class ScoreItemBase {
    public:
       // Limit the size of fixed paramters so that out-of-memory problems
       // cannot occur if trying to access parameter one billion for example.
-      // Larger fixed parameters could be implemented as a form of named 
-      // parameter.  The MS-DOS versions of SCORE do not have fixed parameter 
-      // sizes larger than 20; the Windows versions of SCORE do not have 
+      // Larger fixed parameters could be implemented as a form of named
+      // parameter.  The MS-DOS versions of SCORE do not have fixed parameter
+      // sizes larger than 20; the Windows versions of SCORE do not have
       // fixed parameter sizes larger than 40.
       static constexpr int SCORE_MAX_FIXED_PARAMETERS = 100;
 

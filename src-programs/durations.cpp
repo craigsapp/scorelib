@@ -90,7 +90,7 @@ void printPartInfo(ScorePageSet& infiles, int page, Options& opts) {
 
       cout << i;
       cout << "\t";
-      
+
       // System number, indexed from 1, starting at top of page:
       cout << staff2system[i] + 1;
       cout << "\t";

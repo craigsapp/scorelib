@@ -20,7 +20,7 @@ using namespace std;
 //////////////////////////////
 //
 // ScoreUtility::equalClefs -- Returns true if the two items represent
-//     the same clef.  If either one of the items are NULL, then return 
+//     the same clef.  If either one of the items are NULL, then return
 //     value will be false.
 //
 //
@@ -49,7 +49,7 @@ bool ScoreUtility::equalClefs(ScoreItem* a, ScoreItem* b) {
    if (fabs(a->getP4() - b->getP4()) > 0.1) {
       return false;
    }
-  
+
    return true;
 }
 
@@ -66,7 +66,7 @@ bool ScoreUtility::equalClef(ScoreItem* a, ScoreItem* b) {
 //////////////////////////////
 //
 // ScoreUtility::equalTimeSigs -- Returns true if the two items represent
-//     the same time signature.  If either one of the items are NULL, 
+//     the same time signature.  If either one of the items are NULL,
 //     then return value will be false.
 //
 //
@@ -87,7 +87,7 @@ bool ScoreUtility::equalTimeSigs(ScoreItem* a, ScoreItem* b) {
       // Bottom number in time signature
       return false;
    }
-  
+
    if (a->getP8Int() != b->getP8Int()) {
       // Secondary top number in time signature
       return false;
@@ -126,7 +126,7 @@ bool ScoreUtility::equalTimeSignature(ScoreItem* a, ScoreItem* b) {
 //
 
 
-bool ScoreUtility::equalKeySigs(ScoreItem* a, ScoreItem* b) { 
+bool ScoreUtility::equalKeySigs(ScoreItem* a, ScoreItem* b) {
    if ((a == NULL) || (b == NULL)) {
       return false;
    }
@@ -143,17 +143,17 @@ bool ScoreUtility::equalKeySigs(ScoreItem* a, ScoreItem* b) {
 }
 
 
-bool ScoreUtility::equalKeySignatures(ScoreItem* a, ScoreItem* b) { 
+bool ScoreUtility::equalKeySignatures(ScoreItem* a, ScoreItem* b) {
    return equalKeySignature(a, b);
 }
 
 
-bool ScoreUtility::equalKeySig(ScoreItem* a, ScoreItem* b) { 
+bool ScoreUtility::equalKeySig(ScoreItem* a, ScoreItem* b) {
    return equalKeySignature(a, b);
 }
 
 
-bool ScoreUtility::equalKeySignature(ScoreItem* a, ScoreItem* b) { 
+bool ScoreUtility::equalKeySignature(ScoreItem* a, ScoreItem* b) {
    return equalKeySignature(a, b);
 }
 

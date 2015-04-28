@@ -32,9 +32,9 @@ class DatabaseAnalysis {
    public:
               DatabaseAnalysis  (void);
              ~DatabaseAnalysis  ();
-   
+
       void    addNode           (const string& nodename, int* state);
-      void    addChild          (const string& nodename, const string& child, 
+      void    addChild          (const string& nodename, const string& child,
                                  int* cstate);
       void    invalidateNode    (const string& nodename);
       void    validateNode      (const string& nodename);

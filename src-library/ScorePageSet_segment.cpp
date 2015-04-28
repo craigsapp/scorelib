@@ -28,8 +28,8 @@ void ScorePageSet::analyzeSingleSegment(void) {
    int syscount  = pageset[pagecount-1][0].getSystemCount();
    AddressSystem  starting(0, 0, 0, 0);
    AddressSystem  ending(pagecount-1, 0, syscount-1, 0);
-   
-   pageset.createSegment(starting, ending);   
+
+   pageset.createSegment(starting, ending);
 }
 
 
@@ -68,9 +68,9 @@ void ScorePageSet::analyzeSegmentsByIndent(SCORE_FLOAT threshold1,
          }
          if ((indent >= threshold1) && (indent <= threshold2)) {
             if (currentIndent != lastIndent) {
-               createSegment(lastIndent, currentIndent);   
+               createSegment(lastIndent, currentIndent);
                segmentstart = 1;
-               // cout << "SEGMENT: " << lastIndent << " TO " 
+               // cout << "SEGMENT: " << lastIndent << " TO "
                //      << currentIndent << endl;
             }
          }
@@ -78,8 +78,8 @@ void ScorePageSet::analyzeSegmentsByIndent(SCORE_FLOAT threshold1,
    }
 
    if (lastIndent != currentIndent) {
-      createSegment(lastIndent, currentIndent);   
-      // cout << "SEGMENT: " << lastIndent << " TO " 
+      createSegment(lastIndent, currentIndent);
+      // cout << "SEGMENT: " << lastIndent << " TO "
       //      << currentIndent << endl;
    }
 
@@ -114,7 +114,7 @@ void ScorePageSet::analyzeSegmentsByIndent(SCORE_FLOAT threshold1,
 // ScorePageSet::createSegment --
 //
 
-void ScorePageSet::createSegment(AddressSystem & startaddress, 
+void ScorePageSet::createSegment(AddressSystem & startaddress,
       AddressSystem & endaddress) {
    ScoreSegment* segment = new ScoreSegment(*this, startaddress, endaddress);
    segment_storage.push_back(segment);
@@ -162,7 +162,7 @@ ScoreSegment& ScorePageSet::getSegment(int index) {
 //////////////////////////////
 //
 // ScorePageSet::getLCMRhythm -- Return the least common multiple rhythm
-//    of all notes within the segment.  The value returned with be 
+//    of all notes within the segment.  The value returned with be
 //    in terms of divisions of a quarter note.  In other words,
 //    quarter notes are the largest duration this function will return,
 //    so even if all notes in the segment are half-notes, this function
@@ -176,7 +176,7 @@ int  ScorePageSet::getLCMRhythm(int segmentindex) {
    int pageindex;
    int overlayindex;
    int systemindex;
-   
+
    for (int i=0; i<syscount; i++) {
       const AddressSystem& current = seg.getSystemAddress(i);
       pageindex    = current.getPageIndex();
@@ -216,7 +216,7 @@ int ScorePageSet::getPartCountInSegment(int segmentindex) {
 // ScorePageSet::getSystemAddresses --
 //
 
-const vectorVASp& ScorePageSet::getSystemAddresses(int segmentindex, 
+const vectorVASp& ScorePageSet::getSystemAddresses(int segmentindex,
       int partindex) {
    return getSegment(segmentindex).getSystemAddresses(partindex);
 }
@@ -234,7 +234,7 @@ SCORE_FLOAT ScorePageSet::getPartScale(int segmentindex, int partindex) {
    const AddressSystem& address   = seg.getSystemAddress(0);
    ScorePage* page         = getPage(address);
    vectorVVSIp& staffitems = page->getStaffItemsBySystem();
-   int sysstaffindex       = address.getSystemStaffIndex(); 
+   int sysstaffindex       = address.getSystemStaffIndex();
    int systemindex         = address.getSystemIndex();
    // (Check to see if the index location is valid):
    return staffitems[systemindex][sysstaffindex][0]->getScale();

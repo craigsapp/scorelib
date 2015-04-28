@@ -20,7 +20,7 @@ using namespace std;
 // ScorePageOverlay::ScorePageOverlay -- Constructor.
 //
 
-ScorePageOverlay::ScorePageOverlay(void) { 
+ScorePageOverlay::ScorePageOverlay(void) {
    // nothing to do.
 }
 
@@ -31,7 +31,7 @@ ScorePageOverlay::ScorePageOverlay(void) {
 // ScorePageOverlay::~ScorePageOverlay -- Destructor.
 //
 
-ScorePageOverlay::~ScorePageOverlay() { 
+ScorePageOverlay::~ScorePageOverlay() {
    clear();
 }
 
@@ -43,7 +43,7 @@ ScorePageOverlay::~ScorePageOverlay() {
 //       overlay_storage.
 //
 
-void ScorePageOverlay::clear(void) { 
+void ScorePageOverlay::clear(void) {
    for (auto& it : overlay_storage) {
       delete it;
       it = NULL;
@@ -59,7 +59,7 @@ void ScorePageOverlay::clear(void) {
 // ScorePageOverlay::getOverlayCount --
 //
 
-int ScorePageOverlay::getOverlayCount(void) { 
+int ScorePageOverlay::getOverlayCount(void) {
    return overlay_sequence.size();
 }
 
@@ -78,7 +78,7 @@ int ScorePageOverlay::size(void) {
 // ScorePageOverlay::operator[] --
 //
 
-ScorePage& ScorePageOverlay::operator[](int oindex) { 
+ScorePage& ScorePageOverlay::operator[](int oindex) {
    return *overlay_sequence[oindex];
 }
 
@@ -103,7 +103,7 @@ ScorePage* ScorePageOverlay::getPage(int oindex) {
 
 ScorePage* ScorePageOverlay::createOverlay(void) {
    ScorePage* sp = new ScorePage;
-   appendOverlay(sp); 
+   appendOverlay(sp);
    return sp;
 }
 
@@ -118,7 +118,7 @@ ScorePage* ScorePageOverlay::createOverlay(void) {
 //    the overlay index of the appended page.
 //
 
-int ScorePageOverlay::appendOverlay(ScorePage* page) { 
+int ScorePageOverlay::appendOverlay(ScorePage* page) {
    overlay_storage.push_back(page);
    overlay_sequence.push_back(page);
    return overlay_sequence.size() - 1;

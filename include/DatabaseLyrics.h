@@ -25,7 +25,7 @@ class DatabaseLyrics {
    public:
                         DatabaseLyrics  (void);
                        ~DatabaseLyrics  ();
-   
+
       void              clear           (void);
       vectorSIp*        lyricslist      (ScoreItem*);
       vectorSIp*        link            (ScoreItem* item1, ScoreItem* item2);

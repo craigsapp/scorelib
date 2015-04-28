@@ -24,13 +24,13 @@ using namespace std;
 AddressSystem ::AddressSystem (void) { }
 
 
-AddressSystem ::AddressSystem (AddressSystem & anAddress) { 
+AddressSystem ::AddressSystem (AddressSystem & anAddress) {
    *this = anAddress;
 }
 
 
-AddressSystem ::AddressSystem (int aPage, int anOverlay, int aSystem, 
-      int aSystemStaff) { 
+AddressSystem ::AddressSystem (int aPage, int anOverlay, int aSystem,
+      int aSystemStaff) {
    setAddress(aPage, anOverlay, aSystem, aSystemStaff);
 }
 
@@ -49,7 +49,7 @@ AddressSystem::AddressSystem(vectorI& anAddress) {
 // AddressSystem::~AddressSystem --
 //
 
-AddressSystem::~AddressSystem() { 
+AddressSystem::~AddressSystem() {
    // do nothing.
 }
 
@@ -74,12 +74,12 @@ void AddressSystem::clear(void) {
 void AddressSystem::invalidate(void) {
    clear();
 }
-   
+
 
 
 //////////////////////////////
 //
-// AddressSystem::getPageIndex -- Return the page index (primary overlay 
+// AddressSystem::getPageIndex -- Return the page index (primary overlay
 //     for a page).  Offset from 0.
 //
 
@@ -91,11 +91,11 @@ int AddressSystem::getPageIndex(void) const {
 
 //////////////////////////////
 //
-// AddressSystem::getOverlayIndex -- Return the overlay index, offset 
+// AddressSystem::getOverlayIndex -- Return the overlay index, offset
 //     from 0 for the primary overlay.
 //
 
-int AddressSystem::getOverlayIndex(void) const { 
+int AddressSystem::getOverlayIndex(void) const {
    return overlay;
 }
 
@@ -103,11 +103,11 @@ int AddressSystem::getOverlayIndex(void) const {
 
 //////////////////////////////
 //
-// AddressSystem::getSystemIndex -- Return the system index of the 
+// AddressSystem::getSystemIndex -- Return the system index of the
 //    the address on a page.
 //
 
-int AddressSystem::getSystemIndex(void) const { 
+int AddressSystem::getSystemIndex(void) const {
    return system;
 }
 
@@ -121,7 +121,7 @@ int AddressSystem::getSystemIndex(void) const {
 //    with the duration and barring of the existing parts on the system.
 //
 
-int AddressSystem::getSystemStaffIndex(void) const { 
+int AddressSystem::getSystemStaffIndex(void) const {
    return systemstaff;
 }
 
@@ -132,8 +132,8 @@ int AddressSystem::getSystemStaffIndex(void) const {
 // AddressSystem::setAddress --
 //
 
-void AddressSystem::setAddress(int aPage, int anOverlay, int aSystem, 
-      int aSystemStaff) { 
+void AddressSystem::setAddress(int aPage, int anOverlay, int aSystem,
+      int aSystemStaff) {
    page         = aPage;
    overlay      = anOverlay;
    system       = aSystem;
@@ -144,9 +144,9 @@ void AddressSystem::setAddress(int aPage, int anOverlay, int aSystem,
 
 //////////////////////////////
 //
-// AddressSystem::incrementSystem -- Increment system to the next 
+// AddressSystem::incrementSystem -- Increment system to the next
 // system in the given ScorePageSet.  Invalidates Address and returns
-// 0 if there are no more systems in the page set.  Returns 1 if 
+// 0 if there are no more systems in the page set.  Returns 1 if
 // successful in incrementing the system.
 //
 
@@ -181,7 +181,7 @@ int AddressSystem::incrementSystem(ScorePageSet& pageset) {
 // AddressSystem::operator= --
 //
 
-AddressSystem& AddressSystem::operator=(AddressSystem& anAddress) { 
+AddressSystem& AddressSystem::operator=(AddressSystem& anAddress) {
    if (this == &anAddress) {
       return *this;
    }
@@ -221,7 +221,7 @@ AddressSystem& AddressSystem::operator=(int* anAddress) {
 // AddressSystem::operator== -- test if two addresses are the same.
 //
 
-bool AddressSystem::operator==(AddressSystem& anAddress) { 
+bool AddressSystem::operator==(AddressSystem& anAddress) {
    if (this == &anAddress) {
       return true;
    }
@@ -240,7 +240,7 @@ bool AddressSystem::operator==(AddressSystem& anAddress) {
 // AddressSystem::operator!= -- test if two addresses are the same.
 //
 
-bool AddressSystem::operator!=(AddressSystem& anAddress) { 
+bool AddressSystem::operator!=(AddressSystem& anAddress) {
    return !(*this == anAddress);
 }
 
@@ -251,7 +251,7 @@ bool AddressSystem::operator!=(AddressSystem& anAddress) {
 // AddressSystem::setPage --
 //
 
-void AddressSystem::setPage(int aPage) { 
+void AddressSystem::setPage(int aPage) {
    page = aPage;
 }
 
@@ -262,7 +262,7 @@ void AddressSystem::setPage(int aPage) {
 // AddressSystem::setOverlay --
 //
 
-void AddressSystem::setOverlay(int anOverlay) { 
+void AddressSystem::setOverlay(int anOverlay) {
    overlay = anOverlay;
 }
 
@@ -273,7 +273,7 @@ void AddressSystem::setOverlay(int anOverlay) {
 // AddressSystem::setSystem --
 //
 
-void AddressSystem::setSystem(int aSystem) { 
+void AddressSystem::setSystem(int aSystem) {
    system = aSystem;
 }
 
@@ -284,7 +284,7 @@ void AddressSystem::setSystem(int aSystem) {
 // AddressSystem::setSystemStaff --
 //
 
-void AddressSystem::setSystemStaff(int aSystemStaff) { 
+void AddressSystem::setSystemStaff(int aSystemStaff) {
    systemstaff = aSystemStaff;
 }
 

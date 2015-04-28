@@ -27,8 +27,8 @@ using namespace std;
 class ScoreSegment {
    public:
                  ScoreSegment        (void);
-                 ScoreSegment        (ScorePageSet& pageset, 
-                                      AddressSystem& starting, 
+                 ScoreSegment        (ScorePageSet& pageset,
+                                      AddressSystem& starting,
                                       AddressSystem& ending, int debug = 0);
                 ~ScoreSegment        ();
 
@@ -40,19 +40,19 @@ class ScoreSegment {
       const AddressSystem& getSystemAddress (int index);
       vectorSIp& getSystemItems      (const AddressSystem& address);
       vectorSIp& getSystemItems      (int sysindex);
-      
+
       const vectorVASp& getSystemAddresses (int partindex);
       ostream&   printInfo           (ostream& out) const;
-      void       defineSegment       (ScorePageSet& pageset, 
-                                      AddressSystem& starting, 
+      void       defineSegment       (ScorePageSet& pageset,
+                                      AddressSystem& starting,
                                       AddressSystem& ending, int debug = 0);
-      void       analyzePartStaves   (vectorI& partlist, 
-                                      ScorePageSet& scoreset, 
-                                      AddressSystem& startsys, 
+      void       analyzePartStaves   (vectorI& partlist,
+                                      ScorePageSet& scoreset,
+                                      AddressSystem& startsys,
                                       AddressSystem& endsys);
-      int        getSystemStaffIndex (int systemindex, int partindex, 
+      int        getSystemStaffIndex (int systemindex, int partindex,
                                       int subpartindex);
-      int        getPageStaffIndex   (int systemindex, int partindex, 
+      int        getPageStaffIndex   (int systemindex, int partindex,
                                       int subpartindex = 0);
       void       analyzeSystemBreakTies (void);
       void       analyzeSystemBreakTies (int pindex);
@@ -65,21 +65,21 @@ class ScoreSegment {
       string         getPartName         (int partindex);
       AddressSystem& getPartAddress      (int systemindex, int partindex);
       ScoreItem*     getInitialClef      (int partindex);
-   
+
    protected:
       AddressSystem        start_system;
       AddressSystem        end_system;
       vector<SegmentPart*> part_storage;
       ScorePageSet*        pageset_owner;
-      
+
 
    private:
       void        prepareParts       (ScorePageSet& page);
-      void        getPartList        (vectorI& partlist, 
-                                      ScorePageSet& pageset, 
-                                      AddressSystem& sp, 
+      void        getPartList        (vectorI& partlist,
+                                      ScorePageSet& pageset,
+                                      AddressSystem& sp,
                                       AddressSystem& ep);
-      string      extractPartName    (ScorePageSet& pageset, 
+      string      extractPartName    (ScorePageSet& pageset,
                                       AddressSystem& startsys, int partnum);
       static void identifyPreAndPostSlurs(int staffnum, vectorSIp& items);
 

@@ -35,7 +35,7 @@ int main(int argc, char** argv) {
    opts.define("U|no-tuplet-fix=b", "do not fix tuplet rhythms");
    opts.define("V|no-staff-adjust=b", "do not convert P10 to P4 for staves");
    opts.process(argc, argv);
-   
+
    ScorePageSet infiles(opts);
 
    for (int i=0; i<infiles.getPageCount(); i++) {
@@ -90,7 +90,7 @@ void processPage(ScorePage& infile, Options& opts) {
 
 //////////////////////////////
 //
-// adjustAccidentals -- 
+// adjustAccidentals --
 //
 
 void adjustAccidentals(ScorePage& infile) {
@@ -102,7 +102,7 @@ void adjustAccidentals(ScorePage& infile) {
       if (!it->isNoteItem()) {
          continue;
       }
-      // If the accidental is shifted slightly to the left, 
+      // If the accidental is shifted slightly to the left,
       // then put it back in the default position.
       fract = it->getParameterFraction(5);
       if ((fract > 0.0) && (fract <= threshold)) {
@@ -251,12 +251,12 @@ void assignPartNumbers(ScorePage& infile) {
 
    // Get the mapping of systems/staves into page staves for the page.
    vectorVI& sysmap = infile.reverseSystemMap();
-   
+
    // Now iterate through each system, and then each system-staff and
    // set the part number based on the system-staff (flipped and starting
    // at 1 rather than 0) for staff items on the page.
    int i, j, k, ksize;
- 
+
 cout << "SYSMAP SIZE = " << sysmap.size() << endl;
    for (i=0; i<sysmap.size(); i++) {
       for (j=0; j<sysmap[i].size(); j++) {

@@ -30,27 +30,27 @@ using namespace std;
    }
 
 
-   ScoreItem::ScoreItem(const ScoreItem& anItem) : 
+   ScoreItem::ScoreItem(const ScoreItem& anItem) :
          ScoreItemEdit((ScoreItemEdit)anItem)  {
-      // do nothing 
+      // do nothing
    }
 
 
-   ScoreItem::ScoreItem(const ScoreItemEdit& anItem) : 
+   ScoreItem::ScoreItem(const ScoreItemEdit& anItem) :
          ScoreItemEdit(anItem)  {
-      // do nothing 
+      // do nothing
    }
 
 
-   ScoreItem::ScoreItem(const ScoreItemBase& anItem) : 
+   ScoreItem::ScoreItem(const ScoreItemBase& anItem) :
          ScoreItemEdit(anItem)  {
-      // do nothing 
+      // do nothing
    }
 
 
-   ScoreItem::ScoreItem(const vectorSF& parameters) : 
+   ScoreItem::ScoreItem(const vectorSF& parameters) :
          ScoreItemEdit(parameters)  {
-      // do nothing 
+      // do nothing
    }
 
 #else
@@ -60,21 +60,21 @@ using namespace std;
    }
 
 
-   ScoreItem::ScoreItem(const ScoreItem& anItem) : 
+   ScoreItem::ScoreItem(const ScoreItem& anItem) :
          ScoreItemBase((ScoreItemBase)anItem)  {
-      // do nothing 
+      // do nothing
    }
 
 
-   ScoreItem::ScoreItem(const ScoreItemBase& anItem) : 
+   ScoreItem::ScoreItem(const ScoreItemBase& anItem) :
          ScoreItemBase(anItem)  {
-      // do nothing 
+      // do nothing
    }
 
 
-   ScoreItem::ScoreItem(const vectorSF& parameters) : 
+   ScoreItem::ScoreItem(const vectorSF& parameters) :
          ScoreItemBase(parameters)  {
-      // do nothing 
+      // do nothing
    }
 
 #endif
@@ -105,7 +105,7 @@ ScoreItem& ScoreItem::operator=(const ScoreItem& anItem) {
       *(ScoreItemEdit*)this = (ScoreItemEdit)anItem;
    #else
       *(ScoreItemBase*)this = (ScoreItemBase)anItem;
-   #endif 
+   #endif
 
    return *this;
 }
@@ -114,7 +114,7 @@ ScoreItem& ScoreItem::operator=(const ScoreItem& anItem) {
 
 //////////////////////////////
 //
-// ScoreItem::getParameterDigit -- 
+// ScoreItem::getParameterDigit --
 //
 
 int ScoreItem::getParameterDigit(int pindex, int position) {
@@ -130,7 +130,7 @@ int ScoreItem::getPDigit(int pindex, int position) {
 
 //////////////////////////////
 //
-// ScoreItem::setParameterDigit -- 
+// ScoreItem::setParameterDigit --
 //
 
 void ScoreItem::setParameterDigit(int pindex, int position, int value) {
@@ -158,7 +158,7 @@ void ScoreItem::setPDigit(int pindex, int position, int value) {
 //
 // ScoreItem::setParameterIntegerPart -- set the integer portion of
 //    the given fixed parameter value.  The fractional part will remain
-//    the same.  Currently the sign of the value will be that of the 
+//    the same.  Currently the sign of the value will be that of the
 //    integer being inserted.
 //
 
@@ -194,10 +194,10 @@ void ScoreItem::setPIntPart(int pindex, int intval) {
 //      it will be overwritten with the copied value.
 //
 
-void ScoreItem::copyParameterOverwrite(const string& newnamespace, 
+void ScoreItem::copyParameterOverwrite(const string& newnamespace,
       const string& oldnamespace, const string& parameter) {
    if (isDefined(oldnamespace, parameter)) {
-      setParameter(newnamespace, parameter, 
+      setParameter(newnamespace, parameter,
             getParameter(oldnamespace, parameter));
    }
 }
@@ -210,11 +210,11 @@ void ScoreItem::copyParameterOverwrite(const string& newnamespace,
 //     namespace only if it does not already exist in the new namespace.
 //
 
-void ScoreItem::copyParameterNoOverwrite(const string& newnamespace, 
+void ScoreItem::copyParameterNoOverwrite(const string& newnamespace,
       const string& oldnamespace, const string& parameter) {
    if (!isDefined(newnamespace, parameter)) {
       if (isDefined(oldnamespace, parameter)) {
-         setParameter(newnamespace, parameter, 
+         setParameter(newnamespace, parameter,
                getParameter(oldnamespace, parameter));
       }
    }
@@ -255,47 +255,47 @@ void ScoreItem::setItemType(SCORE_FLOAT type) {
 //    P1 value matches the item type related to the functions.
 //
 
-bool ScoreItem::isNoteItem   (void) 
+bool ScoreItem::isNoteItem   (void)
       { return getItemType() == P1_Note               ? true : false; }
-bool ScoreItem::isRestItem   (void) 
+bool ScoreItem::isRestItem   (void)
       { return getItemType() == P1_Rest               ? true : false; }
-bool ScoreItem::isClefItem   (void) 
+bool ScoreItem::isClefItem   (void)
       { return getItemType() == P1_Clef               ? true : false; }
-bool ScoreItem::isLineItem   (void) 
+bool ScoreItem::isLineItem   (void)
       { return getItemType() == P1_Line               ? true : false; }
-bool ScoreItem::isSlurItem   (void) 
+bool ScoreItem::isSlurItem   (void)
       { return getItemType() == P1_Slur               ? true : false; }
-bool ScoreItem::isBeamItem   (void) 
+bool ScoreItem::isBeamItem   (void)
       { return getItemType() == P1_Beam               ? true : false; }
-bool ScoreItem::isTrillItem  (void) 
+bool ScoreItem::isTrillItem  (void)
       { return getItemType() == P1_Trill              ? true : false; }
-bool ScoreItem::isStaffItem  (void) 
+bool ScoreItem::isStaffItem  (void)
       { return getItemType() == P1_Staff              ? true : false; }
-bool ScoreItem::isSymbolItem (void) 
+bool ScoreItem::isSymbolItem (void)
       { return getItemType() == P1_Symbol             ? true : false; }
-bool ScoreItem::isNumberItem (void) 
+bool ScoreItem::isNumberItem (void)
       { return getItemType() == P1_Number             ? true : false; }
-bool ScoreItem::isUserItem   (void) 
+bool ScoreItem::isUserItem   (void)
       { return getItemType() == P1_User               ? true : false; }
-bool ScoreItem::isSpecialItem(void) 
+bool ScoreItem::isSpecialItem(void)
       { return getItemType() == P1_Special            ? true : false; }
-bool ScoreItem::isShapeItem(void) 
+bool ScoreItem::isShapeItem(void)
       { return isSpecialItem(); }
-bool ScoreItem::isBadLuckItem(void) 
+bool ScoreItem::isBadLuckItem(void)
       { return getItemType() == P1_BadLuck            ? true : false; }
-bool ScoreItem::isBarlineItem(void) 
+bool ScoreItem::isBarlineItem(void)
       { return getItemType() == P1_Barline            ? true : false; }
-bool ScoreItem::isEpsItem    (void) 
+bool ScoreItem::isEpsItem    (void)
       { return getItemType() == P1_ImportedEPSGraphic ? true : false; }
-bool ScoreItem::isTextItem   (void) 
+bool ScoreItem::isTextItem   (void)
       { return getItemType() == P1_Text               ? true : false; }
-bool ScoreItem::isKeySigItem (void) 
+bool ScoreItem::isKeySigItem (void)
       { return getItemType() == P1_KeySignature       ? true : false; }
-bool ScoreItem::isKeySignatureItem (void) 
+bool ScoreItem::isKeySignatureItem (void)
       { return isKeySigItem(); }
-bool ScoreItem::isTimeSigItem(void) 
+bool ScoreItem::isTimeSigItem(void)
       { return getItemType() == P1_MeterSignature     ? true : false; }
-bool ScoreItem::isTimeSignatureItem(void) 
+bool ScoreItem::isTimeSignatureItem(void)
       { return isTimeSigItem(); }
 
 
@@ -400,7 +400,7 @@ SCORE_FLOAT ScoreItem::getHorizontalOffset(void) {
    int p1 = getP1Int();
    switch (p1) {
       case P1_Note: return getP10(); // 10 & 20 have special meaning.
-      case P1_Rest: return getP10(); 
+      case P1_Rest: return getP10();
       case P1_Beam: return getP14();  // P15 is for right side's offset
       case P1_Text: return getP11();
    }
@@ -506,13 +506,13 @@ SCORE_FLOAT ScoreItem::getVerticalPositionRight(void) {
          return getP5();
          break;
    }
-   
+
    // Item does not have a right side (or is unknown), so return P4 value:
    return getVerticalPosition();
 }
 
 //
-// Alias: 
+// Alias:
 //
 
 SCORE_FLOAT ScoreItem::getVPosRight(void) {
@@ -534,7 +534,7 @@ SCORE_FLOAT ScoreItem::getHorizontalPositionRight(void) {
       case P1_Beam:
          return getP6();
          break;
-	 
+	
       case P1_Staff:
          p6 = getP6();
          if (p6 == 0.0) {
@@ -544,7 +544,7 @@ SCORE_FLOAT ScoreItem::getHorizontalPositionRight(void) {
          }
          break;
    }
-   
+
    // Item does not have a right side (or is unknown), so return P3 value:
    return getP3();
 }
@@ -572,7 +572,7 @@ SCORE_FLOAT ScoreItem::getHPosR(void) {
 //////////////////////////////
 //
 // ScoreItem::hasDuration -- Returns true if the items posses a duration
-//   parameters.  This includes Notes (P1=1) and Rests (P1=2). 
+//   parameters.  This includes Notes (P1=1) and Rests (P1=2).
 //
 
 bool ScoreItem::hasDuration(void) {
@@ -589,7 +589,7 @@ bool ScoreItem::hasDuration(void) {
 //////////////////////////////
 //
 // ScoreItem::getDuration -- returns the duration of the item.
-//    Returns 0.0 if the item is not a note or rest.  If the 
+//    Returns 0.0 if the item is not a note or rest.  If the
 //    P7 value of notes/rests is greater than 60, then return 0
 //    (since it represents a grace note).
 //
@@ -613,7 +613,7 @@ SCORE_FLOAT ScoreItem::getDuration(void) {
 
 //////////////////////////////
 //
-// ScoreItem::getRationalDuration -- 
+// ScoreItem::getRationalDuration --
 //
 
 RationalDuration ScoreItem::getRationalDuration(void) {
