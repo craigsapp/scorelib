@@ -17,6 +17,7 @@ using namespace std;
 void   processData          (ScorePage& infile, Options& opts);
 void   extractBinaryPages   (ScorePageSet& infiles, Options& opts);
 void   extractAsciiPages    (ScorePageSet& infiles, Options& opts);
+void   extractSystems       (ScorePageSet& infiles, const string& filebase);
 
 ///////////////////////////////////////////////////////////////////////////
 
@@ -25,6 +26,8 @@ int main(int argc, char** argv) {
    opts.define("c|count=b", "count the number of input pages/segments");
    opts.define("pc|page-count=b", "count the number of input pages");
    opts.define("sc|segment-count=b", "count the number of input segments");
+   opts.define("s|systems|extract-systems=s:sys", 
+         "extract systems to separate files");
    opts.define("i|info=b", "count input pages, overlays, and systems");
    opts.define("p|page=i:0", "Extract given page index (offset from 1)");
    opts.define("mus=b", "Extract pages into binary .MUS files");
@@ -63,6 +66,11 @@ int main(int argc, char** argv) {
       exit(0);
    }
 
+   if (opts.getBoolean("extract-systems")) {
+cout << "ZZZ " << opts.getString("extract-systems") << endl;
+      extractSystems(infiles, opts.getString("extract-systems"));
+   }
+
    if (opts.getBoolean("page")) {
       cout << infiles[opts.getInteger("page")-1];
       exit(0);
@@ -76,6 +84,25 @@ int main(int argc, char** argv) {
 }
 
 ///////////////////////////////////////////////////////////////////////////
+
+
+//////////////////////////////
+//
+// extractSystems --
+//
+
+void extractSystems(ScorePageSet& infiles, const string& filebase) {
+   int syscount = 0;
+   int i;
+   for (i=0; i<infiles.getPageCount(); i++) {
+      infiles[i][0].analyzeSystems();
+      syscount += infiles[i][0].getSystemCount();
+   }
+
+   cout << "SYSTEM COUNT = " << syscount << endl;
+   cout << "FILEBASE = " << filebase << endl;
+}
+
 
 
 //////////////////////////////
