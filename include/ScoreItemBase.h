@@ -257,6 +257,7 @@ class ScoreItemBase {
       int           getNamedParameterSize  (const string& nspace);
       int           getNamedParameterSize  (void);
       int           getCompactFixedParameterCount(void);
+      void          addNamedParameters(mapNamespace& input);
       int           hasParameter      (const string& testkey);
       int           hasParameter      (const string& nspace,
                                       const string& testkey);
@@ -301,7 +302,7 @@ class ScoreItemBase {
       ostream&      printPmx         (ostream& out);
       ostream&      printPmxFixedParameters(ostream& out);
       ostream&      printPmxNamedParameters(ostream& out);
-      ostream&      printPmxNamedParametersNoAnalysis(ostream& out);
+      ostream&      printPmxNamedParametersNoAuto(ostream& out);
       ostream&      printXml         (ostream& out, int indentcount = 0,
                                       const string& indentstring = "\t");
 
@@ -386,6 +387,9 @@ class ScoreItemBase {
       // is considered a grace note with 0 duration.
       static constexpr SCORE_FLOAT SCORE_MAX_DURATION = 60.0;
 
+      
+      // extract a named parameter from an input PMX line:
+      static void readNamedParameter (mapNamespace& np, char* input);
 };
 
 

@@ -33,3 +33,22 @@ ostream& operator<<(ostream& out, ScorePageSet& set) {
 
 
 
+//////////////////////////////
+//
+// printNoAuto -- Print a ScorePageSet as multi-page PMX data, but do not
+//    print any "auto" namespace named paramters.
+//
+
+ostream& printNoAuto(ostream& out, ScorePageSet& set) {
+   int i;
+   for (i=0; i<set.getPageCount(); i++) {
+      if ((i > 0) && !set[i-1][0].isMultipageAsRs()) {
+         out << "\n";
+      }
+      printNoAuto(out, set[i]);
+   }
+   return out;
+}
+
+
+

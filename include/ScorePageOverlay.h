@@ -53,6 +53,7 @@ class ScorePageOverlay {
 
 
 ostream& operator<<(ostream& out, ScorePageOverlay& overlay);
+ostream& printNoAuto(ostream& out, ScorePageOverlay& overlay);
 
 
 #endif /* _SCOREPAGEOVERLAY_H_INCLUDED */

@@ -59,3 +59,47 @@ ostream& operator<<(ostream& out, ScorePageOverlay& overlay) {
 
 
 
+//////////////////////////////
+//
+// printNoAuto -- Print a ScorePageOverlay object as multi-page PMX data,
+//    but suppress "auto" namespace named paramters from being printed.
+//
+
+ostream& printNoAuto(ostream& out, ScorePageOverlay& overlay) {
+   static int cereal = 1;
+   if (overlay[0].isMultipageAsComment()) {
+      out << "###StartPage:\t" << overlay[0].getFilenameBase() << endl;
+   } else {
+      out << "RS" << endl;
+      string filename = overlay[0].getFilenameBase();
+      if (filename.compare("") == 0) {
+         filename = "page" + to_string(cereal);
+         cereal++;
+      }
+      out << "SA " << filename << endl;
+   }
+   out << endl;
+
+   printNoAuto(out, overlay[0]);
+   for (int i=1; i<overlay.getOverlayCount(); i++) {
+      out << "\n";
+      out << "###StartOverlay:\t";
+      if (overlay[i].getFilenameBase() != "") {
+         out << overlay[i].getFilenameBase();
+      } else {
+         out << overlay[0].getFilenameBase() << "-" << i;
+      }
+      out  << endl;
+      out << "\n";
+      printNoAuto(out, overlay[i]);
+   }
+
+   if (!overlay[0].isMultipageAsComment()) {
+      cout << "\nSM" << endl;
+   }
+
+   return out;
+}
+
+
+

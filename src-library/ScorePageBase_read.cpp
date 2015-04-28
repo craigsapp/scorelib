@@ -177,7 +177,9 @@ ScoreItem* ScorePageBase::readPmxScoreLine(istream& infile, int verboseQ) {
    }
 
    vectorSF parameters;
-   parameters.reserve(ScoreItemBase::SCORE_MAX_FIXED_PARAMETERS);
+
+   // parameters.reserve(ScoreItemBase::SCORE_MAX_FIXED_PARAMETERS);
+   parameters.reserve(8);
    string text;
 
    char* ptr = strtok(buffer, "\n\t ");
@@ -222,6 +224,15 @@ ScoreItem* ScorePageBase::readPmxScoreLine(istream& infile, int verboseQ) {
       }
    }
 
+   mapNamespace named_parameters;
+   while (infile.peek() == '@') {
+      infile.getline(buffer, 1000, '\n');
+      if (verboseQ) {
+         cout << "#Read line: " << buffer << endl;
+      }
+      ScoreItemBase::readNamedParameter(named_parameters, buffer);
+   } 
+
    if (parameters.size() == 0) {
       return NULL;
    }
@@ -231,6 +242,10 @@ ScoreItem* ScorePageBase::readPmxScoreLine(istream& infile, int verboseQ) {
    if (text.size() > 0) {
       sip->setFixedText(text);
    }
+   if (named_parameters.size() > 0) {
+      sip->addNamedParameters(named_parameters);
+   }
+ 
    item_storage.push_back(sip);
    return sip;
 }

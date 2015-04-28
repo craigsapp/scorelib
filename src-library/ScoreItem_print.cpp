@@ -18,14 +18,14 @@ using namespace std;
 
 //////////////////////////////
 //
-// ScoreItem::printNoAnalysis -- print a ScoreItem, excluding any
+// ScoreItem::printNoAuto -- print a ScoreItem, excluding any
 //      named parameters in the "auto" namespace.
 //
 
-ostream& ScoreItem::printNoAnalysis(ostream& out) {
+ostream& ScoreItem::printNoAuto(ostream& out) {
    auto& si = *this;
    si.printPmxFixedParameters(out);
-   si.printPmxNamedParametersNoAnalysis(out);
+   si.printPmxNamedParametersNoAuto(out);
    return out;
 }
 
@@ -33,30 +33,42 @@ ostream& ScoreItem::printNoAnalysis(ostream& out) {
 
 //////////////////////////////
 //
-// printNoAnalysis -- print a list of ScoreItems, excluding any
+// printNoAuto -- print a list of ScoreItems, excluding any
 //      named parameters in the "auto" namespace.
 //
 
-ostream& printNoAnalysis(ostream& out, vectorSIp& sipvector) {
+ostream& printNoAuto(ostream& out, vectorSIp& sipvector) {
    for (auto& it : sipvector) {
-      it->printNoAnalysis(out);
+      it->printNoAuto(out);
    }
    return out;
 }
 
 
-ostream& printNoAnalysis(ostream& out, listSIp& siplist) {
+ostream& printNoAuto(ostream& out, listSIp& siplist) {
    for (auto& it : siplist) {
-      it->printNoAnalysis(out);
+      it->printNoAuto(out);
    }
    return out;
 }
 
 
-ostream& printNoAnalysis(ostream& out, vectorVSIp& sipvvector) {
+ostream& printNoAuto(ostream& out, vectorVSIp& sipvvector) {
    for (auto& it : sipvvector) {
-      printNoAnalysis(out, it);
+      printNoAuto(out, it);
    }
+   return out;
+}
+
+
+ostream& printNoAuto(ostream& out, ScoreItem* sip) {
+   sip->printNoAuto(out);
+   return out;
+}
+
+
+ostream& printNoAuto(ostream& out, ScoreItem& si) {
+   si.printNoAuto(out);
    return out;
 }
 

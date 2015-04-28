@@ -45,6 +45,28 @@ ostream& ScorePageBase::printPmx(ostream& out, int roundQ, int verboseQ) {
 
 //////////////////////////////
 //
+// ScorePageBase::printNoAuto -- Print data as ASCII PMX data.
+//     default value: roundQ   = 1
+//     default value: verboseQ = 0
+//
+
+ostream& ScorePageBase::printNoAuto(ostream& out, int roundQ, int verboseQ) {
+   if (verboseQ) {
+      cout << "# OBJECTS TO WRITE: " << getItemCount() << endl;
+   }
+
+   for (auto& it : item_storage) {
+      it->printNoAuto(out);
+   }
+
+   out << flush;
+   return out;
+}
+
+
+
+//////////////////////////////
+//
 // ScorePageBase::printPmx -- Print PMX data with any named parameters.
 //
 
@@ -214,9 +236,22 @@ ostream& ScorePageBase::writeLittleFloat(ostream& out, SCORE_FLOAT number) {
 // operator<< -- print ASCII PMX version of page.
 //
 
-ostream& operator<<(ostream& out, ScorePageBase& aPage) {
-   return aPage.printPmx(out);
+ostream& operator<<(ostream& out, ScorePageBase& aSet) {
+   return aSet.printPmx(out);
 }
+
+
+
+//////////////////////////////
+//
+// printNoAuto -- print ASCII PMX version of page without printing
+//   named parameters in the "auto" namespace.
+//
+
+ostream& printNoAuto(ostream& out, ScorePageBase& aSet) {
+   return aSet.printNoAuto(out);
+}
+
 
 
 /////////////////////////////

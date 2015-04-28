@@ -333,12 +333,12 @@ using listSIp     = list<ScoreItem*>;
 
 
       // internal print functions (defined in ScoreItem_print.cpp):
-      ostream&     printNoAnalysis               (ostream& out);
+      ostream&     printNoAuto                   (ostream& out);
 
       /////////////////////////////////////////////////////////////////////
       //
-      // Analysis dependent functions: (the analysis is not checked before
-      // the function is called).
+      // Auto-dependent functions: (the automatic analysis is not checked 
+      // before the function is called).
       //
 
       // Chord analysis dependent functions:
@@ -354,9 +354,11 @@ ostream&    operator<<        (ostream& out, ScoreItem* si);
 ostream&    operator<<        (ostream& out, listSIp& sipvector);
 ostream&    operator<<        (ostream& out, vectorSIp& sipvector);
 ostream&    operator<<        (ostream& out, vectorVSIp& sipvvector);
-ostream&    printNoAnalysis   (ostream& out, listSIp& siplist);
-ostream&    printNoAnalysis   (ostream& out, vectorSIp& sipvector);
-ostream&    printNoAnalysis   (ostream& out, vectorVSIp& sipvvector);
+ostream&    printNoAuto       (ostream& out, listSIp& siplist);
+ostream&    printNoAuto       (ostream& out, vectorSIp& sipvector);
+ostream&    printNoAuto       (ostream& out, vectorVSIp& sipvvector);
+ostream&    printNoAuto       (ostream& out, ScoreItem* sip);
+ostream&    printNoAuto       (ostream& out, ScoreItem& si);
 
 
 // Selecting filters for list of ScoreItems (defined in ScoreItem_select.cpp):

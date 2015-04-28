@@ -22,13 +22,16 @@ void    printPageBySystemWithBarlines (ScorePage& page, int extra);
 // User interface variables:
 int zeroQ     = 0;
 int commentQ  = 0;
+int autoQ     = 1;
 
 ///////////////////////////////////////////////////////////////////////////
 
 int main(int argc, char** argv) {
    Options opts;
+   opts.define("A|no-auto=b", "don't output auto-namespace parameters");
    opts.define("s|system=b", "sort data by system for each page");
-   opts.define("S|suppress-named-parameters=b", "Do not print named parameters.");
+   opts.define("S|suppress-named-parameters=b", 
+         "Do not print named parameters.");
    opts.define("b|m|barline|measure=b", "indicate measures");
    opts.define("z|0|zero-indexing=b", "index from zero instead of one");
    opts.define("c|comment=b", "encode multipage info as comments");
@@ -40,6 +43,9 @@ int main(int argc, char** argv) {
    if (opts.getBoolean("comment")) {
       commentQ = 1;
    }
+   if (opts.getBoolean("no-auto")) {
+      autoQ = 0;
+   }
 
    ScorePageSet infiles(opts);
 
@@ -50,7 +56,11 @@ int main(int argc, char** argv) {
          printBySystem(infiles, !opts.getBoolean("S"));
       }
    } else {
-      cout << infiles;
+      if (autoQ) {
+         cout << infiles;
+      } else {
+         printNoAuto(cout, infiles);
+      }
    }
 
    return 0;
@@ -66,7 +76,6 @@ int main(int argc, char** argv) {
 //
 
 void printBySystemWithBarlines(ScorePageSet& infiles, int extra) {
-cout << "GOT HERE CCC" << endl;
    int i, j;
    for (i=0; i<infiles.getPageCount(); i++) {
       if (commentQ) {
@@ -100,7 +109,6 @@ cout << "GOT HERE CCC" << endl;
 //
 
 void printBySystem(ScorePageSet& infiles, int extra) {
-cout << "GOT HERE BBB" << endl;
    int i, j;
    for (i=0; i<infiles.getPageCount(); i++) {
       if (i>0) {
@@ -127,7 +135,6 @@ cout << "GOT HERE BBB" << endl;
 //
 
 void printPageBySystem(ScorePage& page, int extra) {
-cout << "GOT HERE AAA" << endl;
    int scount = page.getSystemCount();
    int i, j;
    int count;
@@ -145,13 +152,18 @@ cout << "GOT HERE AAA" << endl;
       if (extra) {
          vectorSIp& items = page.getSystemItems(i);
          for (j=0; j<items.size(); j++) {
-            items[j]->printPmx(cout);
-            cout << "@auto@pageOffsetDuration:\t";
-            cout << items[j]->getParameter("auto", "pageOffsetDuration");
-            cout << endl;
+            if (autoQ) {
+               items[j]->printPmx(cout);
+            } else {
+               printNoAuto(cout, items[j]);
+            }
          }
       } else {
-         cout << page.getSystemItems(i);
+         if (autoQ) {
+            cout << page.getSystemItems(i);
+         } else {
+            printNoAuto(cout, page.getSystemItems(i));
+         }
       }
    }
 }
@@ -166,7 +178,6 @@ cout << "GOT HERE AAA" << endl;
 //
 
 void printPageBySystemWithBarlines(ScorePage& page, int extra) {
-cout << "GOT HERE DDD" << endl;
    int syscount = page.getSystemCount();
    int barcount;
    int i, j;
@@ -194,7 +205,11 @@ cout << "GOT HERE DDD" << endl;
             cout << "\t(dur = " << measureitems.getDuration() << ")";
             cout << "\n";
          }
-         printNoAnalysis(cout, measureitems.getItems());
+         if (autoQ) {
+            cout << measureitems.getItems();
+         } else {
+            printNoAuto(cout, measureitems.getItems());
+         }
          cout << "\n";
       }
    }

@@ -158,7 +158,8 @@ class ScorePageSet {
 };
 
 
-ostream& operator<<(ostream& out, ScorePageSet& set);
+ostream& operator<<(ostream& out, ScorePageSet& aSet);
+ostream& printNoAuto(ostream& out, ScorePageSet& aSet);
 
 
 #endif /* _SCOREPAGESET_H_INCLUDED */

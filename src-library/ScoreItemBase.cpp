@@ -613,6 +613,23 @@ void ScoreItemBase::setFixedParameterAllocation(int asize) {
 
 //////////////////////////////
 //
+// ScoreItemBase::addNamedParameters --
+//
+
+void ScoreItemBase::addNamedParameters(mapNamespace& input) {
+   mapNamespace::iterator it;
+   mapSS::iterator its;
+   for (it = input.begin(); it != input.end(); it++) {
+      for (its = it->second.begin(); its != it->second.end(); its++) {
+         named_parameters[it->first][its->first] = its->second;
+      }
+   }
+}
+
+
+
+//////////////////////////////
+//
 // ScoreItemBase::hasParameter -- returns true (1) if there is a named
 //    parameter matching the input argument.  Returns false (0) if there
 //    is not a named parameter matching the input argument.
@@ -905,15 +922,15 @@ ostream& ScoreItemBase::printPmxNamedParameters(ostream& out) {
 }
 
 
-ostream& ScoreItemBase::printPmxNamedParametersNoAnalysis(ostream& out) {
+ostream& ScoreItemBase::printPmxNamedParametersNoAuto(ostream& out) {
    mapNamespace& np = named_parameters;
    mapNamespace::iterator it;
    mapSS::iterator its;
    for (it = np.begin(); it != np.end(); it++) {
+      if (it->first == ns_auto) {
+         continue;
+      }
       for (its = it->second.begin(); its != it->second.end(); its++) {
-         if (it->first == ns_auto) {
-            continue;
-         }
          if (it->first == "") {
             out << '@' << its->first << ":\t" << its->second << endl;
          } else {
@@ -1063,7 +1080,9 @@ ostream& ScoreItemBase::printIndent(ostream& out, int indentcount,
 
 //////////////////////////////
 //
-// ScoreItemBase::readPmx --
+// ScoreItemBase::readPmx --  This version does not read named
+//    parameters.  See ScorePageBase::readPmx and 
+//    ScorePageBase::readNamedParameter for implementing here as well.
 //
 
 void ScoreItemBase::readPmx(istream& instream, int verboseQ) {
@@ -1299,6 +1318,134 @@ int ScoreItemBase::writeBinary(ostream& out) {
       }
       return fixedcount + 1;
    }
+}
+
+
+
+//////////////////////////////
+//
+// ScoreItemBase::readNamedParameter -- Read input lines such as:
+//    @namespace@key: value
+// For PMX data named parameters.
+//
+
+void ScoreItemBase::readNamedParameter(mapNamespace& np, char* input) {
+   int len = strlen(input);
+   char* buf1 = new char[len+4];
+   char* buf2 = new char[len+4];
+   char* buf3 = new char[len+4];
+   const char* nspace = NULL;
+   const char* key = NULL;
+   const char* value = NULL;
+   int i1 = 0;  // write index for namespace string
+   int i2 = 0;  // write index for key string
+   int i3 = 0;  // write index for value string
+
+   buf1[i1] = '\0';
+   buf2[i2] = '\0';
+   buf3[i3] = '\0';
+
+   int atcount = 0;
+   int atloc[2];
+   atloc[0] = -1;
+   atloc[1] = -1;
+
+   // find first two at-signs:
+   int i;
+   for (i=0; i<len; i++) {
+      if (input[i] == ':') {
+         // Either the end of the @namespace@key: sequence, or not 
+         // allowed to have colon in namespace string (or key):
+         break;
+      }
+      if (input[i] == '@') {
+         atloc[atcount++] = i;
+         if (atcount > 2) {
+            // can't have @ sign in namespace or key, ignore parameter:
+            delete [] buf1;
+            delete [] buf2;
+            delete [] buf3;
+            return;
+         }
+         continue;
+      }
+      if (std::isspace(input[i])) {
+         // ignore spaces in namespace or key:
+         continue;
+      }
+
+      if (atcount == 1) {
+         buf1[i1++] = input[i];
+         buf1[i1] = '\0';
+      } else if (atcount == 2) {
+         buf2[i2++] = input[i];
+         buf2[i2] = '\0';
+      }
+   }
+
+   if (atcount == 0) {
+      // Not a named parameter; do nothing.
+      delete [] buf1;
+      delete [] buf2;
+      delete [] buf3;
+      return;
+   }
+
+   // should pointing to colon, exit function if not:
+   if (input[i] != ':') {
+      delete [] buf1;
+      delete [] buf2;
+      delete [] buf3;
+      return;
+   }
+
+   // skip any whitespace at start of value:
+   while (++i<len) {
+      if (!std::isspace(input[i])) {
+         break;
+      }
+   }
+
+   // copy value into buf3:
+   while (i<len) {
+      buf3[i3++] = input[i];
+      buf3[i3] = '\0';
+      i++;
+   }
+
+   // trim space off of end of value
+   while (--i3 > 0) {
+      if (std::isspace(buf3[i3])) {
+         buf3[i3] = '\0';
+      } else {
+         break;
+      }
+   }
+
+   if (atcount == 1) {
+      // global namespace (empty string):
+      nspace = buf2;
+      key = buf1;
+   } else {
+      nspace = buf1;
+      key = buf2;
+   }
+   value = buf3;
+
+   if (key[0] == '\0') {
+      // Don't allow a null key string
+      delete [] buf1;
+      delete [] buf2;
+      delete [] buf3;
+      return;
+   }
+
+   // Store the parameter:
+   np[nspace][key] = value;
+
+   delete [] buf1;
+   delete [] buf2;
+   delete [] buf3;
 }
 
 

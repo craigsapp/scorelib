@@ -118,6 +118,8 @@ class ScorePageBase {
       ostream&       writeLittleFloat(ostream& out, SCORE_FLOAT number);
       ostream&       printPmx        (ostream& out, int roundQ = 1,
                                       int verboseQ = 0);
+      ostream&       printNoAuto     (ostream& out, int roundQ = 1, 
+                                      int verboseQ = 1);
       ostream&       printPmxFixedParameters(ostream& out, int roundQ,
                                       int verboseQ = 0);
       ostream&       printPmxWithNamedParameters(ostream& out, int roundQ,
@@ -233,6 +235,7 @@ class ScorePageBase {
 
 
 ostream& operator<<(ostream& out, ScorePageBase& aPage);
+ostream& printNoAuto(ostream& out, ScorePageBase& aPage);
 
 
 #endif /* _SCOREPAGEBASE_H_INCLUDED */
