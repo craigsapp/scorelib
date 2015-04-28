@@ -11,6 +11,7 @@
 //
 
 #include "scorelib.h"
+#include "stdlib.h"
 
 using namespace std;
 
@@ -18,6 +19,9 @@ void   processData          (ScorePage& infile, Options& opts);
 void   extractBinaryPages   (ScorePageSet& infiles, Options& opts);
 void   extractAsciiPages    (ScorePageSet& infiles, Options& opts);
 void   extractSystems       (ScorePageSet& infiles, const string& filebase);
+void   printSystem          (ScorePage& page, int sysnum, int syscount, 
+                             int psysindex, int psyscount, 
+                             const string& infilebase, const string& filebase);
 
 ///////////////////////////////////////////////////////////////////////////
 
@@ -26,10 +30,11 @@ int main(int argc, char** argv) {
    opts.define("c|count=b", "count the number of input pages/segments");
    opts.define("pc|page-count=b", "count the number of input pages");
    opts.define("sc|segment-count=b", "count the number of input segments");
-   opts.define("s|systems|extract-systems=s:sys", 
+   opts.define("s|systems|extract-systems=b", 
          "extract systems to separate files");
    opts.define("i|info=b", "count input pages, overlays, and systems");
    opts.define("p|page=i:0", "Extract given page index (offset from 1)");
+   opts.define("f|filebase=s:", "Optional filename base for data extraction");
    opts.define("mus=b", "Extract pages into binary .MUS files");
    opts.define("pag=b", "Extract pages into binary .PAG files");
    opts.define("pmx=b", "Extract pages into ASCII .PMX files");
@@ -67,8 +72,7 @@ int main(int argc, char** argv) {
    }
 
    if (opts.getBoolean("extract-systems")) {
-cout << "ZZZ " << opts.getString("extract-systems") << endl;
-      extractSystems(infiles, opts.getString("extract-systems"));
+      extractSystems(infiles, opts.getString("filebase"));
    }
 
    if (opts.getBoolean("page")) {
@@ -93,14 +97,66 @@ cout << "ZZZ " << opts.getString("extract-systems") << endl;
 
 void extractSystems(ScorePageSet& infiles, const string& filebase) {
    int syscount = 0;
-   int i;
+   int i, j;
    for (i=0; i<infiles.getPageCount(); i++) {
       infiles[i][0].analyzeSystems();
       syscount += infiles[i][0].getSystemCount();
    }
 
-   cout << "SYSTEM COUNT = " << syscount << endl;
-   cout << "FILEBASE = " << filebase << endl;
+   if (syscount <= 0) {
+      // nothing to do.
+      return;
+   }
+
+   string infilebase;
+   int pagesys;
+   int counter = 0;
+   for (i=0; i<infiles.getPageCount(); i++) {
+      infilebase = infiles.getPage(i)->getFilenameBase();
+      pagesys = infiles.getPage(i)->getSystemCount();
+      for (j=0; j<pagesys; j++) {
+         printSystem(*infiles.getPage(i), ++counter, syscount, j, pagesys, 
+               infilebase, filebase);
+      }
+   }
+}
+
+
+
+//////////////////////////////
+//
+// printSystem --
+//
+
+void printSystem(ScorePage& page, int sysnum, int syscount, int psysindex, 
+	int psyscount, const string& infilebase, const string& filebase) {
+   string myfile;
+   int digits;
+   int xdigits;
+   int i;
+
+   cout << "RS" << endl;
+   if (filebase.size() > 0) {
+      myfile = filebase;
+      digits = log10(syscount);
+      if (digits == 0) { digits = 1; }
+      xdigits = log10(sysnum);
+      if (xdigits == 0) { xdigits = 1; }
+      for (i=0; i<digits-xdigits; i++) {
+         myfile += "0";
+      }
+      myfile += to_string(sysnum);
+   } else {
+      myfile = infilebase;
+      if (psyscount >= 10) {
+         if (psysindex < 10) {
+            myfile += "0";
+         }
+      }
+      myfile += to_string(psysindex);
+   }
+   cout << "SA " << myfile << endl;
+
 }
 
 
