@@ -27,6 +27,7 @@ int main(int argc, char** argv) {
    ScorePageSet infiles(opts);
 
    infiles.analyzeStaffDurations();
+   infiles.analyzePageSetDurations();
 
    for (int i=0; i<infiles.getPageCount(); i++) {
       processPage(infiles, i, opts);

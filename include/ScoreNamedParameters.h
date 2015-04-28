@@ -35,6 +35,15 @@ const string ns_auto = "auto";
 //      to the given item, in terms of quarter notes.
 const string np_staffOffsetDuration = "staffOffsetDuration";
 
+// @auto@segmentOffsetDuration -- The duration from the start of the segment 
+//      (typically a movement) the starting time of the given item, in 
+//      terms of quarter notes.
+const string np_segmentOffsetDuration = "segmentOffsetDuration";
+
+// @auto@pagesetOffsetDuration -- The duration from the start of the work 
+//      until the starting time of the given item, in terms of quarter notes.
+const string np_pagesetOffsetDuration = "pagesetOffsetDuration";
+
 // @auto@staffDuration -- The duration from the start to end of a staff.
 const string np_staffDuration = "staffDuration";
 

@@ -89,6 +89,7 @@ class ScorePage : public ScorePageBase {
       void        analyzeStaffDurations  (void);
       SCORE_FLOAT getStaffDuration       (int staffnum);
       void        setStaffDuration       (int staffnum, SCORE_FLOAT duration);
+      SCORE_FLOAT getSystemDuration      (int sysindex);
    private:
       SCORE_FLOAT calculateStaffDuration(vectorSIp& staffitems);
    public:

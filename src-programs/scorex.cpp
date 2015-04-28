@@ -120,10 +120,6 @@ void extractAsciiPages(ScorePageSet& infiles, Options& opts) {
    int pages = infiles.getPageCount();
    ScorePage* infile;
    string filename;
-
-      ostream&       printPmx        (ostream& out, int roundQ = 1,
-                                      int verboseQ = 0);
-
    ofstream outfile;
 
    for (int i=0; i<pages; i++) {

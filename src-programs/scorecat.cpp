@@ -14,10 +14,10 @@
 
 using namespace std;
 
-void    printBySystem                 (ScorePageSet& infiles);
-void    printPageBySystem             (ScorePage& page);
-void    printBySystemWithBarlines     (ScorePageSet& infiles);
-void    printPageBySystemWithBarlines (ScorePage& page);
+void    printBySystem                 (ScorePageSet& infiles, int extra);
+void    printPageBySystem             (ScorePage& page, int extra);
+void    printBySystemWithBarlines     (ScorePageSet& infiles, int extra);
+void    printPageBySystemWithBarlines (ScorePage& page, int extra);
 
 // User interface variables:
 int zeroQ     = 0;
@@ -28,6 +28,7 @@ int commentQ  = 0;
 int main(int argc, char** argv) {
    Options opts;
    opts.define("s|system=b", "sort data by system for each page");
+   opts.define("S|suppress-named-parameters=b", "Do not print named parameters.");
    opts.define("b|m|barline|measure=b", "indicate measures");
    opts.define("z|0|zero-indexing=b", "index from zero instead of one");
    opts.define("c|comment=b", "encode multipage info as comments");
@@ -44,9 +45,9 @@ int main(int argc, char** argv) {
 
    if (opts.getBoolean("system")) {
       if (opts.getBoolean("measure")) {
-         printBySystemWithBarlines(infiles);
+         printBySystemWithBarlines(infiles, !opts.getBoolean("S"));
       } else {
-         printBySystem(infiles);
+         printBySystem(infiles, !opts.getBoolean("S"));
       }
    } else {
       cout << infiles;
@@ -64,7 +65,8 @@ int main(int argc, char** argv) {
 //      (top to bottom of page).
 //
 
-void printBySystemWithBarlines(ScorePageSet& infiles) {
+void printBySystemWithBarlines(ScorePageSet& infiles, int extra) {
+cout << "GOT HERE CCC" << endl;
    int i, j;
    for (i=0; i<infiles.getPageCount(); i++) {
       if (commentQ) {
@@ -82,7 +84,7 @@ void printBySystemWithBarlines(ScorePageSet& infiles) {
             cout << "\n###ScoreOverlay:\t" 
                  << infiles[i][j].getFilenameBase() << endl;
          }
-         printPageBySystemWithBarlines(infiles[i][j]);
+         printPageBySystemWithBarlines(infiles[i][j], extra);
       }
       if (!commentQ) {
          cout << "\nSM\n";
@@ -97,7 +99,8 @@ void printBySystemWithBarlines(ScorePageSet& infiles) {
 // printBySystem -- print each page/overlay by system (top to bottom of page).
 //
 
-void printBySystem(ScorePageSet& infiles) {
+void printBySystem(ScorePageSet& infiles, int extra) {
+cout << "GOT HERE BBB" << endl;
    int i, j;
    for (i=0; i<infiles.getPageCount(); i++) {
       if (i>0) {
@@ -110,7 +113,7 @@ void printBySystem(ScorePageSet& infiles) {
             cout << "\n###ScoreOverlay:\t" 
                  << infiles[i][j].getFilenameBase() << endl;
          }
-         printPageBySystem(infiles[i][j]);
+         printPageBySystem(infiles[i][j], extra);
       }
    }
 }
@@ -123,9 +126,10 @@ void printBySystem(ScorePageSet& infiles) {
 //    horizontal position (time).
 //
 
-void printPageBySystem(ScorePage& page) {
+void printPageBySystem(ScorePage& page, int extra) {
+cout << "GOT HERE AAA" << endl;
    int scount = page.getSystemCount();
-   int i;
+   int i, j;
    int count;
    for (i=0; i<scount; i++) {
       if (i>0) { 
@@ -138,7 +142,17 @@ void printPageBySystem(ScorePage& page) {
       cout << "##System:\t" << count << "\n";
       sort(page.getSystemItems(i).begin(), page.getSystemItems(i).end(), 
             SU::sortP3P1P2P4);
-      cout << page.getSystemItems(i); 
+      if (extra) {
+         vectorSIp& items = page.getSystemItems(i);
+         for (j=0; j<items.size(); j++) {
+            items[j]->printPmx(cout);
+            cout << "@auto@pageOffsetDuration:\t";
+            cout << items[j]->getParameter("auto", "pageOffsetDuration");
+            cout << endl;
+         }
+      } else {
+         cout << page.getSystemItems(i); 
+      }
    }
 }
 
@@ -151,7 +165,8 @@ void printPageBySystem(ScorePage& page) {
 //    indicated.
 //
 
-void printPageBySystemWithBarlines(ScorePage& page) {
+void printPageBySystemWithBarlines(ScorePage& page, int extra) {
+cout << "GOT HERE DDD" << endl;
    int syscount = page.getSystemCount();
    int barcount;
    int i, j;

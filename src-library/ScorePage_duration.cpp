@@ -152,3 +152,22 @@ SCORE_FLOAT ScorePage::getStaffDuration(int staffnum) {
 
 
 
+//////////////////////////////
+//
+// ScorePage::getSystemDuration -- Return the duration of the given
+//   system which is indexed from 0 at the top of the page.  Actually
+//   returns the duration of the bottom staff in the system, and the
+//   other staves are presumed to have the same duration.
+//
+
+SCORE_FLOAT ScorePage::getSystemDuration(int sysnum) {
+   if (!analysis_info.durationIsValid()) {
+      analyzeStaffDurations();
+   }
+   vectorVI& sysmap = reverseSystemMap();
+   int p2 = sysmap[sysnum][0];
+   return staff_info.getStaffDuration(p2);
+}
+
+
+

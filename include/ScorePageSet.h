@@ -62,6 +62,8 @@ class ScorePageSet {
       void        analyzeTies                   (void);
       void        analyzeTuplets                (void);
       void        analyzeStaffDurations         (void);
+      void        analyzeStaffDurations         (int index);
+      void        analyzePageSetDurations       (void);
 
       // funcs related to AddressSystem (defined in ScorePageSet_address.cpp):
       ScorePage*  getPage                     (const AddressSystem& anAddress);

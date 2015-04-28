@@ -201,10 +201,45 @@ void ScorePageSet::setPageOwnerships(void) {
 //
 
 void ScorePageSet::analyzeStaffDurations(void) {
+   for (int i=0; i<getPageCount(); i++) {
+      analyzeStaffDurations(i);
+   }
+}
+
+
+void ScorePageSet::analyzeStaffDurations(int index) {
    ScorePageSet& t = *this;
-   int i;
+   t[index][0].analyzeStaffDurations();
+}
+
+
+
+//////////////////////////////
+//
+// ScorePageSet::analyzePageSetDurations -- Calculate durational
+//     offsets from the beginning of the page set until the end.
+//     This is similar but not equivalent to calculating durational
+//     offset for segements (which can start and end in the middle
+//     of pages).
+//
+
+void ScorePageSet::analyzePageSetDurations() {
+   ScorePage* page;
+   double cumulativedur = 0.0;
+   double duroffset;
+   int i, j, k;
    for (i=0; i<getPageCount(); i++) {
-      t[i][0].analyzeStaffDurations();
+      page = getPage(i);
+      for (j=0; j<page->getSystemCount(); j++) {
+         vectorSIp& sitems = page->getSystemItems(j);
+         for (k=0; k<sitems.size(); k++) {
+            duroffset = cumulativedur + sitems[k]->getParameterDouble(ns_auto,
+                  np_staffOffsetDuration);
+            sitems[k]->setParameter(ns_auto, np_pagesetOffsetDuration, 
+                  duroffset + cumulativedur);
+         }
+         cumulativedur += page->getSystemDuration(j);
+      }
    }
 }
 
