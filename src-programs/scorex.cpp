@@ -23,10 +23,13 @@ void   printSystem          (ScorePage& page, int sysnum, int syscount,
                              int psysindex, int psyscount, 
                              const string& infilebase, const string& filebase);
 
+int    autoQ = 1;
+
 ///////////////////////////////////////////////////////////////////////////
 
 int main(int argc, char** argv) {
    Options opts;
+   opts.define("A|no-auto=b", "don't print auto namespace parameters");
    opts.define("c|count=b", "count the number of input pages/segments");
    opts.define("pc|page-count=b", "count the number of input pages");
    opts.define("sc|segment-count=b", "count the number of input segments");
@@ -40,6 +43,8 @@ int main(int argc, char** argv) {
    opts.define("pmx=b", "Extract pages into ASCII .PMX files");
    opts.define("txt=b", "Extract pages into ASCII .TXT files");
    opts.process(argc, argv);
+
+   autoQ = !opts.getBoolean("no-auto");
 
    ScorePageSet infiles(opts);
 
@@ -79,8 +84,6 @@ int main(int argc, char** argv) {
       cout << infiles[opts.getInteger("page")-1];
       exit(0);
    }
-
-   // extract segment here.
 
 
 
@@ -156,7 +159,17 @@ void printSystem(ScorePage& page, int sysnum, int syscount, int psysindex,
       myfile += to_string(psysindex);
    }
    cout << "SA " << myfile << endl;
+   cout << endl;
 
+   vectorSIp& sysitems = page.getSystemItems(psysindex);
+   // the staves could be shifed down to 1 possibly here...
+   if (autoQ) {
+      cout << sysitems;
+   } else {
+      printNoAuto(sysitems);
+   }
+
+   cout << "SM" << endl;
 }
 
 
