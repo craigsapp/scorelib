@@ -166,9 +166,10 @@ void printSystem(ScorePage& page, int sysnum, int syscount, int psysindex,
    if (autoQ) {
       cout << sysitems;
    } else {
-      printNoAuto(sysitems);
+      printNoAuto(cout, sysitems);
    }
 
+   cout << endl;
    cout << "SM" << endl;
 }
 
