@@ -467,6 +467,9 @@ void ScoreItemBase::setParameter(const string& key, SCORE_FLOAT value) {
 
 
 void ScoreItemBase::setParameter(int index, SCORE_FLOAT value) {
+   if ((value < 0.0001) && (value > -0.0001)) {
+      value = 0;
+   }
    vectorSF& fp = fixed_parameters;
    // die if too large of parameter index:
    if (index > SCORE_MAX_FIXED_PARAMETERS) {

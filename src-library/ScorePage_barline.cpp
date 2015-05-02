@@ -60,7 +60,9 @@ void ScorePage::analyzeBarlines(void) {
 //////////////////////////////
 //
 // ScorePage::getSystemBarCount -- return the number of measures
-//    on a system;
+//    on a system.  The count of measures usually includes an extra
+//    empty measure based on the last barline (and anything which
+//    is found after it.
 //
 
 int ScorePage::getSystemBarCount(int sysindex) {

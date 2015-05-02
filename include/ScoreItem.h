@@ -206,6 +206,8 @@ using listSIp     = list<ScoreItem*>;
       //    see isHorizontal() in P1=4 list.
       bool         isTie                        (void);
       bool         isTupletBracket              (void);
+      SCORE_FLOAT  getVisualLeftPosition        (void);
+      SCORE_FLOAT  getVisualRightPosition       (void);
       // See also: getTupletNumber
 
       // Beam (P1=6) processing functions
