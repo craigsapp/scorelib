@@ -356,6 +356,7 @@ ostream&    operator<<        (ostream& out, ScoreItem* si);
 ostream&    operator<<        (ostream& out, listSIp& sipvector);
 ostream&    operator<<        (ostream& out, vectorSIp& sipvector);
 ostream&    operator<<        (ostream& out, vectorVSIp& sipvvector);
+
 ostream&    printNoAuto       (ostream& out, listSIp& siplist);
 ostream&    printNoAuto       (ostream& out, vectorSIp& sipvector);
 ostream&    printNoAuto       (ostream& out, vectorVSIp& sipvvector);
