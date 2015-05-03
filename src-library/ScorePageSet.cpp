@@ -236,7 +236,7 @@ void ScorePageSet::analyzePageSetDurations() {
             duroffset = cumulativedur + sitems[k]->getParameterDouble(ns_auto,
                   np_staffOffsetDuration);
             sitems[k]->setParameter(ns_auto, np_pagesetOffsetDuration,
-                  duroffset + cumulativedur);
+                  duroffset);
          }
          cumulativedur += page->getSystemDuration(j);
       }
