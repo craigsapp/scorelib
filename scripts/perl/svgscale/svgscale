@@ -1,0 +1,59 @@
+#!/usr/bin/perl
+#
+# Programmer:    Craig Stuart Sapp <craig@ccrma.stanford.edu>
+# Creation Date: Sun May  3 20:11:27 PDT 2015
+# Last Modified: Sun May  3 21:24:51 PDT 2015
+# Filename:      svgscale
+# Syntax:        perl 5
+#
+# Description:   Scale an SVG image by a given factor.  The default scaling
+#                is 1.5 time the original size.
+#                
+# Options:
+#   -s #      : Scale an SVG image by the given factor.  The default scaling 
+#               is 1.5x the original size. 
+#
+
+use strict;
+use Getopt::Long;
+
+my $Scale = 1.5;
+Getopt::Long::Configure("bundling");
+GetOptions (
+   's|scale=s' => \$Scale,
+);
+
+my @contents = <>;
+
+processContents($Scale, @contents);
+
+exit(0);
+
+
+##############################
+##
+## processContents --
+##
+
+sub processContents {
+   my ($scale, @contents) = @_;
+   my $string = join("", @contents);
+   my $width = 0;
+   my $height = 0;
+
+   if ($string =~ /width=["'](\d+)["']/s) {
+      $width = $1;
+   }
+   if ($string =~ /height=\"(\d+)\"/s) {
+      $height = $1;
+   }
+   $width    = int($width * $scale + 0.5);
+   $height   = int($height * $scale + 0.5);
+   $string =~ s/width=["']\d+["']/width="$width"/s;
+   $string =~ s/height=["']\d+["']/height="$height"/s;
+
+   print $string;
+}
+
+
+

@@ -12,7 +12,7 @@
 ##
 
 # targets which don't actually refer to files
-.PHONY: src-programs src-library include bin lib obj tests update status
+.PHONY: src-programs src-library include bin lib obj tests update status scripts
 
 ###########################################################################
 #                                                                         #
@@ -83,6 +83,10 @@ programs:
 	-mkdir -p bin
 	@echo compiling file $@
 	$(MAKE) -f Makefile.programs $@
+
+script: scripts
+scripts:
+	(cd scripts && $(MAKE) install)
 	
 install:
 	cp  bin/* /usr/local/bin

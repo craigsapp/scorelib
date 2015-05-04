@@ -1,0 +1,119 @@
+#!/usr/bin/perl
+#
+# Programmer:    Craig Stuart Sapp <craig@ccrma.stanford.edu>
+# Creation Date: Sun May  3 18:48:24 PDT 2015
+# Last Modified: Sun May  3 19:01:08 PDT 2015
+# Filename:      bboxpad
+# Syntax:        perl 5
+#
+# Description:   Take an SVG image and the originating PMX data which will
+#                be stored at the end of the SVG image as a processor
+#                instruction.  If the original file already contains a
+#                SCORE preprocessor instruction, then remove the old
+#                one before putting the new one in place.
+#                
+# Options:
+#    -o          : Print to standard input rather than the SVG input file.
+#
+
+use strict;
+use Getopt::Long;
+
+my $stdoutQ = 0;
+Getopt::Long::Configure("bundling");
+GetOptions (
+   'o|stdout' => \$stdoutQ,
+);
+
+die "Usage $0 file.svg file.pmx" if @ARGV != 2;
+
+my $svgfile = $ARGV[0];
+my $pmxfile = $ARGV[1];
+
+open (SFILE, $svgfile) or die;
+my @svgimage = <SFILE>;
+close SFILE;
+
+@svgimage = clearScorePI(@svgimage);
+
+open (PFILE, $pmxfile) or die;
+my @pmxcontents = <PFILE>;
+close PFILE;
+@pmxcontents = cleanPmxContents(@pmxcontents);
+
+if ($pmxcontents[0] =~ /^\s*</) {
+   # switch the two files because they are mixed up.
+   my @temp = @svgimage;
+   @svgimage = @pmxcontents;
+   @pmxcontents = @temp;
+}
+
+if ($stdoutQ) {
+   print join("", @svgimage);
+   print "<?SCORE version=\"4\"\n";
+   print join("", @pmxcontents);
+   print "?>\n";
+} else {
+   open (SFILE, ">$svgfile") or die "Cannot write $svgfile\n";
+   print SFILE join("", @svgimage);
+   print SFILE "<?SCORE version=\"4\"\n";
+   print SFILE join("", @pmxcontents);
+   print SFILE "?>\n";
+   close SFILE;
+}
+
+
+exit(0);
+
+
+##############################
+##
+## cleanPmxContents --
+##
+
+sub cleanPmxContents {
+   my @contents = @_;
+   my @output;
+   for (my $i=0; $i<@contents; $i++) {
+      my $line = $contents[$i];
+      chomp $line;
+      $line =~ s/\s+$//;
+      # line must be XML escaped to hide < and >
+      $line =~ s/&/&amp;/g;
+      $line =~ s/</&lt;/g;
+      $line =~ s/>/&gt;/g;
+      # ' and " don't need to be escaped
+      $output[@output] =  "$line\n";
+   }
+   return @output;
+}
+
+
+
+##############################
+##
+## clearScorePI --
+##
+
+sub clearScorePI {
+   my @svgimage = @_;
+   my @output;
+   my $scoreQ = 0;
+   for (my $i=0; $i<@svgimage; $i++) {
+      if ($scoreQ) {
+         if ($svgimage[$i] =~ /^\s*\?>/) {
+            $scoreQ = 0;
+         }
+         next;
+      }
+      if ($svgimage[$i] =~ /^\s*<\?SCORE/) {
+         $scoreQ = 1;
+         next;
+      }
+      $output[@output] = $svgimage[$i];
+   }
+   return @output;
+}
+
+
+

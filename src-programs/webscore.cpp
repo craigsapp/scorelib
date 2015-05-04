@@ -14,6 +14,7 @@
 
 #include "scorelib.h"
 #include "stdlib.h"
+#include <sstream>
 
 using namespace std;
 
@@ -24,6 +25,7 @@ void   addIndexNumbers      (ScorePageSet& infiles);
 void   printSystemItems     (ScorePage&, int sysindex);
 void   printReplaceItems    (ScorePage& page, int sysindex);
 void   printAbbreviatedItems(ScorePage& page, int sysindex);
+void   printValueWithD      (double value);
 
 // user-interface variables:
 Options options;
@@ -156,14 +158,47 @@ void printReplaceItems(ScorePage& page, int sysindex) {
          exit(1);
       }
 
+      double value;
+
       cout << id << "\t";
       cout << "class=\"";
       cout << "noteon-";
-      cout << sitems[i]->getParameter("auto", "pagesetOffsetDuration");
+      value = sitems[i]->getParameterDouble("auto", "pagesetOffsetDuration");
+      printValueWithD(value);
       cout << " noteoff-";
-      cout << (sitems[i]->getParameterDouble("auto", "pagesetOffsetDuration")
+      value = (sitems[i]->getParameterDouble("auto", "pagesetOffsetDuration")
             +  sitems[i]->getDuration());
+      printValueWithD(value);
+      cout << "\"";
       cout << endl;
+   }
+}
+
+
+
+//////////////////////////////
+//
+// printValueWitD -- Assuming always positive.
+//
+
+void printValueWithD(double value) {
+   int ivalue = (int)value;
+   double fraction = value - ivalue;
+   char buffer[32] = {0};
+   if (fraction == 0.0) {
+      cout << ivalue;
+   } else {
+      stringstream temp;
+      temp << value;
+      strcpy(buffer, temp.str().c_str());
+      int i = 0;
+      while (buffer[i] != '\0') {
+         if (buffer[i] == '.') {
+            buffer[i] = 'd';
+         }
+         cout << buffer[i];
+         i++;
+      }
    }
 }
 

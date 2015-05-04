@@ -1,0 +1,93 @@
+#!/usr/bin/perl
+#
+# Programmer:    Craig Stuart Sapp <craig@ccrma.stanford.edu>
+# Creation Date: Sun May  3 17:12:29 PDT 2015
+# Last Modified: Sun May  3 18:25:38 PDT 2015
+# Filename:      webscore-insert
+# Syntax:        perl 5
+#
+# Description:   Merge "webscore -r" data back into an EPS file output from
+#                score before converting to an SVG image.
+#                
+# Options:
+#    -p          : Prefix to insert before index IDs. Default is "i".
+#    -I          : Don't add IDs to output data.
+#
+
+use strict;
+use Getopt::Long;
+
+my $Prefix = "i";
+my $idQ    = 0;
+Getopt::Long::Configure("bundling");
+GetOptions (
+   'p|prefix=s' => \$Prefix,
+   'I|no-ids'   => \$idQ
+);
+
+die "Usage $0 file.eps file.txt" if @ARGV != 2;
+
+my $epsfile = $ARGV[0];
+my $txtfile = $ARGV[1];
+
+open (SFILE, $epsfile) or die;
+my @epsimage = <SFILE>;
+close SFILE;
+
+open (TFILE, $txtfile) or die;
+my @txtcontents = <TFILE>;
+close TFILE;
+
+if ($txtcontents[0] =~ /^%/) {
+   # switch the two files because they are mixed up.
+   my @temp = @epsimage;
+   @epsimage = @txtcontents;
+   @txtcontents = @temp;
+}
+my %replace = getReplaceInfo(@txtcontents);
+
+for (my $i=0; $i<@epsimage; $i++) {
+   my $line = $epsimage[$i];
+   chomp $line;
+   if ($line =~ /^\s*%\.\s*$/) {
+      print "%svg%</g>\n";
+      next;
+   }
+   if ($line =~ /^\s*%(\d+)\s*$/) {
+      my $id = $1;
+      my $content = $replace{$id};
+      if ($idQ) {
+         print "%svg%<g id=\"${Prefix}$id\" $content>\n";
+      } else {
+         print "%svg%<g $content>\n";
+      }
+      next;
+   }
+   print "$line\n";
+}
+
+
+exit(0);
+
+
+##############################
+##
+## getReplaceInfo --
+##
+
+sub getReplaceInfo {
+   my @contents = @_;
+   my %output;
+   for (my $i=0; $i<@contents; $i++) {
+      my $line = $contents[$i];
+      chomp $line;
+      next if $line !~ /\t/;
+      my @data = split(/\t+/, $line);
+      next if @data != 2;
+      $output{$data[0]} = $data[1];
+   }
+   return %output;
+}
+
+
+
