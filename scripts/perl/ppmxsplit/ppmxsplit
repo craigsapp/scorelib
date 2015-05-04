@@ -1,0 +1,98 @@
+#!/usr/bin/perl
+#
+# Programmer:    Craig Stuart Sapp <craig@ccrma.stanford.edu>
+# Creation Date: Sun May  3 16:43:53 PDT 2015
+# Last Modified: Sun May  3 17:11:31 PDT 2015
+# Filename:      ppmxsplit
+# Syntax:        perl 5
+#
+# Description:   Split a multi-page (paged-PMX) file into individual PMX files.
+#
+# Options:
+#   -x ext    : Add an extension to the filename. Default is "pmx"
+#   -p dir    : Directory path to write extracted files into.
+#   -O        : Overwrite any pre-existing files.
+#   -v        : Verbose mode, print filename as it is being extracted.
+#
+
+use strict;
+use Getopt::Long;
+
+my $Extension  = "pmx";
+my $Path       = "";
+my $overwriteQ = 0;
+my $verboseQ   = 0;
+Getopt::Long::Configure("bundling");
+GetOptions (
+   'x|ext|extension=s' => \$Extension,
+   'p|path=s'          => \$Path,
+   'O|o|0|overwrite'   => \$overwriteQ,
+   'v|verbose'         => \$verboseQ
+);
+$Extension = ".$Extension";
+$Path .= "/" if $Path !~ /^\s*$/;
+
+my @contents = <>;
+
+splitContents(@contents);
+
+exit(0);
+
+
+##############################
+##
+## splitContents -- Split input stream into separate files.  
+##    The following example demonsrates how filenames and 
+##    content are delineated:
+##
+## RS
+## SA filebase1
+##   Content 1
+## SM
+##
+## RS
+## SA filebase2
+##   Content 2
+## SM
+##
+
+sub splitContents {
+   my @contents = @_;
+   my $filename = "";
+   for (my $i=0; $i<@contents; $i++) {
+      my $line = $contents[$i];
+      if ($line =~ /^RS\b/i) {
+         if ($filename !~ /^\s*$/) {
+            close DATAFILE;
+         }
+         $filename = "";
+         for (my $j=$i+1; $j<@contents; $j++) {
+            if ($contents[$j] =~ /^SA\s+([^\s]+)/i) {
+               $filename = $1;
+               $filename = "$Path$filename$Extension";
+               print "Extracting $filename\n" if $verboseQ;
+               last;
+            }
+            if ($contents[$j] =~ /^RS\b/i) {
+               last;
+            }
+         }
+         if ($filename !~ /^\s*$/) {
+            if (-r $filename && !$overwriteQ) {
+               die "Cannot overwrite $filename. Delete it or use -O option to overwrite it.\n";
+            }
+            open(DATAFILE, ">$filename") or die "Cannot write $filename\n";
+         }
+         next;
+      }
+      next if $line =~ /^SA\b/i;
+      next if $line =~ /^SM\b/i;
+      print DATAFILE $line;
+   }
+   if ($filename !~ /^\s*$/) {
+      close DATAFILE
+   }
+}
+
+
+

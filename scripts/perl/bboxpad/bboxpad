@@ -1,0 +1,65 @@
+#!/usr/bin/perl
+#
+# Programmer:    Craig Stuart Sapp <craig@ccrma.stanford.edu>
+# Creation Date: Sun May  3 18:22:37 PDT 2015
+# Last Modified: Sun May  3 18:36:16 PDT 2015
+# Filename:      bboxpad
+# Syntax:        perl 5
+#
+# Description:   Add padding space to bounding box in EPS content.  Units
+#                are in points (1/72 of an inch).  Default padding is 3 units.
+#                All edges are expanded by the same amount (could be adjusted
+#                for different padding amounts on each side of box).
+#                
+# Options:
+#   -b #      : Add an border to an EPS bounding box in points. 
+#               Default is 3 points.
+#
+
+use strict;
+use Getopt::Long;
+
+my $Border = 3;
+Getopt::Long::Configure("bundling");
+GetOptions (
+   'b|border=s' => \$Border,
+);
+
+my @contents = <>;
+
+processContents($Border, @contents);
+
+exit(0);
+
+
+##############################
+##
+## processContents --
+##
+
+sub processContents {
+   my ($amount, @contents) = @_;
+   $amount *= 1.0;
+   my $intamount = int($amount + 0.5);
+   my ($minx, $miny, $maxx, $maxy);
+   for (my $i=0; $i<@contents; $i++) {
+      my $line = $contents[$i];
+      if ($line =~ /^%%BoundingBox:\s*(\d+)\s+(\d+)\s+(\d+)\s+(\d+)/) {
+         $minx = $1 - $intamount;
+         $miny = $2 - $intamount;
+         $maxx = $3 + $intamount;
+         $maxy = $4 + $intamount;
+         $line = "%%BoundingBox: $minx $miny $maxx $maxy\n";
+      } elsif ($line =~ /^%%HiResBoundingBox:\s+([-\d.]+)\s+([-\d.]+)\s+([-\d.]+)\s+([-\d.]+)/) {
+         $minx = $1 - $amount;
+         $miny = $2 - $amount;
+         $maxx = $3 + $amount;
+         $maxy = $4 + $amount;
+         $line = "%%HiResBoundingBox: $minx $miny $maxx $maxy\n";
+      }
+      print $line;
+   }
+}
+
+
+

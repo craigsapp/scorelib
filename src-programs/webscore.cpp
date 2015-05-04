@@ -22,12 +22,15 @@ void   prepareWebScore      (ScorePageSet& infiles);
 void   processOptions       (Options& opts, int argc, char** argv);
 void   addIndexNumbers      (ScorePageSet& infiles);
 void   printSystemItems     (ScorePage&, int sysindex);
-
+void   printReplaceItems    (ScorePage& page, int sysindex);
+void   printAbbreviatedItems(ScorePage& page, int sysindex);
 
 // user-interface variables:
 Options options;
 string Separator;
-int    indexQ = 0;
+int    indexQ       = 0;
+int    abbreviatedQ = 0;
+int    replaceQ     = 0;
 
 ///////////////////////////////////////////////////////////////////////////
 
@@ -36,6 +39,10 @@ int main(int argc, char** argv) {
    options.process(argc, argv);
    ScorePageSet infiles(options);
    if (indexQ) {
+      addIndexNumbers(infiles);
+      cout << infiles;
+      return 0;
+   } else if (replaceQ || abbreviatedQ) {
       addIndexNumbers(infiles);
    }
    prepareWebScore(infiles);
@@ -60,24 +67,6 @@ void addIndexNumbers(ScorePageSet& infiles) {
          it->setParameter("index", index++);
       }
    }
-   cout << infiles;
-}
-
-
-//////////////////////////////
-//
-// processOptions --
-//
-
-void processOptions(Options& opts, int argc, char** argv) {
-   opts.define("sep|separator=s", 
-         "Separator between file name and system enumertor");
-   opts.define("i|index=b", "include item index serial numbers");
-   opts.process(argc, argv);
-
-   Separator = opts.getString("separator");
-   indexQ    = opts.getBoolean("index");
-
 }
 
 
@@ -88,15 +77,14 @@ void processOptions(Options& opts, int argc, char** argv) {
 //
 
 void prepareWebScore(ScorePageSet& infiles) {
-   
    // Currently .analyzeStaffDurations() needs to be done before
    // calculating .analyzePageSetDurations().  This will be 
    // automated in the future.
    infiles.analyzeStaffDurations();
    infiles.analyzePageSetDurations();
-   
    printSystemSet(infiles);
 }
+
 
 
 //////////////////////////////
@@ -131,11 +119,116 @@ void printSystemSet(ScorePageSet& infiles) {
          cout << "RS" << endl;
          cout << "SA " << myfile << endl;
          cout << endl;
-         printSystemItems(*page, j);
+         if (replaceQ) {
+            printReplaceItems(*page, j);
+         } else if (abbreviatedQ) {
+            printAbbreviatedItems(*page, j);
+         } else {
+            printSystemItems(*page, j);
+         } 
          cout << endl;
          cout << "SM" << endl;
       }
    }
+}
+
+
+
+//////////////////////////////
+//
+// printReplaceItems --
+//
+
+void printReplaceItems(ScorePage& page, int sysindex) {
+   vectorSIp& sitems = page.getSystemItems(sysindex);
+   int i;
+   string id;
+   for (i=0; i<sitems.size(); i++) {
+      if (!sitems[i]->isNoteItem()) {
+        continue;
+      }
+     
+      // print note with various classes applied.
+      if (sitems[i]->hasParameter("index")) {
+         id = sitems[i]->getParameter("index");
+      } else {
+         cerr << "Cannot run this function without item indexes.\n";
+         exit(1);
+      }
+
+      cout << id << "\t";
+      cout << "class=\"";
+      cout << "noteon-";
+      cout << sitems[i]->getParameter("auto", "pagesetOffsetDuration");
+      cout << " noteoff-";
+      cout << (sitems[i]->getParameterDouble("auto", "pagesetOffsetDuration")
+            +  sitems[i]->getDuration());
+      cout << endl;
+   }
+}
+
+
+
+//////////////////////////////
+//
+// printAbbreviatedItems --
+//
+
+void printAbbreviatedItems(ScorePage& page, int sysindex) {
+   vectorSIp& sitems = page.getSystemItems(sysindex);
+   int i;
+   int index;
+   string id;
+   for (i=0; i<sitems.size(); i++) {
+      if (!sitems[i]->isNoteItem()) {
+        if (sitems[i]->hasParameter("index")) {
+           // index = sitems[i]->getParameterDouble("index");
+           // cout << "T ";
+           // cout << sitems[i]->getP2() << " ";
+           // cout << sitems[i]->getP3() << " ";
+           // cout << sitems[i]->getP4() << " ";
+           // cout << index;
+           // cout << endl;
+           // cout << "_99% << index << endl;
+
+           sitems[i]->printPmxFixedParameters(cout);
+
+           // cout << "T ";
+           // cout << sitems[i]->getP2() << " ";
+           // cout << sitems[i]->getP3() << " ";
+           // cout << sitems[i]->getP4() << " ";
+           // cout << index;
+           // cout << endl;
+           // cout << "_99%." << endl;
+        } else {
+           sitems[i]->printPmxFixedParameters(cout);
+        }
+        continue;
+      }
+     
+      // print note with various classes applied.
+
+      index = sitems[i]->getParameterDouble("index");
+      cout << "T ";
+      cout << sitems[i]->getP2() << " ";
+      cout << sitems[i]->getP3() << " ";
+      cout << sitems[i]->getP4();
+      if (id.size() > 0) {
+         cout << " " << index;
+      }
+      cout << endl;
+      cout << "_99%" << index << endl;
+
+      sitems[i]->printPmxFixedParameters(cout);
+
+      cout << "T ";
+      cout << sitems[i]->getP2() << " ";
+      cout << sitems[i]->getP3() << " ";
+      cout << sitems[i]->getP4();
+      cout << endl;
+      cout << "_99%." << endl;
+   }
+
 }
 
 
@@ -224,7 +317,24 @@ void printSystemItems(ScorePage& page, int sysindex) {
 
 
 
+//////////////////////////////
+//
+// processOptions --
+//
 
+void processOptions(Options& opts, int argc, char** argv) {
+   opts.define("sep|separator=s", 
+         "Separator between file name and system enumertor");
+   opts.define("a|abbreviated=b", "Embed only note ids into font 99 text");
+   opts.define("r|replace=b", "print replacement expressions");
+   opts.define("i|index=b", "include item index serial numbers");
+   opts.process(argc, argv);
+
+   Separator    = opts.getString("separator");
+   indexQ       = opts.getBoolean("index");
+   abbreviatedQ = options.getBoolean("abbreviated");
+   replaceQ     = options.getBoolean("replace");
+}
 
 
 
