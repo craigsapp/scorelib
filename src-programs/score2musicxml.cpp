@@ -130,6 +130,7 @@ ostream& printMensurationDirection  (ostream& out, ScoreItem* item,
                                      int partstaff, int indent);
 void     extractMensurationDirection(ostream& out, vectorSIp& items,
                                      int index, int partstaff, int indent);
+ostream& my_put_time                (ostream& out);
 
 #define INDENT_STRING "\t"
 
@@ -690,9 +691,10 @@ ostream& printIdentification(ostream& out, ScorePageSet& infiles,
    printIndent(out, indent, "<software>");
    out << "score2musicxml alpha version</software>\n";
    printIndent(out, indent, "<encoding-date>");
-   auto now = chrono::system_clock::now();
-   auto in_time = chrono::system_clock::to_time_t(now);
-   out << put_time(localtime(&in_time), "%Y-%m-%d");
+   // auto now = chrono::system_clock::now();
+   // auto in_time = chrono::system_clock::to_time_t(now);
+   // out << put_time(localtime(&in_time), "%Y-%m-%d");
+   my_put_time(out); // stupid slow gcc
    out << "</encoding-date>\n";
    printIndent(out, indent, "<supports attribute=\"new-system\"");
    out << " element=\"print\" type=\"yes\" value=\"yes\"/>\n";
@@ -2983,6 +2985,34 @@ string getRestType(ScoreItem* si) {
 
    // unknown type
    return "";
+}
+
+
+
+//////////////////////////////
+//
+// my_put_time -- put_time is in the C++11 standard, but not available in
+//     GCC <5.0.0.  So have to implement in C to make code portable.
+//     Emulating format "%Y-%m-%d"
+//
+
+ostream& my_put_time(ostream& out) {
+   struct tm *current;
+   time_t now;
+   time(&now);
+   current = localtime(&now);
+   out << current->tm_year + 1900;
+   out << '-';
+   if (current->tm_mon < 10) {
+      out << '0';
+   }
+   out << current->tm_mon;
+   out << '-';
+   if (current->tm_mday < 10) {
+      out << '0';
+   }
+   out << current->tm_mday;
+   return out;
 }
 
 

@@ -27,6 +27,8 @@ void     printToFile                (ScorePageSet& infiles, int segment,
                                      string& filebase);
 void     convertAllSegmentsToSeparateFiles(ScorePageSet& infiles,
                                            string& filebase);
+ostream& my_put_time                (ostream& out);
+
 //
 // Utility functions:
 //
@@ -831,9 +833,10 @@ ostream& printFileDescElement(ostream& out, ScorePageSet& infiles,
    printIndent(out, indent++, "<notesStmt>\n");
    printIndent(out, indent,   "<annot>");
    out << "Source SCORE file converted with score2mei alpha version on <date>";
-   auto now = chrono::system_clock::now();
-   auto in_time = chrono::system_clock::to_time_t(now);
-   out << put_time(localtime(&in_time), "%Y-%m-%d");
+   // auto now = chrono::system_clock::now();
+   // auto in_time = chrono::system_clock::to_time_t(now);
+   // out << put_time(localtime(&in_time), "%Y-%m-%d");
+   my_put_time(out); // stupid slow gcc
    out << "</date> (https://github.com/craigsapp/scorelib)";
    out << "</annot>\n";
 
@@ -1556,6 +1559,34 @@ string getDurAttributeValue(ScoreItem* si) {
 
    // unknown type
    return "";
+}
+
+
+
+//////////////////////////////
+//
+// my_put_time -- put_time is in the C++11 standard, but not available in
+//     GCC <5.0.0.  So have to implement in C to make code portable.
+//     Emulating format "%Y-%m-%d"
+//
+
+ostream& my_put_time(ostream& out) {
+   struct tm *current;
+   time_t now;
+   time(&now);
+   current = localtime(&now);
+   out << current->tm_year + 1900;
+   out << '-';
+   if (current->tm_mon < 10) {
+      out << '0';
+   }
+   out << current->tm_mon;
+   out << '-';
+   if (current->tm_mday < 10) {
+      out << '0';
+   }
+   out << current->tm_mday;
+   return out;
 }
 
 
