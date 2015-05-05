@@ -31,7 +31,7 @@ void ScorePageSet::analyzeTies(void) {
 
    // Iterate through each Segment, which will stitching
    // system break ties together.
-   for (unsigned int i=0; i<getSegmentCount(); i++) {
+   for (unsigned int i=0; (int)i<getSegmentCount(); i++) {
       getSegment(i).analyzeSystemBreakTies();
    }
 }

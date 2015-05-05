@@ -152,7 +152,7 @@ void extractSingleMeasure(ScorePageSet& infiles, int page, int system,
    // First print the staff lines:
    int i;
    int staffcount = 0;
-   for (i=0; i<mitems.size(); i++) {
+   for (i=0; i<(int)mitems.size(); i++) {
       if (!mitems[i]->isStaffItem()) {
          continue;
       }
@@ -169,7 +169,7 @@ void extractSingleMeasure(ScorePageSet& infiles, int page, int system,
       // one, so just look there (could generalize later, but that
       // should be good enought for all non-degenerate cases).
       vectorSIp& zitems = sysm[0]->getItems();
-      for (i=0; i<zitems.size(); i++) {
+      for (i=0; i<(int)zitems.size(); i++) {
          if (!zitems[i]->isStaffItem()) {
             continue;
          }
@@ -184,7 +184,7 @@ void extractSingleMeasure(ScorePageSet& infiles, int page, int system,
    // Print everything except staves and slurs.
    // Will need to process other items in a similar manner.
    // Unknown how to deal with tuplets, etc which are subitem of slurs.
-   for (i=0; i<mitems.size(); i++) {
+   for (i=0; i<(int)mitems.size(); i++) {
       if (mitems[i]->isStaffItem()) {
          continue;
       } else if (mitems[i]->isSlurItem()) {
@@ -210,7 +210,7 @@ void extractSingleMeasure(ScorePageSet& infiles, int page, int system,
    double vislen; // visual length of slur
    double slen;   // full length of slur
    vectorSIp& sysitems = infiles.getPage(page)->getSystemItems(system);
-   for (i=0; i<sysitems.size(); i++) {
+   for (i=0; i<(int)sysitems.size(); i++) {
       if (!sysitems[i]->isSlurItem()) {
          continue;
       }
@@ -260,7 +260,7 @@ void extractSingleMeasure(ScorePageSet& infiles, int page, int system,
    // only on one side (within the measure);
 
    vectorSIp& endbars = sysm[measure]->getEndBarlines();
-   for (i=0; i<endbars.size(); i++) {
+   for (i=0; i<(int)endbars.size(); i++) {
       printBarlineEdge(endbars[i], leftpos, rightpos);
       continue;
    }

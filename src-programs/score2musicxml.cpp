@@ -474,7 +474,7 @@ void printDufayCredits(ostream& out, ScorePageSet& infiles, int segment,
    string teststr;
 
    // process page headers
-   for (i=0; i<addresses.size(); i++) {
+   for (i=0; i<(int)addresses.size(); i++) {
       page = infiles.getPage(*addresses[i][0]);
       sysindex = addresses[i][0]->getSystemIndex();
       if (sysindex != 0) {
@@ -483,7 +483,7 @@ void printDufayCredits(ostream& out, ScorePageSet& infiles, int segment,
       vectorVVSIp& staves = page->getStaffItemsBySystem();
       targetp2 = staves[0][staves[0].size()-1][0]->getStaffNumber();
       vectorSIp& items = page->getSystemItems(sysindex);
-      for (j=0; j<items.size(); j++) {
+      for (j=0; j<(int)items.size(); j++) {
          if (!items[j]->isTextItem()) {
             continue;
          }
@@ -507,16 +507,16 @@ void printDufayCredits(ostream& out, ScorePageSet& infiles, int segment,
    }
 
    // process page footers
-   for (i=0; i<addresses.size(); i++) {
+   for (i=0; i<(int)addresses.size(); i++) {
       page = infiles.getPage(*addresses[i][0]);
       sysindex = addresses[i][0]->getSystemIndex();
       vectorVVSIp& staves = page->getStaffItemsBySystem();
-      if (sysindex != staves.size() - 1) {
+      if (sysindex != (int)staves.size() - 1) {
          continue;
       }
       targetp2 = staves[sysindex][0][0]->getStaffNumber();
       vectorSIp& items = page->getSystemItems(sysindex);
-      for (j=0; j<items.size(); j++) {
+      for (j=0; j<(int)items.size(); j++) {
          if (!items[j]->isTextItem()) {
             continue;
          }
@@ -909,7 +909,7 @@ int printGroup1(ostream& out, ScorePageSet& infiles, int segment, int indent) {
    int barlinestyle = 0;
 
    barp3 = -1;
-   for (i=0; i<items.size(); i++) {
+   for (i=0; i<(int)items.size(); i++) {
       if (!items[i]->isBarlineItem()) {
          continue;
       }
@@ -1000,7 +1000,7 @@ ostream& printPartInfo(ostream& out, ScorePageSet& infiles, int segment,
 //
 
 ostream&  printXml(ostream& out, const string& text) {
-   for (int i=0; i<text.size(); i++) {
+   for (int i=0; i<(int)text.size(); i++) {
       switch (text[i]) {
          case '\"': out << "&quot;"; break;
          case '<':  out << "&lt;";  break;
@@ -1217,7 +1217,7 @@ void printPartMeasure(stringstream& out, ScorePageSet& infiles,
    // <direction> (handled in note section below)
 
    // <note>
-   for (i=0; i<items.size(); i++) {
+   for (i=0; i<(int)items.size(); i++) {
       si = items[i];
       staff = si->getStaffNumber();
       if (staff != partstaff) {
@@ -1322,7 +1322,7 @@ void  extractMensurationDirection(ostream& out, vectorSIp& items,
    int tpos;
 
    int i;
-   for (i=index+1; i<items.size(); i++) {
+   for (i=index+1; i<(int)items.size(); i++) {
       tstaff = items[i]->getStaffNumber();
       if (tstaff != staff) {
          continue;
@@ -1670,7 +1670,7 @@ void printMinorColoration(ostream& out, SystemMeasure& measureitems,
       if (!items[i]->isNoteItem()) {
          continue;
       }
-      if (items[i]->getStaffNumber() != staff) {
+      if ((int)items[i]->getStaffNumber() != staff) {
          continue;
       }
       testp3 = items[i]->getHPos();
@@ -1680,11 +1680,11 @@ void printMinorColoration(ostream& out, SystemMeasure& measureitems,
       }
    }
 
-   for (i=index+1; i<items.size(); i++) {
+   for (i=index+1; i<(int)items.size(); i++) {
       if (!items[i]->isNoteItem()) {
          continue;
       }
-      if (items[i]->getStaffNumber() != staff) {
+      if ((int)items[i]->getStaffNumber() != staff) {
          continue;
       }
       testp3 = items[i]->getHPos();
@@ -1695,7 +1695,7 @@ void printMinorColoration(ostream& out, SystemMeasure& measureitems,
    }
 
    for (i=index-1; i>=0; i--) {
-      if (items[i]->getStaffNumber() != staff) {
+      if ((int)items[i]->getStaffNumber() != staff) {
          continue;
       }
       testp3 = items[i]->getHPos();
@@ -1717,8 +1717,8 @@ void printMinorColoration(ostream& out, SystemMeasure& measureitems,
       vpos = items[i]->getVPos();
    }
 
-   for (i=index+1; i<items.size(); i++) {
-      if (items[i]->getStaffNumber() != staff) {
+   for (i=index+1; i<(int)items.size(); i++) {
+      if ((int)items[i]->getStaffNumber() != staff) {
          continue;
       }
       testp3 = items[i]->getHPos();
@@ -1890,7 +1890,7 @@ void printDirectionsForwards(ostream& out, SystemMeasure& measureitems,
 
    ScoreItem* endobject = NULL;
    // find next terminal item forwards
-   for (i=index+1; i<items.size(); i++) {
+   for (i=index+1; i<(int)items.size(); i++) {
       si = items[i];
       p3 = si->getHPos();
       p2 = si->getStaffNumber();
@@ -1919,7 +1919,7 @@ void printDirectionsForwards(ostream& out, SystemMeasure& measureitems,
       }
    }
 
-   for (i=index; i<items.size(); i++) {
+   for (i=index; i<(int)items.size(); i++) {
       si = items[i];
 
       p2 = si->getStaffNumber();
@@ -2088,7 +2088,7 @@ void printBarlineStyle(ostream& out, SystemMeasure& measureitems,
 
    int teststaff;
    int barheight;
-   for (i=0; i<endbarlines.size(); i++) {
+   for (i=0; i<(int)endbarlines.size(); i++) {
       teststaff = endbarlines[i]->getStaffNumber();
       barheight = endbarlines[i]->getHeight();
       if (teststaff + barheight >= partstaff) {
@@ -2200,8 +2200,8 @@ void printMeasureAttributes(ostream& out, vectorSIp& items, int index,
          printing++;
       }
 
-      for (i=index; i<items.size(); i++) {
-         if (items[i]->getStaffNumber() != partstaff) {
+      for (i=index; i<(int)items.size(); i++) {
+         if ((int)items[i]->getStaffNumber() != partstaff) {
             continue;
          }
          if (staffsize < 0.0) {
@@ -2725,7 +2725,7 @@ void printNote(ostream& out, ScoreItem* si, int partstaff, int indent,
       if (chordnotes.size() < 2) {
          return;
       }
-      for (int i=1; i<chordnotes.size(); i++) {
+      for (int i=1; i<(int)chordnotes.size(); i++) {
          printNote(out, chordnotes[i], partstaff, indent, divisions, measureP3);
       }
    }
@@ -2805,7 +2805,7 @@ void printLyrics(ostream& out, ScoreItem* si, int indent) {
    int count = 0;
    int i, j;
    // first extract the verse lines:
-   for (i=0; i<lyrics.size(); i++) {
+   for (i=0; i<(int)lyrics.size(); i++) {
       if (lyrics[i]->isNoteItem()) {
          notes.push_back(lyrics[i]);
       }
@@ -2813,7 +2813,7 @@ void printLyrics(ostream& out, ScoreItem* si, int indent) {
          continue;
       }
       number = lyrics[i]->getParameterInt(ns_auto, np_verseLine);
-      if ((number > 0) && (number < verses.size())) {
+      if ((number > 0) && (number < (int)verses.size())) {
          verses[number].push_back(lyrics[i]);
          count++;
       }
@@ -2830,7 +2830,7 @@ void printLyrics(ostream& out, ScoreItem* si, int indent) {
    SCORE_FLOAT p4, defaulty;
    SCORE_FLOAT staffscale = si->getStaffScale();
 
-   for (i=1; i<verses.size(); i++) {
+   for (i=1; i<(int)verses.size(); i++) {
       if (verses[i].size() == 0) {
          continue;
       }
@@ -2847,12 +2847,12 @@ void printLyrics(ostream& out, ScoreItem* si, int indent) {
 
       out << ">\n";
 
-      for (j=0; j<verses[i].size(); j++) {
+      for (j=0; j<(int)verses[i].size(); j++) {
          // <syllabic>
          before = verses[i][j]->getParameterBool(ns_auto, np_hyphenBefore);
          after  = verses[i][j]->getParameterBool(ns_auto, np_hyphenAfter);
 
-         if (j<verses[i].size()-1) {
+         if (j<(int)verses[i].size()-1) {
             printIndent(out, indent, "<syllabic>single</syllabic>\n");
          } else {
             if (before && after) {
@@ -2883,7 +2883,7 @@ void printLyrics(ostream& out, ScoreItem* si, int indent) {
          out << verses[i][j]->getTextNoFontXmlEscapedUTF8();
          out << "</text>\n";
 
-         if (j<verses[i].size()-1) {
+         if (j<(int)verses[i].size()-1) {
             printIndent(out, indent, "<elision> </elision>\n");
          } else {
             // <extend>

@@ -232,7 +232,7 @@ void ScorePageSet::analyzePageSetDurations() {
       page = getPage(i);
       for (j=0; j<page->getSystemCount(); j++) {
          vectorSIp& sitems = page->getSystemItems(j);
-         for (k=0; k<sitems.size(); k++) {
+         for (k=0; k<(int)sitems.size(); k++) {
             duroffset = cumulativedur + sitems[k]->getParameterDouble(ns_auto,
                   np_staffOffsetDuration);
             sitems[k]->setParameter(ns_auto, np_pagesetOffsetDuration,

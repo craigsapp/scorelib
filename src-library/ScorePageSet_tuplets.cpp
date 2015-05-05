@@ -23,7 +23,7 @@ using namespace std;
 //
 
 void ScorePageSet::analyzeTuplets(void) {
-   for (unsigned int i=0; i<getPageCount(); i++) {
+   for (unsigned int i=0; (int)i<getPageCount(); i++) {
       (*this)[i][0].analyzeTuplets();
    }
 }

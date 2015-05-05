@@ -11,6 +11,7 @@
 //
 
 #include "scorelib.h"
+#include <algorithm>
 
 using namespace std;
 
@@ -151,7 +152,7 @@ void printPageBySystem(ScorePage& page, int extra) {
             SU::sortP3P1P2P4);
       if (extra) {
          vectorSIp& items = page.getSystemItems(i);
-         for (j=0; j<items.size(); j++) {
+         for (j=0; j<(int)items.size(); j++) {
             if (autoQ) {
                items[j]->printPmx(cout);
             } else {

@@ -221,7 +221,7 @@ double ScoreItemBase::getParameterDouble(const string& nspace,
 
 
 SCORE_FLOAT ScoreItemBase::getParameter(int pindex) {
-   if ((pindex < 0) || (pindex >= fixed_parameters.size())) {
+   if ((pindex < 0) || (pindex >= (int)fixed_parameters.size())) {
       return 0.0;
    }
    return fixed_parameters[pindex];
@@ -1349,9 +1349,9 @@ void ScoreItemBase::readNamedParameter(mapNamespace& np, char* input) {
    buf3[i3] = '\0';
 
    int atcount = 0;
-   int atloc[2];
-   atloc[0] = -1;
-   atloc[1] = -1;
+   // int atloc[2];
+   // atloc[0] = -1;
+   // atloc[1] = -1;
 
    // find first two at-signs:
    int i;
@@ -1362,7 +1362,7 @@ void ScoreItemBase::readNamedParameter(mapNamespace& np, char* input) {
          break;
       }
       if (input[i] == '@') {
-         atloc[atcount++] = i;
+         // atloc[atcount++] = i;
          if (atcount > 2) {
             // can't have @ sign in namespace or key, ignore parameter:
             delete [] buf1;

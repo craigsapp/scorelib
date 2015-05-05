@@ -339,7 +339,7 @@ ostream& printScoreDefElement(ostream& out, ScorePageSet& infiles, int segment,
    int i;
    int timetop, timebot;
    vectorSIp& items         = page->getSystemItems(sysindex);
-   for (i=0; i<items.size(); i++) {
+   for (i=0; i<(int)items.size(); i++) {
       if (!items[i]->isTimeSignatureItem()) {
          continue;
       }
@@ -533,7 +533,7 @@ ostream& printStaffGrpElement(ostream& out, ScorePageSet& infiles,
    int barlinestyle = 0;
 
    barp3 = -1;
-   for (i=0; i<items.size(); i++) {
+   for (i=0; i<(int)items.size(); i++) {
       if (!items[i]->isBarlineItem()) {
          continue;
       }
@@ -973,7 +973,7 @@ ScoreItem* getComposer(ScorePageSet& infiles, int segment) {
 //
 
 ostream&  printXml(ostream& out, const string& text) {
-   for (int i=0; i<text.size(); i++) {
+   for (int i=0; i<(int)text.size(); i++) {
       switch (text[i]) {
          case '\"': out << "&quot;"; break;
          case '<':  out << "&lt;";  break;
@@ -1131,7 +1131,7 @@ ostream&  printStaffElement(ostream& out, ScorePageSet& infiles,
    ScoreItem* si;
 
    // <note>
-   for (i=0; i<items.size(); i++) {
+   for (i=0; i<(int)items.size(); i++) {
       si = items[i];
       staff = si->getStaffNumber();
       if (staff != partstaff) {
@@ -1215,7 +1215,7 @@ ostream& printBeamElement(ostream& out, ScoreItem* si, vectorSIp& items, int ind
    printIndent(out, indent++, "<beam>\n");
 
    int i;
-   for (i=0; i<bg.notes.size(); i++) {
+   for (i=0; i<(int)bg.notes.size(); i++) {
       if (si->isSecondaryChordNote()) {
          // handled with primary notes.
          continue;
@@ -1418,7 +1418,7 @@ ostream& printVerseElements(ostream& out, ScoreItem* si, int indent) {
    int count = 0;
    int i, j;
    // first extract the verse lines:
-   for (i=0; i<lyrics.size(); i++) {
+   for (i=0; i<(int)lyrics.size(); i++) {
       if (lyrics[i]->isNoteItem()) {
          notes.push_back(lyrics[i]);
       }
@@ -1426,7 +1426,7 @@ ostream& printVerseElements(ostream& out, ScoreItem* si, int indent) {
          continue;
       }
       number = lyrics[i]->getParameterInt(ns_auto, np_verseLine);
-      if ((number > 0) && (number < verses.size())) {
+      if ((number > 0) && (number < (int)verses.size())) {
          verses[number].push_back(lyrics[i]);
          count++;
       }
@@ -1443,7 +1443,7 @@ ostream& printVerseElements(ostream& out, ScoreItem* si, int indent) {
    // SCORE_FLOAT p4, defaulty;
    SCORE_FLOAT staffscale = si->getStaffScale();
 
-   for (i=1; i<verses.size(); i++) {
+   for (i=1; i<(int)verses.size(); i++) {
       if (verses[i].size() == 0) {
          continue;
       }
@@ -1460,7 +1460,7 @@ ostream& printVerseElements(ostream& out, ScoreItem* si, int indent) {
 
       out << ">\n";
 
-      for (j=0; j<verses[i].size(); j++) {
+      for (j=0; j<(int)verses[i].size(); j++) {
          // <syl>
          before = verses[i][j]->hasHyphenBefore();
          after  = verses[i][j]->hasHyphenAfter();
@@ -1471,7 +1471,7 @@ ostream& printVerseElements(ostream& out, ScoreItem* si, int indent) {
          //    m = middle (middle of word)
          //    t = terminal (end of word)
          //    @wordpos is not given if the syllable is a complete word.
-         if (j<verses[i].size()-1) {
+         if (j<(int)verses[i].size()-1) {
             // single syllable.  Caused by this being the start of a multi
             // syllable verse attached to a single note.
          } else {
@@ -1492,7 +1492,7 @@ ostream& printVerseElements(ostream& out, ScoreItem* si, int indent) {
          //    d = dash is the connector to next syllable
          //    u = underscore is the connector to next syllable
          //    t = tilde is the connector to next syllable (elision)
-         if (j<verses[i].size()-1) {
+         if (j<(int)verses[i].size()-1) {
             // connect to next note with a space:
             out << " con=\"s\"";
          } else if (verses[i][j]->hasWordExtension()) {

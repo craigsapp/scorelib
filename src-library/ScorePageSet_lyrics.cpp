@@ -24,7 +24,7 @@ using namespace std;
 
 void ScorePageSet::analyzeLyrics(void) {
    int scount = getSegmentCount();
-   for (unsigned int i=0; i<scount; i++) {
+   for (unsigned int i=0; (int)i<scount; i++) {
       analyzeLyrics(i);
    }
 }
@@ -36,7 +36,7 @@ void ScorePageSet::analyzeLyrics(void) {
 
 void ScorePageSet::analyzeLyrics(int segmentindex) {
    int partcount = getPartCount(segmentindex);
-   for (unsigned int i=0; i<partcount; i++) {
+   for (unsigned int i=0; (int)i<partcount; i++) {
       analyzeLyrics(segmentindex, i);
    }
 }
@@ -61,7 +61,7 @@ void ScorePageSet::analyzeLyrics(int segmentindex, int partindex) {
    vectorVI verseP4s(systemcount);
    vectorVSF vposes(systemcount);
 
-   for (i=0; i<systems.size(); i++) {
+   for (i=0; i<(int)systems.size(); i++) {
       p2vals[i] = seg.getPageStaffIndex(i, partindex);
       if (p2vals[i] <= 0) {
          continue;
@@ -74,8 +74,8 @@ void ScorePageSet::analyzeLyrics(int segmentindex, int partindex) {
    // Go back and check for lines with just a few words for the lyrics.
    // which did not trigger lyirc idenfication.
    int maxlyriccount = 0;
-   for (i=0; i<verseP4s.size(); i++) {
-      if (maxlyriccount < verseP4s[i].size()) {
+   for (i=0; i<(int)verseP4s.size(); i++) {
+      if (maxlyriccount < (int)verseP4s[i].size()) {
          maxlyriccount = verseP4s[i].size();
       }
    }
@@ -87,8 +87,8 @@ void ScorePageSet::analyzeLyrics(int segmentindex, int partindex) {
    fill(average.begin(), average.end(), 0.0);
    int counter = 0;
 
-   for (i=0; i<systems.size(); i++) {
-      if (verseP4s[i].size() != maxlyriccount) {
+   for (i=0; i<(int)systems.size(); i++) {
+      if ((int)verseP4s[i].size() != maxlyriccount) {
          continue;
       }
       for (int j=0; j<maxlyriccount; j++) {
@@ -100,7 +100,7 @@ void ScorePageSet::analyzeLyrics(int segmentindex, int partindex) {
       return;
    }
 
-   for (i=0; i<average.size(); i++) {
+   for (i=0; i<(int)average.size(); i++) {
       average[i] /= counter;
    }
 
@@ -108,23 +108,23 @@ void ScorePageSet::analyzeLyrics(int segmentindex, int partindex) {
    fill(addedlyrics.begin(), addedlyrics.end(), 0.0);
    vectorVVSIp text;
    text.resize(verseP4s.size());
-   // for (i=0; i<text.size(); i++) {
+   // for (i=0; i<(int)text.size(); i++) {
    //    text[i].resize(2000);
    // }
 
    // Whenever there is not a full set of verse lines, re-analyze
    // the music for verses, being more sensitive to text/lines found
    // in the expected position for that verse number.
-   for (i=0; i<verseP4s.size(); i++) {
+   for (i=0; i<(int)verseP4s.size(); i++) {
       fillStaffText(text[i], segmentindex, partindex, i, verseP4s[i],
          average, p2vals[i]);
 
-      // for (int x=0; x<text[i].size(); x++) {
+      // for (int x=0; x<(int)text[i].size(); x++) {
       // if (text[i][x].size() == 0) {
       // continue;
       // }
       // cout << x << ": ";
-      // for (int y=0; y<text[i][x].size(); y++) {
+      // for (int y=0; y<(int)text[i][x].size(); y++) {
       // if (text[i][x][y]->isLineItem()) {
       // cout << " - ";
       // } else if (text[i][x][y]->isTextItem()) {
@@ -149,7 +149,7 @@ void ScorePageSet::analyzeLyrics(int segmentindex, int partindex) {
       SCORE_FLOAT linedistance = 5.0;
       SCORE_FLOAT sum = 0.0;
       if (average.size() > 1) {
-         for (j=0; j<average.size()-1; j++) {
+         for (j=0; j<(int)average.size()-1; j++) {
             sum += average[j] - average[j+1];
          }
          linedistance = sum / (average.size()-1.0);
@@ -223,7 +223,7 @@ void ScorePageSet::linkLyricsToNotes(int segmentindex, int partindex) {
       page = getPage(address);
       vectorSIp& items = seg.getSystemItems(address);
       for (auto& it : items) {
-         if (p2 != it->getStaffNumber()) {
+         if (p2 != (int)it->getStaffNumber()) {
             continue;
          }
          p3 = it->getHPos();
@@ -243,7 +243,7 @@ void ScorePageSet::linkLyricsToNotes(int segmentindex, int partindex) {
 
       // Should probably be more robust in case the lyric syllable
       // is not attached to a note.
-      for (j=0; j<notelist.size(); j++) {
+      for (j=0; j<(int)notelist.size(); j++) {
          if (notelist[j].size() == 0) {
             continue;
          }
@@ -252,15 +252,15 @@ void ScorePageSet::linkLyricsToNotes(int segmentindex, int partindex) {
          if (starting < 0) {
             starting = 0;
          }
-         if (ending >= notelist.size()) {
+         if (ending >= (int)notelist.size()) {
             ending  = notelist.size()-1;
          }
          for (k=starting; k<=ending; k++) {
-            if (lyricslist[k].size() == 0) {
+            if ((int)lyricslist[k].size() == 0) {
                continue;
             }
-            for (m=0; m<lyricslist[k].size(); m++) {
-               for (n=0; n<notelist[j].size(); n++) {
+            for (m=0; m<(int)lyricslist[k].size(); m++) {
+               for (n=0; n<(int)notelist[j].size(); n++) {
                   page->lyrics_database.link(notelist[j][n], lyricslist[k][m]);
                }
             }
@@ -297,7 +297,7 @@ void ScorePageSet::fillStaffText(vectorVSIp& text, int segmentindex,
    int i;
    int p1, p2;
    SCORE_FLOAT p3;
-   for (i=0; i<items.size(); i++) {
+   for (i=0; i<(int)items.size(); i++) {
       p2 = items[i]->getStaffNumber();
       if (p2 != staffindex) {
          continue;
@@ -366,15 +366,15 @@ int ScorePageSet::identifyExtraVerses(vectorVSIp& text, int segmentindex,
    int trg;
    int isum;
    int newlyrics = 0;
-   for (i=0; i<average.size(); i++) {
-      if ((currentv < verses.size())
+   for (i=0; i<(int)average.size(); i++) {
+      if ((currentv < (int)verses.size())
             && fabs(average[i] - verses[currentv]) < 2.5) {
          // The identified verse is in the expected location
          // (no gaps in the verse line above this currentv verse).
          currentv++;
          continue;
       }
-      if ((currentv == 0) || (currentv < verses.size())) {
+      if ((currentv == 0) || (currentv < (int)verses.size())) {
          // There are no more verses to process, so check to
          // see if there is an additional line of lyrics
          // that can be detected.  If no additional line of lyrics,
@@ -431,7 +431,7 @@ void ScorePageSet::adjustHyphenInfo(vectorSIp& items, int staffnum) {
    int p1;
    int p2;
    int lastp1;
-   for (i=0; i<items.size(); i++) {
+   for (i=0; i<(int)items.size(); i++) {
       if (!items[i]->isDefined(ns_auto, np_verseLine)) {
          continue;
       }
@@ -490,7 +490,7 @@ int ScorePageSet::addVerseLine(vectorVSIp& vertical, int newnum,
    int p4 = int(p4target + 0.5);
    int p2;
    for (i=p4-tolerance; i<=p4+tolerance; i++) {
-      for (j=0; j<vertical[i+1000].size(); j++) {
+      for (j=0; j<(int)vertical[i+1000].size(); j++) {
          si = vertical[i+1000][j];
          p2 = si->getStaffNumber();
          if (p2 != staffindex) {
@@ -527,7 +527,7 @@ void ScorePageSet::changeVerseLine(vectorVSIp& vertical, int oldnum, int newnum,
    ScoreItem* si;
    int p4 = int(p4target + 0.5);
    for (i=p4-tolerance; i<=p4+tolerance; i++) {
-      for (j=0; j<vertical[i+1000].size(); j++) {
+      for (j=0; j<(int)vertical[i+1000].size(); j++) {
          si = vertical[i+1000][j];
          if (!si->isDefined(ns_auto, np_verseLine)) {
             continue;
@@ -621,9 +621,9 @@ void ScorePageSet::identifyLyricsOnStaff(vectorSIp& systemitems, int staffidx,
    // list.  In the future, also consider text on the line below if there is
    // no staff on the line below (text might extend into region of default
    // position of staff below, so the staff below is dropped).
-   for (i=0; i<items.size(); i++) {
+   for (i=0; i<(int)items.size(); i++) {
       si = items[i];
-      if (si->getStaffNumber() != staffidx) {
+      if ((int)si->getStaffNumber() != staffidx) {
          // Not on the staff of interest, so skip.
          continue;
       }
@@ -690,7 +690,7 @@ void ScorePageSet::identifyLyricsOnStaff(vectorSIp& systemitems, int staffidx,
    int cutoff = 5;
    int value;
 
-   for (i=1; i<histtextpos.size()-2; i++) {
+   for (i=1; i<(int)histtextpos.size()-2; i++) {
       if (histtextpos[i] == 0) {
          continue;
       }
@@ -708,7 +708,7 @@ void ScorePageSet::identifyLyricsOnStaff(vectorSIp& systemitems, int staffidx,
       if (i > 0) {
          lval += histlinepos[i-1];
       }
-      if (i < histlinepos.size()-1) {
+      if (i < (int)histlinepos.size()-1) {
          lval += histlinepos[i+1];
       }
       score[i] = (tval + lval*2);
@@ -734,7 +734,7 @@ void ScorePageSet::identifyLyricsOnStaff(vectorSIp& systemitems, int staffidx,
       lyricvpos.push_back(value);
    }
 
-   for (i=0; i<lyricverse.size(); i++) {
+   for (i=0; i<(int)lyricverse.size(); i++) {
       verseP4s.push_back(lyricvpos[i]);
       processVerse(lyricverse[i], lyricvpos[i], staffidx, itemidx,
             vposes, items);
@@ -788,7 +788,7 @@ void ScorePageSet::processVerse(int verse, int vpos,
    verseitems.reserve(objlist.size());
 
    int i;
-   for (i=0; i<objlist.size(); i++) {
+   for (i=0; i<(int)objlist.size(); i++) {
       if (fabs(vposes[i] - vpos) < 2.0) {
          verseitems.push_back(objlist[i]);
       }
@@ -799,7 +799,7 @@ void ScorePageSet::processVerse(int verse, int vpos,
    ScoreItem* slast;
    ScoreItem* snext;
 
-   for (i=0; i<verseitems.size(); i++) {
+   for (i=0; i<(int)verseitems.size(); i++) {
       srecord = data[verseitems[i]];
       if (srecord->isDefined(ns_lyrics, np_verseLine)) {
          srecord->copyParameterOverwrite(ns_auto, ns_lyrics, np_verseLine);
@@ -813,7 +813,7 @@ void ScorePageSet::processVerse(int verse, int vpos,
       } else {
          slast = NULL;
       }
-      if (i<verseitems.size()-1) {
+      if (i<(int)verseitems.size()-1) {
          snext = data[verseitems[i+1]];
       } else {
          snext = NULL;

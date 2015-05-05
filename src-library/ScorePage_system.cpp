@@ -347,9 +347,9 @@ vectorVVSIp& ScorePage::getStaffItemsBySystem(void) {
 vectorSIp& ScorePage::getStaffItemsByPageStaff(int p2index) {
    int i, j;
    vectorVVSIp& data = getStaffItemsBySystem();
-   for (i=0; i<data.size(); i++) {
-      for (j=0; j<data[i].size(); j++) {
-         if (data[i][j][0]->getStaffNumber() == p2index) {
+   for (i=0; i<(int)data.size(); i++) {
+      for (j=0; j<(int)data[i].size(); j++) {
+         if ((int)data[i][j][0]->getStaffNumber() == p2index) {
             return data[i][j];
          }
       }
@@ -376,10 +376,10 @@ vectorSIp& ScorePage::getStaffItemsBySystemStaff(int sysindex,
 
 int ScorePage::getPageStaffIndex(int sysindex, int partindex) {
    vectorVVSIp& p8items = getStaffItemsBySystem();
-   if ((sysindex < 0) || (sysindex >= p8items.size())) {
+   if ((sysindex < 0) || (sysindex >= (int)p8items.size())) {
       return -1;
    }
-   if ((partindex < 0) || (partindex >= p8items[sysindex].size())) {
+   if ((partindex < 0) || (partindex >= (int)p8items[sysindex].size())) {
       return -1;
    }
    if (p8items[sysindex][partindex].size() == 0) {

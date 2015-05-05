@@ -70,7 +70,7 @@ void ScoreSegment::clear(void) {
 //
 
 void ScoreSegment::clearPartStorage(void) {
-   for (int i=0; i<part_storage.size(); i++) {
+   for (int i=0; i<(int)part_storage.size(); i++) {
       delete part_storage[i];
       part_storage[i] = 0;
    }
@@ -137,7 +137,7 @@ void ScoreSegment::analyzePartStaves(vectorI& partlist, ScorePageSet&
    part_storage.resize(partlist.size());
    fill(part_storage.begin(), part_storage.end(), (SegmentPart*)NULL);
 
-   for (int i=0; i<partlist.size(); i++) {
+   for (int i=0; i<(int)partlist.size(); i++) {
       reverselist[partlist[i]] = i;
       SegmentPart* spart = new SegmentPart;
       spart->setPartIndex(i);
@@ -239,7 +239,7 @@ void ScoreSegment::analyzePartStaves(vectorI& partlist, ScorePageSet&
             }
          }
          // For all parts which were not found, add empty address for system.
-         for (int i=0; i<foundpart.size(); i++) {
+         for (int i=0; i<(int)foundpart.size(); i++) {
             if (foundpart[i]) {
                continue;
             }
@@ -270,7 +270,7 @@ string ScoreSegment::extractPartName(ScorePageSet& pageset,
    SCORE_FLOAT p4;
 
    for (auto& it : items) {
-      if (pagestaff != it->getStaffNumber()) {
+      if (pagestaff != (int)it->getStaffNumber()) {
          continue;
       }
       if (it->isStaffItem()) {
@@ -362,11 +362,11 @@ void ScoreSegment::getPartList(vectorI& partlist, ScorePageSet& pageset,
       ScorePage& page = pageset[p][overlay];
       vectorVVSIp& staffitems = page.getStaffItemsBySystem();
       for (int sys = startsys; sys <= endsys; sys++) {
-         if (sys >= staffitems.size()) {
+         if (sys >= (int)staffitems.size()) {
             break;
          }
          zeropart = 0;
-         for (staff=0; staff<staffitems[sys].size(); staff++) {
+         for (staff=0; staff<(int)staffitems[sys].size(); staff++) {
             if (staffitems[sys][staff].size() == 0) {
                continue;
             }
@@ -528,7 +528,7 @@ vectorSIp& ScoreSegment::getSystemItems(int sysindex) {
 //
 
 string ScoreSegment::getPartName(int partindex) {
-   if ((partindex < 0) || (partindex >= part_storage.size())) {
+   if ((partindex < 0) || (partindex >= (int)part_storage.size())) {
       return "";
    } else {
       return part_storage[partindex]->getPartName();
@@ -557,7 +557,7 @@ ScoreItem* ScoreSegment::getInitialClef(int partindex) {
    vectorSIp& items = getSystemItems(0);
 
    for (auto& it : items) {
-      if (pagestaff != it->getStaffNumber()) {
+      if (pagestaff != (int)it->getStaffNumber()) {
          continue;
       }
       if (it->isNoteItem()) {

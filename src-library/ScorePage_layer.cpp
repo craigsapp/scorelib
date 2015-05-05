@@ -66,7 +66,7 @@ void ScorePage::private_analyzeStaffLayers(vectorSIp& items) {
    SCORE_FLOAT dur;
    ScoreItem* sip;
 
-   for (i=0; i<items.size(); i++) {
+   for (i=0; i<(int)items.size(); i++) {
       if (!items[i]->hasDuration()) {
          continue;
       }
@@ -99,7 +99,7 @@ void ScorePage::private_analyzeStaffLayers(vectorSIp& items) {
    }
 
    int maxlayers = 0;
-   for (i=0; i<notes.size(); i++) {
+   for (i=0; i<(int)notes.size(); i++) {
       if (notes[i].size() > (unsigned int)maxlayers) {
          maxlayers = notes[i].size();
       }
@@ -107,7 +107,7 @@ void ScorePage::private_analyzeStaffLayers(vectorSIp& items) {
 
    int layer = 1;
    // assign the first layer.
-   for (i=0; i<notes.size(); i++) {
+   for (i=0; i<(int)notes.size(); i++) {
       if (notes[i].size() == 1) {
          setChordLayer(notes[i][0], layer);
       } else {
@@ -151,7 +151,7 @@ void ScorePage::setChordLayer(ScoreItem* note, int layer) {
       note->setParameterQuiet(ns_auto, np_layer, layer);
       return;
    }
-   for (i=0; i<chordnotes->size(); i++) {
+   for (i=0; i<(int)chordnotes->size(); i++) {
       (*chordnotes)[i]->setParameterQuiet(ns_auto, np_layer, layer);
    }
 }

@@ -258,8 +258,8 @@ void assignPartNumbers(ScorePage& infile) {
    int i, j, k, ksize;
 
 cout << "SYSMAP SIZE = " << sysmap.size() << endl;
-   for (i=0; i<sysmap.size(); i++) {
-      for (j=0; j<sysmap[i].size(); j++) {
+   for (i=0; i<(int)sysmap.size(); i++) {
+      for (j=0; j<(int)sysmap[i].size(); j++) {
          ksize = staffItems[sysmap[i][j]].size();
          for (k=0; k<ksize; k++) {
             if (staffItems[sysmap[i][j]][k]->getP9() != 0) {

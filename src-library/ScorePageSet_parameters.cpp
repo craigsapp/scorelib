@@ -24,7 +24,7 @@ void ScorePageSet::copyParameterOverwrite(const string& newnamespace,
       const string& oldnamespace, const string& parameter) {
    for (auto& it : page_storage) {
       int overlaycount = it->getOverlayCount();
-      for (unsigned int j=0; j<overlaycount; j++) {
+      for (unsigned int j=0; (int)j<overlaycount; j++) {
          it->getPage(j)->copyParameterOverwrite(newnamespace, oldnamespace,
                parameter);
       }
@@ -42,7 +42,7 @@ void ScorePageSet::copyParameterNoOverwrite(const string& newnamespace,
       const string& oldnamespace, const string& parameter) {
    for (auto& it : page_storage) {
       int overlaycount = it->getOverlayCount();
-      for (unsigned int j=0; j<overlaycount; j++) {
+      for (unsigned int j=0; (int)j<overlaycount; j++) {
          it->getPage(j)->copyParameterNoOverwrite(newnamespace, oldnamespace,
                parameter);
       }
@@ -59,7 +59,7 @@ void ScorePageSet::copyParameterNoOverwrite(const string& newnamespace,
 void ScorePageSet::deleteNamespace(const string& nspace) {
    for (auto& it : page_storage) {
       int overlaycount = it->getOverlayCount();
-      for (unsigned int j=0; j<overlaycount; j++) {
+      for (unsigned int j=0; (int)j<overlaycount; j++) {
          it->getPage(j)->deleteNamespace(nspace);
       }
    }

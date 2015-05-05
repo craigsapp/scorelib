@@ -13,7 +13,6 @@
 #ifndef _DATABASEBEAM_H_INCLUDED
 #define _DATABASEBEAM_H_INCLUDED
 
-#include <vector>
 class ScoreItem;
 #include "ScoreDefs.h"
 

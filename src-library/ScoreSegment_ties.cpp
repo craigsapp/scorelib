@@ -65,8 +65,8 @@ void ScoreSegment::analyzeSystemBreakTies(int pindex) {
       if (postnotes[i-1].size() == 0) {
          continue;
       }
-      for (a=0; a<preslurs[i].size(); a++) {
-         for (b=0; b<postslurs[i-1].size(); b++) {
+      for (a=0; a<(int)preslurs[i].size(); a++) {
+         for (b=0; b<(int)postslurs[i-1].size(); b++) {
             SU::linkNotesByTie(postslurs[i-1][b],
                   postnotes[i-1][0]->getDuration(), postnotes[i-1],
                   preslurs[i][a], prenotes[i]);

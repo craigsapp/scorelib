@@ -14,6 +14,7 @@
 
 #include "scorelib.h"
 #include "stdlib.h"
+#include "string.h"
 #include <sstream>
 
 using namespace std;
@@ -145,7 +146,7 @@ void printReplaceItems(ScorePage& page, int sysindex) {
    vectorSIp& sitems = page.getSystemItems(sysindex);
    int i;
    string id;
-   for (i=0; i<sitems.size(); i++) {
+   for (i=0; i<(int)sitems.size(); i++) {
       if (!sitems[i]->isNoteItem()) {
         continue;
       }
@@ -214,7 +215,7 @@ void printAbbreviatedItems(ScorePage& page, int sysindex) {
    int i;
    int index;
    string id;
-   for (i=0; i<sitems.size(); i++) {
+   for (i=0; i<(int)sitems.size(); i++) {
       if (!sitems[i]->isNoteItem()) {
         if (sitems[i]->hasParameter("index")) {
            // index = sitems[i]->getParameterDouble("index");
@@ -276,9 +277,9 @@ void printAbbreviatedItems(ScorePage& page, int sysindex) {
 void printSystemItems(ScorePage& page, int sysindex) {
    vectorSIp& sitems = page.getSystemItems(sysindex);
    int i;
-   int index;
+   int index = 0;
    string id;
-   for (i=0; i<sitems.size(); i++) {
+   for (i=0; i<(int)sitems.size(); i++) {
       if (!sitems[i]->isNoteItem()) {
         if (sitems[i]->hasParameter("index")) {
            index = sitems[i]->getParameterDouble("index");

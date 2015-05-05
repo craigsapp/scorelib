@@ -46,8 +46,8 @@ void ScoreUtility::analyzeStaffTies(int staffnum, vectorSIp& items,
    ScoreItem* sip;
 
    // first place notes
-   for (i=0; i<items.size(); i++) {
-      if (staffnum != items[i]->getStaffNumber()) {
+   for (i=0; i<(int)items.size(); i++) {
+      if (staffnum != (int)items[i]->getStaffNumber()) {
          // no-cross staff ties allowed (also with intermediate
          // clef changes at the moment).
          continue;
@@ -100,7 +100,7 @@ void ScoreUtility::analyzeStaffTies(int staffnum, vectorSIp& items,
 
    // Have a rhythmic list of notes and a list of slurs/ties.
    // Now go through each slur/tie and identify it's rhythmic position.
-   for (i=0; i<slurs.size(); i++) {
+   for (i=0; i<(int)slurs.size(); i++) {
       SU::identifySlurStartStopOffsets(i, slurs, notes, offsettoindex,
           hangingleft, leftnotes, hangingright, rightnotes);
    }
@@ -147,7 +147,7 @@ void ScoreUtility::identifySlurStartStopOffsets(int index,
    int startQ = 0;
    int endQ   = 0;
 
-   for (i=0; i<notes.size(); i++) {
+   for (i=0; i<(int)notes.size(); i++) {
       lasthpos = hpos;
       hpos = notes[i][0]->getHPos();
 
@@ -265,7 +265,7 @@ void ScoreUtility::identifySlurStartStopOffsets(int index,
          hangingleft.push_back(sip);
          rightnotes = notes[endindex];
          leftnotes.resize(0);
-      } else if (endindex == notes.size()-1) {
+      } else if (endindex == (int)notes.size()-1) {
          sip->setParameterQuiet(ns_auto, np_hangRight, "true");
          hangingright.push_back(sip);
          leftnotes = notes[startindex];
@@ -275,12 +275,12 @@ void ScoreUtility::identifySlurStartStopOffsets(int index,
    }
 
 
-   if (endindex >= notes.size()) {
+   if (endindex >= (int)notes.size()) {
       // Strange case.  If it happens, figure out what causes it.
       return;
    }
 
-   if (startindex >= notes.size()) {
+   if (startindex >= (int)notes.size()) {
       // Strange case.  If it happens, figure out what causes it.
       return;
    }
@@ -344,9 +344,9 @@ void ScoreUtility::linkNotesByTie(ScoreItem* startslur,  SCORE_FLOAT slurdur,
    // in the automatically determined pitch values.
    SCORE_FLOAT vpos1, vpos2;
    int i, j;
-   for (i=0; i<leftnotes.size(); i++) {
+   for (i=0; i<(int)leftnotes.size(); i++) {
       vpos1 = leftnotes[i]->getVPos();
-      for (j=0; j<rightnotes.size(); j++) {
+      for (j=0; j<(int)rightnotes.size(); j++) {
          vpos2 = rightnotes[j]->getVPos();
 
          if (vpos1 != vpos2) {

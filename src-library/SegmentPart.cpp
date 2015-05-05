@@ -46,8 +46,8 @@ SegmentPart::~SegmentPart() {
 
 void SegmentPart::clear(void) {
    int i, j;
-   for (i=0; i<address_storage.size(); i++) {
-      for (j=0; j<address_storage[i].size(); j++) {
+   for (i=0; i<(int)address_storage.size(); i++) {
+      for (j=0; j<(int)address_storage[i].size(); j++) {
          delete address_storage[i][j];
          address_storage[i][j] = NULL;
       }
@@ -330,14 +330,14 @@ ostream& operator<<(ostream& out, const SegmentPart& part) {
    out << "Part number:\t" << part.getPartNumber() << endl;
    int i, j;
    out << "Part staff addresses:" << endl;
-   for (i=0; i<part.getAddresses().size(); i++) {
+   for (i=0; i<(int)part.getAddresses().size(); i++) {
       out << "\t";
       if (part.getAddresses()[i].size() > 1) {
          out << "{ ";
       }
-      for (j=0; j<part.getAddresses()[i].size(); j++) {
+      for (j=0; j<(int)part.getAddresses()[i].size(); j++) {
          out << *part.getAddresses()[i][j];
-         if (j < part.getAddresses()[i].size() - 1) {
+         if (j < (int)part.getAddresses()[i].size() - 1) {
             out << ", ";
          }
       }

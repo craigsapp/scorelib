@@ -94,8 +94,9 @@ POSTFLAGS ?= -L$(LIBDIR) -l$(LIBFILE)
 
 
 # Use clang++ v3.3 since gcc <4.9 does not have regex of C++11 standard.
-COMPILER      = clang++
-PREFLAGS     += -stdlib=libc++
+#COMPILER      = clang++
+#PREFLAGS     += -stdlib=libc++
+COMPILER      = g++
 
 #                                                                         #
 # End of user-modifiable variables.                                       #

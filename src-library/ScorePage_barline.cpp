@@ -142,7 +142,7 @@ void ScorePage::analyzeBarlines(vectorSMp& sysmeasures, int sysindex) {
    SCORE_FLOAT currentdur = 0.0;
    int i;
 
-   for (i=0; i<sysitems.size(); i++) {
+   for (i=0; i<(int)sysitems.size(); i++) {
       sysmeasures[currentbar]->addItem(sysitems[i]);
       if (!sysitems[i]->isBarlineItem()) {
          continue;

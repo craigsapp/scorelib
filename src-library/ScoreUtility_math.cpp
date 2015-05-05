@@ -40,7 +40,7 @@ int ScoreUtility::lcm(set<int>& numbers) {
       nums.push_back(it);
    }
    int output = nums[0];
-   for (int i=1; i<nums.size(); i++) {
+   for (int i=1; i<(int)nums.size(); i++) {
       output = output * nums[i] / ScoreUtility::gcd(output, nums[i]);
    }
    return output;

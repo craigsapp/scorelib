@@ -35,7 +35,7 @@ void ScorePage::setStaffPartIndex(int p2val, int partindex) {
    if (p2val < 0) {
       return;
    }
-   if (p2val >= segmentpart_map.size()) {
+   if (p2val >= (int)segmentpart_map.size()) {
       segmentpart_map.resize(p2val+1);
    }
    segmentpart_map[p2val] = partindex;

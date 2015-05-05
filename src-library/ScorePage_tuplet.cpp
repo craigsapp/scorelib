@@ -93,7 +93,7 @@ void ScorePage::analyzeTupletsOnStaff(int p2index, SCORE_FLOAT tolerance) {
    SCORE_FLOAT tp3;
    SCORE_FLOAT p6;
    ScoreItem* item;
-   for (i=0; i<items.size(); i++) {
+   for (i=0; i<(int)items.size(); i++) {
       item = items[i];
       if (item->isTupletBeam()) {
          tupletQ = 1;
@@ -134,7 +134,7 @@ void ScorePage::analyzeTupletsOnStaff(int p2index, SCORE_FLOAT tolerance) {
             }
             starti = j;
          }
-         for (j=starti; j<items.size(); j++) {
+         for (j=starti; j<(int)items.size(); j++) {
             if (!items[j]->isNoteOrRestItem()) {
                continue;
             }

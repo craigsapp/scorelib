@@ -92,8 +92,8 @@ ScoreItem* ScoreItem::getStaffOwner(void) {
    }
    int p2 = getStaffNumber();
    vectorVSIp& staves = ((ScorePage*)page_owner)->getStaffItemListNotConst();
-   if (staves.size() > p2) {
-      if (staves[p2].size() > 0) {
+   if ((int)staves.size() > p2) {
+      if ((int)staves[p2].size() > 0) {
          return staves[p2][0];
       }
    }
