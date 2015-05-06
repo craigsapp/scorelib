@@ -1,0 +1,50 @@
+#!/usr/bin/perl
+#
+# Programmer:    Craig Stuart Sapp <craig.stanford.edu>
+# Creation Date: Mon May  4 12:31:48 PDT 2015
+# Last Modified: Mon May  4 12:40:12 PDT 2015
+# Filename:      uniqsvgids
+# Syntax:        perl 5
+#
+# Description:   Generate a unique name for XML ids in SVG images created
+#                with seps2svg so that multiple SVG images can be displayed
+#                in bare form on an HTML page.
+#
+
+use strict;
+
+my @files = @ARGV;
+
+foreach my $file (@files) {
+   processFile($file);
+}
+
+exit(0);
+
+
+##############################
+##
+## processFile --
+##
+## "#P00"
+## "P00"
+
+sub processFile {
+   my ($filename) = @_;
+   my $base = $filename;
+   $base =~ s/\..*$//;
+   open (FILE, $filename) or die;
+   my @contents = <FILE>;
+   close FILE;
+   for (my $i=0; $i<@contents; $i++) {
+      $contents[$i] =~ s/"#P(\d+)"/"#P$1$base"/g;
+      $contents[$i] =~ s/"P(\d+)"/"P$1$base"/g;
+   }
+
+   open (FILE, ">$filename") or die;
+   print FILE @contents;
+   close FILE;
+}
+
+
+

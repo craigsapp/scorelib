@@ -13,7 +13,7 @@
 
 TARGET=/usr/local/bin
 
-LIST=ppmxsplit bboxpad svgscale embedpmx webscore-insert
+LIST=ppmxsplit bboxpad svgscale embedpmx uniqsvgids webscore-insert
 
 all: install
 
@@ -34,6 +34,10 @@ svgscale:
 embedpmx:
 	cp perl/embedpmx/embedpmx $(TARGET)
 	chmod 0755 $(TARGET)/embedpmx
+
+uniqsvgids:
+	cp perl/uniqsvgids/uniqsvgids $(TARGET)
+	chmod 0755 $(TARGET)/uniqsvgids
 
 webscore-insert:
 	cp perl/webscore-insert/webscore-insert $(TARGET)
