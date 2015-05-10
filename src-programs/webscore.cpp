@@ -31,9 +31,10 @@ void   printValueWithD      (double value);
 // user-interface variables:
 Options options;
 string Separator;
-int    indexQ       = 0;
-int    abbreviatedQ = 0;
-int    replaceQ     = 0;
+int    indexQ        = 0;
+int    abbreviatedQ  = 0;
+int    replaceQ      = 0;
+int    articulationQ = 1;
 
 ///////////////////////////////////////////////////////////////////////////
 
@@ -81,7 +82,7 @@ void addIndexNumbers(ScorePageSet& infiles) {
 
 void prepareWebScore(ScorePageSet& infiles) {
    // Currently .analyzeStaffDurations() needs to be done before
-   // calculating .analyzePageSetDurations().  This will be 
+   // calculating .analyzePageSetDurations().  This will be
    // automated in the future.
    infiles.analyzeStaffDurations();
    infiles.analyzePageSetDurations();
@@ -128,7 +129,7 @@ void printSystemSet(ScorePageSet& infiles) {
             printAbbreviatedItems(*page, j);
          } else {
             printSystemItems(*page, j);
-         } 
+         }
          cout << endl;
          cout << "SM" << endl;
       }
@@ -150,7 +151,7 @@ void printReplaceItems(ScorePage& page, int sysindex) {
       if (!sitems[i]->isNoteItem()) {
         continue;
       }
-     
+
       // print note with various classes applied.
       if (sitems[i]->hasParameter("index")) {
          id = sitems[i]->getParameter("index");
@@ -163,13 +164,28 @@ void printReplaceItems(ScorePage& page, int sysindex) {
 
       cout << id << "\t";
       cout << "class=\"";
+
       cout << "noteon-";
       value = sitems[i]->getParameterDouble("auto", "pagesetOffsetDuration");
       printValueWithD(value);
+
       cout << " noteoff-";
       value = (sitems[i]->getParameterDouble("auto", "pagesetOffsetDuration")
             +  sitems[i]->getDuration());
+      // dealing with triplet rounding quantization:
+      if (fabs((value - (int)value)  - 0.6666) <= 0.0001) {
+         value = (int)value + 0.6667;
+      } else if (fabs((value - (int)value)  - 0.666) <= 0.001) {
+         value = (int)value + 0.667;
+      }
       printValueWithD(value);
+
+      if (articulationQ) {
+         if (sitems[i]->hasTrill()) {
+            cout << " trill";
+         }
+      }
+
       cout << "\"";
       cout << endl;
    }
@@ -241,7 +257,7 @@ void printAbbreviatedItems(ScorePage& page, int sysindex) {
         }
         continue;
       }
-     
+
       // print note with various classes applied.
 
       index = sitems[i]->getParameterDouble("index");
@@ -307,7 +323,7 @@ void printSystemItems(ScorePage& page, int sysindex) {
         }
         continue;
       }
-     
+
       // print note with various classes applied.
       if (sitems[i]->hasParameter("index")) {
          id = to_string(index);
@@ -359,17 +375,19 @@ void printSystemItems(ScorePage& page, int sysindex) {
 //
 
 void processOptions(Options& opts, int argc, char** argv) {
-   opts.define("sep|separator=s", 
+   opts.define("sep|separator=s",
          "Separator between file name and system enumertor");
    opts.define("a|abbreviated=b", "Embed only note ids into font 99 text");
    opts.define("r|replace=b", "print replacement expressions");
    opts.define("i|index=b", "include item index serial numbers");
+   opts.define("A|no-articulation=b", "do not label note articulations");
    opts.process(argc, argv);
 
-   Separator    = opts.getString("separator");
-   indexQ       = opts.getBoolean("index");
-   abbreviatedQ = options.getBoolean("abbreviated");
-   replaceQ     = options.getBoolean("replace");
+   Separator     =  opts.getString("separator");
+   indexQ        =  opts.getBoolean("index");
+   abbreviatedQ  =  options.getBoolean("abbreviated");
+   replaceQ      =  options.getBoolean("replace");
+   articulationQ = !options.getBoolean("no-articulation");
 }
 
 

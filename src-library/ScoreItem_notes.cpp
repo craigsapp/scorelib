@@ -385,6 +385,49 @@ int ScoreItem::hasFermata(void) {
 
 //////////////////////////////
 //
+// ScoreItem::hasTrill -- returns true if note has a trill articulation.  
+//    If negative return value, then trill is inverted.
+//    Return values:
+//       0 = no trill articulation attached to note
+//       1 = trill
+//       2 = trill with flat
+//       3 = trill with sharp
+//       4 = trill with natural
+//      -1 = trill underneath 
+//      -2 = trill with flat underneath 
+//      -3 = trill with sharp underneath 
+//      -4 = trill with natural underneath 
+//
+
+int ScoreItem::hasTrill(void) {
+   if (!isNoteItem()) {
+      return 0;
+   }
+   int articulation = getArticulation();
+   int sign = 1;
+   if (articulation < 0) {
+      sign = -1;
+      articulation = -articulation;
+   }
+   if (articulation == 20) { // trill
+      return sign * 1;
+   }
+   if (articulation == 21) { // trill with flat
+      return sign * 2;
+   }
+   if (articulation == 22) { // trill with sharp
+      return sign * 3;
+   }
+   if (articulation == 23) { // trill with natural
+      return sign * 4;
+   }
+   return 0;
+}
+
+
+
+//////////////////////////////
+//
 // ScoreItem::hideNotehead -- Hide the notehead.  This is currently
 //     not reversible.  A named parameter could store the notehead style
 //     to make it recoverable.  To hide a notehead, set P6 to 7 or -1.

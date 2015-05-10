@@ -172,6 +172,7 @@ using listSIp     = list<ScoreItem*>;
       int          getArticulation              (void);
       void         removeArticulation           (void);
       int          hasFermata                   (void);
+      int          hasTrill                     (void);
       // functions related to noteheads
       int          isCueSize                    (void);
       void         hideNotehead                 (void);
