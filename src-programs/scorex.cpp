@@ -26,6 +26,13 @@ void   extractMeasures      (ScorePageSet& infiles, const string& measures);
 void   extractSingleMeasure (ScorePageSet& infiles, int page, int system, 
                              int measure);
 void   printBarlineEdge     (ScoreItem* item, double left, double right);
+void   extractPageRange     (ScorePageSet& infiles, const string& range);
+void   getCommaValues       (string& range, int& page, int& system);
+void   extractPageRange     (ScorePageSet& infiles, int startpage, 
+                             int startsystem, int endpage, int endsystem);
+void   printPartialPage     (ScorePageSet& infiles, int startpage, 
+                             int startsystem, int endsystem);
+int    getPageMap           (ScorePageSet& infiles, int pagenum);
 
 int    autoQ = 1;
 
@@ -41,6 +48,7 @@ int main(int argc, char** argv) {
          "extract systems to separate files");
    opts.define("i|info=b", "count input pages, overlays, and systems");
    opts.define("p|page=i:0", "Extract given page index (offset from 1)");
+   opts.define("r|range=s:", "Extract a page range");
    opts.define("f|filebase=s:", "Optional filename base for data extraction");
    opts.define("m|measure|measures=s", "Extract measure or range of measures");
    opts.define("mus=b", "Extract pages into binary .MUS files");
@@ -58,50 +66,239 @@ int main(int argc, char** argv) {
       infiles.analyzeSegmentsByIndent();
       cout << "Segments:\t" << infiles.getSegmentCount() << endl;
       exit(0);
-   }
-
-   if (opts.getBoolean("mus") || opts.getBoolean("pag")) {
+   } else if (opts.getBoolean("mus") || opts.getBoolean("pag")) {
       extractBinaryPages(infiles, opts);
       exit(0);
-   }
-
-   if (opts.getBoolean("pmx") || opts.getBoolean("txt")) {
+   } else if (opts.getBoolean("pmx") || opts.getBoolean("txt")) {
       extractAsciiPages(infiles, opts);
       exit(0);
-   }
-
-   if (opts.getBoolean("page-count")) {
+   } else if (opts.getBoolean("page-count")) {
       cout << infiles.getPageCount() << endl;
       exit(0);
-   }
-
-   if (opts.getBoolean("segment-count")) {
+   } else if (opts.getBoolean("segment-count")) {
       infiles.analyzeSegmentsByIndent();
       cout << infiles.getSegmentCount() << endl;
       exit(0);
-   }
-
-   if (opts.getBoolean("extract-systems")) {
+   } else if (opts.getBoolean("extract-systems")) {
       extractSystems(infiles, opts.getString("filebase"));
       exit(0);
-   }
-
-   if (opts.getBoolean("measures")) {
+   } else if (opts.getBoolean("measures")) {
       extractMeasures(infiles, opts.getString("measures"));
       exit(0);
-   }
-
-   if (opts.getBoolean("page")) {
+   } else if (opts.getBoolean("page")) {
       cout << infiles[opts.getInteger("page")-1];
       exit(0);
+   } else if (opts.getBoolean("range")) {
+      extractPageRange(infiles, opts.getString("range"));
+      exit(0);
    }
-
-
 
    return 0;
 }
 
 ///////////////////////////////////////////////////////////////////////////
+
+
+//////////////////////////////
+//
+// extractPageRange --
+//
+
+void extractPageRange(ScorePageSet& infiles, const string& range) {
+   int startpage   = 0;
+   int endpage     = 0;
+   int startsystem = 0;
+   int endsystem   = 0;
+   size_t cfound;
+   size_t dfound = range.find("-");
+   if (dfound == string::npos) {
+      // only a single page
+      cfound = range.find(",");
+      if (cfound == string::npos) {
+         // no system, so single fullpage.
+         cout << infiles[atoi(range.data())-1];
+         return;
+      } else {
+         // "page,system"
+         startpage = atoi(range.substr(0,cfound).data());
+         startsystem = atoi(range.substr(cfound+1,string::npos).data());
+         // cout << "START PAGE: " << startpage << endl;
+         // cout << "SYSTEM: " << startsystem << endl;
+         if (startsystem == 0) {
+            // output full page
+            cout << infiles[startpage-1];
+            return;
+         } else {
+            // extract a single system from a page.
+            vectorSIp& sysitems = infiles[startpage][0]
+                  .getSystemItems(startsystem);
+            if (autoQ) {
+               cout << sysitems;
+            } else {
+               printNoAuto(cout, sysitems);
+            }
+         }
+      }
+   } else {
+      // starting and stopping page range
+      string srange = range.substr(0,dfound);
+      string erange = range.substr(dfound+1, string::npos);
+      getCommaValues(srange, startpage, startsystem);
+      getCommaValues(erange, endpage, endsystem);
+      // cout << "START RANGE: " << startpage << ", " << startsystem << endl;
+      // cout << "END   RANGE: " << endpage   << ", " << endsystem   << endl;
+      // currently pages are page numbers not index numbers
+      int spagemap = getPageMap(infiles, startpage);
+      int epagemap = getPageMap(infiles, startpage);
+      extractPageRange(infiles, spagemap, epagemap,
+            endpage-1, endsystem-1);
+   }
+}
+
+
+void extractPageRange(ScorePageSet& infiles, int startpage, int startsystem,
+      int endpage, int endsystem) {
+   int tend = -1;
+   if (startpage < 0) {
+      startpage = 0;
+   }
+   if (endpage < 0) {
+      endpage = 0;
+   }
+   if (startsystem < 0) {
+      startsystem = 0;
+   }
+   if (endsystem < 0) {
+      endsystem = 0;
+   }
+   if (endpage >= infiles.getPageCount()) {
+      endpage = infiles.getPageCount() - 1;
+   }
+   if (startsystem >= infiles[startpage][0].getSystemCount()) {
+      startsystem = infiles[startpage][0].getSystemCount() - 1;
+   }
+   if (endsystem >= infiles[endpage][0].getSystemCount()) {
+      endsystem = infiles[endpage][0].getSystemCount() - 1;
+   }
+   // check that the systems range is not exceeded
+   if (startpage > endpage) {
+      int tempo = startpage;
+      startpage = endpage;
+      endpage = tempo;
+      tempo = startsystem;
+      startsystem = endsystem;
+      endsystem = tempo;
+   }
+   if (startpage == endpage) {
+      if (startsystem > endsystem) {
+         int tempp = startsystem;
+         startsystem = endsystem;
+         endsystem = tempp;
+      }
+   }
+
+   if (startpage == endpage) {
+      printPartialPage(infiles, startpage, startsystem, endsystem);
+      return;
+   } else {
+      if (startsystem > 0) {
+         cout << "RS" << endl;
+         cout << "SA " << infiles[startpage][0].getFilenameBase() << "\n\n";
+         printPartialPage(infiles, startpage, startsystem, 
+               infiles[startpage][0].getSystemCount()-1);
+         cout << "\n";
+         cout << "SM\n";
+         startpage++;
+         if (endsystem > 0) {
+            tend = endpage - 1;
+         }
+      }
+      if (tend >= 0) {
+         for (int i=startpage; i<endpage; i++) {
+            cout << "RS" << endl;
+            cout << "SA " << infiles[i][0].getFilenameBase() << endl;
+            cout << "\n";
+            cout << infiles[i];
+            cout << "\n";
+            cout << "SM\n";
+         }
+         cout << "RS" << endl;
+         cout << "SA " << infiles[startpage][0].getFilenameBase() << "\n\n";
+         printPartialPage(infiles, tend, 0, endsystem);
+         cout << "\n";
+         cout << "SM\n";
+      } else {
+         for (int i=startpage; i<=endpage; i++) {
+            cout << "RS" << endl;
+            cout << "SA " << infiles[i][0].getFilenameBase() << endl;
+            cout << "\n";
+            cout << infiles[i];
+            cout << "\n";
+            cout << "SM\n";
+         }
+      }
+   }
+}
+
+
+
+//////////////////////////////
+//
+// getPageMap --
+//
+
+int getPageMap(ScorePageSet& infiles, int pagenum) {
+   int number;
+   for (int i=0; i<infiles.getPageCount(); i++) {
+      string filename = infiles[i][0].getFilenameBase();
+      sscanf(filename.data(), "p%d", &number);
+      if (number == pagenum) {
+         return i;
+      }
+   }
+
+   cerr << "Could not find page " << pagenum << endl;
+   exit(1);
+}
+
+
+
+//////////////////////////////
+//
+// printPartialPage --
+//
+
+void printPartialPage(ScorePageSet& infiles, int page, int startsystem,
+      int endsystem) {
+   for (int i=startsystem; i<=endsystem; i++) {
+      vectorSIp& sysitems = infiles[page][0].getSystemItems(i);
+      if (autoQ) {
+         cout << sysitems;
+      } else {
+         printNoAuto(cout, sysitems);
+      }
+   }
+}
+
+
+
+//////////////////////////////
+//
+// getCommaValues --
+//
+
+void getCommaValues(string& range, int& page, int& system) {
+   page   = -1;
+   system = -1;
+   size_t cfound = range.find(",");
+   if (cfound == string::npos) {
+     page = atoi(range.data()); 
+   } else {
+      page   = atoi(range.substr(0,cfound).data());
+      system = atoi(range.substr(cfound+1,string::npos).data());
+   }
+}
+
 
 
 //////////////////////////////
