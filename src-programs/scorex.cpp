@@ -28,13 +28,15 @@ void   extractSingleMeasure (ScorePageSet& infiles, int page, int system,
 void   printBarlineEdge     (ScoreItem* item, double left, double right);
 void   extractPageRange     (ScorePageSet& infiles, const string& range);
 void   getCommaValues       (string& range, int& page, int& system);
-void   extractPageRange     (ScorePageSet& infiles, int startpage, 
-                             int startsystem, int endpage, int endsystem);
+void   extractPageRange     (ScorePageSet& infiles, int startindex, 
+                             int startsystem, int endindex, int endsystem);
 void   printPartialPage     (ScorePageSet& infiles, int startpage, 
                              int startsystem, int endsystem);
 int    getPageMap           (ScorePageSet& infiles, int pagenum);
 
-int    autoQ = 1;
+// Interface variables:
+int    autoQ     = 1;
+int    preserveQ = 0;
 
 ///////////////////////////////////////////////////////////////////////////
 
@@ -48,6 +50,7 @@ int main(int argc, char** argv) {
          "extract systems to separate files");
    opts.define("i|info=b", "count input pages, overlays, and systems");
    opts.define("p|page=i:0", "Extract given page index (offset from 1)");
+   opts.define("P|preserve=b", "Preserve page filename in output");
    opts.define("r|range=s:", "Extract a page range");
    opts.define("f|filebase=s:", "Optional filename base for data extraction");
    opts.define("m|measure|measures=s", "Extract measure or range of measures");
@@ -57,7 +60,8 @@ int main(int argc, char** argv) {
    opts.define("txt=b", "Extract pages into ASCII .TXT files");
    opts.process(argc, argv);
 
-   autoQ = !opts.getBoolean("no-auto");
+   autoQ     = !opts.getBoolean("no-auto");
+   preserveQ =  opts.getBoolean("preserve");
 
    ScorePageSet infiles(opts);
 
@@ -116,7 +120,16 @@ void extractPageRange(ScorePageSet& infiles, const string& range) {
       cfound = range.find(",");
       if (cfound == string::npos) {
          // no system, so single fullpage.
-         cout << infiles[atoi(range.data())-1];
+         int pagemap = getPageMap(infiles, atoi(range.data()));
+         if (preserveQ) {
+            cout << "RS" << endl;
+            cout << "SA " << infiles[pagemap][0].getFilenameBase() << "\n\n";
+         }
+         cout << infiles[pagemap];
+         if (preserveQ) {
+            cout << "\n";
+            cout << "SM\n";
+         }
          return;
       } else {
          // "page,system"
@@ -131,7 +144,10 @@ void extractPageRange(ScorePageSet& infiles, const string& range) {
          } else {
             // extract a single system from a page.
             vectorSIp& sysitems = infiles[startpage][0]
-                  .getSystemItems(startsystem);
+                  .getSystemItems(startsystem-1);
+            if (preserveQ) {
+               cout << "#PageSystemIndex: " << startsystem << endl;
+            }
             if (autoQ) {
                cout << sysitems;
             } else {
@@ -145,51 +161,51 @@ void extractPageRange(ScorePageSet& infiles, const string& range) {
       string erange = range.substr(dfound+1, string::npos);
       getCommaValues(srange, startpage, startsystem);
       getCommaValues(erange, endpage, endsystem);
-      // cout << "START RANGE: " << startpage << ", " << startsystem << endl;
-      // cout << "END   RANGE: " << endpage   << ", " << endsystem   << endl;
+      startsystem -= 1;
+      endsystem -= 1;
       // currently pages are page numbers not index numbers
       int spagemap = getPageMap(infiles, startpage);
-      int epagemap = getPageMap(infiles, startpage);
-      extractPageRange(infiles, spagemap, epagemap,
-            endpage-1, endsystem-1);
+      int epagemap = getPageMap(infiles, endpage);
+      extractPageRange(infiles, spagemap, startsystem,
+            epagemap, endsystem);
    }
 }
 
 
-void extractPageRange(ScorePageSet& infiles, int startpage, int startsystem,
-      int endpage, int endsystem) {
+void extractPageRange(ScorePageSet& infiles, int startindex, int startsystem,
+      int endindex, int endsystem) {
    int tend = -1;
-   if (startpage < 0) {
-      startpage = 0;
+   if (startindex < 0) {
+      startindex = 0;
    }
-   if (endpage < 0) {
-      endpage = 0;
+   if (endindex < 0) {
+      endindex = 0;
    }
    if (startsystem < 0) {
       startsystem = 0;
    }
    if (endsystem < 0) {
-      endsystem = 0;
+      endsystem = infiles[endindex][0].getSystemCount() - 1;
    }
-   if (endpage >= infiles.getPageCount()) {
-      endpage = infiles.getPageCount() - 1;
+   if (endindex >= infiles.getPageCount()) {
+      endindex = infiles.getPageCount() - 1;
    }
-   if (startsystem >= infiles[startpage][0].getSystemCount()) {
-      startsystem = infiles[startpage][0].getSystemCount() - 1;
+   if (startsystem >= infiles[startindex][0].getSystemCount()) {
+      startsystem = infiles[startindex][0].getSystemCount() - 1;
    }
-   if (endsystem >= infiles[endpage][0].getSystemCount()) {
-      endsystem = infiles[endpage][0].getSystemCount() - 1;
+   if (endsystem >= infiles[endindex][0].getSystemCount()) {
+      endsystem = infiles[endindex][0].getSystemCount() - 1;
    }
    // check that the systems range is not exceeded
-   if (startpage > endpage) {
-      int tempo = startpage;
-      startpage = endpage;
-      endpage = tempo;
+   if (startindex > endindex) {
+      int tempo = startindex;
+      startindex = endindex;
+      endindex = tempo;
       tempo = startsystem;
       startsystem = endsystem;
       endsystem = tempo;
    }
-   if (startpage == endpage) {
+   if (startindex == endindex) {
       if (startsystem > endsystem) {
          int tempp = startsystem;
          startsystem = endsystem;
@@ -197,42 +213,55 @@ void extractPageRange(ScorePageSet& infiles, int startpage, int startsystem,
       }
    }
 
-   if (startpage == endpage) {
-      printPartialPage(infiles, startpage, startsystem, endsystem);
-      return;
-   } else {
-      if (startsystem > 0) {
+   if (startindex == endindex) {
+      if (preserveQ) {
          cout << "RS" << endl;
-         cout << "SA " << infiles[startpage][0].getFilenameBase() << "\n\n";
-         printPartialPage(infiles, startpage, startsystem, 
-               infiles[startpage][0].getSystemCount()-1);
-         cout << "\n";
-         cout << "SM\n";
-         startpage++;
-         if (endsystem > 0) {
-            tend = endpage - 1;
+         cout << "SA " << infiles[startindex][0].getFilenameBase() << "\n\n";
+         if (startsystem > 0) {
+            cout << "#PageSystemIndex: " << startsystem << endl;
          }
       }
-      if (tend >= 0) {
-         for (int i=startpage; i<endpage; i++) {
+      printPartialPage(infiles, startindex, startsystem, endsystem);
+      if (preserveQ) {
+         cout << "\n";
+         cout << "SM\n";
+      }
+      return;
+   } else {
+      // multiple pages to print
+      if (startsystem > 0) {
+         cout << "RS" << endl;
+         cout << "SA " << infiles[startindex][0].getFilenameBase() << "\n\n";
+         if (startsystem > 0) {
+            cout << "#PageSystemIndex: " << startsystem << endl;
+         }
+         printPartialPage(infiles, startindex, startsystem, 
+               infiles[startindex][0].getSystemCount()-1);
+         cout << "\n";
+         cout << "SM\n";
+         startindex++;
+         if (endsystem > 0) {
+            tend = endindex - 1;
+         }
+      }
+      if ((tend >= 0) || (endsystem >= 0)) {
+         for (int i=startindex; i<endindex; i++) {
             cout << "RS" << endl;
-            cout << "SA " << infiles[i][0].getFilenameBase() << endl;
-            cout << "\n";
-            cout << infiles[i];
+            cout << "SA " << infiles[i][0].getFilenameBase() << "\n\n";
+            cout << infiles[i][0];
             cout << "\n";
             cout << "SM\n";
          }
          cout << "RS" << endl;
-         cout << "SA " << infiles[startpage][0].getFilenameBase() << "\n\n";
-         printPartialPage(infiles, tend, 0, endsystem);
+         cout << "SA " << infiles[endindex][0].getFilenameBase() << "\n\n";
+         printPartialPage(infiles, endindex, 0, endsystem);
          cout << "\n";
          cout << "SM\n";
       } else {
-         for (int i=startpage; i<=endpage; i++) {
+         for (int i=startindex; i<=endindex; i++) {
             cout << "RS" << endl;
-            cout << "SA " << infiles[i][0].getFilenameBase() << endl;
-            cout << "\n";
-            cout << infiles[i];
+            cout << "SA " << infiles[i][0].getFilenameBase() << "\n\n";
+            cout << infiles[i][0];
             cout << "\n";
             cout << "SM\n";
          }
