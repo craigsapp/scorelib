@@ -19,6 +19,7 @@
 
 using namespace std;
 
+// function declarations:
 void   printSystemSet       (ScorePageSet& infiles);
 void   prepareWebScore      (ScorePageSet& infiles);
 void   processOptions       (Options& opts, int argc, char** argv);
@@ -41,7 +42,6 @@ int    systemOffset  = 0;
 
 int main(int argc, char** argv) {
    processOptions(options, argc, argv);
-   options.process(argc, argv);
    ScorePageSet infiles(options);
    if (indexQ) {
       addIndexNumbers(infiles);
