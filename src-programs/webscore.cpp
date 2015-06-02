@@ -35,6 +35,7 @@ int    indexQ        = 0;
 int    abbreviatedQ  = 0;
 int    replaceQ      = 0;
 int    articulationQ = 1;
+int    systemOffset  = 0;
 
 ///////////////////////////////////////////////////////////////////////////
 
@@ -104,22 +105,32 @@ void printSystemSet(ScorePageSet& infiles) {
    ScorePage* page;
    string prefix;
    string myfile;
+   int firstpage = 1;
+   int soffset = 0;
    for (i=0; i<infiles.getPageCount(); i++) {
       if (i>0) {
          cout << "\n";
       }
       page = infiles.getPage(i);
       syscount = page->getSystemCount();
-      if (syscount <= 10) {
+
+      if (firstpage) {
+         soffset = systemOffset;
+      } else {
+         soffset = 0;
+      }
+
+      if (syscount+soffset <= 10) {
          prefix = "0";
       } else {
          prefix = "";
       }
+
       for (j=0; j<syscount; j++) {
          myfile = page->getFilenameBase();
          myfile += Separator;
          myfile += prefix;
-         myfile += to_string(j+1);
+         myfile += to_string(j+1+soffset);
          cout << "RS" << endl;
          cout << "SA " << myfile << endl;
          cout << endl;
@@ -133,6 +144,7 @@ void printSystemSet(ScorePageSet& infiles) {
          cout << endl;
          cout << "SM" << endl;
       }
+      firstpage = 0;
    }
 }
 
@@ -381,6 +393,7 @@ void processOptions(Options& opts, int argc, char** argv) {
    opts.define("r|replace=b", "print replacement expressions");
    opts.define("i|index=b", "include item index serial numbers");
    opts.define("A|no-articulation=b", "do not label note articulations");
+   opts.define("s|system-offset=i:0", "index of first system");
    opts.process(argc, argv);
 
    Separator     =  opts.getString("separator");
@@ -388,6 +401,7 @@ void processOptions(Options& opts, int argc, char** argv) {
    abbreviatedQ  =  options.getBoolean("abbreviated");
    replaceQ      =  options.getBoolean("replace");
    articulationQ = !options.getBoolean("no-articulation");
+   systemOffset  =  options.getInteger("system-offset");
 }
 
 
