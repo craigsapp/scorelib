@@ -1,7 +1,7 @@
 //
 // Programmer:    Craig Stuart Sapp <craig@ccrma.stanford.edu>
 // Creation Date: Sat May  2 20:11:19 PDT 2015
-// Last Modified: Sat May  2 20:11:21 PDT 2015
+// Last Modified: Tue Jun  2 17:08:10 PDT 2015
 // Filename:      webscore.cpp
 // URL: 	  https://github.com/craigsapp/scorelib/blob/master/src-programs/webscore.cpp
 // Documentation: http://scorelib.sapp.org/program/webscore
@@ -20,14 +20,15 @@
 using namespace std;
 
 // function declarations:
-void   printSystemSet       (ScorePageSet& infiles);
-void   prepareWebScore      (ScorePageSet& infiles);
-void   processOptions       (Options& opts, int argc, char** argv);
-void   addIndexNumbers      (ScorePageSet& infiles);
-void   printSystemItems     (ScorePage&, int sysindex);
-void   printReplaceItems    (ScorePage& page, int sysindex);
-void   printAbbreviatedItems(ScorePage& page, int sysindex);
-void   printValueWithD      (double value);
+void     printSystemSet        (ScorePageSet& infiles);
+void     prepareWebScore       (ScorePageSet& infiles);
+void     processOptions        (Options& opts, int argc, char** argv);
+void     addIndexNumbers       (ScorePageSet& infiles);
+void     printSystemItems      (ScorePage&, int sysindex);
+void     printReplaceItems     (ScorePage& page, int sysindex);
+void     printAbbreviatedItems (ScorePage& page, int sysindex);
+ostream& printValueWithD       (ostream& out, double value);
+ostream& printNoteClassTags    (ostream& out, vectorSIp& items, int i);
 
 // user-interface variables:
 Options options;
@@ -37,6 +38,8 @@ int    abbreviatedQ  = 0;
 int    replaceQ      = 0;
 int    articulationQ = 1;
 int    systemOffset  = 0;
+int    partQ         = 0;   // Boolean for class tag for system number
+int    roundQ        = 1;   // boolean for rounding quarter notes to 3 digits
 
 ///////////////////////////////////////////////////////////////////////////
 
@@ -172,33 +175,9 @@ void printReplaceItems(ScorePage& page, int sysindex) {
          exit(1);
       }
 
-      double value;
-
       cout << id << "\t";
-      cout << "class=\"";
-
-      cout << "noteon-";
-      value = sitems[i]->getParameterDouble("auto", "pagesetOffsetDuration");
-      printValueWithD(value);
-
-      cout << " noteoff-";
-      value = (sitems[i]->getParameterDouble("auto", "pagesetOffsetDuration")
-            +  sitems[i]->getDuration());
-      // dealing with triplet rounding quantization:
-      if (fabs((value - (int)value)  - 0.6666) <= 0.0001) {
-         value = (int)value + 0.6667;
-      } else if (fabs((value - (int)value)  - 0.666) <= 0.001) {
-         value = (int)value + 0.667;
-      }
-      printValueWithD(value);
-
-      if (articulationQ) {
-         if (sitems[i]->hasTrill()) {
-            cout << " trill";
-         }
-      }
-
-      cout << "\"";
+      printNoteClassTags(cout, sitems, i);
+      cout << endl;
       cout << endl;
    }
 }
@@ -210,7 +189,10 @@ void printReplaceItems(ScorePage& page, int sysindex) {
 // printValueWitD -- Assuming always positive.
 //
 
-void printValueWithD(double value) {
+ostream& printValueWithD(ostream& out, double value) {
+   if (roundQ) {
+      value = (int(value * 1000.0 + 0.5))/1000.0;
+   }
    int ivalue = (int)value;
    double fraction = value - ivalue;
    char buffer[32] = {0};
@@ -229,6 +211,7 @@ void printValueWithD(double value) {
          i++;
       }
    }
+   return out;
 }
 
 
@@ -352,18 +335,15 @@ void printSystemItems(ScorePage& page, int sysindex) {
       }
       cout << endl;
       cout << "_99%svg%<g";
+
       // print index as ID if given:
       if (id.size() > 0) {
          cout << " id=\"i" << index << "\"";
       }
-      cout << " class=\"";
-      // print note-on/note-off classes:
-      cout << "noteon-";
-      cout << sitems[i]->getParameter("auto", "pagesetOffsetDuration");
-      cout << " noteoff-";
-      cout << (sitems[i]->getParameterDouble("auto", "pagesetOffsetDuration")
-            +  sitems[i]->getDuration());
-      cout << "\">" << endl;
+
+      cout  << " ";
+      printNoteClassTags(cout, sitems, i);
+      cout << ">" << endl;
 
       sitems[i]->printPmxFixedParameters(cout);
 
@@ -374,10 +354,57 @@ void printSystemItems(ScorePage& page, int sysindex) {
       if (id.size() > 0) {
          cout << " " << index;
       }
+
       cout << endl;
       cout << "_99%svg%<\\g>" << endl;
    }
 }
+
+
+
+//////////////////////////////
+//
+// printNoteClassTags --
+//
+
+ostream& printNoteClassTags(ostream& out, vectorSIp& sitems, int i) {
+   out << "class=\"";
+
+   // note on tag:
+   out << "noteon-";
+   double value = sitems[i]->getParameterDouble("auto", "pagesetOffsetDuration");
+   printValueWithD(out, value);
+
+   // note off tag:
+   out << " noteoff-";
+   value = (sitems[i]->getParameterDouble("auto", "pagesetOffsetDuration")
+         +  sitems[i]->getDuration());
+
+   // dealing with triplet rounding quantization:
+   if (fabs((value - (int)value)  - 0.6666) <= 0.0001) {
+      value = (int)value + 0.6667;
+   } else if (fabs((value - (int)value)  - 0.666) <= 0.001) {
+      value = (int)value + 0.667;
+   }
+   printValueWithD(out, value);
+
+   // part number tag:
+   if (partQ) {
+      double part = sitems[i]->getPartNumber();
+      out << " part-";
+      printValueWithD(out, part);
+   }
+
+   if (articulationQ) {
+      if (sitems[i]->hasTrill()) {
+         cout << " trill";
+      }
+   }
+
+   out << "\"";
+   return out;
+}
+
 
 
 
@@ -394,6 +421,8 @@ void processOptions(Options& opts, int argc, char** argv) {
    opts.define("i|index=b", "include item index serial numbers");
    opts.define("A|no-articulation=b", "do not label note articulations");
    opts.define("s|system-offset=i:0", "index of first system");
+   opts.define("p|part=b", "indicate part number in class tags");
+   opts.define("R|no-round=b", "do not round quarter-note timestamps");
    opts.process(argc, argv);
 
    Separator     =  opts.getString("separator");
@@ -402,6 +431,8 @@ void processOptions(Options& opts, int argc, char** argv) {
    replaceQ      =  options.getBoolean("replace");
    articulationQ = !options.getBoolean("no-articulation");
    systemOffset  =  options.getInteger("system-offset");
+   partQ         = options.getBoolean("part");
+   roundQ        =!options.getBoolean("no-round");
 }
 
 
