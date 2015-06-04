@@ -37,7 +37,7 @@ info:
 	@echo ""
 
 library:
-	-mkdir -p obj
+	-@mkdir -p obj
 	$(MAKE) -f Makefile.library
 
 tests: library
@@ -63,6 +63,7 @@ updatelib: library-update
 uplib: library-update
 libup: library-update
 library-update:
+	-@mkdir -p obj
 	$(MAKE) -f Makefile.library library
 
 clean: cleantests
