@@ -20,11 +20,11 @@ using namespace std;
 // function declarations:
 void   processOptions       (Options& opts, int argc, char** argv);
 void   identifyPageNumbers  (ScorePageSet& infiles);
-void   identifyPageNumbers  (ScorePage& infile);
-void   identifyPageNumbers  (ScorePage& infile, int pageindex);
-void   identifyPageNumbers  (vectorSIp& items, int pageindex, int direction);
+void   identifyPageNumbers  (ScorePage& infile, int pageindex, int pagecount);
+void   identifyPageNumbers  (vectorSIp& items, int pageindex, int direction, 
+                             int pagecount);
 int    onlyHasNumbers       (ScoreItem* sip);
-void   identifyPageNumber   (ScoreItem* item, int pageindex);
+void   identifyPageNumber   (ScoreItem* item, int pageindex, int pagecount);
 
 // user-interface variables:
 Options options;
@@ -43,6 +43,9 @@ int main(int argc, char** argv) {
    processOptions(options, argc, argv);
    ScorePageSet infiles(options);
    identifyPageNumbers(infiles);
+   if (labelQ) {
+      cout << infiles;
+   }
    return 0;
 }
 
@@ -51,38 +54,31 @@ int main(int argc, char** argv) {
 
 //////////////////////////////
 //
-// labelPageNumbers --
-//
-
-void labelPageNumbers(ScorePageSet& infiles) {
-}
-
-
-
-//////////////////////////////
-//
 // identifyPageNumbers --
 //
 
 void  identifyPageNumbers(ScorePageSet& infiles) {
-   for (int i=0; i<infiles.getPageCount(); i++) {
-      identifyPageNumbers(infiles[i][0], i);
+   int pagecount = infiles.getPageCount();
+   for (int i=0; i<pagecount; i++) {
+      identifyPageNumbers(infiles[i][0], i, pagecount);
    }
 }
 
 
-void identifyPageNumbers(ScorePage& infile, int pageindex) {
+void identifyPageNumbers(ScorePage& infile, int pageindex, int pagecount) {
    int syscount = infile.getSystemCount();
    if (aboveQ) {
-      identifyPageNumbers(infile.getSystemItems(0), pageindex, 1);
+      identifyPageNumbers(infile.getSystemItems(0), pageindex, 1, pagecount);
    }
    if (belowQ) {
-      identifyPageNumbers(infile.getSystemItems(syscount-1), pageindex, -1);
+      identifyPageNumbers(infile.getSystemItems(syscount-1), pageindex, -1, 
+            pagecount);
    }
 }
 
 
-void  identifyPageNumbers(vectorSIp& items, int pageindex, int direction) {
+void  identifyPageNumbers(vectorSIp& items, int pageindex, int direction, 
+      int pagecount) {
    vectorSIp foundlist;
    int minstaff = 1000;
    int maxstaff = -1000;
@@ -132,11 +128,11 @@ void  identifyPageNumbers(vectorSIp& items, int pageindex, int direction) {
 
    int highest = 0;
    int lowest = 0;
-   double highestvpos;
-   double lowestvpos;
+   double highestvpos = -1000;
+   double lowestvpos = 1000;
    if (foundlist.size() > 1) {
       // choose only the highest or lowest number on the page.
-      for (i=1; i<foundlist.size(); i++) {
+      for (i=0; i<foundlist.size(); i++) {
          vpos = foundlist[i]->getVerticalPosition();
          if (vpos > highestvpos) {
             highest = i;
@@ -149,14 +145,13 @@ void  identifyPageNumbers(vectorSIp& items, int pageindex, int direction) {
       }
       if (direction == 1) {
          // choose highest item
-         identifyPageNumber(foundlist[highest], pageindex);
+         identifyPageNumber(foundlist[highest], pageindex, pagecount);
       } else if (direction == -1) {
          // chose lowest item
-         identifyPageNumber(foundlist[lowest], pageindex);
-         
+         identifyPageNumber(foundlist[lowest], pageindex, pagecount);
       }
    } else if (foundlist.size() == 1) {
-      identifyPageNumber(foundlist[0], pageindex);
+      identifyPageNumber(foundlist[0], pageindex, pagecount);
    }
 
 
@@ -169,25 +164,44 @@ void  identifyPageNumbers(vectorSIp& items, int pageindex, int direction) {
 // identifyPageNumber -- Mark or print page number.
 //
 
-void identifyPageNumber(ScoreItem* item, int pageindex) {
+void identifyPageNumber(ScoreItem* item, int pageindex, int pagecount) {
    int pagenum = 0;
 
    if (labelQ) {
-      // label page here with "@function: pagenum"
+      item->setParameter(np_function, "pagenum");
    } else {
-      cout << "Page_index " << pageindex << ":\t";
+      if (pageindex == 0) {
+         cout << '[';
+      }
+      cout << "{\"page_index\":" << pageindex << ",\t\"page_number\":";
       if (item->isNumberItem()) {
          cout << item->getP5();
          pagenum = (int)item->getP5();
       } else if (item->isTextItem()) {
-         cout << item->getTextWithoutInitialFontCode();
+         stringstream pnum;
+         pnum << item->getTextWithoutInitialFontCode();
+         int numeric = onlyHasNumbers(item);
+         if (!numeric) {
+            cout << "\"";
+         }
+         cout << pnum.str();
+         if (!numeric) {
+            cout << "\"";
+         }
          pagenum = (int)strtod(item->getTextWithoutInitialFontCode().data(), 
                                NULL);
       }
       if (LastPage >= 0) {
          if (pagenum - LastPage != 1) {
-            cout << "\tNOT IN SEQUENCE";
+            cout << ", \"in_sequence\":\"false\"";
          }
+      }
+      cout << "}";
+      if (pageindex < pagecount - 1) {
+         cout << ",";
+      }
+      if (pageindex == pagecount - 1) {
+         cout << ']';
       }
       cout << endl;
       LastPage = pagenum;
@@ -203,6 +217,9 @@ void identifyPageNumber(ScoreItem* item, int pageindex) {
 //
 
 int onlyHasNumbers(ScoreItem* sip) {
+   if (sip->isNumberItem()) {
+      return 1;
+   }
    string text = sip->getTextWithoutInitialFontCode();
    int numcount = 0;
    int spacecount = 0;
@@ -238,10 +255,11 @@ void processOptions(Options& opts, int argc, char** argv) {
                "Search only text items");
    opts.define("numbers-only|number-only|numbers|number=b", 
                "Search only number items");
-   opts.define("above-cutoff=d:25.0", 
+   opts.define("ac|above-cutoff=d:25.0", 
                "Min. vertical pos. for page nums. above staff");
-   opts.define("below-cutoff=d:-20.0", 
+   opts.define("bc|below-cutoff=d:-20.0", 
                "Max. vertical pos. for page nums. below");
+   opts.define("l|label=b", "label function of page numbers");
    opts.process(argc, argv);
    opts.process(argc, argv);
 
@@ -261,9 +279,9 @@ void processOptions(Options& opts, int argc, char** argv) {
       code16Q = 0;
    }
 
+   labelQ   = opts.getBoolean("label");
    abovePos = opts.getDouble("above-cutoff");
    belowPos = opts.getDouble("below-cutoff");
-
 }
 
 
