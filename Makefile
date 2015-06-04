@@ -37,6 +37,7 @@ info:
 	@echo ""
 
 library:
+	-mkdir -p obj
 	$(MAKE) -f Makefile.library
 
 tests: library
