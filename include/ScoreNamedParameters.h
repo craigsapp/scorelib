@@ -167,5 +167,16 @@ const string np_lyricsHyphen = "lyricsHyphen";
 const string np_wordExtension = "wordExtension";
 
 
+/////////////////////////////////////////////////////////////////////////////
+//
+// Function parameters:
+//
+
+// @function: indicates the function of an item.
+//     known values: barnum, fingernum, pagenum
+// Already defined above:
+// const string np_function = "function";
+
+
 #endif /* _SCORENAMEDPARAMETER_H_INCLUDED */
 

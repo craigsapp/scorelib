@@ -168,7 +168,6 @@ void ScorePageSet::appendReadPmx(istream& instream, const string& filename,
    smatch match;
 
    while (getline(instream, transfer)) {
-
       if (instream.eof()) {
          break;
       }
@@ -199,7 +198,6 @@ void ScorePageSet::appendReadPmx(istream& instream, const string& filename,
             localfile = testname;
             continue;
          }
-
       } else if (regex_search(transfer, startpage2)) {
          format = PPMX_PAGE_MARKER_COMMENT;
          regex_search(transfer, match, spname2);
