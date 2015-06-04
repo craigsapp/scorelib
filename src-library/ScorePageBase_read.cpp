@@ -166,12 +166,14 @@ void ScorePageBase::readPmx(istream& infile, int verboseQ) {
 //
 // ScorePageBase::readPmxScoreLine -- read a PMX file for score data.
 //   ignore any lines of text which do not start with a number.
-//   Also have to deal with P1=15 EPS files.
+//   Also have to deal with P1=15 EPS files.  All lines immediately
+//   fllowing a parameter line which start with an "@" sign will be
+//   read as named parameters for the item.
 //
 
 ScoreItem* ScorePageBase::readPmxScoreLine(istream& infile, int verboseQ) {
-   char buffer[1024] = {0};
-   infile.getline(buffer, 1000, '\n');
+   char buffer[10001] = {0};
+   infile.getline(buffer, 10000, '\n');
    if (verboseQ) {
       cout << "#Read line: " << buffer << endl;
    }
@@ -226,7 +228,7 @@ ScoreItem* ScorePageBase::readPmxScoreLine(istream& infile, int verboseQ) {
 
    mapNamespace named_parameters;
    while (infile.peek() == '@') {
-      infile.getline(buffer, 1000, '\n');
+      infile.getline(buffer, 10000, '\n');
       if (verboseQ) {
          cout << "#Read line: " << buffer << endl;
       }
