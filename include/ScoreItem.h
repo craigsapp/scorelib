@@ -187,6 +187,7 @@ using listSIp     = list<ScoreItem*>;
 
       // Rest (P1=2) processing functions (defined in ScoreItem_rests.cpp):
       int          isInvisible                  (void);
+      // see makeInvisible();
 
       // Clef (P1=3) processing functions (defined in ScoreItem_clefs.cpp):
       int          getMiddleCVpos               (void);
@@ -235,6 +236,7 @@ using listSIp     = list<ScoreItem*>;
       void         setStaffP10InchesFromP4Value  (SCORE_FLOAT p4);
       void         setStaffP10CentimetersFromP4Value(SCORE_FLOAT p4);
       void         makeInvisible                 (void);
+      // see isInvisible();
 
 
       // Symbol (P1=9) processing functions
@@ -265,6 +267,8 @@ using listSIp     = list<ScoreItem*>;
       int          getBarlineHeight              (void);
       int          getBarHeight                  (void);
       int          getHeight                     (void);
+      // see makeInvisible();
+      // see isInvisible();
 
       // ImportedEPSGraphic (P1=15) processing functions
 

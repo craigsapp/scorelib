@@ -11,6 +11,7 @@
 
 
 #include "SystemMeasure.h"
+#include "ScoreUtility.h"
 
 using namespace std;
 
@@ -65,9 +66,11 @@ void SystemMeasure::addItem(ScoreItem* item) {
    }
 
    SCORE_FLOAT idur   = item->getDuration();
+   idur = SU::increaseDurationPrecision(idur);
    SCORE_FLOAT curdur = (offset + idur) - system_offset;
    if (measure_duration < curdur) {
       measure_duration = curdur;
+      measure_duration = SU::increaseDurationPrecision(measure_duration);
    }
 
    if (!item->isBarlineItem()) {
@@ -102,6 +105,9 @@ SCORE_FLOAT SystemMeasure::getSystemOffsetDuration(void) {
 //
 
 SCORE_FLOAT SystemMeasure::getMeasureDuration(void) {
+   if (measure_duration - (int)measure_duration < 0.0001) {
+      measure_duration = (int)measure_duration;
+   }
    return measure_duration;
 }
 

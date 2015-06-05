@@ -23,11 +23,12 @@ using namespace std;
 //
 
 int ScoreItem::isInvisible(void) {
-   if (!isRestItem()) {
-      return 0;
-   }
-   if (getP6Int() == -1) {
-      return 1;
+   if (isRestItem()) {
+      getP6Int() < 0.0 ? 1 : 0;
+   } else if (isStaffItem()) {
+      getP7() < 0.0 ? 1: 0;
+   } else if (isBarlineItem()) {
+      getP4() < 0.0 ? 1: 0;
    }
    return 0;
 }

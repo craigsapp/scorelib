@@ -177,6 +177,9 @@ const string np_wordExtension = "wordExtension";
 // Already defined above:
 // const string np_function = "function";
 
+// @barnum: indicates the bar number of a barline.
+const string np_barnum = "barnum";
+
 
 #endif /* _SCORENAMEDPARAMETER_H_INCLUDED */
 

@@ -1,13 +1,16 @@
 //
 // Programmer:    Craig Stuart Sapp <craig@ccrma.stanford.edu>
 // Creation Date: Wed Jun  3 00:32:42 PDT 2015
-// Last Modified: Wed Jun  3 01:40:53 PDT 2015
+// Last Modified: Fri Jun  5 06:21:55 PDT 2015
 // Filename:      barlinenum.cpp
 // URL: 	  https://github.com/craigsapp/scorelib/blob/master/src-programs/barlinenum.cpp
 // Documentation: http://scorelib.sapp.org/program/barlinenum
 // Syntax:        C++ 11
 //
 // Description:   Identifies, adds and processes barline numbers on SCORE pages.
+//
+// Limits:        The program assumes that all barlines are the same in
+//                all parts.
 //
 
 #include "scorelib.h"
@@ -27,6 +30,14 @@ int    onlyHasNumbers       (ScoreItem* sip);
 int    startsWithNumber     (ScoreItem* sip);
 void   identifyBarNumber    (ScoreItem* item, int pageindex, int sysindex, 
                              int pagecount, int syscount);
+void   markBarlines         (ScorePageSet& infiles);
+void   markBarlines         (ScorePage& infile, int pageindex, int pagecount);
+void   markBarlines         (vectorSIp& items, int pageindex, int sysindex, 
+                             int pagecount, int syscount);
+double getItemNumber        (ScoreItem* sip);
+string getItemString        (ScoreItem* sip);
+void markBarlinesForward    (vectorSIp& items, int index, string& barnum);
+void markBarlinesBackward   (vectorSIp& items, int index, string& barnum);
 
 // user-interface variables:
 Options options;
@@ -34,6 +45,7 @@ int leftQ    = 1;     // used with --left-only
 int labelQ   = 0;     // used with -l option
 int code10Q  = 1;     // used with --number-only option
 int code16Q  = 1;     // used with --text-only option
+int markQ    = 0;     // used with -m option
 int minAbovePos = 11; // cutoff for searching for page number above staff
 int maxAbovePos = 20; // cutoff for searching for page number above staff
 int LastBarnum = -1;
@@ -44,6 +56,9 @@ int main(int argc, char** argv) {
    processOptions(options, argc, argv);
    ScorePageSet infiles(options);
    identifyBarNumbers(infiles);
+   if (markQ) {
+      markBarlines(infiles);
+   }
    if (labelQ) {
       cout << infiles;
    }
@@ -51,6 +66,109 @@ int main(int argc, char** argv) {
 }
 
 ///////////////////////////////////////////////////////////////////////////
+
+
+//////////////////////////////
+//
+// markBarlines --
+//
+
+void markBarlines(ScorePageSet& infiles) {
+   int pagecount = infiles.getPageCount();
+   for (int i=0; i<pagecount; i++) {
+      markBarlines(infiles[i][0], i, pagecount);
+   }
+}
+
+void markBarlines(ScorePage& infile, int pageindex, int pagecount) {
+   int syscount = infile.getSystemCount();
+   for (int i=0; i<syscount; i++) {
+      markBarlines(infile.getSystemItems(i), pageindex, i, pagecount, 
+            syscount);
+   }
+}
+
+void markBarlines(vectorSIp& items, int pageindex, int sysindex, 
+      int pagecount, int syscount) {
+
+   string barline = "";
+   string btest;
+   int tindex = -1;
+   int    barlinenum = 0;
+
+   int i;
+   for (i=0; i<items.size(); i++) {
+      if (!((code10Q && items[i]->isNumberItem()) ||
+          (code16Q && items[i]->isTextItem()))) {
+         continue;      
+      }
+      btest = items[i]->getParameter(np_function);
+      if (btest == "") {
+         continue;
+      }
+      tindex = i;
+      break;
+   }
+
+   if (btest == "") {
+      return;
+   }
+   if (tindex < 0) {
+      return;
+   }
+
+   barlinenum = getItemNumber(items[tindex]);
+   string barstring = getItemString(items[tindex]);
+   markBarlinesForward(items, tindex, barstring);
+   markBarlinesBackward(items, tindex, barstring);
+}
+
+
+
+//////////////////////////////
+//
+// markBarlinesForward -- mark all barlines with the given string from the
+//    current position until the next durational item.
+//
+
+void markBarlinesForward(vectorSIp& items, int index, string& barnum) {
+   for (int i=index; i<items.size(); i++) {
+      if (items[i]->hasDuration()) {
+         break;
+      }
+      if (!items[i]->isBarlineItem()) {
+         continue;
+      }
+      string current = items[i]->getParameter(np_function);
+      if (current == "") {
+         items[i]->setParameter(np_barnum, barnum);
+      }
+   }
+}
+
+
+
+//////////////////////////////
+//
+// markBarlinesBackward -- mark all barlines with the given string from the
+//    current position until the next durational item.
+//
+
+void markBarlinesBackward(vectorSIp& items, int index, string& barnum) {
+   for (int i=index; i>=0; i--) {
+      if (items[i]->hasDuration()) {
+         break;
+      }
+      if (!items[i]->isBarlineItem()) {
+         continue;
+      }
+      string current = items[i]->getParameter(np_function);
+      if (current == "") {
+         items[i]->setParameter(np_barnum, barnum);
+      }
+   }
+}
+
 
 
 //////////////////////////////
@@ -75,7 +193,7 @@ void identifyBarNumbers(ScorePage& infile, int pageindex, int pagecount) {
 }
 
 
-void  identifyBarNumbers(vectorSIp& items, int pageindex, int sysindex, 
+void identifyBarNumbers(vectorSIp& items, int pageindex, int sysindex, 
       int pagecount, int syscount) {
    vectorSIp foundlist;
    int minstaff = 1000;
@@ -168,7 +286,7 @@ void identifyBarNumber(ScoreItem* item, int pageindex, int sysindex,
 
    if (labelQ) {
       item->setParameter(np_function, "barnum");
-   } else {
+   } else if (!markQ) {
       if (pageindex == 0) {
          cout << "[";
       }
@@ -269,12 +387,52 @@ int startsWithNumber(ScoreItem* sip) {
 
 //////////////////////////////
 //
+// getItemNumber --
+//
+
+double getItemNumber(ScoreItem* sip) {
+   if (sip->isNumberItem()) {
+      return sip->getNumber();
+   } else if (sip->isTextItem()) {
+      string text = sip->getTextWithoutInitialFontCode();
+      int num;
+      if (sscanf(text.data(), "%d", &num)) {
+         return (double)num;
+      } else {
+         return 0;
+      }
+   }
+   return 0;
+}
+
+
+
+//////////////////////////////
+//
+// getItemString --
+//
+
+string getItemString(ScoreItem* sip) {
+   string output = "";
+   if (sip->isNumberItem()) {
+      output = to_string((int)sip->getNumber());
+   } else if (sip->isTextItem()) {
+      output = sip->getTextWithoutInitialFontCode();
+   }
+   return output;
+}
+
+
+
+//////////////////////////////
+//
 // processOptions --
 //
 
 void processOptions(Options& opts, int argc, char** argv) {
    opts.define("left-only=b", 
                "Search for barlines only at left side of system");
+   opts.define("m|mark=b", "Mark barline with their number");
    opts.define("text-only|text=b", 
                "Search only text items");
    opts.define("numbers-only|number-only|numbers|number=b", 
@@ -295,6 +453,10 @@ void processOptions(Options& opts, int argc, char** argv) {
 
    maxAbovePos = opts.getDouble("above-cutoff");
    labelQ      = opts.getBoolean("label");
+   markQ       = opts.getBoolean("mark");
+   if (markQ) {
+      labelQ = 1;
+   }
 
    // leftQ hardcoded to 1 for now:
    // leftQ    = opts.getBoolean("left-only);

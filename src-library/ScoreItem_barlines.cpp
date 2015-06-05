@@ -33,8 +33,13 @@ int ScoreItem::getBarlineHeight(void) {
    if (p4 == 0) {
       p4 = 1;
    }
-   p4 = p4 % 100;
-   return p4;
+   if (p4 > 0.0) {
+      p4 = p4 % 100;
+      return p4;
+   } else if (p4 < 0.0) {
+      p4 = (-p4) % 100;
+      return p4;
+   }
 }
 
 

@@ -60,6 +60,9 @@ namespace ScoreUtility {
    int    lcm                 (int x, int y);
    int    lcm                 (set<int>& numbers);
 
+   // rhythm-related functions
+   double increaseDurationPrecision(double duration);
+
    // Tie/Slur differentiation functions (defined in ScoreUtility_ties.cpp):
    void   analyzeStaffTies    (int staffnum, vectorSIp& items,
                                vectorSIp& hangingleft, vectorSIp& leftnotes,

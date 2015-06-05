@@ -136,7 +136,23 @@ void showOnlyFingerings(ScorePageSet& infiles) {
                cout << items[k];
             } else if (items[k]->isStaffItem()) {
                si = *items[k];
-               si->makeInvisible();
+               si.makeInvisible();
+               cout << si;
+            } else if (items[k]->isRestItem()) {
+               si = *items[k];
+               si.makeInvisible();
+               cout << si;
+            } else if (items[k]->isNoteItem()) {
+               si.clear();
+               si.setP1(2);
+               si.setP2(items[k]->getP2());
+               si.setP3(items[k]->getP3());
+               si.setP7(items[k]->getP7());
+               si.makeInvisible();
+               cout << si;
+            } else if (items[k]->isBarlineItem()) {
+               si = *items[k];
+               si.makeInvisible();
                cout << si;
             }
          }
@@ -217,21 +233,6 @@ void  identifyFingerNumbers(ScorePage& infile, int pageindex, int staffnum,
    }
 }
 
-
-double getFingerNum(ScoreItem* sip) {
-   if (sip->isNumberItem()) {
-      return sip->getNumber();
-   } else if (sip->isTextItem()) {
-      string text = sip->getTextWithoutInitialFontCode();
-      int num;
-      if (sscanf(text.data(), "%d", &num)) {
-         return (double)num;
-      } else {
-         return 0;
-      }
-   }
-   return 0;
-}
 
 
 void identifyFingerNumber(ScoreItem* sip) {
@@ -314,6 +315,27 @@ int onlyHasNumbers(ScoreItem* sip) {
    }
 }
 
+
+
+//////////////////////////////
+//
+// getFingerNum --
+//
+
+double getFingerNum(ScoreItem* sip) {
+   if (sip->isNumberItem()) {
+      return sip->getNumber();
+   } else if (sip->isTextItem()) {
+      string text = sip->getTextWithoutInitialFontCode();
+      int num;
+      if (sscanf(text.data(), "%d", &num)) {
+         return (double)num;
+      } else {
+         return 0;
+      }
+   }
+   return 0;
+}
 
 
 
