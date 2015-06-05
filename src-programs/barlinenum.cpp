@@ -20,7 +20,6 @@ using namespace std;
 // function declarations:
 void   processOptions       (Options& opts, int argc, char** argv);
 void   identifyBarNumbers   (ScorePageSet& infiles);
-void   identifyBarNumbers   (ScorePage& infile);
 void   identifyBarNumbers   (ScorePage& infile, int pageindex, int pagecount);
 void   identifyBarNumbers   (vectorSIp& items, int pageindex, int sysindex, 
                              int pagecount, int syscount);

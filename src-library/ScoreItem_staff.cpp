@@ -244,3 +244,18 @@ void ScoreItem::setStaffP10CentimetersFromP4Value(SCORE_FLOAT p4) {
 
 
 
+//////////////////////////////
+//
+// ScoreItem::makeInvisible --
+//
+
+void ScoreItem::makeInvisible(void) {
+   if (isStaffItem()) {
+      setP7(-1);
+      return;
+   }
+   // make other types of items invisible here.
+}
+
+
+

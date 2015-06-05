@@ -234,11 +234,13 @@ using listSIp     = list<ScoreItem*>;
       void         setStaffP4FromP10Centimeters  (SCORE_FLOAT p10);
       void         setStaffP10InchesFromP4Value  (SCORE_FLOAT p4);
       void         setStaffP10CentimetersFromP4Value(SCORE_FLOAT p4);
+      void         makeInvisible                 (void);
 
 
       // Symbol (P1=9) processing functions
 
-      // Number (P1=10) processing functions
+      // Number (P1=10) processing functions (defined in ScoreItem_number.cpp);
+      double       getNumber                     (void);
 
       // User (P1=11) processing functions
 
