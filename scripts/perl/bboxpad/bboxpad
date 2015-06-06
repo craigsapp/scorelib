@@ -2,7 +2,7 @@
 #
 # Programmer:    Craig Stuart Sapp <craig@ccrma.stanford.edu>
 # Creation Date: Sun May  3 18:22:37 PDT 2015
-# Last Modified: Sun May  3 18:36:16 PDT 2015
+# Last Modified: Sat Jun  6 15:07:23 PDT 2015
 # Filename:      bboxpad
 # Syntax:        perl 5
 #
@@ -27,9 +27,33 @@ GetOptions (
 
 my @contents = <>;
 
+if (hasPadding(@contents)) {
+   print @contents;
+   exit(0);
+}
+
 processContents($Border, @contents);
 
 exit(0);
+
+
+
+##############################
+##
+## hasPadding -- returns true if a line starting with "%padding:" occurs in 
+##     the contents.
+##
+
+sub hasPadding {
+   my @contents = @_;
+   foreach my $line (@contents) {
+      if ($line =~ /^\%padding:/) {
+         return 1;
+      }
+   }
+   return 0;
+}
+
 
 
 ##############################
@@ -59,6 +83,7 @@ sub processContents {
       }
       print $line;
    }
+   print "%padding: $amount\n";
 }
 
 

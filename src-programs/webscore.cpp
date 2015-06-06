@@ -29,17 +29,20 @@ void     printReplaceItems     (ScorePage& page, int sysindex);
 void     printAbbreviatedItems (ScorePage& page, int sysindex);
 ostream& printValueWithD       (ostream& out, double value);
 ostream& printNoteClassTags    (ostream& out, vectorSIp& items, int i);
+ostream& printNonNoteClassTags (ostream& out, vectorSIp& sitems, int i);
 
 // user-interface variables:
 Options options;
 string Separator;
 int    indexQ        = 0;
 int    abbreviatedQ  = 0;
+int    allabbrQ      = 0;
 int    replaceQ      = 0;
 int    articulationQ = 1;
 int    systemOffset  = 0;
 int    partQ         = 0;   // Boolean for class tag for system number
 int    roundQ        = 1;   // boolean for rounding quarter notes to 3 digits
+int    cleanFontQ    = 1;
 
 ///////////////////////////////////////////////////////////////////////////
 
@@ -164,6 +167,7 @@ void printReplaceItems(ScorePage& page, int sysindex) {
    string id;
    for (i=0; i<(int)sitems.size(); i++) {
       if (!sitems[i]->isNoteItem()) {
+        printNonNoteClassTags(cout, sitems, i);
         continue;
       }
 
@@ -177,7 +181,6 @@ void printReplaceItems(ScorePage& page, int sysindex) {
 
       cout << id << "\t";
       printNoteClassTags(cout, sitems, i);
-      cout << endl;
       cout << endl;
    }
 }
@@ -228,25 +231,39 @@ void printAbbreviatedItems(ScorePage& page, int sysindex) {
    string id;
    for (i=0; i<(int)sitems.size(); i++) {
       if (!sitems[i]->isNoteItem()) {
+        if (sitems[i]->getParameter(np_function) == "pagenum") {
+           // don't print page numbers
+           continue;
+        }
+        if (sitems[i]->isTextItem()) {
+           if (sitems[i]->getP8() != 0.0) {
+              // convert non-standard fonts to normal ones
+              sitems[i]->setP8(0.0);
+           }
+        }
         if (sitems[i]->hasParameter("index")) {
-           // index = sitems[i]->getParameterDouble("index");
-           // cout << "T ";
-           // cout << sitems[i]->getP2() << " ";
-           // cout << sitems[i]->getP3() << " ";
-           // cout << sitems[i]->getP4() << " ";
-           // cout << index;
-           // cout << endl;
-           // cout << "_99% << index << endl;
+           if (allabbrQ) {
+              index = sitems[i]->getParameterDouble("index");
+              cout << "T ";
+              cout << sitems[i]->getP2() << " ";
+              cout << sitems[i]->getP3() << " ";
+              cout << sitems[i]->getP4() << " ";
+              cout << index;
+              cout << endl;
+              cout << "_99%" << index << endl;
+           }
 
            sitems[i]->printPmxFixedParameters(cout);
 
-           // cout << "T ";
-           // cout << sitems[i]->getP2() << " ";
-           // cout << sitems[i]->getP3() << " ";
-           // cout << sitems[i]->getP4() << " ";
-           // cout << index;
-           // cout << endl;
-           // cout << "_99%." << endl;
+           if (allabbrQ) {
+              cout << "T ";
+              cout << sitems[i]->getP2() << " ";
+              cout << sitems[i]->getP3() << " ";
+              cout << sitems[i]->getP4() << " ";
+              cout << index;
+              cout << endl;
+              cout << "_99%." << endl;
+            }
         } else {
            sitems[i]->printPmxFixedParameters(cout);
         }
@@ -292,6 +309,12 @@ void printSystemItems(ScorePage& page, int sysindex) {
    string id;
    for (i=0; i<(int)sitems.size(); i++) {
       if (!sitems[i]->isNoteItem()) {
+        if (sitems[i]->isTextItem()) {
+           if (sitems[i]->getP8() != 0.0) {
+              // convert non-standard fonts to normal ones
+              sitems[i]->setP8(0.0);
+           }
+        }
         if (sitems[i]->hasParameter("index")) {
            index = sitems[i]->getParameterDouble("index");
 
@@ -364,6 +387,38 @@ void printSystemItems(ScorePage& page, int sysindex) {
 
 //////////////////////////////
 //
+// printNonNoteClassTags --
+//
+
+ostream& printNonNoteClassTags(ostream& out, vectorSIp& sitems, int index) {
+   stringstream tempout;
+   string function = sitems[index]->getParameter(np_function);
+   if (function == "pagenum") {
+      return out;
+   }
+
+   if (function != "") {
+      tempout << function;
+   }
+   if (tempout.str().size() == 0) {
+      return out;
+   }
+
+   int id = -1;
+   if (sitems[index]->hasParameter("index")) {
+     id = sitems[index]->getParameterInt("index");
+   }
+   out << id << "\t";
+   out << "class=\"";
+   out << tempout.str();
+   out << "\"\n";
+   return out;
+}
+
+
+
+//////////////////////////////
+//
 // printNoteClassTags --
 //
 
@@ -395,6 +450,11 @@ ostream& printNoteClassTags(ostream& out, vectorSIp& sitems, int i) {
       printValueWithD(out, part);
    }
 
+   string function = sitems[i]->getParameter(np_function);
+   if (function != "") {
+      out << " " << function;
+   }
+
    if (articulationQ) {
       if (sitems[i]->hasTrill()) {
          cout << " trill";
@@ -417,6 +477,7 @@ void processOptions(Options& opts, int argc, char** argv) {
    opts.define("sep|separator=s",
          "Separator between file name and system enumertor");
    opts.define("a|abbreviated=b", "Embed only note ids into font 99 text");
+   opts.define("aa|all-abbreviated=b", "Embed ids for all items");
    opts.define("r|replace=b", "print replacement expressions");
    opts.define("i|index=b", "include item index serial numbers");
    opts.define("A|no-articulation=b", "do not label note articulations");
@@ -428,6 +489,10 @@ void processOptions(Options& opts, int argc, char** argv) {
    Separator     =  opts.getString("separator");
    indexQ        =  opts.getBoolean("index");
    abbreviatedQ  =  options.getBoolean("abbreviated");
+   allabbrQ      =  options.getBoolean("all-abbreviated");
+   if (allabbrQ) {
+      abbreviatedQ = 1;
+   }
    replaceQ      =  options.getBoolean("replace");
    articulationQ = !options.getBoolean("no-articulation");
    systemOffset  =  options.getInteger("system-offset");

@@ -12,7 +12,7 @@
 ##
 
 # targets which don't actually refer to files
-.PHONY: src-programs src-library include bin lib obj tests update status scripts
+.PHONY: src-programs src-library include bin lib obj tests update status scripts script
 
 ###########################################################################
 #                                                                         #

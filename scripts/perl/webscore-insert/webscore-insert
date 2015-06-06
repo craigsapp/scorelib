@@ -30,11 +30,11 @@ die "Usage $0 file.eps file.txt" if @ARGV != 2;
 my $epsfile = $ARGV[0];
 my $txtfile = $ARGV[1];
 
-open (SFILE, $epsfile) or die;
+open (SFILE, $epsfile) or die "Cannot open $epsfile";
 my @epsimage = <SFILE>;
 close SFILE;
 
-open (TFILE, $txtfile) or die;
+open (TFILE, $txtfile) or die "Cannot open $txtfile";
 my @txtcontents = <TFILE>;
 close TFILE;
 
