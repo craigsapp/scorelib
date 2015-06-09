@@ -1,0 +1,80 @@
+---
+layout: default
+breadcrumbs: [['/program','programs']]
+pagetitle:  Program&colon; pagenum
+---
+
+@@BEGIN: MANPAGE
+@COMMAND: pagenum
+@SUMMARY: Identify page numbers in SCORE data.
+
+@ABSTRACT:
+
+<style>
+span.option::before {
+   content: "-";
+}
+
+span.option {
+   font-family: Courier, sans-serif;
+}
+
+span.code {
+   font-family: Courier, sans-serif;
+}
+
+</style>
+
+The <<COMMAND>> program identifies page numbers in SCORE data.
+Without options the program will generate a list of identified
+page numbers.  The <span class="option">l</span> will mark
+the page numbers with a <span class="code">@function: pagenum</span>
+parameter.
+
+
+@@BEGIN: OPTIONS
+@DEFAULTINFO: Outputs JSON formated list of identified page numbers.
+
+@OPTIONNAME: -l
+@OPTIONINFO: Label page number items with a
+    <span class="code">@function: pagenum</span> parameter.
+@OPTIONANCHOR: l_option
+
+@OPTIONNAME: --top-only
+@OPTIONINFO: Only search for page numbers at the top of pages.
+@OPTIONANCHOR: top_option
+
+@OPTIONNAME: --bottom-only
+@OPTIONINFO: Only search for page numbers at the bottom of pages.
+@OPTIONANCHOR: bottom_option
+
+@OPTIONNAME: --text-only
+@OPTIONINFO: Only consider text items for page number candidates
+    (don't consider number items).
+@OPTIONANCHOR: text_option
+
+@OPTIONNAME: --numbers-only
+@OPTIONINFO: Only consider number items for page number candidates
+    (don't consider text items).
+@OPTIONANCHOR: number_option
+
+@OPTIONNAME: --above-cutoff 25.0
+@OPTIONINFO: Page numbers must be at this vertical position
+     or higher when searching the top staff of the page
+     for page numbers.
+@OPTIONANCHOR: acutoff_option
+
+@OPTIONNAME: --below-cutoff 20.0
+@OPTIONINFO: Page numbers must be at this vertical position
+     or lower when searching the bottom staff of the page
+     for page numbers.
+@OPTIONANCHOR: bcutoff_option
+
+@@END:   OPTIONS
+
+@DESCRIPTION:
+
+@@END: MANPAGE
+
+
+

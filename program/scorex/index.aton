@@ -10,7 +10,7 @@ pagetitle:  Program&colon; scorex
 
 @ABSTRACT:
 
-The <<COMMAND>> program extracts page data fro <a href=/formats/ppmx>PPMX</a> 
+The <<COMMAND>> program extracts page data from <a href=/formats/ppmx>PPMX</a> 
 files.
 
 

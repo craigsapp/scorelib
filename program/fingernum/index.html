@@ -1,0 +1,82 @@
+---
+layout: default
+breadcrumbs: [['/program','programs']]
+pagetitle:  Program&colon; fingernum
+---
+
+
+ 
+ <style>
+ span.option::before {
+    content: "-";
+ }
+ 
+ span.option {
+    font-family: Courier, sans-serif;
+ }
+ 
+ span.code {
+    font-family: Courier, sans-serif;
+ }
+ 
+ </style>
+ 
+ The <i>fingernum</i> program identifies finger numbers in SCORE data.
+ Without options, the program will generate a list of identified
+ finger numbers.  The <span class="option">l</span> will label
+ the finger numbers with <span class="code">@function: fingernum</span>
+ parameters.  Using <span class="option">m</span> will also mark the
+ associated barline with the finger number.
+ 
+ 
+
+
+
+<a name=options></a>
+<h1>OPTIONS</h1>
+<table>
+<tr valign=baseline><td width=40><span style="line-height:100%; position:relative; top:0.1em;"><a title="more information for -l option" href="#l_option">&#x24d8;</a></span></td><td><tt>-l</tt></td><td width=10></td>
+<td>Label page number items with a     <span class="code">@function: barnum</span> parameter.
+
+</td></tr>
+
+<tr valign=baseline><td width=40><span style="line-height:100%; position:relative; top:0.1em;"><a title="more information for -A option" href="#A_option">&#x24d8;</a></span></td><td><tt>-A</tt></td><td width=10></td>
+<td>Don't analyze finger numbers before further processing     (for example when removing manually marked finger numbers).
+
+</td></tr>
+
+<tr valign=baseline><td width=40><span style="line-height:100%; position:relative; top:0.1em;"><a title="more information for -r option" href="#r_option">&#x24d8;</a></span></td><td><tt>-r</tt></td><td width=10></td>
+<td>Remove fingerings from input data.
+</td></tr>
+
+<tr valign=baseline><td width=40><span style="line-height:100%; position:relative; top:0.1em;"><a title="more information for -R option" href="#R_option">&#x24d8;</a></span></td><td><tt>-R</tt></td><td width=10></td>
+<td>Remove everything except fingerings from the data     (preserving formatting with invisible staves and durations).
+
+</td></tr>
+
+<tr valign=baseline><td width=40><span style="line-height:100%; position:relative; top:0.1em;"><a title="more information for --text-only option" href="#text_option">&#x24d8;</a></span></td><td><tt><nobr><span style="font-size:80%; font-weight:600;">--text-only</span></nobr></tt></td><td width=10></td>
+<td>Only consider text items for finger number candidates     (don't consider number items).
+
+</td></tr>
+
+<tr valign=baseline><td width=40><span style="line-height:100%; position:relative; top:0.1em;"><a title="more information for --numbers-only option" href="#number_option">&#x24d8;</a></span></td><td><tt><nobr><span style="font-size:80%; font-weight:600;">--numbers-only</span></nobr></tt></td><td width=10></td>
+<td>Only consider number items for finger number candidates     (don't consider text items).
+
+</td></tr>
+
+<tr valign=baseline><td width=40><span style="line-height:100%; position:relative; top:0.1em;"><a title="more information for --above-cutoff 20.0 option" href="#left_option">&#x24d8;</a></span></td><td><tt><nobr><span style="font-size:80%; font-weight:600;">--above-cutoff 20.0</span></nobr></tt></td><td width=10></td>
+<td>Only search for finger number below the given vertical     position.
+
+</td></tr>
+</table>
+<a name=description> </a>
+
+<a name=examples> </a>
+
+<a name=references></a>
+
+<a name=seealso></a>
+
+<a name=limitations></a>
+
+<a name=bugs></a>

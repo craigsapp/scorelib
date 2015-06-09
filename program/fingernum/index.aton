@@ -1,0 +1,78 @@
+---
+layout: default
+breadcrumbs: [['/program','programs']]
+pagetitle:  Program&colon; fingernum
+---
+
+@@BEGIN: MANPAGE
+@COMMAND: fingernum
+@SUMMARY: Identify finger numbers in SCORE data.
+
+@ABSTRACT:
+
+<style>
+span.option::before {
+   content: "-";
+}
+
+span.option {
+   font-family: Courier, sans-serif;
+}
+
+span.code {
+   font-family: Courier, sans-serif;
+}
+
+</style>
+
+The <<COMMAND>> program identifies finger numbers in SCORE data.
+Without options, the program will generate a list of identified
+finger numbers.  The <span class="option">l</span> will label
+the finger numbers with <span class="code">@function: fingernum</span>
+parameters.  Using <span class="option">m</span> will also mark the
+associated barline with the finger number.
+
+
+@@BEGIN: OPTIONS
+@DEFAULTINFO: Outputs JSON formated list of identified finger numbers.
+
+@OPTIONNAME: -l
+@OPTIONINFO: Label page number items with a
+    <span class="code">@function: barnum</span> parameter.
+@OPTIONANCHOR: l_option
+
+@OPTIONNAME: -A
+@OPTIONINFO: Don't analyze finger numbers before further processing
+    (for example when removing manually marked finger numbers).
+@OPTIONANCHOR: A_option
+
+@OPTIONNAME: -r
+@OPTIONINFO: Remove fingerings from input data.
+@OPTIONANCHOR: r_option
+
+@OPTIONNAME: -R
+@OPTIONINFO: Remove everything except fingerings from the data 
+   (preserving formatting with invisible staves and durations).
+@OPTIONANCHOR: R_option
+
+@OPTIONNAME: --text-only
+@OPTIONINFO: Only consider text items for finger number candidates
+    (don't consider number items).
+@OPTIONANCHOR: text_option
+
+@OPTIONNAME: --numbers-only
+@OPTIONINFO: Only consider number items for finger number candidates
+    (don't consider text items).
+@OPTIONANCHOR: number_option
+
+@OPTIONNAME: --above-cutoff 20.0
+@OPTIONINFO: Only search for finger number below the given vertical
+    position.
+@OPTIONANCHOR: left_option
+
+@@END:   OPTIONS
+
+@DESCRIPTION:
+
+@@END: MANPAGE
+

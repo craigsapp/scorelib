@@ -1,0 +1,76 @@
+---
+layout: default
+breadcrumbs: [['/program','programs']]
+pagetitle:  Program&colon; barlinenum
+---
+
+@@BEGIN: MANPAGE
+@COMMAND: barlinenum
+@SUMMARY: Identify measure numbers in SCORE data.
+
+@ABSTRACT:
+
+<style>
+span.option::before {
+   content: "-";
+}
+
+span.option {
+   font-family: Courier, sans-serif;
+}
+
+span.code {
+   font-family: Courier, sans-serif;
+}
+
+</style>
+
+The <<COMMAND>> program identifies measure numbers in SCORE data.
+Without options, the program will generate a list of identified
+measure numbers.  The <span class="option">l</span> will label
+the measure numbers with <span class="code">@function: barnum</span>
+parameters.  Using <span class="option">m</span> will also mark the
+associated barline with the measure number.
+
+
+@@BEGIN: OPTIONS
+@DEFAULTINFO: Outputs JSON formated list of identified measure numbers.
+
+@OPTIONNAME: -l
+@OPTIONINFO: Label page number items with a
+    <span class="code">@function: barnum</span> parameter.
+@OPTIONANCHOR: l_option
+
+@OPTIONNAME: -m
+@OPTIONINFO: Mark associated barlines with measure number.
+    <span class="code">@barnum: #</span> parameter.
+@OPTIONANCHOR: m_option
+
+@OPTIONNAME: --text-only
+@OPTIONINFO: Only consider text items for measure number candidates
+    (don't consider number items).
+@OPTIONANCHOR: text_option
+
+@OPTIONNAME: --numbers-only
+@OPTIONINFO: Only consider number items for measure number candidates
+    (don't consider text items).
+@OPTIONANCHOR: number_option
+
+@OPTIONNAME: --left-only
+@OPTIONINFO: Only search for measure number candidates at the left side
+    of a system (currently enabled by default).
+@OPTIONANCHOR: left_option
+
+@OPTIONNAME: --above-cutoff 20.0
+@OPTIONINFO: Only search for measure number below the given vertical
+    position.
+@OPTIONANCHOR: left_option
+
+@@END:   OPTIONS
+
+@DESCRIPTION:
+
+@@END: MANPAGE
+
+
+

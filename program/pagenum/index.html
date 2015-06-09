@@ -1,0 +1,82 @@
+---
+layout: default
+breadcrumbs: [['/program','programs']]
+pagetitle:  Program&colon; pagenum
+---
+
+
+ 
+ <style>
+ span.option::before {
+    content: "-";
+ }
+ 
+ span.option {
+    font-family: Courier, sans-serif;
+ }
+ 
+ span.code {
+    font-family: Courier, sans-serif;
+ }
+ 
+ </style>
+ 
+ The <i>pagenum</i> program identifies page numbers in SCORE data.
+ Without options the program will generate a list of identified
+ page numbers.  The <span class="option">l</span> will mark
+ the page numbers with a <span class="code">@function: pagenum</span>
+ parameter.
+ 
+ 
+
+
+
+<a name=options></a>
+<h1>OPTIONS</h1>
+<table>
+<tr valign=baseline><td width=40><span style="line-height:100%; position:relative; top:0.1em;"><a title="more information for -l option" href="#l_option">&#x24d8;</a></span></td><td><tt>-l</tt></td><td width=10></td>
+<td>Label page number items with a     <span class="code">@function: pagenum</span> parameter.
+
+</td></tr>
+
+<tr valign=baseline><td width=40><span style="line-height:100%; position:relative; top:0.1em;"><a title="more information for --top-only option" href="#top_option">&#x24d8;</a></span></td><td><tt><nobr><span style="font-size:80%; font-weight:600;">--top-only</span></nobr></tt></td><td width=10></td>
+<td>Only search for page numbers at the top of pages.
+</td></tr>
+
+<tr valign=baseline><td width=40><span style="line-height:100%; position:relative; top:0.1em;"><a title="more information for --bottom-only option" href="#bottom_option">&#x24d8;</a></span></td><td><tt><nobr><span style="font-size:80%; font-weight:600;">--bottom-only</span></nobr></tt></td><td width=10></td>
+<td>Only search for page numbers at the bottom of pages.
+</td></tr>
+
+<tr valign=baseline><td width=40><span style="line-height:100%; position:relative; top:0.1em;"><a title="more information for --text-only option" href="#text_option">&#x24d8;</a></span></td><td><tt><nobr><span style="font-size:80%; font-weight:600;">--text-only</span></nobr></tt></td><td width=10></td>
+<td>Only consider text items for page number candidates     (don't consider number items).
+
+</td></tr>
+
+<tr valign=baseline><td width=40><span style="line-height:100%; position:relative; top:0.1em;"><a title="more information for --numbers-only option" href="#text_option">&#x24d8;</a></span></td><td><tt><nobr><span style="font-size:80%; font-weight:600;">--numbers-only</span></nobr></tt></td><td width=10></td>
+<td>Only consider number items for page number candidates     (don't consider text items).
+
+</td></tr>
+
+<tr valign=baseline><td width=40><span style="line-height:100%; position:relative; top:0.1em;"><a title="more information for --above-cutoff 25.0 option" href="#acutoff_option">&#x24d8;</a></span></td><td><tt><nobr><span style="font-size:80%; font-weight:600;">--above-cutoff 25.0</span></nobr></tt></td><td width=10></td>
+<td>Page numbers must be at this vertical position      or higher when searching the top staff of the page
+      for page numbers.
+
+</td></tr>
+
+<tr valign=baseline><td width=40><span style="line-height:100%; position:relative; top:0.1em;"><a title="more information for --below-cutoff 20.0 option" href="#acutoff_option">&#x24d8;</a></span></td><td><tt><nobr><span style="font-size:80%; font-weight:600;">--below-cutoff 20.0</span></nobr></tt></td><td width=10></td>
+<td>Page numbers must be at this vertical position      or lower when searching the bottom staff of the page
+      for page numbers.
+
+</td></tr>
+</table>
+<a name=description> </a>
+
+<a name=examples> </a>
+
+<a name=references></a>
+
+<a name=seealso></a>
+
+<a name=limitations></a>
+
+<a name=bugs></a>
