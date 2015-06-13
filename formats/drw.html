@@ -13,12 +13,13 @@ group: [
 ]
 ---
 
-"DRW" files are used to store the musical font used to typeset SCORE files. 
-They are binary files that store up to 10 symbols per file.  Typically
-DRAW files are stored in the LIB subdirectory, starting with LIBRA.DRW for 
-the first 10 symbols of the musical font, then LIBRB.DRW for the next 10,
-and so on.  DRW files can be edited with the DRAW.EXE program which comes
-with the SCORE editor.
+"DRW" files are used to store the musical font used to typeset SCORE
+files.  They are binary files that store up to 10 symbols per file.
+Typically DRAW files are stored in the LIB subdirectory, starting
+with LIBRA.DRW for the first 10 symbols of the musical font, then
+LIBRB.DRW for the next 10, and so on (LIBSA.DRW follows LIBRZ.DRW).
+DRW files can be edited with the DRAW.EXE program which comes with
+the SCORE editor.
 
 <p>
 Here is the binary version of a DRW file with the various components colored:
@@ -85,7 +86,7 @@ vectors.
 <br><span class="offsets">dc 00</span> &rarr; 200 &rarr; 235 &ndash; 220 = 15 numbers = 5 vectors for symbol 7
 <br><span class="offsets">eb 00</span> &rarr; 235 &rarr; 271 &ndash; 235 = 36 numbers = 12 vectors for symbol 8
 <br><span class="offsets">0f 01</span> &rarr; 271 &rarr; 292 &ndash; 271 = 21 numbers = 7 vectors for symbol 9
-<br><span class="offsets">24 01</span> &rarr; 292 &rarr; 291 vectors in file.
+<br><span class="offsets">24 01</span> &rarr; 292 &rarr; 291 data numbers in file &rarr; 97 vectors in file.
 </div>
 
 <p> The offset values should always increase, but may be set to 0 if there
