@@ -23,10 +23,20 @@ docslot:
 server: serve
 serve:
 	jekyll serve --watch --host 127.0.0.1 --port 4000
+	@echo "Go to the webpage: http://127.0.0.1:4000"
 
 
 sq: serve-quiet
 server-quiet: serve-quiet
 serve-quiet: 
-	jekyll serve --watch --host 127.0.0.1 --port 4000 &> /dev/null &
+	jekyll serve --detach --watch --host 127.0.0.1 --port 4000 &> /dev/null &
+	@echo "Go to the webpage: http://127.0.0.1:4000"
+
+
+kill:       stop-server
+ss:         stop-server
+stopserver: stop-server
+stop-server:
+	kill -9 `ps ax | grep "jekyll.*4000" | grep serve | sed 's/ .*//'`
+
 

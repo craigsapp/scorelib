@@ -2,10 +2,11 @@
 layout: default
 pagetitle:  SCORE data formats parsed by scorelib.
 grouptitle: ['/formats/', 'Data formats']
-group: [ 
-   ['/formats/binary/', binary], 
-   ['/formats/pmx/', PMX], 
-   ['/formats/ppmx/', PPMX] 
+group: [
+   ['/formats/binary/', binary],
+   ['/formats/pmx/', PMX],
+   ['/formats/ppmx/', PPMX],
+   ['/formats/drw/', DRW]
 ]
 ---
 
@@ -46,10 +47,13 @@ the SCORE editor as a macro will cause SCORE to write the individual
 pages into separte binary page files, using filenames given in the
 PPMX data.
 
+<h2><a href=drw>DRW (DRAW) files</a></h2>
 
-
-
-
-
+DRAW files are used to store the musical font used to typeset SCORE files. 
+They are binary files which store up to 10 symbols per file.  Typically
+DRAW files are stored in the LIB subdirectory, starting with LIBRA.DRW for 
+the first 10 symbols of the musical font, then LIBRB.DRW for the next 10,
+and so on.  DRW files can be edited with the DRAW.EXE program which comes
+with the SCORE editor.
 
 

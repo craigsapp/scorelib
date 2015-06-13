@@ -1,6 +1,6 @@
 ---
 layout: default
-persistent: formats/pmx
+permalink: formats/pmx/index.html
 breadcrumbs: [['/formats','formats']]
 javascript: ['js/turnonoff-sticky.html']
 pagetitle:  SCORE PMX data format
@@ -8,7 +8,8 @@ grouptitle: ['/formats', 'Data formats']
 group: [ 
    ['/formats/binary/', binary], 
    ['/formats/pmx/', PMX], 
-   ['/formats/ppmx/', PPMX] 
+   ['/formats/ppmx/', PPMX],
+   ['/formats/drw/', DRW] 
 ]
 ---
 

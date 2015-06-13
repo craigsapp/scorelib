@@ -1,14 +1,15 @@
 ---
 layout: default
-persistent: formats/binary
+permalink: formats/binary/index.html
 breadcrumbs: [['/formats','formats']]
 pagetitle:  Binary SCORE data file format
 javascript: ['js/decimal-align.html', 'js/turnonoff.html']
 grouptitle: ['/formats', 'Data formats']
-group: [ 
-   ['/formats/binary/', binary], 
-   ['/formats/pmx/', PMX], 
-   ['/formats/ppmx/', PPMX] 
+group: [
+   ['/formats/binary/', binary],
+   ['/formats/pmx/', PMX],
+   ['/formats/ppmx/', PPMX],
+   ['/formats/drw/', DRW]
 ]
 ---
 
@@ -47,8 +48,8 @@ this value is always a two-byte little-endian unsigned short int.
 Note however that the Windows version of SCORE can handle large
 page sizes, so if the word count exceeds 2<sup>16</sup>&ndash;1,
 then the byte-width of this word count will be changed to 4.
-The word count (&times; 4) is equivalent to the file size minus two or four 
-bytes, so this value serves little purpose other than to verify 
+The word count (&times; 4) is equivalent to the file size minus two or four
+bytes, so this value serves little purpose other than to verify
 the the data file has the expected number bytes.
 
 <p> In the example data, <span style="color:red;"><tt><b>19
@@ -154,13 +155,13 @@ indicating the measurement units, either 0.0 for inches or 1.0 for
 centimeters (this is needed for certain parameter configurations
 of staff items).  Before this is the program version number, preceded
 by the program serial number.  If more parameters were to be added
-to the trailer, the trailer word count would increase, and the 
+to the trailer, the trailer word count would increase, and the
 extra parameters would be immediately after the initial 0.0
 value at the start of the trailer.  If more parameters were to be added
-to the trailer, the trailer word count would increase, and the 
+to the trailer, the trailer word count would increase, and the
 extra parameters would be immediately after the initial 0.0
 value at the start of the trailer.  If more parameters were to be added
-to the trailer, the trailer word count would increase, and the 
+to the trailer, the trailer word count would increase, and the
 extra parameters would be immediately after the initial 0.0
 value at the start of the trailer.
 
