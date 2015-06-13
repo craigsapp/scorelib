@@ -161,11 +161,12 @@ to allowing fractional values for the coordinates.
 <ul>
 <li> 0 = draw a straight line from the previous point to the current point.
 <li> 1 = start a new line.
-<li> 2 = start a filled area.
+<li> 2 = start a filled area.  Note that all fill areas are also stroked (with
+     the width determined at print time, so filled areas are thinner than 
+     the final graphical shape which has an extra border due to the stroking.
 <li> 3 = start an unfilled area within a filled area.
 </ul>
 
 </ul>
-
 
 
