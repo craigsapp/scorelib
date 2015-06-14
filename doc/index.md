@@ -50,7 +50,7 @@ control-click to open a single function entry and close all others.
 Scorelib programs
 =================
 
-Scorelib includes a <a href="/programs">set of programs</a> which process
+Scorelib includes a <a href="/program">set of programs</a> which process
 SCORE data for various tasks.
 
 
@@ -64,6 +64,7 @@ Other SCORE documentation
 <li> <a href="staffp4p10/staffp10p4-20150423.pdf">Conversion between P4 and P10 vertical placement for staff items</a>.
 
 </ol>
+
 
 
 
