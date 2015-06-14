@@ -25,13 +25,9 @@ span.code {
 
 </style>
 
-The <<COMMAND>> program identifies measure numbers in SCORE data.
-Without options, the program will generate a list of identified
-measure numbers.  The <span class="option">l</span> will label
-the measure numbers with <span class="code">@function: barnum</span>
-parameters.  Using <span class="option">m</span> will also mark the
-associated barline with the measure number.
-
+The <<COMMAND>> program splits pages into individual files with one
+system per file. These can be used to prepare an online version of
+the score.
 
 @@BEGIN: OPTIONS
 @DEFAULTINFO: Outputs JSON formated list of identified measure numbers.

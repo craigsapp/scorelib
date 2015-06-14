@@ -12,6 +12,8 @@ Data files read by Scorelib
 <li> <a href="/formats/binary">Binary SCORE files</a> &mdash; typically ending in the extension ".mus" or ".pag". </li>
 <li> <a href="/formats/pmx"> ASCII SCORE parameter files</a> &mdash; typically ending in the extension ".pmx" or ".txt". </li>
 <li> <a href="/formats/ppmx"> Multi-page SCORE parameter files</a> &mdash; typically ending in the extension ".ppmx". </li>
+<li> <a href="/formats/drw"> DRAW files</a> &mdash; Vector graphics descriptions of musical font symbols.
+
 </ol>
 
 
@@ -45,6 +47,14 @@ Scorelib classes
 On class-documentation pages, press control-plus/equals to open 
 all documentation, control-minus to close all documetation, and
 control-click to open a single function entry and close all others.
+
+
+
+Scorelib programs
+=================
+
+Scorelib includes a <a href=/programs>set of programs</a> which process
+SCORE data for various tasks.
 
 
 Other SCORE documentation
