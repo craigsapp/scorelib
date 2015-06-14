@@ -1,0 +1,115 @@
+---
+layout: default
+breadcrumbs: [['/program','programs']]
+pagetitle:  Program&colon; webscore
+---
+
+@@BEGIN: MANPAGE
+@COMMAND: webscore
+@SUMMARY: Identify measure numbers in SCORE data.
+
+@ABSTRACT:
+
+<style>
+span.option::before {
+   content: "-";
+}
+
+span.option {
+   font-family: Courier, sans-serif;
+}
+
+span.code {
+   font-family: Courier, sans-serif;
+}
+
+</style>
+
+The <<COMMAND>> program identifies measure numbers in SCORE data.
+Without options, the program will generate a list of identified
+measure numbers.  The <span class="option">l</span> will label
+the measure numbers with <span class="code">@function: barnum</span>
+parameters.  Using <span class="option">m</span> will also mark the
+associated barline with the measure number.
+
+
+@@BEGIN: OPTIONS
+@DEFAULTINFO: Outputs JSON formated list of identified measure numbers.
+
+@OPTIONNAME: -i
+@OPTIONINFO: Include item index serial numbers.
+@OPTIONANCHOR: i_option
+
+@OPTIONNAME: -r
+@OPTIONINFO: Print replacement expressions.
+@OPTIONANCHOR: r_option
+
+@OPTIONNAME: -s
+@OPTIONINFO: Page index number for first system on extracted page.
+@OPTIONANCHOR: s_option
+
+@OPTIONNAME: -p
+@OPTIONINFO: Indicate part number in class tags.
+@OPTIONANCHOR: s_option
+
+@OPTIONNAME: -R
+@OPTIONINFO: Do not round quarter-note timestamps.
+@OPTIONANCHOR: s_option
+
+@OPTIONNAME: -A
+@OPTIONINFO: Do not label articulations.
+@OPTIONANCHOR: A_option
+
+@OPTIONNAME: -a
+@OPTIONINFO: Abbreviated markup.  Embed only note ids into font 99 text.
+Use -r option to create a side-channel markup file.
+@OPTIONANCHOR: a_option
+
+@OPTIONNAME: --aa
+@OPTIONINFO: Markup all items, not just notes.
+@OPTIONANCHOR: aa_option
+
+@OPTIONNAME: --sep string
+@OPTIONINFO: Separator between filename and system enumerator.
+@OPTIONANCHOR: sep_option
+
+@@END:   OPTIONS
+
+@DESCRIPTION:
+
+
+@EXAMPLES:
+
+
+Example webscores generated with this program:
+
+<ul style="padding-top: 20px;">
+<li> <a href="http://www.ccarh.org/haydn/op20n5">Haydn string quartet in F minor, Op. 20, No. 5 (Hob. III:35)</a>
+<div style="padding-left:50px">
+<p> Interesting features:
+<ul>
+<li> Click on a movement incipit to display the full movement.
+<li> Click on the full movement to display return to the incipit view.
+</ul>
+</p>
+<li> <a href="http://www.ccarh.org/chopin/op24n2">Chopin mazurka in A minor, Op. 24, No. 2</a>
+<div style="padding-left:50px">
+<p>
+This example demonstrates how to link an audio file to the score.
+Source code for the example can be found on <a href="https://github.com/craigsapp/chopin-mazurka24-2">Github</a>.
+</p>
+<p> Interesting features:
+<ul>
+<li> Click on the play button at the bottom of the screen to start playing 
+     the audio, or equivalently press the space bar., or press the space bar.
+<li> Click on any note to start playing the audio from that point in the
+     score.
+</ul>
+</p>
+</div>
+
+
+</ul>
+
+@@END: MANPAGE
+

@@ -1,0 +1,120 @@
+---
+layout: default
+breadcrumbs: [['/program','programs']]
+pagetitle:  Program&colon; webscore
+---
+
+
+ 
+ <style>
+ span.option::before {
+    content: "-";
+ }
+ 
+ span.option {
+    font-family: Courier, sans-serif;
+ }
+ 
+ span.code {
+    font-family: Courier, sans-serif;
+ }
+ 
+ </style>
+ 
+ The <i>webscore</i> program identifies measure numbers in SCORE data.
+ Without options, the program will generate a list of identified
+ measure numbers.  The <span class="option">l</span> will label
+ the measure numbers with <span class="code">@function: barnum</span>
+ parameters.  Using <span class="option">m</span> will also mark the
+ associated barline with the measure number.
+ 
+ 
+
+
+
+<a name=options></a>
+<h1>OPTIONS</h1>
+<table>
+<tr valign=baseline><td width=40><span style="line-height:100%; position:relative; top:0.1em;"><a title="more information for -i option" href="#i_option">&#x24d8;</a></span></td><td><tt>-i</tt></td><td width=10></td>
+<td>Include item index serial numbers.
+</td></tr>
+
+<tr valign=baseline><td width=40><span style="line-height:100%; position:relative; top:0.1em;"><a title="more information for -r option" href="#r_option">&#x24d8;</a></span></td><td><tt>-r</tt></td><td width=10></td>
+<td>Print replacement expressions.
+</td></tr>
+
+<tr valign=baseline><td width=40><span style="line-height:100%; position:relative; top:0.1em;"><a title="more information for -s option" href="#s_option">&#x24d8;</a></span></td><td><tt>-s</tt></td><td width=10></td>
+<td>Page index number for first system on extracted page.
+</td></tr>
+
+<tr valign=baseline><td width=40><span style="line-height:100%; position:relative; top:0.1em;"><a title="more information for -p option" href="#s_option">&#x24d8;</a></span></td><td><tt>-p</tt></td><td width=10></td>
+<td>Indicate part number in class tags.
+</td></tr>
+
+<tr valign=baseline><td width=40><span style="line-height:100%; position:relative; top:0.1em;"><a title="more information for -R option" href="#s_option">&#x24d8;</a></span></td><td><tt>-R</tt></td><td width=10></td>
+<td>Do not round quarter-note timestamps.
+</td></tr>
+
+<tr valign=baseline><td width=40><span style="line-height:100%; position:relative; top:0.1em;"><a title="more information for -A option" href="#A_option">&#x24d8;</a></span></td><td><tt>-A</tt></td><td width=10></td>
+<td>Do not label articulations.
+</td></tr>
+
+<tr valign=baseline><td width=40><span style="line-height:100%; position:relative; top:0.1em;"><a title="more information for -a option" href="#a_option">&#x24d8;</a></span></td><td><tt>-a</tt></td><td width=10></td>
+<td>Abbreviated markup.  Embed only note ids into font 99 text. Use -r option to create a side-channel markup file.
+
+</td></tr>
+
+<tr valign=baseline><td width=40><span style="line-height:100%; position:relative; top:0.1em;"><a title="more information for --aa option" href="#aa_option">&#x24d8;</a></span></td><td><tt><nobr><span style="font-size:80%; font-weight:600;">--aa</span></nobr></tt></td><td width=10></td>
+<td>Markup all items, not just notes.
+</td></tr>
+
+<tr valign=baseline><td width=40><span style="line-height:100%; position:relative; top:0.1em;"><a title="more information for --sep string option" href="#sep_option">&#x24d8;</a></span></td><td><tt><nobr><span style="font-size:80%; font-weight:600;">--sep string</span></nobr></tt></td><td width=10></td>
+<td>Separator between filename and system enumerator.
+</td></tr>
+</table>
+<a name=description> </a>
+
+<a name=examples> </a>
+
+<h1><i>EXAMPLES</i></h1>
+<ul> 
+ 
+ Example webscores generated with this program:
+ 
+ <ul style="padding-top: 20px;">
+ <li> <a href="http://www.ccarh.org/haydn/op20n5">Haydn string quartet in F minor, Op. 20, No. 5 (Hob. III:35)</a>
+ <div style="padding-left:50px">
+ <p> Interesting features:
+ <ul>
+ <li> Click on a movement incipit to display the full movement.
+ <li> Click on the full movement to display return to the incipit view.
+ </ul>
+ </p>
+ <li> <a href="http://www.ccarh.org/chopin/op24n2">Chopin mazurka in A minor, Op. 24, No. 2</a>
+ <div style="padding-left:50px">
+ <p>
+ This example demonstrates how to link an audio file to the score.
+ Source code for the example can be found on <a href="https://github.com/craigsapp/chopin-mazurka24-2">Github</a>.
+ </p>
+ <p> Interesting features:
+ <ul>
+ <li> Click on the play button at the bottom of the screen to start playing 
+      the audio, or equivalently press the space bar., or press the space bar.
+ <li> Click on any note to start playing the audio from that point in the
+      score.
+ </ul>
+ </p>
+ </div>
+ 
+ 
+ </ul>
+ 
+
+</ul>
+<a name=references></a>
+
+<a name=seealso></a>
+
+<a name=limitations></a>
+
+<a name=bugs></a>
