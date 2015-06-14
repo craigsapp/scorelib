@@ -16,8 +16,6 @@ Data files read by Scorelib
 </ol>
 
 
-
-
 Scorelib classes
 ================
 
