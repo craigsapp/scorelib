@@ -50,7 +50,7 @@ control-click to open a single function entry and close all others.
 Scorelib programs
 =================
 
-Scorelib includes a <a href=/programs>set of programs</a> which process
+Scorelib includes a <a href="/programs">set of programs</a> which process
 SCORE data for various tasks.
 
 
