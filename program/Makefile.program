@@ -3,6 +3,8 @@ BINDIR  = ../../bin
 COMMAND = $(BINDIR)/makeprogramindex
 GETSVG  = $(BINDIR)/score2svg
 
+.PHONY: build
+
 all: build
 
 build:

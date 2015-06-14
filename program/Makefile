@@ -3,7 +3,7 @@
 all: programs build
 
 build: 
-	(cd ../; $(MAKE) build)
+#	(cd ../; $(MAKE) build)
 
 
 programs:
