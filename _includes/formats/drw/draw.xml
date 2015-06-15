@@ -1,5 +1,5 @@
 &lt;?xml version="1.0" encoding="UTF-8"?&gt;
-&lt;FontLibrary&gt;
+&lt;MusicFontLibrary&gt;
 	&lt;symbol label="sharp" libIndex="0"&gt;
 		&lt;definition&gt;
 			&lt;vector x="90" y="-130 type="1"/&gt;
@@ -137,4 +137,4 @@
 			&lt;vector x="23" y="26 type="0"/&gt;
 		&lt;/definition&gt;
 	&lt;/symbol&gt;
-&lt;FontLibrary&gt;
+&lt;MusicFontLibrary&gt;
