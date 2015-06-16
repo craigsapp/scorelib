@@ -441,7 +441,6 @@ void processOptions(Options& opts, int argc, char** argv) {
                "Max. vertical pos. for page nums. above staff");
    opts.define("l|label=b", "Label barnum items");
    opts.process(argc, argv);
-   opts.process(argc, argv);
 
    if (opts.getBoolean("text-only")) {
       code10Q = 0;
