@@ -5,11 +5,12 @@ breadcrumbs: [['/formats','formats']]
 javascript: ['js/turnonoff-sticky.html']
 pagetitle:  SCORE PMX data format
 grouptitle: ['/formats', 'Data formats']
-group: [ 
-   ['/formats/binary/', binary], 
-   ['/formats/pmx/', PMX], 
+group: [
+   ['/formats/binary/', binary],
+   ['/formats/pmx/', PMX],
    ['/formats/ppmx/', PPMX],
-   ['/formats/drw/', DRW] 
+   ['/formats/drw/', DRW],
+   ['/formats/psc/', PSC]
 ]
 ---
 
@@ -39,7 +40,5 @@ Ravel String Quartet in F major, IV, mm. 105&ndash;108.
 {% include examples/ravel-quartet/ravel-markup.html %}
 </div>
 </div>
-
-
 
 

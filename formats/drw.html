@@ -5,11 +5,12 @@ breadcrumbs: [['/formats','formats']]
 javascript: ['js/turnonoff-sticky.html']
 pagetitle:  SCORE DRAW data format
 grouptitle: ['/formats', 'Data formats']
-group: [ 
-   ['/formats/binary/', binary], 
-   ['/formats/pmx/', PMX], 
+group: [
+   ['/formats/binary/', binary],
+   ['/formats/pmx/', PMX],
    ['/formats/ppmx/', PPMX],
-   ['/formats/drw/', DRW] 
+   ['/formats/drw/', DRW],
+   ['/formats/psc/', PSC]
 ]
 ---
 
@@ -27,7 +28,7 @@ Here is the binary version of a DRW file with the various components colored:
 
 
 <style>
-.drwbytes   { 
+.drwbytes   {
 	font-family: Courier, sans-serif;
 	font-weight: 600;
 	margin-top: 20px;
@@ -49,7 +50,7 @@ li {margin-top: 10px;}
 </style>
 
 <ul class="xlist" style="margin-top:20px;">
-<li> <span class="magic">first byte</span> &mdash; 
+<li> <span class="magic">first byte</span> &mdash;
 The first byte in a DRW file is always hex 4b, or decimal 180.
 
 <li> <span class="startsize">starting chunk size</span> &mdash;
@@ -59,7 +60,7 @@ the value which are data bytes.  The header chunk always has 72 (hex 48)
 bytes.  Vector data chunks usually have 129
 
 <li> <span class="endsize">ending chunk size</span> &mdash;
-All chunks except the last one are terminated with a duplicate 
+All chunks except the last one are terminated with a duplicate
 byte count for the chunk.  This byte is not considered when counting
 the bytes in the header chunk, but is considered when counting the
 bytes in subsequent vector data chunks.
@@ -70,7 +71,7 @@ each symbol.  The offsets are themselves given as two-byte integers
 in little endian format.  There are always 11 offset numbers (22 bytes),
 with the first offset always being 1.  The count of numbers in
 each symbol's vector is the next offset minus the current offset, with
-the last offset giving the total count of numbers in the list of 
+the last offset giving the total count of numbers in the list of
 vectors.
 
 <p> For this example:</p>
@@ -90,12 +91,12 @@ vectors.
 </div>
 
 <p> The offset values should always increase, but may be set to 0 if there
-is no symbol for the given position.  The last number is always the 
-total number of bytes in the vectors plus one (which may repeat the 
+is no symbol for the given position.  The last number is always the
+total number of bytes in the vectors plus one (which may repeat the
 value of the last non-zero entry.
 
 <p> The differences between successive offsets must always be divisible
-by three without a remainder.  The byte size of the first symbol in this 
+by three without a remainder.  The byte size of the first symbol in this
 example is 37 &ndash; 1 = 36, which is divisible by three.  This means
 that there are 12 vectors defining the first symbol in the file.
 
@@ -149,12 +150,12 @@ sizes are not counted in the header offsets.
 </div>
 
 <p> The first two numbers describe the horizontal and vertical
-positions of a point in the outline of a font.  The origin is at (0, 0) and 
-coordinates can be positive or negative.  Coordinates can only be 
+positions of a point in the outline of a font.  The origin is at (0, 0) and
+coordinates can be positive or negative.  Coordinates can only be
 two-byte signed integers.  The default scale means that the height of
 a staff space is 7 units.  Typically symbols will be described at a larger
 scale and then shrunk when placing on the page.  For example the treble clef
-symbol is described at 8 times its normal scaling.  This is equivalent 
+symbol is described at 8 times its normal scaling.  This is equivalent
 to allowing fractional values for the coordinates.
 
 <p> The third number in a vector triplet describes operations on the outline:
@@ -163,7 +164,7 @@ to allowing fractional values for the coordinates.
 <li> 0 = draw a straight line from the previous point to the current point.
 <li> 1 = start a new line.
 <li> 2 = start a filled area.  Note that all fill areas are also stroked (with
-     the width determined at print time, so filled areas are thinner than 
+     the width determined at print time, so filled areas are thinner than
      the final graphical shape which has an extra border due to the stroking.
 <li> 3 = start an unfilled area within a filled area.
 </ul>

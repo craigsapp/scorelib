@@ -6,7 +6,8 @@ group: [
    ['/formats/binary/', binary],
    ['/formats/pmx/', PMX],
    ['/formats/ppmx/', PPMX],
-   ['/formats/drw/', DRW]
+   ['/formats/drw/', DRW],
+   ['/formats/psc/', PSC]
 ]
 ---
 
@@ -55,5 +56,16 @@ DRAW files are stored in the LIB subdirectory, starting with LIBRA.DRW for
 the first 10 symbols of the musical font, then LIBRB.DRW for the next 10,
 and so on.  DRW files can be edited with the DRAW.EXE program which comes
 with the SCORE editor.
+
+<h2><a href=psc>PSC files</a></h2>
+
+"PSC" files are used to store the width of text characters in various
+fonts used within text (code 16) items.  They are binary files
+that store 163 character widths in two forms: (1) the character plus
+the padding space after the character that separates it from the
+following character, and (2) the width of the character without the
+padding.  The second value is used to calculate the lengths of string,
+which considers the padded width of each character except the last one.
+
 
 

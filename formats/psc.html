@@ -1,0 +1,82 @@
+---
+layout: default
+permalink: formats/psc/index.html
+breadcrumbs: [['/formats','formats']]
+javascript: ['js/turnonoff-sticky.html']
+pagetitle:  SCORE PSC data format
+grouptitle: ['/formats', 'Data formats']
+group: [
+   ['/formats/binary/', binary],
+   ['/formats/pmx/', PMX],
+   ['/formats/ppmx/', PPMX],
+   ['/formats/drw/', DRW],
+   ['/formats/psc/', PSC]
+]
+---
+
+"PSC" files are used to store the width of text characters in various
+fonts used within text (code 16) items.  They are binary files
+that store 163 character widths in two forms: (1) the character plus
+the padding space after the character that separates it from the
+following character, and (2) the width of the character without the
+padding.  The second value is used to calculate the lengths of string,
+which considers the padded width of each character except the last one.
+
+<p>
+PSC files are stored in the LIB directory with one font set described
+in each file.  The filename for each PSC file starts with "FM" and then
+a two digit number which matches the font number in code 16 items, such
+as FM00.PSC for the Times-Roman font.
+</p>
+
+
+<p>
+Here is the binary version of a PSC file with the various components colored:
+</p>
+
+
+<style>
+.pscbytes   {
+	font-family: Courier, sans-serif;
+	font-weight: 600;
+	margin-top: 20px;
+}
+span.byte       { color: gray;    font-family: Courier, sans-serif; font-weight: 600; }
+span.name       { color: green;   font-family: Courier, sans-serif; font-weight: 600; }
+span.startchunk { color: red;     font-family: Courier, sans-serif; font-weight: 600; }
+span.endchunk   { color: orange;  font-family: Courier, sans-serif; font-weight: 600; }
+span.numbers    { color: black;   font-family: Courier, sans-serif; font-weight: 600; }
+</style>
+
+<div class="pscbytes">
+{% include /formats/psc/psc.html %}
+</div>
+
+
+
+
+<p>The meaning of each colored section:</p>
+
+<style>
+li {margin-top: 10px;}
+</style>
+
+<ul class="xlist" style="margin-top:20px;">
+<li> <span class="byte">first byte</span> &mdash;
+The first byte in a DRW file is always hex 4b, or decimal 180.
+
+<li> <span class="startchunk">starting chunk size</span> &mdash;
+
+<li> <span class="endchunk">ending chunk size</span> &mdash;
+
+<li> <span class="name">font name</span> &mdash;
+
+<li> <span class="numbers">width data</span> &mdash;
+
+</ul>
+
+
+<h2> ASCII encodings of PSC data </h2>
+
+
+
