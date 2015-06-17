@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Documentation
-persistent: doc
+persistent: /doc
 pagetitle:  Scorelib Documentation
 ---
 
@@ -13,6 +13,7 @@ Data files read by Scorelib
 <li> <a href="/formats/pmx"> ASCII SCORE parameter files</a> &mdash; typically ending in the extension ".pmx" or ".txt". </li>
 <li> <a href="/formats/ppmx"> Multi-page SCORE parameter files</a> &mdash; typically ending in the extension ".ppmx". </li>
 <li> <a href="/formats/drw"> DRAW files</a> &mdash; Vector graphics descriptions of musical font symbols.</li>
+<li> <a href="/formats/psc"> PSC files</a> &mdash; Character width information.</li>
 </ol>
 
 

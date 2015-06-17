@@ -1,6 +1,6 @@
 ---
 layout: default
-permalink: formats/pmx/index.html
+permalink: /formats/pmx/index.html
 breadcrumbs: [['/formats','formats']]
 javascript: ['js/turnonoff-sticky.html']
 pagetitle:  SCORE PMX data format
