@@ -52,9 +52,6 @@ span.numbers    { color: black;   font-family: Courier, sans-serif; font-weight:
 {% include /formats/psc/psc.html %}
 </div>
 
-
-
-
 <p>The meaning of each colored section:</p>
 
 <style>
@@ -62,18 +59,99 @@ li {margin-top: 10px;}
 </style>
 
 <ul class="xlist" style="margin-top:20px;">
-<li> <span class="byte">first byte</span> &mdash;
-The first byte in a DRW file is always hex 4b, or decimal 180.
+<li> <span class="byte">first/last byte</span> &mdash;
+The first byte in a PSC file is always hex 4b, or decimal 75.
+The last byte in a PSC file is always hex 82, or decimal 130.
 
 <li> <span class="startchunk">starting chunk size</span> &mdash;
+Data in the file are groupped into chunks.  Each chunk starts 
+with a byte which indicates the number of bytes in the chunk.
+This byte is not counted as part of the chunk.
 
 <li> <span class="endchunk">ending chunk size</span> &mdash;
+The starting chunk size is repeated at the end of the chunk.
+This byte is counted as being part of the chunk.
 
 <li> <span class="name">font name</span> &mdash;
+The font name consists of the first 28 bytes of the first chunk.
+If the font name is shorter than 28 characters, then the rest of 
+this field is padded with spaces (hex 20).  If the font name is
+longer than 28 bytes, then the name of the font is truncated.
 
 <li> <span class="numbers">width data</span> &mdash;
+After the 28-charcter font name comes a list of 326 short (signed) 
+little-endian ints. These numbers continue through the rest of the
+chunks to the end of the file.  The first 163 numbers are the width
+of the character at that enumeration, including the inter-character
+padding space on the right side of the character.  The second 163
+numbers are the widths of the character without the space padding.
 
 </ul>
+
+<h2> Character enumeration </h2>
+
+<p style="padding-bottom:20px;"> The following table gives the character enumeration for the
+widths found in a PSC file:
+</p>
+
+{% include /formats/psc/character-table.html %}
+
+<p> For example the first character at position 00 in the above table 
+has its width incding the inter-character padding as index 0 in the
+list of widths, and the with without padding at index 163.
+
+
+
+<h2> Default font enumerations </h2>
+
+<pre>
+_00 Times Roman
+_01 Times Bold
+_02 Times Italic
+_03 Times BoldItalic
+_04 Helvetica
+_05 Helvetica Bold
+_06 Helvetica Oblique
+_07 Helvetica BoldOblique
+_08 Helvetica Narrow
+_09 Helvetica Narrow Bold
+_10 Helvetica Narrow Oblique
+_11 Helvetica Narrow BoldOblique
+_12 Palatino Roman
+_13 Palatino Bold
+_14 Palatino Italic
+_15 Palatino BoldItalic
+_16 Avant Garde Book
+_17 Avant Garde BookOblique
+_18 Avant Garde Demi
+_19 Avon/ Garde DemiOblique
+_20 Bookman Light
+_21 Bookman LightItalic
+_22 Bookman Demi
+_23 Bookman DemiItalic
+_24 New Century Schoolbook Roman
+_25 New Century Schoolbook Bold
+_26 New Century Schoolbook Italic
+_27 New Century Schoolbook BoldItalic
+_28 Zapf Chancery Medium Italic
+_29 Courier
+_30 Courier Bold
+_31 Courier Oblique
+_32 Courier BoldOblique
+_33 Symbol
+_34 Zapf Dingbats
+
+Built in fonts not recommended for PostScript printing (other than _94):
+_90 Bodoni
+_91 Bodoni Bold
+_92 Bodoni Italic
+_92 Bodoni Bold Italic
+_94 Music Symbols
+_98 Prinitive (stick letters)
+_99 PostScript code escape string
+</pre>
+
+
 
 
 <h2> ASCII encodings of PSC data </h2>
