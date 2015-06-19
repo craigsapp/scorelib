@@ -1,0 +1,57 @@
+---
+layout: default
+breadcrumbs: [['/program','programs']]
+pagetitle:  Program&colon; ismusnum
+---
+
+@@BEGIN: MANPAGE
+@COMMAND: ismusnum
+@SUMMARY: Identify binary SCORE files.
+
+@ABSTRACT:
+
+<style>
+span.option::before {
+   content: "-";
+}
+
+span.option {
+   font-family: Courier, sans-serif;
+}
+
+span.code {
+   font-family: Courier, sans-serif;
+}
+
+</style>
+
+The <<COMMAND>> program identifies binary SCORE files.
+SCORE binary files usually end in ".mus", but they can also be
+found with other extensions, such as ".pag" for explicitly 
+indicating a full page of music, or ".pt" to indicate a instrumental
+part.
+
+@@BEGIN: OPTIONS
+@DEFAULTINFO: Mark each input file with YES if it is a binary SCORE file,
+     or NO if not a binary SCORE files.
+
+@OPTIONNAME: -b
+@OPTIONINFO: List only bad files (files which are not binary SCORE files).
+@OPTIONANCHOR: b_option
+
+@OPTIONNAME: -g
+@OPTIONINFO: List only good files (files which are binary SCORE files).
+@OPTIONANCHOR: g_option
+
+@OPTIONNAME: -r
+@OPTIONINFO: Recursively search all input directories for binary SCORE files.
+@OPTIONANCHOR: r_option
+
+@@END:   OPTIONS
+
+@DESCRIPTION:
+
+@@END: MANPAGE
+
+
+
