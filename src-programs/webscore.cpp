@@ -75,7 +75,7 @@ void addIndexNumbers(ScorePageSet& infiles) {
    for (i=0; i<infiles.getPageCount(); i++) {
       listSIp& list = infiles.getPage(i)->lowLevelDataAccess();
       for (auto it : list) {
-         it->setParameter("index", index++);
+         it->setParameterNoisy("index", index++);
       }
    }
 }

@@ -158,10 +158,10 @@ void ScoreItemEdit::clearParameter(const string& key) {
 
 /////////////////////////////
 //
-// setParameter --
+// setParameterNoisy --
 //
 
-void ScoreItemEdit::setParameter(const string& nspace, const string& key,
+void ScoreItemEdit::setParameterNoisy(const string& nspace, const string& key,
       const string& value) {
    if (historyIsActive()) {
       if (historyIsThawed()) {
@@ -177,39 +177,39 @@ void ScoreItemEdit::setParameter(const string& nspace, const string& key,
          appendToHistory(nspace, key, 1, value);
       }
    }
-   ScoreItemBase::setParameter(nspace, key, value);
+   ScoreItemBase::setParameterNoisy(nspace, key, value);
 }
 
 
-void ScoreItemEdit::setParameter(const string& nspace, const string& key,
+void ScoreItemEdit::setParameterNoisy(const string& nspace, const string& key,
       int value) {
-   setParameter(nspace, key, to_string(value));
+   setParameterNoisy(nspace, key, to_string(value));
 }
 
 
-void ScoreItemEdit::setParameter(const string& nspace, const string& key,
+void ScoreItemEdit::setParameterNoisy(const string& nspace, const string& key,
       SCORE_FLOAT value) {
-   setParameter(nspace, key, to_string(value));
+   setParameterNoisy(nspace, key, to_string(value));
 }
 
 
-void ScoreItemEdit::setParameter(const string& key,
+void ScoreItemEdit::setParameterNoisy(const string& key,
       const string& value) {
-   setParameter("", key, value);
+   setParameterNoisy("", key, value);
 }
 
 
-void ScoreItemEdit::setParameter(const string& key, int value) {
-   setParameter("", key, value);
+void ScoreItemEdit::setParameterNoisy(const string& key, int value) {
+   setParameterNoisy("", key, value);
 }
 
 
-void ScoreItemEdit::setParameter(const string& key, SCORE_FLOAT value) {
-   setParameter("", key, value);
+void ScoreItemEdit::setParameterNoisy(const string& key, SCORE_FLOAT value) {
+   setParameterNoisy("", key, value);
 }
 
 
-void ScoreItemEdit::setParameter(int index, SCORE_FLOAT value) {
+void ScoreItemEdit::setParameterNoisy(int index, SCORE_FLOAT value) {
    if (historyIsActive()) {
       if (historyIsThawed()) {
          incrementHistoryIndex();
@@ -220,7 +220,7 @@ void ScoreItemEdit::setParameter(int index, SCORE_FLOAT value) {
       }
       appendToHistory(index, currentValue, value);
    }
-   ScoreItemBase::setParameter(index, value);
+   ScoreItemBase::setParameterNoisy(index, value);
 }
 
 
@@ -247,41 +247,41 @@ void ScoreItemEdit::setFixedText(const string& text) {
 
 // Aliases for the above functions:
 
-void ScoreItemEdit::setP(const string& nspace, const string& key,
+void ScoreItemEdit::setPN(const string& nspace, const string& key,
       const string& value) {
-   setParameter(nspace, key, value);
+   setParameterNoisy(nspace, key, value);
 }
 
 
-void ScoreItemEdit::setP(const string& nspace, const string& key,
+void ScoreItemEdit::setPN(const string& nspace, const string& key,
       int value) {
-   setParameter(nspace, key, value);
+   setParameterNoisy(nspace, key, value);
 }
 
 
-void ScoreItemEdit::setP(const string& nspace, const string& key,
+void ScoreItemEdit::setPN(const string& nspace, const string& key,
       SCORE_FLOAT value) {
-   setParameter(nspace, key, value);
+   setParameterNoisy(nspace, key, value);
 }
 
 
-void ScoreItemEdit::setP(const string& key, const string& value) {
-   setParameter("", key, value);
+void ScoreItemEdit::setPN(const string& key, const string& value) {
+   setParameterNoisy("", key, value);
 }
 
 
-void ScoreItemEdit::setP(const string& key, int value) {
-   setParameter("", key, value);
+void ScoreItemEdit::setPN(const string& key, int value) {
+   setParameterNoisy("", key, value);
 }
 
 
-void ScoreItemEdit::setP(const string& key, SCORE_FLOAT value) {
-   setParameter("", key, value);
+void ScoreItemEdit::setPN(const string& key, SCORE_FLOAT value) {
+   setParameterNoisy("", key, value);
 }
 
 
-void ScoreItemEdit::setP(int index, SCORE_FLOAT value) {
-   setParameter(index, value);
+void ScoreItemEdit::setPN(int index, SCORE_FLOAT value) {
+   setParameterNoisy(index, value);
 }
 
 

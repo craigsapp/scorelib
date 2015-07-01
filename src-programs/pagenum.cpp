@@ -168,7 +168,7 @@ void identifyPageNumber(ScoreItem* item, int pageindex, int pagecount) {
    int pagenum = 0;
 
    if (labelQ) {
-      item->setParameter(np_function, "pagenum");
+      item->setParameterNoisy(np_function, "pagenum");
    } else {
       if (pageindex == 0) {
          cout << '[';

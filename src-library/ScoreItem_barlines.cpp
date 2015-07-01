@@ -40,6 +40,7 @@ int ScoreItem::getBarlineHeight(void) {
       p4 = (-p4) % 100;
       return p4;
    }
+   return 0;
 }
 
 

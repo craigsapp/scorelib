@@ -40,32 +40,32 @@ class ScoreItemEdit : public ScoreItemBase {
       int           getHistoryIndex      (void);
 
       // Namespace accessor functions
-      void          setParameter     (const string& nspace, const string& key,
+      void          setParameterNoisy(const string& nspace, const string& key,
                                       const string& value);
-      void          setParameter     (const string& nspace, const string& key,
+      void          setParameterNoisy(const string& nspace, const string& key,
                                       int value);
-      void          setParameter     (const string& nspace, const string& key,
+      void          setParameterNoisy(const string& nspace, const string& key,
                                       SCORE_FLOAT value);
       // Global accessor functions
-      void          setParameter     (const string& key, const string& value);
-      void          setParameter     (const string& key, int value);
-      void          setParameter     (const string& key, SCORE_FLOAT value);
+      void          setParameterNoisy(const string& key, const string& value);
+      void          setParameterNoisy(const string& key, int value);
+      void          setParameterNoisy(const string& key, SCORE_FLOAT value);
 
-      void          setParameter     (int index, SCORE_FLOAT value);
+      void          setParameterNoisy(int index, SCORE_FLOAT value);
       void          setFixedText     (const string& text);
 
       // Accessor function aliases:
-      void          setP             (const string& nspace, const string& key,
+      void          setPN            (const string& nspace, const string& key,
                                       const string& value);
-      void          setP             (const string& nspace, const string& key,
+      void          setPN            (const string& nspace, const string& key,
                                       int value);
-      void          setP             (const string& nspace, const string& key,
+      void          setPN            (const string& nspace, const string& key,
                                       SCORE_FLOAT value);
-      void          setP             (const string& key, const string& value);
-      void          setP             (const string& key, int value);
-      void          setP             (const string& key, SCORE_FLOAT value);
+      void          setPN            (const string& key, const string& value);
+      void          setPN            (const string& key, int value);
+      void          setPN            (const string& key, SCORE_FLOAT value);
 
-      void          setP             (int index, SCORE_FLOAT value);
+      void          setPN            (int index, SCORE_FLOAT value);
 
       void          deleteNamespace  (const string& nspace);
       void          eraseNamespace   (const string& nspace);

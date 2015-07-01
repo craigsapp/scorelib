@@ -396,6 +396,9 @@ SCORE_FLOAT ScoreItemBase::getParameterFraction(int pindex) {
 //     first argument is an integer, or set a named parameter if the
 //     first argument is a string.
 //
+//  *Noisy = break analysis constructs
+//  *Quiet = don't break analysis constructs
+//
 
 void ScoreItemBase::setParameterQuiet(const string& nspace, const string& key,
       const string& value) {
@@ -426,7 +429,7 @@ void ScoreItemBase::storeAutoAddress(void) {
 }
 
 
-void ScoreItemBase::setParameter(const string& nspace, const string& key,
+void ScoreItemBase::setParameterNoisy(const string& nspace, const string& key,
       const string& value) {
    setParameterQuiet(nspace, key, value);
    notifyPageOfChange("named");
@@ -435,38 +438,39 @@ void ScoreItemBase::setParameter(const string& nspace, const string& key,
 
 // Aliases and variants of named parameter setting:
 
-void ScoreItemBase::setParameter(const string& nspace, const string& key,
+void ScoreItemBase::setParameterNoisy(const string& nspace, const string& key,
       int value) {
-   setParameter(nspace, key, to_string(value));
+   setParameterNoisy(nspace, key, to_string(value));
 }
 
 
-void ScoreItemBase::setParameter(const string& nspace, const string& key,
+void ScoreItemBase::setParameterNoisy(const string& nspace, const string& key,
       SCORE_FLOAT value) {
    char buffer[32];
    sprintf(buffer, "%g", value);
-   setParameter(nspace, key, buffer);
+   string nstring = buffer;
+   setParameterNoisy(nspace, key, nstring);
 }
 
 
-void ScoreItemBase::setParameter(const string& key, const string& value) {
-   setParameter("", key, value);
+void ScoreItemBase::setParameterNoisy(const string& key, const string& value) {
+   setParameterNoisy("", key, value);
 }
 
 
-void ScoreItemBase::setParameter(const string& key, int value) {
-   setParameter("", key, to_string(value));
+void ScoreItemBase::setParameterNoisy(const string& key, int value) {
+   setParameterNoisy("", key, to_string(value));
 }
 
 
-void ScoreItemBase::setParameter(const string& key, SCORE_FLOAT value) {
+void ScoreItemBase::setParameterNoisy(const string& key, SCORE_FLOAT value) {
    char buffer[32];
    sprintf(buffer, "%g", value);
-   setParameter("", key, buffer);
+   setParameterNoisy("", key, buffer);
 }
 
 
-void ScoreItemBase::setParameter(int index, SCORE_FLOAT value) {
+void ScoreItemBase::setParameterNoisy(int index, SCORE_FLOAT value) {
    if ((value < 0.0001) && (value > -0.0001)) {
       value = 0;
    }
@@ -490,105 +494,105 @@ void ScoreItemBase::setParameter(int index, SCORE_FLOAT value) {
 
 // Aliases for the above functions:
 
-void ScoreItemBase::setP(const string& nspace, const string& key,
+void ScoreItemBase::setPN(const string& nspace, const string& key,
       const string& value) {
-   setParameter(nspace, key, value);
+   setParameterNoisy(nspace, key, value);
 }
 
 
-void ScoreItemBase::setP(const string& nspace, const string& key,
+void ScoreItemBase::setPN(const string& nspace, const string& key,
       int value) {
-   setParameter(nspace, key, value);
+   setParameterNoisy(nspace, key, value);
 }
 
 
-void ScoreItemBase::setP(const string& nspace, const string& key,
+void ScoreItemBase::setPN(const string& nspace, const string& key,
       SCORE_FLOAT value) {
-   setParameter(nspace, key, value);
+   setParameterNoisy(nspace, key, value);
 }
 
 
-void ScoreItemBase::setP(const string& key, const string& value) {
-   setParameter("", key, value);
+void ScoreItemBase::setPN(const string& key, const string& value) {
+   setParameterNoisy("", key, value);
 }
 
 
-void ScoreItemBase::setP(const string& key, int value) {
-   setParameter("", key, value);
+void ScoreItemBase::setPN(const string& key, int value) {
+   setParameterNoisy("", key, value);
 }
 
 
-void ScoreItemBase::setP(const string& key, SCORE_FLOAT value) {
-   setParameter("", key, value);
+void ScoreItemBase::setPN(const string& key, SCORE_FLOAT value) {
+   setParameterNoisy("", key, value);
 }
 
 
-void ScoreItemBase::setP(int index, SCORE_FLOAT value) {
-   setParameter(index, value);
+void ScoreItemBase::setPN(int index, SCORE_FLOAT value) {
+   setParameterNoisy(index, value);
 }
 
 
-void ScoreItemBase::setParameter1(_SF  value) { setParameter(P1,  value); }
-void ScoreItemBase::setParameter2(_SF  value) { setParameter(P2,  value); }
-void ScoreItemBase::setParameter3(_SF  value) { setParameter(P3,  value); }
-void ScoreItemBase::setParameter4(_SF  value) { setParameter(P4,  value); }
-void ScoreItemBase::setParameter5(_SF  value) { setParameter(P5,  value); }
-void ScoreItemBase::setParameter6(_SF  value) { setParameter(P6,  value); }
-void ScoreItemBase::setParameter7(_SF  value) { setParameter(P7,  value); }
-void ScoreItemBase::setParameter8(_SF  value) { setParameter(P8,  value); }
-void ScoreItemBase::setParameter9(_SF  value) { setParameter(P9,  value); }
-void ScoreItemBase::setParameter10(_SF value) { setParameter(P10, value); }
-void ScoreItemBase::setParameter11(_SF value) { setParameter(P11, value); }
-void ScoreItemBase::setParameter12(_SF value) { setParameter(P12, value); }
-void ScoreItemBase::setParameter13(_SF value) { setParameter(P13, value); }
-void ScoreItemBase::setParameter14(_SF value) { setParameter(P14, value); }
-void ScoreItemBase::setParameter15(_SF value) { setParameter(P15, value); }
-void ScoreItemBase::setParameter16(_SF value) { setParameter(P16, value); }
-void ScoreItemBase::setParameter17(_SF value) { setParameter(P17, value); }
-void ScoreItemBase::setParameter18(_SF value) { setParameter(P18, value); }
-void ScoreItemBase::setParameter19(_SF value) { setParameter(P19, value); }
-void ScoreItemBase::setParameter20(_SF value) { setParameter(P20, value); }
-void ScoreItemBase::setParameter21(_SF value) { setParameter(P21, value); }
-void ScoreItemBase::setParameter22(_SF value) { setParameter(P22, value); }
-void ScoreItemBase::setParameter23(_SF value) { setParameter(P23, value); }
-void ScoreItemBase::setParameter24(_SF value) { setParameter(P24, value); }
-void ScoreItemBase::setParameter25(_SF value) { setParameter(P25, value); }
-void ScoreItemBase::setParameter26(_SF value) { setParameter(P26, value); }
-void ScoreItemBase::setParameter27(_SF value) { setParameter(P27, value); }
-void ScoreItemBase::setParameter28(_SF value) { setParameter(P28, value); }
-void ScoreItemBase::setParameter29(_SF value) { setParameter(P29, value); }
-void ScoreItemBase::setParameter30(_SF value) { setParameter(P30, value); }
+void ScoreItemBase::setParameter1Noisy(_SF  value) { setParameterNoisy(P1,  value); }
+void ScoreItemBase::setParameter2Noisy(_SF  value) { setParameterNoisy(P2,  value); }
+void ScoreItemBase::setParameter3Noisy(_SF  value) { setParameterNoisy(P3,  value); }
+void ScoreItemBase::setParameter4Noisy(_SF  value) { setParameterNoisy(P4,  value); }
+void ScoreItemBase::setParameter5Noisy(_SF  value) { setParameterNoisy(P5,  value); }
+void ScoreItemBase::setParameter6Noisy(_SF  value) { setParameterNoisy(P6,  value); }
+void ScoreItemBase::setParameter7Noisy(_SF  value) { setParameterNoisy(P7,  value); }
+void ScoreItemBase::setParameter8Noisy(_SF  value) { setParameterNoisy(P8,  value); }
+void ScoreItemBase::setParameter9Noisy(_SF  value) { setParameterNoisy(P9,  value); }
+void ScoreItemBase::setParameter10Noisy(_SF value) { setParameterNoisy(P10, value); }
+void ScoreItemBase::setParameter11Noisy(_SF value) { setParameterNoisy(P11, value); }
+void ScoreItemBase::setParameter12Noisy(_SF value) { setParameterNoisy(P12, value); }
+void ScoreItemBase::setParameter13Noisy(_SF value) { setParameterNoisy(P13, value); }
+void ScoreItemBase::setParameter14Noisy(_SF value) { setParameterNoisy(P14, value); }
+void ScoreItemBase::setParameter15Noisy(_SF value) { setParameterNoisy(P15, value); }
+void ScoreItemBase::setParameter16Noisy(_SF value) { setParameterNoisy(P16, value); }
+void ScoreItemBase::setParameter17Noisy(_SF value) { setParameterNoisy(P17, value); }
+void ScoreItemBase::setParameter18Noisy(_SF value) { setParameterNoisy(P18, value); }
+void ScoreItemBase::setParameter19Noisy(_SF value) { setParameterNoisy(P19, value); }
+void ScoreItemBase::setParameter20Noisy(_SF value) { setParameterNoisy(P20, value); }
+void ScoreItemBase::setParameter21Noisy(_SF value) { setParameterNoisy(P21, value); }
+void ScoreItemBase::setParameter22Noisy(_SF value) { setParameterNoisy(P22, value); }
+void ScoreItemBase::setParameter23Noisy(_SF value) { setParameterNoisy(P23, value); }
+void ScoreItemBase::setParameter24Noisy(_SF value) { setParameterNoisy(P24, value); }
+void ScoreItemBase::setParameter25Noisy(_SF value) { setParameterNoisy(P25, value); }
+void ScoreItemBase::setParameter26Noisy(_SF value) { setParameterNoisy(P26, value); }
+void ScoreItemBase::setParameter27Noisy(_SF value) { setParameterNoisy(P27, value); }
+void ScoreItemBase::setParameter28Noisy(_SF value) { setParameterNoisy(P28, value); }
+void ScoreItemBase::setParameter29Noisy(_SF value) { setParameterNoisy(P29, value); }
+void ScoreItemBase::setParameter30Noisy(_SF value) { setParameterNoisy(P30, value); }
 
-void ScoreItemBase::setP1(SCORE_FLOAT  value) { setParameter(P1,  value); }
-void ScoreItemBase::setP2(SCORE_FLOAT  value) { setParameter(P2,  value); }
-void ScoreItemBase::setP3(SCORE_FLOAT  value) { setParameter(P3,  value); }
-void ScoreItemBase::setP4(SCORE_FLOAT  value) { setParameter(P4,  value); }
-void ScoreItemBase::setP5(SCORE_FLOAT  value) { setParameter(P5,  value); }
-void ScoreItemBase::setP6(SCORE_FLOAT  value) { setParameter(P6,  value); }
-void ScoreItemBase::setP7(SCORE_FLOAT  value) { setParameter(P7,  value); }
-void ScoreItemBase::setP8(SCORE_FLOAT  value) { setParameter(P8,  value); }
-void ScoreItemBase::setP9(SCORE_FLOAT  value) { setParameter(P9,  value); }
-void ScoreItemBase::setP10(SCORE_FLOAT value) { setParameter(P10, value); }
-void ScoreItemBase::setP11(SCORE_FLOAT value) { setParameter(P11, value); }
-void ScoreItemBase::setP12(SCORE_FLOAT value) { setParameter(P12, value); }
-void ScoreItemBase::setP13(SCORE_FLOAT value) { setParameter(P13, value); }
-void ScoreItemBase::setP14(SCORE_FLOAT value) { setParameter(P14, value); }
-void ScoreItemBase::setP15(SCORE_FLOAT value) { setParameter(P15, value); }
-void ScoreItemBase::setP16(SCORE_FLOAT value) { setParameter(P16, value); }
-void ScoreItemBase::setP17(SCORE_FLOAT value) { setParameter(P17, value); }
-void ScoreItemBase::setP18(SCORE_FLOAT value) { setParameter(P18, value); }
-void ScoreItemBase::setP19(SCORE_FLOAT value) { setParameter(P19, value); }
-void ScoreItemBase::setP20(SCORE_FLOAT value) { setParameter(P20, value); }
-void ScoreItemBase::setP21(SCORE_FLOAT value) { setParameter(P21, value); }
-void ScoreItemBase::setP22(SCORE_FLOAT value) { setParameter(P22, value); }
-void ScoreItemBase::setP23(SCORE_FLOAT value) { setParameter(P23, value); }
-void ScoreItemBase::setP24(SCORE_FLOAT value) { setParameter(P24, value); }
-void ScoreItemBase::setP25(SCORE_FLOAT value) { setParameter(P25, value); }
-void ScoreItemBase::setP26(SCORE_FLOAT value) { setParameter(P26, value); }
-void ScoreItemBase::setP27(SCORE_FLOAT value) { setParameter(P27, value); }
-void ScoreItemBase::setP28(SCORE_FLOAT value) { setParameter(P28, value); }
-void ScoreItemBase::setP29(SCORE_FLOAT value) { setParameter(P29, value); }
-void ScoreItemBase::setP30(SCORE_FLOAT value) { setParameter(P30, value); }
+void ScoreItemBase::setP1N(SCORE_FLOAT  value) { setParameterNoisy(P1,  value); }
+void ScoreItemBase::setP2N(SCORE_FLOAT  value) { setParameterNoisy(P2,  value); }
+void ScoreItemBase::setP3N(SCORE_FLOAT  value) { setParameterNoisy(P3,  value); }
+void ScoreItemBase::setP4N(SCORE_FLOAT  value) { setParameterNoisy(P4,  value); }
+void ScoreItemBase::setP5N(SCORE_FLOAT  value) { setParameterNoisy(P5,  value); }
+void ScoreItemBase::setP6N(SCORE_FLOAT  value) { setParameterNoisy(P6,  value); }
+void ScoreItemBase::setP7N(SCORE_FLOAT  value) { setParameterNoisy(P7,  value); }
+void ScoreItemBase::setP8N(SCORE_FLOAT  value) { setParameterNoisy(P8,  value); }
+void ScoreItemBase::setP9N(SCORE_FLOAT  value) { setParameterNoisy(P9,  value); }
+void ScoreItemBase::setP10N(SCORE_FLOAT value) { setParameterNoisy(P10, value); }
+void ScoreItemBase::setP11N(SCORE_FLOAT value) { setParameterNoisy(P11, value); }
+void ScoreItemBase::setP12N(SCORE_FLOAT value) { setParameterNoisy(P12, value); }
+void ScoreItemBase::setP13N(SCORE_FLOAT value) { setParameterNoisy(P13, value); }
+void ScoreItemBase::setP14N(SCORE_FLOAT value) { setParameterNoisy(P14, value); }
+void ScoreItemBase::setP15N(SCORE_FLOAT value) { setParameterNoisy(P15, value); }
+void ScoreItemBase::setP16N(SCORE_FLOAT value) { setParameterNoisy(P16, value); }
+void ScoreItemBase::setP17N(SCORE_FLOAT value) { setParameterNoisy(P17, value); }
+void ScoreItemBase::setP18N(SCORE_FLOAT value) { setParameterNoisy(P18, value); }
+void ScoreItemBase::setP19N(SCORE_FLOAT value) { setParameterNoisy(P19, value); }
+void ScoreItemBase::setP20N(SCORE_FLOAT value) { setParameterNoisy(P20, value); }
+void ScoreItemBase::setP21N(SCORE_FLOAT value) { setParameterNoisy(P21, value); }
+void ScoreItemBase::setP22N(SCORE_FLOAT value) { setParameterNoisy(P22, value); }
+void ScoreItemBase::setP23N(SCORE_FLOAT value) { setParameterNoisy(P23, value); }
+void ScoreItemBase::setP24N(SCORE_FLOAT value) { setParameterNoisy(P24, value); }
+void ScoreItemBase::setP25N(SCORE_FLOAT value) { setParameterNoisy(P25, value); }
+void ScoreItemBase::setP26N(SCORE_FLOAT value) { setParameterNoisy(P26, value); }
+void ScoreItemBase::setP27N(SCORE_FLOAT value) { setParameterNoisy(P27, value); }
+void ScoreItemBase::setP28N(SCORE_FLOAT value) { setParameterNoisy(P28, value); }
+void ScoreItemBase::setP29N(SCORE_FLOAT value) { setParameterNoisy(P29, value); }
+void ScoreItemBase::setP30N(SCORE_FLOAT value) { setParameterNoisy(P30, value); }
 
 
 //////////////////////////////
@@ -697,7 +701,7 @@ int ScoreItemBase::changeNamespace(const string& newspace,
    if (!isDefined(oldspace, parameter)) {
       return 0;
    }
-   setParameter(newspace, parameter, getParameter(oldspace, parameter));
+   setParameterNoisy(newspace, parameter, getParameter(oldspace, parameter));
    deleteParameter(oldspace, parameter);
    // deleteParameter does notifyPageOfChange("named");
    return 1;
@@ -1161,14 +1165,14 @@ void ScoreItemBase::readBinary(istream& instream, int pcount) {
    }
    setFixedParameterAllocation(pcount+1);
    SCORE_FLOAT value = readLittleEndianFloat(instream);;
-   setParameter(P1, value);
+   setParameterNoisy(P1, value);
 
    if (getPInt(P1) == P1_Text) {
       setFixedParameterAllocation(14+1);
       for (i=P2; i<P14; i++) {
          value = readLittleEndianFloat(instream);
-         // setParameter(i, roundFractionDigits(value, 3));
-         setParameter(i, value);
+         // setParameterNoisy(i, roundFractionDigits(value, 3));
+         setParameterNoisy(i, value);
       }
       int count = getPInt(P12);
       char buffer[1024] = {0};
@@ -1195,7 +1199,7 @@ void ScoreItemBase::readBinary(istream& instream, int pcount) {
    } else {
       // non-text data parameters
       for (i=P2; i<=pcount; i++) {
-         setParameter(i, readLittleEndianFloat(instream));
+         setParameterNoisy(i, readLittleEndianFloat(instream));
       }
    }
 }

@@ -143,7 +143,7 @@ void ScoreItem::setParameterDigit(int pindex, int position, int value) {
    int olddigit = (int(newvalue / (SCORE_FLOAT)pow(10, position)) % 10);
    newvalue -= olddigit * pow(10, position);
    newvalue += value * pow(10, position);
-   setP(pindex, newvalue*sign);
+   setPN(pindex, newvalue*sign);
 }
 
 // Alias:
@@ -176,7 +176,7 @@ void ScoreItem::setParameterIntegerPart(int pindex, int intval) {
       result += intval;
    }
 
-   setParameter(pindex, result);
+   setParameterNoisy(pindex, result);
 }
 
 // Alias:
@@ -197,7 +197,7 @@ void ScoreItem::setPIntPart(int pindex, int intval) {
 void ScoreItem::copyParameterOverwrite(const string& newnamespace,
       const string& oldnamespace, const string& parameter) {
    if (isDefined(oldnamespace, parameter)) {
-      setParameter(newnamespace, parameter,
+      setParameterNoisy(newnamespace, parameter,
             getParameter(oldnamespace, parameter));
    }
 }
@@ -214,7 +214,7 @@ void ScoreItem::copyParameterNoOverwrite(const string& newnamespace,
       const string& oldnamespace, const string& parameter) {
    if (!isDefined(newnamespace, parameter)) {
       if (isDefined(oldnamespace, parameter)) {
-         setParameter(newnamespace, parameter,
+         setParameterNoisy(newnamespace, parameter,
                getParameter(oldnamespace, parameter));
       }
    }
@@ -244,7 +244,7 @@ int ScoreItem::getItemType(void) {
 //
 
 void ScoreItem::setItemType(SCORE_FLOAT type) {
-   setP1(type);
+   setP1N(type);
 }
 
 
@@ -380,7 +380,7 @@ SCORE_FLOAT ScoreItem::getHPosL(void) {
 //
 
 void ScoreItem::setHorizontalPosition(SCORE_FLOAT pos) {
-   setP3(pos);
+   setP3N(pos);
 }
 
 
@@ -653,7 +653,7 @@ RationalNumber ScoreItem::getDurationIncludingDots(void) {
 
 void ScoreItem::setStaffOffsetDuration(SCORE_FLOAT duration) {
 //   staff_duration_offset = duration;
-   setParameter(ns_auto, np_staffOffsetDuration, duration);
+   setParameterNoisy(ns_auto, np_staffOffsetDuration, duration);
 }
 
 

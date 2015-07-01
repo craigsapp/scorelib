@@ -125,7 +125,7 @@ void ScoreItem::convertStaffP4ToP10Inches(void) {
 
 void ScoreItem::convertStaffP4ToP10Centimeters(void) {
    convertStaffP4ToP10Inches();
-   setP10(getP10() * 2.54);
+   setP10N(getP10() * 2.54);
 }
 
 
@@ -190,10 +190,10 @@ void ScoreItem::setStaffP4FromP10Inches(SCORE_FLOAT p10) {
    SCORE_FLOAT p4;
    SCORE_FLOAT p5 = getScale();
    p4 = (p10 / 0.04375 - 18.0 * (p2 - 1)) / p5;
-   setP4(p4);
+   setP4N(p4);
    // P10 should no longer being used, so must clear
    // that parameter to make P4 visible.
-   setP10(0.0);
+   setP10N(0.0);
 }
 
 
@@ -224,9 +224,9 @@ void ScoreItem::setStaffP10InchesFromP4Value(SCORE_FLOAT p4) {
    int p2 = (int)getStaffNumber();
    SCORE_FLOAT p5 = getScale();
    SCORE_FLOAT p10 = (p2 - 1) * 0.7875 + p4 * p5 * 0.04375;
-   setP10(p10);
+   setP10N(p10);
    // P4 is no longer being used, so clear that parameter if not zero:
-   setP4(0.0);
+   setP4N(0.0);
 }
 
 
@@ -239,7 +239,7 @@ void ScoreItem::setStaffP10InchesFromP4Value(SCORE_FLOAT p4) {
 
 void ScoreItem::setStaffP10CentimetersFromP4Value(SCORE_FLOAT p4) {
    setStaffP10InchesFromP4Value(p4);
-   setP10(getP10() * 2.54);
+   setP10N(getP10() * 2.54);
 }
 
 
@@ -251,15 +251,15 @@ void ScoreItem::setStaffP10CentimetersFromP4Value(SCORE_FLOAT p4) {
 
 void ScoreItem::makeInvisible(void) {
    if (isStaffItem()) {
-      setP7(-1.0);
+      setP7N(-1.0);
       return;
    } else if (isRestItem()) {
-      setP6(-1.0);
+      setP6N(-1.0);
       return;
    } else if (isBarlineItem()) {
       double p4 = getP4();
       if (p4 > 0.0) {
-         setP4(-p4);
+         setP4N(-p4);
       }
    }
    // make other types of items invisible here.

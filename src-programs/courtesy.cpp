@@ -144,7 +144,7 @@ void doHighlightStyle(ScorePage& infile, Options& opts) {
 
    ScoreItem tempitem;
    tempitem.makeSvgCode("<g color=\"red\" stroke=\"red\">");
-   tempitem.setParameter("markup", "1");
+   tempitem.setParameterNoisy("markup", "1");
    cout << tempitem;
    cout << endl;
 
@@ -158,7 +158,7 @@ void doHighlightStyle(ScorePage& infile, Options& opts) {
          tempitem = *item;
          tempitem.removeArticulation();
          tempitem.hideStem();
-         tempitem.setParameter("markup", "1");
+         tempitem.setParameterNoisy("markup", "1");
          if (!opts.getBoolean("analysis")) {
             tempitem.deleteNamespace("analysis");
          }
@@ -167,7 +167,7 @@ void doHighlightStyle(ScorePage& infile, Options& opts) {
    }
 
    tempitem.makeSvgCode("</g>");
-   tempitem.setParameter("markup", "1");
+   tempitem.setParameterNoisy("markup", "1");
    cout << endl;
    cout << tempitem;
    cout << endl;

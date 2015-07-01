@@ -345,7 +345,7 @@ void ScoreItem::removeArticulation(void) {
    if (!isNoteItem()) {
       return;
    }
-   setParameter(P11, 0.0);
+   setParameterNoisy(P11, 0.0);
 }
 
 
@@ -437,7 +437,7 @@ void ScoreItem::hideNotehead(void) {
    if (!isNoteItem()) {
       return;
    }
-   setParameter(P6, 7);
+   setParameterNoisy(P6, 7);
 }
 
 

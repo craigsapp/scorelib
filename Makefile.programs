@@ -7,16 +7,16 @@
 ## Description:   This Makefile creates programs which use the scorelib library.
 ##
 ## To run this makefile, type (without quotes) "make -f Makefile.programs",
-## (or "gmake -f Makefile.library" on FreeBSD computers). Although it is 
-## intended to be used with the file "Makefile" which runs this makefile with 
-## the command "make programs".  The program executables will be placed 
+## (or "gmake -f Makefile.library" on FreeBSD computers). Although it is
+## intended to be used with the file "Makefile" which runs this makefile with
+## the command "make programs".  The program executables will be placed
 ## in the bin directory.  Note that you have to first create the library
 ## files with the makefile "Makefile.library" using the command "make library",
 ## or type "make" to first compile the library and then the programs.
 ##
-## Without arguments or with the argument "programs", this makefile will 
-## compile all programs.  If you give a program name as an argument, it 
-## will compile just that program. E.g.: "make -f Makefile.programs courtesy" 
+## Without arguments or with the argument "programs", this makefile will
+## compile all programs.  If you give a program name as an argument, it
+## will compile just that program. E.g.: "make -f Makefile.programs courtesy"
 ## or used in conjunction with "Makefile", type "make courtesy", which will
 ## compile the "courtesy" program and place it in the ./bin directory.
 ##
@@ -31,7 +31,7 @@
 # "10.6" in Apple OS X to compile for OS X 10.6 and later (for example,
 # you can compile for OS X 10.6 computers even if you are using a 10.6
 # computer).  C++11 probably requires a minimum of OS X 10.6.
-ENV = 
+ENV =
 
 # if OSTYPE is not defined, then this if statement will be run:
 ifeq ($(origin OSTYPE), undefined)
@@ -40,11 +40,11 @@ ifeq ($(origin OSTYPE), undefined)
       ENV = MACOSX_DEPLOYMENT_TARGET=10.6
       # use the following to compile for 32-bit architecture on 64-bit comps:
       #ARCH = -m32 -arch i386
-   else 
+   else
       OSTYPE = LINUX
       # use the following to compile for 32-bit architecture on 64-bit comps:
       # (you will need 32-bit libraries in order to do this)
-      # ARCH = -m32 
+      # ARCH = -m32
    endif
 endif
 # Next if statement needed for some versions of make which already set OSTYPE:
@@ -52,7 +52,7 @@ ifeq ($(OSTYPE),linux)
    OSTYPE = LINUX
    # use the following to compile for 32-bit architecture on 64-bit comps:
    # (you will need 32-bit libraries in order to do this)
-   # ARCH = -m32 
+   # ARCH = -m32
 endif
 
 # Cygwin (and MinGW?) adds the string ".exe" to the end of compiled programs.

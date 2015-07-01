@@ -91,7 +91,7 @@ scripts:
 	(cd scripts && $(MAKE) install)
 	
 install:
-	cp  bin/* /usr/local/bin
+	-cp  bin/* /usr/local/bin
 
 #                                                                         #
 #                                                                         #

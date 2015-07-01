@@ -458,16 +458,16 @@ void ScorePageSet::adjustHyphenInfo(vectorSIp& items, int staffnum) {
          // set text to have a hyphenBefore, it is a word extender
          // then don't do anything.
          if (lastitem->getParameterBool(ns_auto, np_lyricsHyphen)) {
-            items[i]->setParameter(ns_auto, np_hyphenBefore, "true");
+            items[i]->setParameterNoisy(ns_auto, np_hyphenBefore, "true");
          }
       } else if (p1 == P1_Line) {
          // previous item is text.  If this is a hyphen, then set
          // text to have a hyphenAfter.  If this is a wordExtension,
          // then indicate on the previous text item.
          if (items[i]->getParameterBool(ns_auto, np_wordExtension)) {
-            lastitem->setParameter(ns_auto, np_wordExtension, "true");
+            lastitem->setParameterNoisy(ns_auto, np_wordExtension, "true");
          } else if (items[i]->getParameterBool(ns_auto, np_lyricsHyphen)) {
-            lastitem->setParameter(ns_auto, np_hyphenAfter, "true");
+            lastitem->setParameterNoisy(ns_auto, np_hyphenAfter, "true");
          }
       }
    }
@@ -502,11 +502,11 @@ int ScorePageSet::addVerseLine(vectorVSIp& vertical, int newnum,
             continue;
          }
          output = 1;
-         si->setParameter(ns_auto, np_verseLine, to_string(newnum));
+         si->setParameterNoisy(ns_auto, np_verseLine, to_string(newnum));
          if (si->isDashedLine()) {
-            si->setParameter(ns_auto, np_lyricsHyphen, "true");
+            si->setParameterNoisy(ns_auto, np_lyricsHyphen, "true");
          } else if (si->isPlainLine()) {
-            si->setParameter(ns_auto, np_wordExtension, "true");
+            si->setParameterNoisy(ns_auto, np_wordExtension, "true");
          }
       }
    }
@@ -536,7 +536,7 @@ void ScorePageSet::changeVerseLine(vectorVSIp& vertical, int oldnum, int newnum,
              (si->getParameterInt(ns_auto, np_verseLine) != oldnum)) {
             continue;
          }
-         si->setParameter(ns_auto, np_verseLine, to_string(newnum));
+         si->setParameterNoisy(ns_auto, np_verseLine, to_string(newnum));
       }
    }
 }
@@ -804,7 +804,7 @@ void ScorePageSet::processVerse(int verse, int vpos,
       if (srecord->isDefined(ns_lyrics, np_verseLine)) {
          srecord->copyParameterOverwrite(ns_auto, ns_lyrics, np_verseLine);
       } else {
-         srecord->setParameter(ns_auto, np_verseLine, verse+1);
+         srecord->setParameterNoisy(ns_auto, np_verseLine, verse+1);
                                            // offset by 1 for data so
                                            // that 0 can mean not a lyric
       }
@@ -826,27 +826,27 @@ void ScorePageSet::processVerse(int verse, int vpos,
                   srecord->copyParameterOverwrite(ns_auto, ns_lyrics,
                         np_hyphenAfter);
                } else {
-                  srecord->setParameter(ns_auto, np_hyphenAfter, "true");
+                  srecord->setParameterNoisy(ns_auto, np_hyphenAfter, "true");
                }
                if (snext->isDefined(ns_lyrics, np_lyricsHyphen)) {
                   snext->copyParameterOverwrite(ns_auto, ns_lyrics,
                         np_lyricsHyphen);
                } else {
-                  snext->setParameter(ns_auto, np_lyricsHyphen, "true");
+                  snext->setParameterNoisy(ns_auto, np_lyricsHyphen, "true");
                }
             } else if (snext->isPlainLine()) {
                if (srecord->isDefined(ns_lyrics, np_wordExtension)) {
                   srecord->copyParameterOverwrite(ns_auto, ns_lyrics,
                         np_wordExtension);
                } else {
-                  srecord->setParameter(ns_auto, np_wordExtension, "true");
+                  srecord->setParameterNoisy(ns_auto, np_wordExtension, "true");
                }
 
                if (snext->isDefined(ns_lyrics, np_wordExtension)) {
                   snext->copyParameterOverwrite(ns_auto, ns_lyrics,
                         np_wordExtension);
                } else {
-                  snext->setParameter(ns_auto, np_wordExtension, "true");
+                  snext->setParameterNoisy(ns_auto, np_wordExtension, "true");
                }
 
             }
@@ -858,14 +858,14 @@ void ScorePageSet::processVerse(int verse, int vpos,
                   srecord->copyParameterOverwrite(ns_auto, ns_lyrics,
                         np_hyphenBefore);
                } else {
-                  srecord->setParameter(ns_auto, np_hyphenBefore, "true");
+                  srecord->setParameterNoisy(ns_auto, np_hyphenBefore, "true");
                }
 
                if (slast->isDefined(ns_lyrics, np_lyricsHyphen)) {
                   slast->copyParameterOverwrite(ns_auto, ns_lyrics,
                         np_lyricsHyphen);
                } else {
-                  slast->setParameter(ns_auto, np_lyricsHyphen, "true");
+                  slast->setParameterNoisy(ns_auto, np_lyricsHyphen, "true");
                }
 
             }

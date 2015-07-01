@@ -4,13 +4,13 @@
 ## Last Modified: Fri Apr 11 23:42:42 PDT 2014
 ## Filename:      ...scorelib/Makefile.library
 ##
-## Description:   This Makefile creates the score library 
+## Description:   This Makefile creates the score library
 ##                lib/libscorelib.a and lib/libscoreeditlib.a
 ##
 ## To run this makefile, type (without quotes) "make -f Makefile.library",
-## (or "gmake -f Makefile.library" on FreeBSD computers). Although it is 
-## intended to be used with the file "Makefile" which runs this makefile with 
-## the command "make library".  After the library file is created, you 
+## (or "gmake -f Makefile.library" on FreeBSD computers). Although it is
+## intended to be used with the file "Makefile" which runs this makefile with
+## the command "make library".  After the library file is created, you
 ## can compile specific programs with the Makefile.programs file.
 ##
 ## The scorelib library is written using the C++11 standard.  C++11 is fully
@@ -29,7 +29,7 @@ ARCH =
 # "10.4" in Apple OS X to compile for OS X 10.4 and later (for example,
 # you can compile for OS X 10.4 computers even if you are using a 10.6
 # computer).
-ENV = 
+ENV =
 
 # if OSTYPE is not defined, then this if statement will be run:
 ifeq ($(origin OSTYPE), undefined)
@@ -38,11 +38,11 @@ ifeq ($(origin OSTYPE), undefined)
       ENV = MACOSX_DEPLOYMENT_TARGET=10.6
       # use the following to compile for 32-bit architecture on 64-bit comps:
       #ARCH = -m32 -arch i386
-   else 
+   else
       OSTYPE = LINUX
       # use the following to compile for 32-bit architecture on 64-bit comps:
       # (you will need 32-bit libraries in order to do this)
-      # ARCH = -m32 
+      # ARCH = -m32
    endif
 endif
 # Next if statement needed for some versions of make which already set OSTYPE:
@@ -50,7 +50,7 @@ ifeq ($(OSTYPE),linux)
    OSTYPE = LINUX
    # use the following to compile for 32-bit architecture on 64-bit comps:
    # (you will need 32-bit libraries in order to do this)
-   # ARCH = -m32 
+   # ARCH = -m32
 endif
 
 
@@ -66,7 +66,7 @@ INCDIR        = include
 LIBDIR        = lib
 LIBFILE       = libscorelib.a
 LIBFILE_EDIT  = libscoreeditlib.a
-COMPILER      = LANG=C $(ENV) g++ $(ARCH) 
+COMPILER      = LANG=C $(ENV) g++ $(ARCH)
 AR            = ar
 RANLIB        = ranlib
 
@@ -79,7 +79,7 @@ PREFLAGS += -O3
 PREFLAGS += -std=c++11
 
 # Add -static flag to compile without dynamics libraries for better portability:
-POSTFLAGS = 
+POSTFLAGS =
 # POSTFLAGS += -static
 
 
@@ -118,21 +118,21 @@ library: $(OBJS)
    ifeq ($(OSTYPE),LINUX)
 	@echo "Creating score library file for linux..."
 	@-rm -f $(LIBDIR)/$(LIBFILE)
-	@$(AR) r $(LIBDIR)/$(LIBFILE) $(OBJDIR)/*.o 
+	@$(AR) r $(LIBDIR)/$(LIBFILE) $(OBJDIR)/*.o
 	@$(RANLIB) $(LIBDIR)/$(LIBFILE)
    endif
 
    ifeq ($(OSTYPE),OSXOLD)
 	@echo "Creating score library file for OSX (PowerPC)..."
 	@-rm -f $(LIBDIR)/$(LIBFILE)
-	@$(AR) r $(LIBDIR)/$(LIBFILE) $(OBJDIR)/*.o 
+	@$(AR) r $(LIBDIR)/$(LIBFILE) $(OBJDIR)/*.o
 	@$(RANLIB) $(LIBDIR)/$(LIBFILE)
    endif
 
    ifeq ($(OSTYPE),OSXPC)
 	@echo "Creating score library file for OSX (Intel)..."
 	@-rm -f $(LIBDIR)/$(LIBFILE)
-	@$(AR) r $(LIBDIR)/$(LIBFILE) $(OBJDIR)/*.o 
+	@$(AR) r $(LIBDIR)/$(LIBFILE) $(OBJDIR)/*.o
 	@$(RANLIB) $(LIBDIR)/$(LIBFILE)
    endif
 
@@ -146,21 +146,21 @@ libraryedit: $(OBJS)
    ifeq ($(OSTYPE),LINUX)
 	@echo "Creating score-edit library file for linux..."
 	@-rm -f $(LIBDIR)/$(LIBFILE_EDIT)
-	@$(AR) r $(LIBDIR)/$(LIBFILE_EDIT) $(OBJDIR_EDIT)/*.o 
+	@$(AR) r $(LIBDIR)/$(LIBFILE_EDIT) $(OBJDIR_EDIT)/*.o
 	@$(RANLIB) $(LIBDIR)/$(LIBFILE_EDIT)
    endif
 
    ifeq ($(OSTYPE),OSXOLD)
 	@echo "Creating score-edit library file for OSX (PowerPC)..."
 	@-rm -f $(LIBDIR)/$(LIBFILE_EDIT)
-	@$(AR) r $(LIBDIR)/$(LIBFILE_EDIT) $(OBJDIR_EDIT)/*.o 
+	@$(AR) r $(LIBDIR)/$(LIBFILE_EDIT) $(OBJDIR_EDIT)/*.o
 	@$(RANLIB) $(LIBDIR)/$(LIBFILE_EDIT)
    endif
 
    ifeq ($(OSTYPE),OSXPC)
 	@echo "Creating score-edit library file for OSX (Intel)..."
 	@-rm -f $(LIBDIR)/$(LIBFILE_EDIT)
-	@$(AR) r $(LIBDIR)/$(LIBFILE_EDIT) $(OBJDIR_EDIT)/*.o 
+	@$(AR) r $(LIBDIR)/$(LIBFILE_EDIT) $(OBJDIR_EDIT)/*.o
 	@$(RANLIB) $(LIBDIR)/$(LIBFILE_EDIT)
    endif
 
@@ -181,7 +181,7 @@ clean:
 	@-rmdir $(OBJDIR_EDIT)
 
 
-makedirs: 
+makedirs:
 	@-mkdir -p $(OBJDIR)
 	@-mkdir -p $(OBJDIR_EDIT)
 	@-mkdir -p $(LIBDIR)
@@ -214,7 +214,7 @@ makedirs:
 #    cc -std=c++11 -Iinclude -MM $i | sed 's/include\///g; s/src-library\///g'
 #    echo ""
 # done
-# 
+#
 
 AddressSystem.o: AddressSystem.cpp AddressSystem.h \
  ScoreDefs.h ScoreNamedParameters.h BoundVector.h \

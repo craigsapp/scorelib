@@ -237,7 +237,7 @@ void  identifyFingerNumbers(ScorePage& infile, int pageindex, int staffnum,
 
 void identifyFingerNumber(ScoreItem* sip) {
    if (labelQ) {
-      sip->setParameter(np_function, "fingering");
+      sip->setParameterNoisy(np_function, "fingering");
       return;
    } else {
       if (sip->isNumberItem()) {

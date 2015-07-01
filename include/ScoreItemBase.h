@@ -157,15 +157,29 @@ class ScoreItemBase {
       SCORE_FLOAT   getParameterFraction(int pindex);
 
       // namespaced parameters
+
+/*
       void          setParameter      (const string& nspace,
                                        const string& key, const string& value);
       void          setParameter      (const string& nspace,
                                        const string& key, int value);
       void          setParameter      (const string& nspace,
                                        const string& key, SCORE_FLOAT value);
+*/
+
       int           changeNamespace   (const string& newspace,
                                        const string& oldspace,
                                        const string& parameter);
+
+      void          setParameterNoisy (const string& nspace,
+                                       const string& key, const string& value);
+      void          setParameterNoisy (const string& nspace,
+                                       const string& key, int value);
+      void          setParameterNoisy (const string& nspace,
+                                       const string& key, SCORE_FLOAT value);
+      void          setParameterNoisy (const string& nspace,
+                                       const string& key, void* pointer);
+
       void          setParameterQuiet (const string& nspace,
                                        const string& key, const string& value);
       void          setParameterQuiet (const string& nspace,
@@ -174,78 +188,79 @@ class ScoreItemBase {
                                        const string& key, SCORE_FLOAT value);
       void          setParameterQuiet (const string& nspace,
                                        const string& key, void* pointer);
+
       void          storeAutoAddress  (void);
 
 
       // global namespace parameters
-      void          setParameter      (const string& key, const string& value);
-      void          setParameter      (const string& key, int value);
-      void          setParameter      (const string& key, SCORE_FLOAT value);
+      void          setParameterNoisy (const string& key, const string& value);
+      void          setParameterNoisy (const string& key, int value);
+      void          setParameterNoisy (const string& key, SCORE_FLOAT value);
 
       // numeric parameters
-      void          setParameter      (int index, SCORE_FLOAT value);
+      void          setParameterNoisy   (int index, SCORE_FLOAT value);
 
-      void          setParameter1     (SCORE_FLOAT value);
-      void          setParameter2     (SCORE_FLOAT value);
-      void          setParameter3     (SCORE_FLOAT value);
-      void          setParameter4     (SCORE_FLOAT value);
-      void          setParameter5     (SCORE_FLOAT value);
-      void          setParameter6     (SCORE_FLOAT value);
-      void          setParameter7     (SCORE_FLOAT value);
-      void          setParameter8     (SCORE_FLOAT value);
-      void          setParameter9     (SCORE_FLOAT value);
-      void          setParameter10    (SCORE_FLOAT value);
-      void          setParameter11    (SCORE_FLOAT value);
-      void          setParameter12    (SCORE_FLOAT value);
-      void          setParameter13    (SCORE_FLOAT value);
-      void          setParameter14    (SCORE_FLOAT value);
-      void          setParameter15    (SCORE_FLOAT value);
-      void          setParameter16    (SCORE_FLOAT value);
-      void          setParameter17    (SCORE_FLOAT value);
-      void          setParameter18    (SCORE_FLOAT value);
-      void          setParameter19    (SCORE_FLOAT value);
-      void          setParameter20    (SCORE_FLOAT value);
-      void          setParameter21    (SCORE_FLOAT value);
-      void          setParameter22    (SCORE_FLOAT value);
-      void          setParameter23    (SCORE_FLOAT value);
-      void          setParameter24    (SCORE_FLOAT value);
-      void          setParameter25    (SCORE_FLOAT value);
-      void          setParameter26    (SCORE_FLOAT value);
-      void          setParameter27    (SCORE_FLOAT value);
-      void          setParameter28    (SCORE_FLOAT value);
-      void          setParameter29    (SCORE_FLOAT value);
-      void          setParameter30    (SCORE_FLOAT value);
+      void          setParameter1Noisy  (SCORE_FLOAT value);
+      void          setParameter2Noisy  (SCORE_FLOAT value);
+      void          setParameter3Noisy  (SCORE_FLOAT value);
+      void          setParameter4Noisy  (SCORE_FLOAT value);
+      void          setParameter5Noisy  (SCORE_FLOAT value);
+      void          setParameter6Noisy  (SCORE_FLOAT value);
+      void          setParameter7Noisy  (SCORE_FLOAT value);
+      void          setParameter8Noisy  (SCORE_FLOAT value);
+      void          setParameter9Noisy  (SCORE_FLOAT value);
+      void          setParameter10Noisy (SCORE_FLOAT value);
+      void          setParameter11Noisy (SCORE_FLOAT value);
+      void          setParameter12Noisy (SCORE_FLOAT value);
+      void          setParameter13Noisy (SCORE_FLOAT value);
+      void          setParameter14Noisy (SCORE_FLOAT value);
+      void          setParameter15Noisy (SCORE_FLOAT value);
+      void          setParameter16Noisy (SCORE_FLOAT value);
+      void          setParameter17Noisy (SCORE_FLOAT value);
+      void          setParameter18Noisy (SCORE_FLOAT value);
+      void          setParameter19Noisy (SCORE_FLOAT value);
+      void          setParameter20Noisy (SCORE_FLOAT value);
+      void          setParameter21Noisy (SCORE_FLOAT value);
+      void          setParameter22Noisy (SCORE_FLOAT value);
+      void          setParameter23Noisy (SCORE_FLOAT value);
+      void          setParameter24Noisy (SCORE_FLOAT value);
+      void          setParameter25Noisy (SCORE_FLOAT value);
+      void          setParameter26Noisy (SCORE_FLOAT value);
+      void          setParameter27Noisy (SCORE_FLOAT value);
+      void          setParameter28Noisy (SCORE_FLOAT value);
+      void          setParameter29Noisy (SCORE_FLOAT value);
+      void          setParameter30Noisy (SCORE_FLOAT value);
 
-      void          setP1             (SCORE_FLOAT value);
-      void          setP2             (SCORE_FLOAT value);
-      void          setP3             (SCORE_FLOAT value);
-      void          setP4             (SCORE_FLOAT value);
-      void          setP5             (SCORE_FLOAT value);
-      void          setP6             (SCORE_FLOAT value);
-      void          setP7             (SCORE_FLOAT value);
-      void          setP8             (SCORE_FLOAT value);
-      void          setP9             (SCORE_FLOAT value);
-      void          setP10            (SCORE_FLOAT value);
-      void          setP11            (SCORE_FLOAT value);
-      void          setP12            (SCORE_FLOAT value);
-      void          setP13            (SCORE_FLOAT value);
-      void          setP14            (SCORE_FLOAT value);
-      void          setP15            (SCORE_FLOAT value);
-      void          setP16            (SCORE_FLOAT value);
-      void          setP17            (SCORE_FLOAT value);
-      void          setP18            (SCORE_FLOAT value);
-      void          setP19            (SCORE_FLOAT value);
-      void          setP20            (SCORE_FLOAT value);
-      void          setP21            (SCORE_FLOAT value);
-      void          setP22            (SCORE_FLOAT value);
-      void          setP23            (SCORE_FLOAT value);
-      void          setP24            (SCORE_FLOAT value);
-      void          setP25            (SCORE_FLOAT value);
-      void          setP26            (SCORE_FLOAT value);
-      void          setP27            (SCORE_FLOAT value);
-      void          setP28            (SCORE_FLOAT value);
-      void          setP29            (SCORE_FLOAT value);
-      void          setP30            (SCORE_FLOAT value);
+      void          setP1N            (SCORE_FLOAT value);
+      void          setP2N            (SCORE_FLOAT value);
+      void          setP3N            (SCORE_FLOAT value);
+      void          setP4N            (SCORE_FLOAT value);
+      void          setP5N            (SCORE_FLOAT value);
+      void          setP6N            (SCORE_FLOAT value);
+      void          setP7N            (SCORE_FLOAT value);
+      void          setP8N            (SCORE_FLOAT value);
+      void          setP9N            (SCORE_FLOAT value);
+      void          setP10N           (SCORE_FLOAT value);
+      void          setP11N           (SCORE_FLOAT value);
+      void          setP12N           (SCORE_FLOAT value);
+      void          setP13N           (SCORE_FLOAT value);
+      void          setP14N           (SCORE_FLOAT value);
+      void          setP15N           (SCORE_FLOAT value);
+      void          setP16N           (SCORE_FLOAT value);
+      void          setP17N           (SCORE_FLOAT value);
+      void          setP18N           (SCORE_FLOAT value);
+      void          setP19N           (SCORE_FLOAT value);
+      void          setP20N           (SCORE_FLOAT value);
+      void          setP21N           (SCORE_FLOAT value);
+      void          setP22N           (SCORE_FLOAT value);
+      void          setP23N           (SCORE_FLOAT value);
+      void          setP24N           (SCORE_FLOAT value);
+      void          setP25N           (SCORE_FLOAT value);
+      void          setP26N           (SCORE_FLOAT value);
+      void          setP27N           (SCORE_FLOAT value);
+      void          setP28N           (SCORE_FLOAT value);
+      void          setP29N           (SCORE_FLOAT value);
+      void          setP30N           (SCORE_FLOAT value);
 
       // P1=15/16 text
       void          setFixedText      (const string& text);
@@ -277,18 +292,18 @@ class ScoreItemBase {
       void          clearParameter    (const string& key);
 
       // Accessor function aliases:
-      void          setP              (const string& nspace,
+      void          setPN             (const string& nspace,
                                        const string& key, const string& value);
-      void          setP              (const string& nspace, const string& key,
+      void          setPN             (const string& nspace, const string& key,
                                        int value);
-      void          setP              (const string& nspace, const string& key,
+      void          setPN             (const string& nspace, const string& key,
                                        SCORE_FLOAT value);
 
-      void          setP              (const string& key, const string& value);
-      void          setP              (const string& key, int value);
-      void          setP              (const string& key, SCORE_FLOAT value);
+      void          setPN             (const string& key, const string& value);
+      void          setPN             (const string& key, int value);
+      void          setPN             (const string& key, SCORE_FLOAT value);
 
-      void          setP              (int index, SCORE_FLOAT value);
+      void          setPN             (int index, SCORE_FLOAT value);
 
       SCORE_FLOAT   getP              (int pindex);
       int           getPInt           (int pindex);

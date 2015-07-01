@@ -141,7 +141,7 @@ void markBarlinesForward(vectorSIp& items, int index, string& barnum) {
       }
       string current = items[i]->getParameter(np_function);
       if (current == "") {
-         items[i]->setParameter(np_barnum, barnum);
+         items[i]->setParameterNoisy(np_barnum, barnum);
       }
    }
 }
@@ -164,7 +164,7 @@ void markBarlinesBackward(vectorSIp& items, int index, string& barnum) {
       }
       string current = items[i]->getParameter(np_function);
       if (current == "") {
-         items[i]->setParameter(np_barnum, barnum);
+         items[i]->setParameterNoisy(np_barnum, barnum);
       }
    }
 }
@@ -285,7 +285,7 @@ void identifyBarNumber(ScoreItem* item, int pageindex, int sysindex,
    int barnum = 0;
 
    if (labelQ) {
-      item->setParameter(np_function, "barnum");
+      item->setParameterNoisy(np_function, "barnum");
    } else if (!markQ) {
       if (pageindex == 0) {
          cout << "[";

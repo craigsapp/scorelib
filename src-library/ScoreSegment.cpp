@@ -188,11 +188,11 @@ void ScoreSegment::analyzePartStaves(vectorI& partlist, ScorePageSet&
          zerocounter = 0;
          for (int sysstaff = 0; sysstaff < staffcount; sysstaff++) {
             if ((p == sp.getPageIndex()) && (sys == sp.getSystemIndex())) {
-               staffitems[sys][sysstaff][0]->setParameter("segment",
+               staffitems[sys][sysstaff][0]->setParameterNoisy("segment",
                      "start", "true");
             }
             if ((p == ep.getPageIndex()) && (sys == ep.getSystemIndex())) {
-               staffitems[sys][sysstaff][0]->setParameter("segment",
+               staffitems[sys][sysstaff][0]->setParameterNoisy("segment",
                      "end", "true");
             }
             if (staffitems[sys][sysstaff].size() > 0) {
@@ -208,14 +208,14 @@ void ScoreSegment::analyzePartStaves(vectorI& partlist, ScorePageSet&
                   string partname =
                      staffitems[sys][sysstaff][0]->getParameter("partname");
                   if (partname != "") {
-                     staffitems[sys][sysstaff][0]->setParameter("segment",
+                     staffitems[sys][sysstaff][0]->setParameterNoisy("segment",
                               "partname", partname);
                   }
                } else {
                   string partname =
                         part_storage[reverselist[partnum]]->getPartName();
                   if (partname != "") {
-                     staffitems[sys][sysstaff][0]->setParameter("segment",
+                     staffitems[sys][sysstaff][0]->setParameterNoisy("segment",
                            "partname", partname);
                   }
                }
@@ -223,7 +223,7 @@ void ScoreSegment::analyzePartStaves(vectorI& partlist, ScorePageSet&
             partindex = reverselist[partnum];
             partcount = counter[partindex]++;
             partmarker = to_string(partindex) + "." + to_string(partcount);
-            staffitems[sys][sysstaff][0]->setParameter("segment",
+            staffitems[sys][sysstaff][0]->setParameterNoisy("segment",
                "partstaff", partmarker);
 
             // Store the system addresses for each system for each part.
