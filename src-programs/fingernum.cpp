@@ -144,10 +144,10 @@ void showOnlyFingerings(ScorePageSet& infiles) {
                cout << si;
             } else if (items[k]->isNoteItem()) {
                si.clear();
-               si.setP1(2);
-               si.setP2(items[k]->getP2());
-               si.setP3(items[k]->getP3());
-               si.setP7(items[k]->getP7());
+               si.setP1N(2);
+               si.setP2N(items[k]->getP2());
+               si.setP3N(items[k]->getP3());
+               si.setP7N(items[k]->getP7());
                si.makeInvisible();
                cout << si;
             } else if (items[k]->isBarlineItem()) {

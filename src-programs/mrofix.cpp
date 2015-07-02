@@ -107,7 +107,7 @@ void adjustAccidentals(ScorePage& infile) {
       fract = it->getParameterFraction(5);
       if ((fract > 0.0) && (fract <= threshold)) {
          acc = it->getP5Int();
-         it->setP5(acc);
+         it->setP5N(acc);
       }
    }
 }
@@ -145,7 +145,7 @@ void fixTuplets(ScorePage& infile) {
       duration = it->getDuration();
       if (duration == 0.167) {
          // fix duration of triplet sixteenths.
-         it->setP7(0.1667);
+         it->setP7N(0.1667);
       }
    }
 }
@@ -171,10 +171,10 @@ void fixRests(ScorePage& infile) {
       vpos = it->getVPos();
       if ((duration == 0.25) && (vpos == -1.0)) {
          // Raise 16th note rests by one unit:
-         it->setP4(0.0);  // change to setVpos() later for grace note rests.
+         it->setP4N(0.0);  // change to setVpos() later for grace note rests.
       } else if ((duration == 1.0) && (vpos == 1.0)) {
          // Lower quarter-note rests by one unit:
-         it->setP4(0.0);  // change to setVpos() later for grace note rests.
+         it->setP4N(0.0);  // change to setVpos() later for grace note rests.
       }
    }
 }
@@ -221,12 +221,12 @@ void makeThinSlurs(ScorePage& infile) {
       }
 
       // if p1=5 then p13=0.65
-      it->setP13(0.65);
+      it->setP13N(0.65);
 
       // make short slurs even thinner:
       // if p1=5 and p6-p3 < 5 then p13=0.5
       if (it->getP6() - it->getP3() < 5.0) {
-         it->setP13(0.5);
+         it->setP13N(0.5);
       }
    }
 }
@@ -266,7 +266,7 @@ cout << "SYSMAP SIZE = " << sysmap.size() << endl;
                // don't reassign part numbers if they are already present.
                continue;
             }
-            staffItems[sysmap[i][j]][k]->setP9(sysmap[i].size() - j);
+            staffItems[sysmap[i][j]][k]->setP9N(sysmap[i].size() - j);
          }
       }
    }

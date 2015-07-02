@@ -383,8 +383,8 @@ void extractSingleMeasure(ScorePageSet& infiles, int page, int system,
          continue;
       }
       sitem = *mitems[i];
-      sitem.setP3(leftpos);
-      sitem.setP6(rightpos);
+      sitem.setP3N(leftpos);
+      sitem.setP6N(rightpos);
       cout << sitem;
       staffcount++;
    }
@@ -400,8 +400,8 @@ void extractSingleMeasure(ScorePageSet& infiles, int page, int system,
             continue;
          }
          sitem = *zitems[i];
-         sitem.setP3(leftpos);
-         sitem.setP6(rightpos);
+         sitem.setP3N(leftpos);
+         sitem.setP6N(rightpos);
          cout << sitem;
          staffcount++;
       }
@@ -454,7 +454,7 @@ void extractSingleMeasure(ScorePageSet& infiles, int page, int system,
          slen = visright - visleft;
          p14 = 1.0 - vislen / slen;
          sitem = *sysitems[i];
-         sitem.setP14(p14);
+         sitem.setP14N(p14);
          cout << sitem;
       } else if ((visleft >= leftpos) && (visright > rightpos)) {
          // starts in measure; ends after measure
@@ -462,7 +462,7 @@ void extractSingleMeasure(ScorePageSet& infiles, int page, int system,
          slen = visright - visleft;
          p15 = vislen / slen;
          sitem = *sysitems[i];
-         sitem.setP15(p15);
+         sitem.setP15N(p15);
          cout << sitem;
       } else if ((visleft < leftpos) && (visright > rightpos)) {
          // starts before measure; ends after measure
@@ -470,11 +470,11 @@ void extractSingleMeasure(ScorePageSet& infiles, int page, int system,
          vislen = visright - leftpos;
          slen   = visright - visleft;
          p14    = 1.0 - vislen / slen;
-         sitem.setP14(p14);
+         sitem.setP14N(p14);
          vislen = rightpos - visleft;
          slen = visright - visleft;
          p15   = vislen / slen;
-         sitem.setP15(p15);
+         sitem.setP15N(p15);
          cout << sitem;
       }
    }
@@ -505,7 +505,7 @@ void printBarlineEdge(ScoreItem* item, double left, double right) {
       case 3:  // left-pointing repeat marks
          if (p3 == left) {
             newitem = *item;
-            newitem.setP5(0);
+            newitem.setP5N(0);
             cout << newitem;
          } else {
             cout << item;
@@ -514,7 +514,7 @@ void printBarlineEdge(ScoreItem* item, double left, double right) {
       case 4:  // right-pointing repeat marks
          if (p3 == right) {
             newitem = *item;
-            newitem.setP5(0);
+            newitem.setP5N(0);
             cout << newitem;
          } else {
             cout << item;
@@ -524,7 +524,7 @@ void printBarlineEdge(ScoreItem* item, double left, double right) {
       case 6:  // double repeat marks, two lines
          if ((p3 == left) || (p3 == right)) {
             newitem = *item;
-            newitem.setP5(0);
+            newitem.setP5N(0);
             cout << newitem;
          } else {
             cout << item;

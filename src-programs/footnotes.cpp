@@ -30,6 +30,8 @@ int    isFootnoteMarker     (ScoreItem* item);
 void   labelFootnotes       (ScorePage& infile, vectorSIp& footnotes, 
                              vectorSIp& footmarkers);
 int    isPaired             (ScoreItem* footnote, ScoreItem* footmark);
+void   linkFootnote         (ScoreItem* footnote, ScoreItem* footmark);
+string getMarker            (string& text);
 
 // user-interface variables:
 Options options;
@@ -83,10 +85,9 @@ void identifyFootnotes(ScorePage& infile) {
          footnotes.push_back(it);
       }
    }
+   labelFootnotes(infile, footnotes, footmarkers);
    if (!labelQ) {
       displayFootnotes(infile, footnotes, footmarkers);
-   } else {
-      labelFootnotes(infile, footnotes, footmarkers);
    }
 }
 
@@ -118,8 +119,8 @@ void labelFootnotes(ScorePage& infile, vectorSIp& footnotes,
 //
 
 int isPaired(ScoreItem* footnote, ScoreItem* footmark) {
-   string textn = footnote.getTextWithoutInitialFontCode();
-   string textm = footmark.getTextWithoutInitialFontCode();
+   string textn = footnote->getTextWithoutInitialFontCode();
+   string textm = footmark->getTextWithoutInitialFontCode();
    string markn = getMarker(textn);
    string markm = getMarker(textm);
    if (markn == markm) {
@@ -133,13 +134,67 @@ int isPaired(ScoreItem* footnote, ScoreItem* footmark) {
 
 //////////////////////////////
 //
-// linkFootnote --
+// getMarker -- 
+//    Markers:
+//       *      = asterisk
+//       !d     = dagger
+//
+
+string getMarker(string& text) {
+   string output;
+
+   int i;
+   if (text.size() > 0) {
+      if (text[0] == '*') {
+         for (i=0; i<text.size(); i++) {
+            if (text[i] == '*') {
+               output += "*";
+            } else {
+               break;
+            }
+         }
+      } else if ((text.size() > 1) && (text[0] == '!') && (text[1] == 'd')) {
+         for (i=0; i<text.size(); i+=2) {
+            if ((text[i] == '!') && (text[i+1] == 'd')) {
+               output += "!d";
+            } else {
+               break;
+            }
+         }
+      } else if (text[text.size()-1] == '*') {
+         for (i=text.size()-1; i>=0; i--) {
+            if (text[i] == '*') {
+               output += "*";
+            } else {
+               break;
+            }
+         }
+      } else if ((text.size() > 1) && (text[text.size()-1] == 'd') &&
+            (text[text.size()-2] == '!')) {
+         for (i=text.size()-1; i>1; i-=2) {
+            if ((text[i] == 'd') && (text[i-1] == 'd')) {
+               output += "!d";
+            } else {
+               break;
+            }
+         }
+      }
+   }
+
+   return output;
+}
+
+
+
+//////////////////////////////
+//
+// linkFootnote -- Need to figure out how to avoid hard return in
+//    footnote text (not really a possibility, though).
 //
 
 void linkFootnote(ScoreItem* footnote, ScoreItem* footmark) {
-   footnote->set
-
-
+   footnote->setParameterQuiet("", np_function, "footnote");
+   footmark->setParameterQuiet("", np_footnote, footnote->getText());
 }
 
 

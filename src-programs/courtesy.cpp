@@ -266,9 +266,9 @@ void doEditorialStyle(ScorePage& infile, Options& opts) {
          int accidental = item->getPrintedAccidental();
          item->setNoAccidental();
          switch (accidental) {
-            case -1: item->setP(P11, 1); break;
-            case +1: item->setP(P11, 2); break;
-            case  0: item->setP(P11, 3); break;
+            case -1: item->setPN(P11, 1); break;
+            case +1: item->setPN(P11, 2); break;
+            case  0: item->setPN(P11, 3); break;
          }
       }
    }

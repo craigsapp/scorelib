@@ -396,8 +396,8 @@ SCORE_FLOAT ScoreItemBase::getParameterFraction(int pindex) {
 //     first argument is an integer, or set a named parameter if the
 //     first argument is a string.
 //
-//  *Noisy = break analysis constructs
-//  *Quiet = don't break analysis constructs
+//  * Noisy = break analysis constructs
+//  * Quiet = don't break analysis constructs
 //
 
 void ScoreItemBase::setParameterQuiet(const string& nspace, const string& key,
@@ -489,6 +489,13 @@ void ScoreItemBase::setParameterNoisy(int index, SCORE_FLOAT value) {
    SCORE_FLOAT oldp = fp[index];
    fp[index] = value;
    notifyPageOfChange((string)"fixed", index, oldp, value);
+}
+
+
+void ScoreItemBase::setParameterNoisy(const string& nspace, const string& key,
+      void* pointer) {
+   named_parameters[nspace][key] = to_string((uint64_t)pointer);
+   notifyPageOfChange("named");
 }
 
 

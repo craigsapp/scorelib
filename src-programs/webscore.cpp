@@ -43,6 +43,7 @@ int    systemOffset  = 0;
 int    partQ         = 0;   // Boolean for class tag for system number
 int    roundQ        = 1;   // boolean for rounding quarter notes to 3 digits
 int    cleanFontQ    = 1;
+int    fixfontQ      = 0;   // used with -F option
 
 ///////////////////////////////////////////////////////////////////////////
 
@@ -235,12 +236,18 @@ void printAbbreviatedItems(ScorePage& page, int sysindex) {
            // don't print page numbers
            continue;
         }
+        if (sitems[i]->getParameter(np_function) == "footnote") {
+           // don't print footnotes (at bottom of original pages)
+           continue;
+        }
+
         if (sitems[i]->isTextItem()) {
            if (sitems[i]->getP8() != 0.0) {
               // convert non-standard fonts to normal ones
-              sitems[i]->setP8(0.0);
+              sitems[i]->setP8N(0.0);
            }
         }
+
         if (sitems[i]->hasParameter("index")) {
            if (allabbrQ) {
               index = sitems[i]->getParameterDouble("index");
@@ -312,7 +319,7 @@ void printSystemItems(ScorePage& page, int sysindex) {
         if (sitems[i]->isTextItem()) {
            if (sitems[i]->getP8() != 0.0) {
               // convert non-standard fonts to normal ones
-              sitems[i]->setP8(0.0);
+              sitems[i]->setP8N(0.0);
            }
         }
         if (sitems[i]->hasParameter("index")) {
@@ -394,12 +401,24 @@ ostream& printNonNoteClassTags(ostream& out, vectorSIp& sitems, int index) {
    stringstream tempout;
    string function = sitems[index]->getParameter(np_function);
    if (function == "pagenum") {
+      // don't print page numbers
+      return out;
+   }
+   if (function == "footnote") {
+      // don't print footnotes
       return out;
    }
 
    if (function != "") {
       tempout << function;
    }
+   if (sitems[index]->hasParameter(np_footnote)) {
+      if (tempout.str().size() != 0) {
+         tempout << " ";
+      }
+      tempout << "footnote";
+   }
+
    if (tempout.str().size() == 0) {
       return out;
    }
@@ -411,7 +430,15 @@ ostream& printNonNoteClassTags(ostream& out, vectorSIp& sitems, int index) {
    out << id << "\t";
    out << "class=\"";
    out << tempout.str();
-   out << "\"\n";
+   out << "\"";
+   string footn = sitems[index]->getParameter(np_footnote);
+   if (footn.size() > 0) {
+      out << " text=\"";
+      // escape quotes in this string:
+      out << sitems[index]->getParameter(np_footnote);
+      out << "\"";
+   }
+   out << "\n";
    return out;
 }
 
@@ -480,6 +507,7 @@ void processOptions(Options& opts, int argc, char** argv) {
    opts.define("aa|all-abbreviated=b", "Embed ids for all items");
    opts.define("r|replace=b", "print replacement expressions");
    opts.define("i|index=b", "include item index serial numbers");
+   opts.define("F|plain-fonts=b", "Remove specialzed fonts");
    opts.define("A|no-articulation=b", "do not label note articulations");
    opts.define("s|system-offset=i:0", "index of first system");
    opts.define("p|part=b", "indicate part number in class tags");
@@ -496,8 +524,9 @@ void processOptions(Options& opts, int argc, char** argv) {
    replaceQ      =  options.getBoolean("replace");
    articulationQ = !options.getBoolean("no-articulation");
    systemOffset  =  options.getInteger("system-offset");
-   partQ         = options.getBoolean("part");
-   roundQ        =!options.getBoolean("no-round");
+   partQ         =  options.getBoolean("part");
+   roundQ        = !options.getBoolean("no-round");
+   fixfontQ      = !options.getBoolean("plain-fonts");
 }
 
 

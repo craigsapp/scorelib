@@ -181,5 +181,14 @@ const string np_wordExtension = "wordExtension";
 const string np_barnum = "barnum";
 
 
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Footnotes parameters:
+//
+
+// @footnote: indicates the text of a footnote related to an item.
+const string np_footnote = "footnote";
+
 #endif /* _SCORENAMEDPARAMETER_H_INCLUDED */
 

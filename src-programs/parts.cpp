@@ -236,7 +236,7 @@ void assignPartNumbers(ScorePageSet& infiles, int page, Options& opts) {
                // don't reassign part numbers if they are already present.
                continue;
             }
-            staffItems[sysmap[i][j]][k]->setP9(sysmap[i].size() - j);
+            staffItems[sysmap[i][j]][k]->setP9N(sysmap[i].size() - j);
          }
       }
    }
