@@ -249,8 +249,8 @@ void printAbbreviatedItems(ScorePage& page, int sysindex) {
         }
 
         if (sitems[i]->hasParameter("index")) {
+           index = sitems[i]->getParameterDouble("index");
            if (allabbrQ) {
-              index = sitems[i]->getParameterDouble("index");
               cout << "T ";
               cout << sitems[i]->getP2() << " ";
               cout << sitems[i]->getP3() << " ";

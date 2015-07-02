@@ -1363,6 +1363,8 @@ void ScoreItemBase::readNamedParameter(mapNamespace& np, char* input) {
    int atloc[2];
    atloc[0] = -1;
    atloc[1] = -1;
+   int temps = atloc[0];  // prevent invalid warning in compiler
+   atloc[0] = temps;      // prevent invalid warning in compiler
 
    // find first two at-signs:
    int i;

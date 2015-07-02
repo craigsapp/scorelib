@@ -90,7 +90,7 @@ void removeFingerings(ScorePageSet& infiles) {
       syscount = infiles[i][0].getSystemCount();
       for (j=0; j<syscount; j++) {
          vectorSIp& items = infiles[i][0].getSystemItems(j);
-         for (k=0; k<items.size(); k++) {
+         for (k=0; k<(int)items.size(); k++) {
             function = items[k]->getParameter(np_function);
             if (function == "fingering") {
                continue;
@@ -130,7 +130,7 @@ void showOnlyFingerings(ScorePageSet& infiles) {
       syscount = infiles[i][0].getSystemCount();
       for (j=0; j<syscount; j++) {
          vectorSIp& items = infiles[i][0].getSystemItems(j);
-         for (k=0; k<items.size(); k++) {
+         for (k=0; k<(int)items.size(); k++) {
             function = items[k]->getParameter(np_function);
             if (function == "fingering") {
                cout << items[k];
@@ -197,7 +197,7 @@ void  identifyFingerNumbers(ScorePage& infile, int pageindex, int staffnum,
    double npos;  // hpos of nearest note
    double hpos;  // horizontal position of test fingering
 
-   for (int i=0; i<items.size(); i++) {
+   for (int i=0; i<(int)items.size(); i++) {
       if (!((code10Q && items[i]->isNumberItem()) ||
           (code16Q && items[i]->isTextItem()))) {
          continue;      
@@ -258,7 +258,7 @@ void identifyFingerNumber(ScoreItem* sip) {
 //
 
 double getNearestNoteP3Forward(vectorSIp& items, int index) {
-   for (int i=index+1; i<items.size(); i++) {
+   for (int i=index+1; i<(int)items.size(); i++) {
       if (items[i]->isNoteItem()) {
          return items[i]->getHorizontalPosition();
       }
@@ -299,7 +299,7 @@ int onlyHasNumbers(ScoreItem* sip) {
    string text = sip->getTextWithoutInitialFontCode();
    int numcount = 0;
    int spacecount = 0;
-   for (int i=0; i<text.size(); i++) {
+   for (int i=0; i<(int)text.size(); i++) {
       if (isdigit(text[i])) {
          numcount++;
       } else if (isspace(text[i])) {

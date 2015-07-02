@@ -102,8 +102,8 @@ void labelFootnotes(ScorePage& infile, vectorSIp& footnotes,
       vectorSIp& footmarkers) {
 
    int i, j;
-   for (i=0; i<footnotes.size(); i++) {
-      for (j=0; j<footmarkers.size(); j++) {
+   for (i=0; i<(int)footnotes.size(); i++) {
+      for (j=0; j<(int)footmarkers.size(); j++) {
          if (isPaired(footnotes[i], footmarkers[j])) {
             linkFootnote(footnotes[i], footmarkers[j]);
          }
@@ -146,7 +146,7 @@ string getMarker(string& text) {
    int i;
    if (text.size() > 0) {
       if (text[0] == '*') {
-         for (i=0; i<text.size(); i++) {
+         for (i=0; i<(int)text.size(); i++) {
             if (text[i] == '*') {
                output += "*";
             } else {
@@ -154,7 +154,7 @@ string getMarker(string& text) {
             }
          }
       } else if ((text.size() > 1) && (text[0] == '!') && (text[1] == 'd')) {
-         for (i=0; i<text.size(); i+=2) {
+         for (i=0; i<(int)text.size(); i+=2) {
             if ((text[i] == '!') && (text[i+1] == 'd')) {
                output += "!d";
             } else {
@@ -209,7 +209,7 @@ int isFootnoteMarker(ScoreItem* item) {
    string text = item->getTextWithoutInitialFontCode();
    int typing = isFootnoteRelated(item);
    if (typing > 0) {
-      for (int i=0; i<text.size(); i++) {
+      for (int i=0; i<(int)text.size(); i++) {
          if (isalpha(text[i])) {
             if ((i > 0) && (text[i-1] != '!')) {
                return 0;
@@ -262,7 +262,7 @@ void displayFootnotes(ScorePage& infile, vectorSIp& footnotes,
    }
 
    cout << "FOOTNOTES:\t" << infile.getFilename() << "\n";
-   for (int i=0; i<footnotes.size(); i++) {
+   for (int i=0; i<(int)footnotes.size(); i++) {
       cout << "\t" << footnotes[i]->getText() << endl;
    }
    cout << endl;

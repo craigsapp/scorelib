@@ -117,7 +117,7 @@ void recursiveCheck(const string& name) {
             }
          }
          closedir(dir);
-         for (i=0; i<dirs.size(); i++) {
+         for (i=0; i<(int)dirs.size(); i++) {
             recursiveCheck(dirs[i]);
          }
       }

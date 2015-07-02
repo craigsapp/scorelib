@@ -94,10 +94,10 @@ void markBarlines(vectorSIp& items, int pageindex, int sysindex,
    string barline = "";
    string btest;
    int tindex = -1;
-   int    barlinenum = 0;
+   // int barlinenum = 0;
 
    int i;
-   for (i=0; i<items.size(); i++) {
+   for (i=0; i<(int)items.size(); i++) {
       if (!((code10Q && items[i]->isNumberItem()) ||
           (code16Q && items[i]->isTextItem()))) {
          continue;      
@@ -117,7 +117,7 @@ void markBarlines(vectorSIp& items, int pageindex, int sysindex,
       return;
    }
 
-   barlinenum = getItemNumber(items[tindex]);
+   // barlinenum = getItemNumber(items[tindex]);
    string barstring = getItemString(items[tindex]);
    markBarlinesForward(items, tindex, barstring);
    markBarlinesBackward(items, tindex, barstring);
@@ -132,7 +132,7 @@ void markBarlines(vectorSIp& items, int pageindex, int sysindex,
 //
 
 void markBarlinesForward(vectorSIp& items, int index, string& barnum) {
-   for (int i=index; i<items.size(); i++) {
+   for (int i=index; i<(int)items.size(); i++) {
       if (items[i]->hasDuration()) {
          break;
       }
@@ -206,7 +206,7 @@ void identifyBarNumbers(vectorSIp& items, int pageindex, int sysindex,
    int i;
    int duritempos = 0;
 
-   for (i=0; i<items.size(); i++) {
+   for (i=0; i<(int)items.size(); i++) {
       staffnum = items[i]->getStaffNumber();
       if (staffnum < minstaff) {
          minstaff = staffnum;
@@ -220,7 +220,7 @@ void identifyBarNumbers(vectorSIp& items, int pageindex, int sysindex,
       }
    }
 
-   for (i=0; i<items.size(); i++) {
+   for (i=0; i<(int)items.size(); i++) {
       if (!((code10Q && items[i]->isNumberItem()) ||
           (code16Q && items[i]->isTextItem()))) {
          continue;      
@@ -352,7 +352,7 @@ int onlyHasNumbers(ScoreItem* sip) {
    string text = sip->getTextWithoutInitialFontCode();
    int numcount = 0;
    int spacecount = 0;
-   for (int i=0; i<text.size(); i++) {
+   for (int i=0; i<(int)text.size(); i++) {
       if (isdigit(text[i])) {
          numcount++;
       } else if (isspace(text[i])) {

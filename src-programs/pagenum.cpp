@@ -86,7 +86,7 @@ void  identifyPageNumbers(vectorSIp& items, int pageindex, int direction,
    double vpos;
    int i;
 
-   for (i=0; i<items.size(); i++) {
+   for (i=0; i<(int)items.size(); i++) {
       staffnum = items[i]->getStaffNumber();
       if (staffnum < minstaff) {
          minstaff = staffnum;
@@ -96,7 +96,7 @@ void  identifyPageNumbers(vectorSIp& items, int pageindex, int direction,
       }
    }
 
-   for (i=0; i<items.size(); i++) {
+   for (i=0; i<(int)items.size(); i++) {
       if (!((code10Q && items[i]->isNumberItem()) ||
           (code16Q && items[i]->isTextItem()))) {
          continue;      
@@ -132,7 +132,7 @@ void  identifyPageNumbers(vectorSIp& items, int pageindex, int direction,
    double lowestvpos = 1000;
    if (foundlist.size() > 1) {
       // choose only the highest or lowest number on the page.
-      for (i=0; i<foundlist.size(); i++) {
+      for (i=0; i<(int)foundlist.size(); i++) {
          vpos = foundlist[i]->getVerticalPosition();
          if (vpos > highestvpos) {
             highest = i;
@@ -223,7 +223,7 @@ int onlyHasNumbers(ScoreItem* sip) {
    string text = sip->getTextWithoutInitialFontCode();
    int numcount = 0;
    int spacecount = 0;
-   for (int i=0; i<text.size(); i++) {
+   for (int i=0; i<(int)text.size(); i++) {
       if (isdigit(text[i])) {
          numcount++;
       } else if (isspace(text[i])) {
