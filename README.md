@@ -7,6 +7,8 @@ SCORE data file processing library
 Download
 ========
   git clone https://github.com/craigsapp/scorelib
+or
+  git clone https://cm-gitlab.stanford.edu/craig/scorelib.git
 
 
 Compiling
