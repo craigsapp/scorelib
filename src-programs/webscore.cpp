@@ -30,6 +30,7 @@ void     printAbbreviatedItems (ScorePage& page, int sysindex);
 ostream& printValueWithD       (ostream& out, double value);
 ostream& printNoteClassTags    (ostream& out, vectorSIp& items, int i);
 ostream& printNonNoteClassTags (ostream& out, vectorSIp& sitems, int i);
+double   limitP3               (double p3, double limit = 170.0);
 
 // user-interface variables:
 Options options;
@@ -222,6 +223,20 @@ ostream& printValueWithD(ostream& out, double value) {
 
 //////////////////////////////
 //
+// limitP3 --
+//
+
+double limitP3(double p3, double limit) {
+   if (p3 > limit) {
+      return limit;
+   } else {
+      return p3;
+   }
+}
+
+
+//////////////////////////////
+//
 // printAbbreviatedItems --
 //
 
@@ -253,8 +268,8 @@ void printAbbreviatedItems(ScorePage& page, int sysindex) {
            if (allabbrQ) {
               cout << "T ";
               cout << sitems[i]->getP2() << " ";
-              cout << sitems[i]->getP3() << " ";
-              cout << sitems[i]->getP4() << " ";
+              cout << limitP3(sitems[i]->getP3()) << " ";
+              cout << sitems[i]->getVPos() << " ";
               cout << index;
               cout << endl;
               cout << "_99%" << index << endl;
@@ -265,8 +280,8 @@ void printAbbreviatedItems(ScorePage& page, int sysindex) {
            if (allabbrQ) {
               cout << "T ";
               cout << sitems[i]->getP2() << " ";
-              cout << sitems[i]->getP3() << " ";
-              cout << sitems[i]->getP4() << " ";
+              cout << limitP3(sitems[i]->getP3()) << " ";
+              cout << sitems[i]->getVPos() << " ";
               cout << index;
               cout << endl;
               cout << "_99%." << endl;
@@ -282,8 +297,8 @@ void printAbbreviatedItems(ScorePage& page, int sysindex) {
       index = sitems[i]->getParameterDouble("index");
       cout << "T ";
       cout << sitems[i]->getP2() << " ";
-      cout << sitems[i]->getP3() << " ";
-      cout << sitems[i]->getP4();
+      cout << limitP3(sitems[i]->getP3()) << " ";
+      cout << sitems[i]->getVPos();
       if (id.size() > 0) {
          cout << " " << index;
       }
@@ -294,8 +309,8 @@ void printAbbreviatedItems(ScorePage& page, int sysindex) {
 
       cout << "T ";
       cout << sitems[i]->getP2() << " ";
-      cout << sitems[i]->getP3() << " ";
-      cout << sitems[i]->getP4();
+      cout << limitP3(sitems[i]->getP3()) << " ";
+      cout << sitems[i]->getVPos();
       cout << endl;
       cout << "_99%." << endl;
    }
@@ -327,8 +342,8 @@ void printSystemItems(ScorePage& page, int sysindex) {
 
            cout << "T ";
            cout << sitems[i]->getP2() << " ";
-           cout << sitems[i]->getP3() << " ";
-           cout << sitems[i]->getP4() << " ";
+           cout << limitP3(sitems[i]->getP3()) << " ";
+           cout << sitems[i]->getVPos() << " ";
            cout << index;
            cout << endl;
            cout << "_99%svg%<g id=\"i" << index << "\">" << endl;
@@ -337,8 +352,8 @@ void printSystemItems(ScorePage& page, int sysindex) {
 
            cout << "T ";
            cout << sitems[i]->getP2() << " ";
-           cout << sitems[i]->getP3() << " ";
-           cout << sitems[i]->getP4() << " ";
+           cout << limitP3(sitems[i]->getP3()) << " ";
+           cout << sitems[i]->getVPos() << " ";
            cout << index;
            cout << endl;
            cout << "_99%svg%<\\g>" << endl;
@@ -358,8 +373,8 @@ void printSystemItems(ScorePage& page, int sysindex) {
 
       cout << "T ";
       cout << sitems[i]->getP2() << " ";
-      cout << sitems[i]->getP3() << " ";
-      cout << sitems[i]->getP4();
+      cout << limitP3(sitems[i]->getP3()) << " ";
+      cout << sitems[i]->getVPos();
       if (id.size() > 0) {
          cout << " " << index;
       }
@@ -379,8 +394,8 @@ void printSystemItems(ScorePage& page, int sysindex) {
 
       cout << "T ";
       cout << sitems[i]->getP2() << " ";
-      cout << sitems[i]->getP3() << " ";
-      cout << sitems[i]->getP4();
+      cout << limitP3(sitems[i]->getP3()) << " ";
+      cout << sitems[i]->getVPos();
       if (id.size() > 0) {
          cout << " " << index;
       }
