@@ -215,6 +215,9 @@ double ScoreItemBase::getParameterDouble(const string& nspace,
       value = stod(getParameter(nspace, key));
    } catch (invalid_argument& e) {
       value = 0.0;
+   } catch (const std::out_of_range& e) {
+      // this is a case where there is an exponent such as e-312, so set to 0:
+      value = 0.0;
    }
    return value;
 }
