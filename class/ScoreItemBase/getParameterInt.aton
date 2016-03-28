@@ -7,7 +7,7 @@
 @PARAMETERS:	const string& key
 @PARAMETERS:	int pindex
 @FILE:		ScoreItemBase.cpp
-@LINES:		351-374
+@LINES:		357-380
 @SEEALSO:	getParameter
 @SEEALSO:	getParameterBool
 @SEEALSO:	getParameterDouble
