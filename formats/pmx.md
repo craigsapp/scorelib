@@ -17,7 +17,7 @@ group: [
 "PMX" stands for "Parameter MatriX".  PMX files are ASCII versions
 of binary SCORE data. Each line in a PMX file represents a SCORE
 item, such as note, rest, barline, clef, key signature, etc. Each
-line contains a list of floating-point values describing an item
+line contains a list of floating-point values describing an
 item.  Text items are an exception: their lines start with "t"
 rather than "16", and the text parameter immediate follows the
 numeric parameter line.  Code 15 items also have a second line of
